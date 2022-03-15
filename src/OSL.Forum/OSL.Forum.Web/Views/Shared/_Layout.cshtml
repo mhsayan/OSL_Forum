@@ -30,15 +30,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- summernote -->
     <link rel="stylesheet" href="/Themes/AdminLTE/plugins/summernote/summernote-bs4.min.css">
     @RenderSection("Styles", false)
-
-    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <partial name="_MenuPartial" />
+            @Html.Partial("_MenuPartial")
             <!-- Main content -->
             <div class="content">
                 <div class="container">
@@ -52,10 +50,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                OSL Forum.
+                Developed by OnnoRokom Software Ltd.
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2021 <a href="#">Mahmudul Hasan Sayan</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2022 <a href="#">OnnoRokomSoftware Ltd. | PrivacyPolicy | Terms & Conditions</a>.</strong>
         </footer>
     </div>
     <!-- ./wrapper -->
