@@ -3,8 +3,16 @@
 }
 
 <h2>@ViewBag.Title.</h2>
-<div>
-    <p>
-        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-    </p>
+
+
+<br />
+<br />
+
+<div class="card text-center">
+    <div class="card-header text-primary">
+        <b>Welcome to OSL Forum Family</b>
+    </div>
+    <div class="card-body">
+        You have successfully verified your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </div>
 </div>
