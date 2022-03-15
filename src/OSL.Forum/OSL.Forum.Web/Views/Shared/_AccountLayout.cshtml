@@ -20,7 +20,10 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="#" class="h1"><b>StackOverflow</b></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                    <span class="brand-text font-weight-bold text-muted">Forum</span>
+                    <img src="~/Themes/Logo/OSL.jpeg" alt="Logo" class="brand-image" style="width: 150px">
+                </a>
             </div>
             @RenderBody()
             <!-- /.card-body -->
