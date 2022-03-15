@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Confirm Registration";
+}
+
+<br />
+<br />
+
+<div class="card text-center">
+    <div class="card-header text-primary">
+        <b>Thank You For Your Registration</b>
+    </div>
+    <div class="card-body">
+        We have send you an confirmation email to <b>@User.Identity.GetUserName()</b>. <br />
+        please confirm your email address to activate your account.
+    </div>
+</div>
