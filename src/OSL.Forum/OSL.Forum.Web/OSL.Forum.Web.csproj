@@ -2241,6 +2241,7 @@
     <Content Include="Themes\AdminLTE\plugins\summernote\summernote.min.js.map" />
     <Content Include="Themes\AdminLTE\plugins\toastr\toastr.js.map" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
