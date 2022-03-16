@@ -196,6 +196,9 @@ namespace OSL.Forum.Web.Controllers
             var model = new ConfirmEmailModel();
             var user = await UserManager.FindByIdAsync(userId);
 
+            if (user is null)
+                throw new InvalidOperationException("Invalid email confirmation process.");
+
             if (!user.EmailConfirmed)
             {
                 var result = await UserManager.ConfirmEmailAsync(userId, code);
