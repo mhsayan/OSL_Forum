@@ -161,7 +161,10 @@ namespace OSL.Forum.Web.Controllers
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account",
+                        "<b>An OSL Forum Account has been created for you</b></br></br><p>" +
+                        "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>" +
+                        "</p><p>If you didn't create an account in OSL Forum, please ignore this message.</p>");
 
                     return Redirect(nameof(ConfirmRegistration));
                 }
@@ -193,6 +196,9 @@ namespace OSL.Forum.Web.Controllers
             var model = new ConfirmEmailModel();
             var user = await UserManager.FindByIdAsync(userId);
 
+            if (user is null)
+                throw new InvalidOperationException("Invalid email confirmation process.");
+
             if (!user.EmailConfirmed)
             {
                 var result = await UserManager.ConfirmEmailAsync(userId, code);
@@ -221,7 +227,7 @@ namespace OSL.Forum.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -230,10 +236,10 @@ namespace OSL.Forum.Web.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a><p>If you didn't create an account in OSL Forum, please ignore this message.</p>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -267,7 +273,7 @@ namespace OSL.Forum.Web.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist

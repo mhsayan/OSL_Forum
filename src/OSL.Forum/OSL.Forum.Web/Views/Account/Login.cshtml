@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-12">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal ml-3 mt-3", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal ml-3 mt-3 mb-3", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -40,11 +40,11 @@
                     </div>
                 </div>
                 <p>
-                    @Html.ActionLink("Register as a new user", "Register")
+                    Sign up as a new user @Html.ActionLink("Sign up", "Register")
                 </p>
                 //Enable this once you have account confirmation enabled for password reset functionality
-                <p class="mb-3">
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                <p>
+                    Forgot your password? @Html.ActionLink("Change Password", "ForgotPassword")
                 </p>
             }
         </section>

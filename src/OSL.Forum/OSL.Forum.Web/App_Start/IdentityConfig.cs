@@ -33,12 +33,7 @@ namespace OSL.Forum.Web
         {
             #region formatter
             var html = new StringBuilder();
-
-            html.Append("<b>An OSL Forum Account has been created for you</b></br></br>");
-            html.Append("<p>");
             html.Append(message.Body);
-            html.Append("</p>");
-            html.Append("<p>If you didn't create an account in OSL Forum, please ignore this message.</p>");
             #endregion
 
             MailMessage msg = new MailMessage();
@@ -114,7 +109,10 @@ namespace OSL.Forum.Web
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
+                    {
+                        TokenLifespan = TimeSpan.FromMinutes(30)
+                    };
             }
             return manager;
         }
