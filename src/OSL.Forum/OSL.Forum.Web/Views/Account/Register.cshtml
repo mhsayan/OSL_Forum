@@ -4,7 +4,7 @@
     ViewBag.Title = "Register";
 }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal ml-3", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h5 class="text-center mt-2">Create a new account.</h5>
@@ -38,7 +38,7 @@
             <input type="submit" class="btn btn-primary" value="Sign up" />
         </div>
     </div>
-    <p class="mb-3 ml-3">
+    <p class="ml-3">
         Already have an account? @Html.ActionLink("Sign in", "Login")
     </p>
 }
