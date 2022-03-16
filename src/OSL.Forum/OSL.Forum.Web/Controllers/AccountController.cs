@@ -189,8 +189,19 @@ namespace OSL.Forum.Web.Controllers
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+
+            var model = new ConfirmEmailModel();
+            var user = await UserManager.FindByIdAsync(userId);
+
+            if (!user.EmailConfirmed)
+            {
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
+                return View(model);
+            }
+
+            model.Status = true;
+
+            return View(model);
         }
 
         //
