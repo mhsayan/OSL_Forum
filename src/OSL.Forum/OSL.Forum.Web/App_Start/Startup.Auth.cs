@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using OSL.Forum.Core;
 using Owin;
 using OSL.Forum.Web.Models;
 
@@ -17,7 +18,7 @@ namespace OSL.Forum.Web
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
 
         public ILifetimeScope AutofacContainer { get; private set; }
-        public static string connectionStringName = "DefaultConnection";
+        public static string connectionString = "DefaultConnection";
 
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -80,6 +81,7 @@ namespace OSL.Forum.Web
 
             //Modules
             builder.RegisterModule(new WebModule());
+            builder.RegisterModule(new CoreModule(connectionString));
 
             var container = builder.Build();
             AutofacContainer = container;
