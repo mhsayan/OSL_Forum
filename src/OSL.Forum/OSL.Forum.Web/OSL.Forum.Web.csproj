@@ -2284,6 +2284,16 @@
       <DependentUpon>202203150528311_addNameinApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OSL.Forum.Base\OSL.Forum.Base.csproj">
+      <Project>{54415a8e-6742-4bea-8c87-6b54eea9b547}</Project>
+      <Name>OSL.Forum.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.Core\OSL.Forum.Core.csproj">
+      <Project>{d3610ed7-9f1e-4f53-a8c7-42fe0693e795}</Project>
+      <Name>OSL.Forum.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
