@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
-using OSL.Forum.Web.Controllers;
 using OSL.Forum.Web.Models.Category;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
@@ -42,8 +38,9 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             try
             {
                 model.Resolve(_scope);
+                model.Create();
 
-                return RedirectToAction(nameof(Index), "Home");
+                return Redirect(nameof(Index));
             }
             catch (Exception ex)
             {

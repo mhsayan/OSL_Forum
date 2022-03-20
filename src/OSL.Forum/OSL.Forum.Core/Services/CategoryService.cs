@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using BO = OSL.Forum.Core.BusinessObjects;
+using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
 
 namespace OSL.Forum.Core.Services
@@ -18,6 +20,20 @@ namespace OSL.Forum.Core.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        public void CreateCategory(BO.Category category)
+        {
+            if (category is null)
+                throw new ArgumentNullException(nameof(category));
+
+            category.CreationDate = DateTime.Now;
+            category.ModificationDate = category.CreationDate;
+
+            var categoryEntity = _mapper.Map<EO.Category>(category);
+
+            _unitOfWork.Categories.Add(categoryEntity);
+            _unitOfWork.Save();
         }
     }
 }

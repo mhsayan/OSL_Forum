@@ -13,7 +13,7 @@ namespace OSL.Forum.Core.Entities
         public Guid Id { get; set; }
         [MaxLength(64)]
         public string Name { get; set; }
-        public DateTime CreateTime { get; set; }
-        public DateTime EditTime { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime ModificationDate { get; set; }
     }
 }

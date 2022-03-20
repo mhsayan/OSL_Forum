@@ -100,6 +100,10 @@
     <Compile Include="Migrations\202203190620544_AddCategoryTable.designer.cs">
       <DependentUpon>202203190620544_AddCategoryTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203200628272_ModifiedCategoryTable.cs" />
+    <Compile Include="Migrations\202203200628272_ModifiedCategoryTable.designer.cs">
+      <DependentUpon>202203200628272_ModifiedCategoryTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +128,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202203190620544_AddCategoryTable.resx">
       <DependentUpon>202203190620544_AddCategoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203200628272_ModifiedCategoryTable.resx">
+      <DependentUpon>202203200628272_ModifiedCategoryTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
+using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Web.Models.Category;
 
 namespace OSL.Forum.Web.Profiles
 {
@@ -10,7 +12,7 @@ namespace OSL.Forum.Web.Profiles
     {
         public WebProfiles()
         {
-
+            CreateMap<CreateCategoryModel, Category>().ReverseMap();
         }
     }
 }

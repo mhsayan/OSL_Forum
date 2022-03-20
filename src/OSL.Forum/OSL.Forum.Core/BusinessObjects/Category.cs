@@ -7,7 +7,7 @@ namespace OSL.Forum.Core.BusinessObjects
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public DateTime Date { get; set; }
-        public DateTime Edit { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime ModificationDate { get; set; }
     }
 }
