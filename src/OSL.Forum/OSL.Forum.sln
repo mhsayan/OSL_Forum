@@ -5,6 +5,10 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSL.Forum.Web", "OSL.Forum.Web\OSL.Forum.Web.csproj", "{842F79EA-1AC9-43DF-9CC8-326F57D27A0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSL.Forum.Base", "OSL.Forum.Base\OSL.Forum.Base.csproj", "{54415A8E-6742-4BEA-8C87-6B54EEA9B547}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSL.Forum.Core", "OSL.Forum.Core\OSL.Forum.Core.csproj", "{D3610ED7-9F1E-4F53-A8C7-42FE0693E795}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{842F79EA-1AC9-43DF-9CC8-326F57D27A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{842F79EA-1AC9-43DF-9CC8-326F57D27A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{842F79EA-1AC9-43DF-9CC8-326F57D27A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54415A8E-6742-4BEA-8C87-6B54EEA9B547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54415A8E-6742-4BEA-8C87-6B54EEA9B547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54415A8E-6742-4BEA-8C87-6B54EEA9B547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54415A8E-6742-4BEA-8C87-6B54EEA9B547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3610ED7-9F1E-4F53-A8C7-42FE0693E795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3610ED7-9F1E-4F53-A8C7-42FE0693E795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3610ED7-9F1E-4F53-A8C7-42FE0693E795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3610ED7-9F1E-4F53-A8C7-42FE0693E795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
