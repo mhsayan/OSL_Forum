@@ -5,6 +5,10 @@ namespace OSL.Forum.Core.Contexts
 {
     public class CoreDbContext : DbContext, ICoreDbContext
     {
+        public CoreDbContext() : base("DefaultConnection")
+        {
+
+        }
 
         public CoreDbContext(string connectionString) : base(connectionString)
         {
