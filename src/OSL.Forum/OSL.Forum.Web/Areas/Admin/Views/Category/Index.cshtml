@@ -1,7 +1,64 @@
-﻿
+﻿@using OSL.Forum.Core.BusinessObjects
+@model OSL.Forum.Web.Areas.Admin.Models.Category.CategoriesModel
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>All Categories</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/Admin/Category/Create" class="btn btn-primary d-grid gap-2 d-flex float-right m-2">
+                    <i class="fa fa-plus-square m-1"></i>
+                    New Category
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var category in (IEnumerable<Category>)ViewData["Categories"])
+            {
+                <div class="col-6 p-3">
+                    <div class="card-primary shadow-sm">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-8">
+                                    <a class="stretched-link" asp-area="" asp-controller="Question" asp-action="Details" asp-route-id="@category.Id">
+                                        <h2 class="card-title">@category.Name</h2>
+                                    </a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="#" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="d-grid gap-2 d-flex float-right p-1">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-muted">
+                                Asked : @category.CreationDate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

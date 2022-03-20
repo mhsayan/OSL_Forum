@@ -22,7 +22,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         {
             var model = _scope.Resolve<CategoriesModel>();
             model.Resolve(_scope);
-            model.GetCategories();
+            ViewBag.Categories = model.GetCategories();
 
             return View(model);
         }
