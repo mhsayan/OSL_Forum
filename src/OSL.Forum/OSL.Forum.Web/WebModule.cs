@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Autofac;
 using AutoMapper;
+using OSL.Forum.Core.Profiles;
+using OSL.Forum.Web.Models.Category;
 using OSL.Forum.Web.Profiles;
 
 namespace OSL.Forum.Web
@@ -16,6 +18,7 @@ namespace OSL.Forum.Web
                 {
                     //Register Mapper Profile
                     cfg.AddProfile<WebProfiles>();
+                    cfg.AddProfile<CoreProfiles>();
                 }
             )).AsSelf().InstancePerRequest();
 
@@ -28,6 +31,8 @@ namespace OSL.Forum.Web
                 })
                 .As<IMapper>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<CreateCategoryModel>().AsSelf();
         }
     }
 }

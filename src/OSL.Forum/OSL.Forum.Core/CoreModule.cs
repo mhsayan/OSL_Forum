@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using OSL.Forum.Core.Contexts;
 using OSL.Forum.Core.Repositories;
+using OSL.Forum.Core.Services;
 using OSL.Forum.Core.UnitOfWorks;
 
 namespace OSL.Forum.Core
@@ -24,8 +25,14 @@ namespace OSL.Forum.Core
                 .WithParameter("connectionString", _connectionString)
                 .InstancePerLifetimeScope();
 
+            //Repositories
             builder.RegisterType<CategoryRepository>().As<ICategoryRepository>().InstancePerLifetimeScope();
+
+            //Unit Of Work
             builder.RegisterType<CoreUnitOfWork>().As<ICoreUnitOfWork>().InstancePerLifetimeScope();
+
+            //Service Classes
+            builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

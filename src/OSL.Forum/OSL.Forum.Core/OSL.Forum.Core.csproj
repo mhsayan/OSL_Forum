@@ -101,9 +101,12 @@
       <DependentUpon>202203190620544_AddCategoryTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="UnitOfWorks\CoreUnitOfWork.cs" />
     <Compile Include="UnitOfWorks\ICoreUnitOfWork.cs" />
   </ItemGroup>
@@ -111,10 +114,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Profiles\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\OSL.Forum.Base\OSL.Forum.Base.csproj">
       <Project>{54415A8E-6742-4BEA-8C87-6B54EEA9B547}</Project>
