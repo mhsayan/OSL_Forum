@@ -5,7 +5,7 @@ using System.Web;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Profiles;
-using OSL.Forum.Web.Models.Category;
+using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Profiles;
 
 namespace OSL.Forum.Web

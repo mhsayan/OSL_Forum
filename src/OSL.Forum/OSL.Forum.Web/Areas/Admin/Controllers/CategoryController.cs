@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Autofac;
 using log4net;
-using OSL.Forum.Web.Models.Category;
+using OSL.Forum.Web.Areas.Admin.Models.Category;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
@@ -46,6 +46,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
                 _logger.Error("New Category Create failed.");
+                _logger.Error(ex.Message);
 
                 return View(model);
             }

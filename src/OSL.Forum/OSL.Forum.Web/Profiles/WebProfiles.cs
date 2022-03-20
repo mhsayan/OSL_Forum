@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using OSL.Forum.Core.BusinessObjects;
-using OSL.Forum.Web.Models.Category;
+using OSL.Forum.Web.Areas.Admin.Models.Category;
 
 namespace OSL.Forum.Web.Profiles
 {
