@@ -13,6 +13,7 @@ namespace OSL.Forum.Web.Profiles
         public WebProfiles()
         {
             CreateMap<CreateCategoryModel, Category>().ReverseMap();
+            CreateMap<CategoriesModel, Category>().ReverseMap();
         }
     }
 }

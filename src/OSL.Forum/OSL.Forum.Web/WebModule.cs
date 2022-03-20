@@ -33,6 +33,7 @@ namespace OSL.Forum.Web
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<CreateCategoryModel>().AsSelf();
+            builder.RegisterType<CategoriesModel>().AsSelf();
         }
     }
 }

@@ -12,5 +12,6 @@ namespace OSL.Forum.Core.Services
     {
         void CreateCategory(BO.Category category);
         BO.Category GetCategory(string categoryName);
+        IList<BO.Category> GetCategories();
     }
 }

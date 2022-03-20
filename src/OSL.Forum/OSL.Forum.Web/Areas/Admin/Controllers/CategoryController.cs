@@ -20,7 +20,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            return View();
+            var model = _scope.Resolve<CategoriesModel>();
+            model.Resolve(_scope);
+            model.GetCategories();
+
+            return View(model);
         }
 
         public ActionResult Create()
