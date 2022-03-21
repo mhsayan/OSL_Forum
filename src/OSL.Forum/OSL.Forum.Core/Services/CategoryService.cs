@@ -38,6 +38,21 @@ namespace OSL.Forum.Core.Services
             return category;
         }
 
+        public BO.Category GetCategory(Guid categoryId)
+        {
+            if (categoryId == Guid.Empty)
+                throw new ArgumentNullException(nameof(categoryId));
+
+            var categoryEntity = _unitOfWork.Categories.GetById(categoryId);
+
+            if (categoryEntity == null)
+                return null;
+
+            var category = _mapper.Map<BO.Category>(categoryEntity);
+
+            return category;
+        }
+
         public IList<BO.Category> GetCategories()
         {
             var categoryEntities = _unitOfWork.Categories.GetAll();
@@ -54,6 +69,27 @@ namespace OSL.Forum.Core.Services
             }
 
             return categories;
+        }
+
+        public void EditCategory(BO.Category category)
+        {
+            if (category is null)
+                throw new ArgumentNullException(nameof(category));
+
+            var oldCategory = GetCategory(category.Name);
+
+            if (oldCategory != null)
+                throw new DuplicateNameException("This category already exists.");
+
+            var categoryEntity = _unitOfWork.Categories.GetById(category.Id);
+
+            if (categoryEntity is null)
+                throw new InvalidOperationException("Category is not found.");
+
+            categoryEntity.Name = category.Name;
+            categoryEntity.ModificationDate = DateTime.Now;
+
+            _unitOfWork.Save();
         }
 
         public void CreateCategory(BO.Category category)

@@ -12,6 +12,8 @@ namespace OSL.Forum.Core.Services
     {
         void CreateCategory(BO.Category category);
         BO.Category GetCategory(string categoryName);
+        BO.Category GetCategory(Guid categoryId);
         IList<BO.Category> GetCategories();
+        void EditCategory(BO.Category category);
     }
 }
