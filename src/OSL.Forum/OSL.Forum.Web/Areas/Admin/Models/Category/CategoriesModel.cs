@@ -51,5 +51,10 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             var userId = HttpContext.Current.User.Identity.GetUserId();
             Roles = await _userManager.GetRolesAsync(userId);
         }
+
+        public void Delete(Guid categoryId)
+        {
+            _categoryService.DeleteCategory(categoryId);
+        }
     }
 }

@@ -92,6 +92,15 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
+        public void DeleteCategory(Guid categoryId)
+        {
+            if (categoryId == Guid.Empty)
+                throw new ArgumentNullException(nameof(categoryId));
+
+            _unitOfWork.Categories.Remove(categoryId);
+            _unitOfWork.Save();
+        }
+
         public void CreateCategory(BO.Category category)
         {
             if (category is null)
