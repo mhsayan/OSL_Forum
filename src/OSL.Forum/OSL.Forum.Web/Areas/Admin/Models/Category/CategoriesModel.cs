@@ -37,6 +37,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public IList<BO.Category> GetCategories()
         {
+            var user = HttpContext.Current.User.Identity.GetUserId();
+
             return _categoryService.GetCategories();
         }
     }
