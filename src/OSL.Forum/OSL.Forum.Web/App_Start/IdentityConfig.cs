@@ -23,10 +23,10 @@ namespace OSL.Forum.Web
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.Factory.StartNew((() =>
+            return Task.Factory.StartNew(() =>
            {
                sendMail(message);
-           }));
+           });
         }
 
         void sendMail(IdentityMessage message)
