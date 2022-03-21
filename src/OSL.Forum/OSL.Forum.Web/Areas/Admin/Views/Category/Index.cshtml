@@ -20,6 +20,15 @@
     </div><!-- /.container-fluid -->
 </section>
 
+@*Html.ActionLink(article.Title,
+    "Login",  // <-- Controller Name.
+    "Item",   // <-- ActionMethod
+    new { id = article.ArticleID }, // <-- Route arguments.
+    null  // <-- htmlArguments .. which are none. You need this value
+    //     otherwise you call the WRONG method ...
+    //     (refer to comments, below).
+    )*@
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -42,15 +51,13 @@
                                         <h2 class="card-title">@category.Name</h2>
                                     </a>
                                 </div>
-                                @if(Model.Roles.Contains("SuperAdmin"))
+                                @if (Model.Roles.Contains("SuperAdmin"))
                                 {
                                     <div class="col-4">
-                                        <a href="#" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <a href="#" class="d-grid gap-2 d-flex float-right p-1">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </a>
-                                        <a href="#" class="d-grid gap-2 d-flex float-right p-1">
-                                            <i class="fa fa-edit" aria-hidden="true"></i>
-                                        </a>
+                                        @Html.ActionLink("Edit", "Edit", "Category", new { id = category.Id }, new { @class = "btn btn-info d-grid gap-2 d-flex float-right p-1 ml-3" })
                                     </div>
                                 }
                             </div>

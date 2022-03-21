@@ -14,6 +14,7 @@ namespace OSL.Forum.Web.Profiles
         {
             CreateMap<CreateCategoryModel, Category>().ReverseMap();
             CreateMap<CategoriesModel, Category>().ReverseMap();
+            CreateMap<EditCategoryModel, Category>().ReverseMap();
         }
     }
 }
