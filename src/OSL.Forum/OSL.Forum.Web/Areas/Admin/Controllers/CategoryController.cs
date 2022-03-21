@@ -95,5 +95,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index), "Category");
         }
+
+        public ActionResult Details(Guid id)
+        {
+            var model = _scope.Resolve<CategoryDetailsModel>();
+            model.Resolve(_scope);
+            model.GetCategory(id);
+
+            return View(model);
+        }
     }
 }

@@ -35,6 +35,7 @@ namespace OSL.Forum.Web
             builder.RegisterType<CreateCategoryModel>().AsSelf();
             builder.RegisterType<CategoriesModel>().AsSelf();
             builder.RegisterType<EditCategoryModel>().AsSelf();
+            builder.RegisterType<CategoryDetailsModel>().AsSelf();
         }
     }
 }

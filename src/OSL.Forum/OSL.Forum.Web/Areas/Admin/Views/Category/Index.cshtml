@@ -17,17 +17,8 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
-
-@*Html.ActionLink(article.Title,
-    "Login",  // <-- Controller Name.
-    "Item",   // <-- ActionMethod
-    new { id = article.ArticleID }, // <-- Route arguments.
-    null  // <-- htmlArguments .. which are none. You need this value
-    //     otherwise you call the WRONG method ...
-    //     (refer to comments, below).
-    )*@
 
 <section class="content">
     <div class="container-fluid">
@@ -47,9 +38,8 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-8">
-                                    <a class="stretched-link" asp-area="" asp-controller="Question" asp-action="Details" asp-route-id="@category.Id">
-                                        <h2 class="card-title">@category.Name</h2>
-                                    </a>
+                                    @Html.ActionLink(category.Name, "Details", "Category", new { id = category.Id },
+                                        new { @class = "stretched-link" })
                                 </div>
                                 @if (Model.Roles.Contains("SuperAdmin"))
                                 {
