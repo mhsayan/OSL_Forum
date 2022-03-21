@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
@@ -18,9 +19,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         // GET: Category
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = _scope.Resolve<CategoriesModel>();
+            model.Resolve(_scope);
+            ViewBag.Categories = model.GetCategories();
+            await model.LoadUserInfo();
+
+            return View(model);
         }
 
         public ActionResult Create()
