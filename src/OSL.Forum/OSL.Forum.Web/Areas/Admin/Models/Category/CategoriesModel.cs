@@ -7,6 +7,7 @@ using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
+using Microsoft.AspNet.Identity;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
