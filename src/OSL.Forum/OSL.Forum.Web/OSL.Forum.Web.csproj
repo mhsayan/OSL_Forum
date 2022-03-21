@@ -2313,6 +2313,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Logs\" />
+    <Folder Include="Services" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
