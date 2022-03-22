@@ -14,7 +14,7 @@ namespace OSL.Forum.Core.BusinessObjects
         public DateTime ModificationDate { get; set; }
         public Guid TopicId { get; set; }
         public virtual Topic Topic { get; set; }
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public string Status { get; set; }
     }
 }

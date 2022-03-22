@@ -141,6 +141,8 @@
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="UnitOfWorks\CoreUnitOfWork.cs" />
     <Compile Include="UnitOfWorks\ICoreUnitOfWork.cs" />
+    <Compile Include="Utilities\DateTimeUtility.cs" />
+    <Compile Include="Utilities\IDateTimeUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

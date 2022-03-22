@@ -3,6 +3,7 @@ using OSL.Forum.Core.Contexts;
 using OSL.Forum.Core.Repositories;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.UnitOfWorks;
+using OSL.Forum.Core.Utilities;
 
 namespace OSL.Forum.Core
 {
@@ -23,6 +24,10 @@ namespace OSL.Forum.Core
 
             builder.RegisterType<CoreDbContext>().As<ICoreDbContext>()
                 .WithParameter("connectionString", _connectionString)
+                .InstancePerLifetimeScope();
+
+            //Utilities
+            builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
                 .InstancePerLifetimeScope();
 
             //Repositories

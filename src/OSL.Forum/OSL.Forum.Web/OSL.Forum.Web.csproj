@@ -215,6 +215,7 @@
     <Compile Include="Areas\Admin\Models\Category\CategoriesModel.cs" />
     <Compile Include="Areas\Admin\Models\Category\CategoryDetailsModel.cs" />
     <Compile Include="Areas\Admin\Models\Category\EditCategoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\Forum\CreateForumModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -239,6 +240,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seeds\IdentityHelper.cs" />
     <Compile Include="Seeds\Roles.cs" />
+    <Compile Include="Services\IProfileService.cs" />
+    <Compile Include="Services\ProfileService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebModule.cs" />
   </ItemGroup>
@@ -2320,7 +2323,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Logs\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

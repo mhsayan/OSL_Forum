@@ -14,7 +14,7 @@ namespace OSL.Forum.Core.BusinessObjects
         public DateTime ModificationDate { get; set; }
         public Guid ForumId { get; set; }
         public virtual Entities.Forum Forum { get; set; }
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public string Status { get; set; }
         public virtual IList<Entities.Post> Posts { get; set; }
     }

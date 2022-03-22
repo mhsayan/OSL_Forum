@@ -7,6 +7,7 @@ using AutoMapper;
 using OSL.Forum.Core.Profiles;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Profiles;
+using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web
 {
@@ -31,6 +32,9 @@ namespace OSL.Forum.Web
                 })
                 .As<IMapper>()
                 .InstancePerLifetimeScope();
+
+            //Service Classes
+            builder.RegisterType<ProfileService>().As<IProfileService>().InstancePerLifetimeScope();
 
             builder.RegisterType<CreateCategoryModel>().AsSelf();
             builder.RegisterType<CategoriesModel>().AsSelf();

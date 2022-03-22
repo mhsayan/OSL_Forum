@@ -21,7 +21,7 @@ namespace OSL.Forum.Core.Entities
         public DateTime ModificationDate { get; set; }
         public Guid ForumId { get; set; }
         public virtual Forum Forum { get; set; }
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         public string Status { get; set; }
         public virtual IList<Post> Posts { get; set; }
     }
