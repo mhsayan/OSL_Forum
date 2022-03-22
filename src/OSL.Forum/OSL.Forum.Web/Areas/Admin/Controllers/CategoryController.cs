@@ -96,11 +96,12 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index), "Category");
         }
 
-        public ActionResult Details(Guid id)
+        public async Task<ActionResult> Details(Guid id)
         {
             var model = _scope.Resolve<CategoryDetailsModel>();
             model.Resolve(_scope);
             model.GetCategory(id);
+            await model.LoadUserInfo();
 
             return View(model);
         }

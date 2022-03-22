@@ -1,4 +1,5 @@
-﻿@model OSL.Forum.Web.Areas.Admin.Models.Category.CategoryDetailsModel
+﻿@using OSL.Forum.Core.BusinessObjects
+@model OSL.Forum.Web.Areas.Admin.Models.Category.CategoryDetailsModel
 @{
     ViewBag.Title = "Category Details";
 }
@@ -31,6 +32,32 @@
                     New Forum
                 </a>
             </div>
+        </div>
+        <div class="row">
+            @foreach (var forum in Model.Category.Forums)
+            {
+                <div class="col-6 p-3">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-8 my-3 pl-4">
+                                @Html.ActionLink(forum.Name, "Details", "Category", new { id = forum.Id },
+                                    new { @class = "stretched-link" })
+                            </div>
+                            @if (Model.Roles.Contains("SuperAdmin") || Model.Roles.Contains("Admin"))
+                            {
+                                <div class="col-4 my-3">
+                                    <a href="#" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="#" class="d-grid gap-2 d-flex float-right p-1">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </section>
