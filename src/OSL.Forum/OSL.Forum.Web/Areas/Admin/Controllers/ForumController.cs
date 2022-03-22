@@ -82,5 +82,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 return View(model);
             }
         }
+
+        public ActionResult Delete(Guid id, Guid categoryId)
+        {
+            var model = _scope.Resolve<EditForumModel>();
+            model.Resolve(_scope);
+            model.Delete(id);
+
+            return RedirectToAction("Details", "Category", new { id = categoryId });
+        }
     }
 }
