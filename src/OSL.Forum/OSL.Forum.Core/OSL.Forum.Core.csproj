@@ -126,10 +126,16 @@
     <Compile Include="Migrations\202203220600378_AddedApprovalTypeInForum.designer.cs">
       <DependentUpon>202203220600378_AddedApprovalTypeInForum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203220633349_AddedFixedTableNameForEntities.cs" />
+    <Compile Include="Migrations\202203220633349_AddedFixedTableNameForEntities.designer.cs">
+      <DependentUpon>202203220633349_AddedFixedTableNameForEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ForumRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\IForumRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203220600378_AddedApprovalTypeInForum.resx">
       <DependentUpon>202203220600378_AddedApprovalTypeInForum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203220633349_AddedFixedTableNameForEntities.resx">
+      <DependentUpon>202203220633349_AddedFixedTableNameForEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

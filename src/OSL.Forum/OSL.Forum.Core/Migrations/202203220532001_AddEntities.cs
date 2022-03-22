@@ -8,7 +8,7 @@
         public override void Up()
         {
             CreateTable(
-                "dbo.Forums",
+                "dbo.Fora",
                 c => new
                 {
                     Id = c.Guid(nullable: false, identity: true, defaultValueSql: "newsequentialid()"),
@@ -35,7 +35,7 @@
                     Status = c.String(),
                 })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Forums", t => t.ForumId, cascadeDelete: true)
+                .ForeignKey("dbo.Fora", t => t.ForumId, cascadeDelete: true)
                 .Index(t => t.ForumId);
 
             CreateTable(
@@ -61,15 +61,15 @@
         public override void Down()
         {
             DropForeignKey("dbo.Posts", "TopicId", "dbo.Topics");
-            DropForeignKey("dbo.Topics", "ForumId", "dbo.Forums");
-            DropForeignKey("dbo.Forums", "CategoryId", "dbo.Categories");
+            DropForeignKey("dbo.Topics", "ForumId", "dbo.Fora");
+            DropForeignKey("dbo.Fora", "CategoryId", "dbo.Categories");
             DropIndex("dbo.Posts", new[] { "TopicId" });
             DropIndex("dbo.Topics", new[] { "ForumId" });
-            DropIndex("dbo.Forums", new[] { "CategoryId" });
+            DropIndex("dbo.Fora", new[] { "CategoryId" });
             AlterColumn("dbo.Categories", "Name", c => c.String(maxLength: 64));
             DropTable("dbo.Posts");
             DropTable("dbo.Topics");
-            DropTable("dbo.Forums");
+            DropTable("dbo.Fora");
         }
     }
 }

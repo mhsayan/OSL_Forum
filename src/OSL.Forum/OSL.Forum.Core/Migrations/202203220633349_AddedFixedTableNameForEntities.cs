@@ -2,17 +2,17 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-
-    public partial class AddedApprovalTypeInForum : DbMigration
+    
+    public partial class AddedFixedTableNameForEntities : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Fora", "ApprovalType", c => c.String());
+            RenameTable(name: "dbo.Fora", newName: "Forums");
         }
-
+        
         public override void Down()
         {
-            DropColumn("dbo.Fora", "ApprovalType");
+            RenameTable(name: "dbo.Forums", newName: "Fora");
         }
     }
 }

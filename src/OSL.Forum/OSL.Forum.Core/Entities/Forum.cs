@@ -9,6 +9,7 @@ using OSL.Forum.Base;
 
 namespace OSL.Forum.Core.Entities
 {
+    [Table("Forums")]
     public class Forum : IEntity<Guid>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

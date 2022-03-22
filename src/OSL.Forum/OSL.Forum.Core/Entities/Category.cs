@@ -9,6 +9,7 @@ using OSL.Forum.Base;
 
 namespace OSL.Forum.Core.Entities
 {
+    [Table("Categories")]
     public class Category : IEntity<Guid>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
