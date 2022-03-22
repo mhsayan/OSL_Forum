@@ -6,6 +6,7 @@ using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Profiles;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
+using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Profiles;
 using OSL.Forum.Web.Services;
 
@@ -40,6 +41,8 @@ namespace OSL.Forum.Web
             builder.RegisterType<CategoriesModel>().AsSelf();
             builder.RegisterType<EditCategoryModel>().AsSelf();
             builder.RegisterType<CategoryDetailsModel>().AsSelf();
+            builder.RegisterType<EditForumModel>().AsSelf();
+            builder.RegisterType<CreateForumModel>().AsSelf();
         }
     }
 }

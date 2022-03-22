@@ -53,5 +53,34 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 return View();
             }
         }
+
+        public ActionResult Edit(Guid id, Guid categoryId)
+        {
+            return id == Guid.Empty ? View("Error") : View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditForumModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+                model.Resolve(_scope);
+                model.Edit();
+
+                return RedirectToAction("Details", "Category", new { id = model.CategoryId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("Forum edit failed.");
+                _logger.Error(ex.Message);
+
+                return View(model);
+            }
+        }
     }
 }

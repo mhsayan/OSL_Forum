@@ -1,18 +1,19 @@
-﻿@model OSL.Forum.Web.Areas.Admin.Models.Category.EditCategoryModel
+﻿@model OSL.Forum.Web.Areas.Admin.Models.Forum.EditForumModel
 @{
-    ViewBag.Title = "Edit Category";
+    ViewBag.Title = "Edit Forum";
 }
+
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Edit Category</h1>
+                <h1>Edit Forum</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Edit Category</li>
+                    <li class="breadcrumb-item"><a href="#">Category Details</a></li>
+                    <li class="breadcrumb-item active">Edit Forum</li>
                 </ol>
             </div>
         </div>
@@ -27,14 +28,15 @@
 
                 <div class="card card-primary">
                     <div class="card-header text-uppercase">
-                        <b>Edit Category</b>
+                        <b>Edit Forum</b>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
+                        @using (Html.BeginForm("Edit", "Forum", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
                             @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.CategoryId)
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Name, new { @class = "col-md-6 control-label" })
                                 <div class="col-md-10">
@@ -58,4 +60,3 @@
         </div>
     </div>
 </section>
-
