@@ -216,6 +216,7 @@
     <Compile Include="Areas\Admin\Models\Category\CategoryDetailsModel.cs" />
     <Compile Include="Areas\Admin\Models\Category\EditCategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\Forum\CreateForumModel.cs" />
+    <Compile Include="Areas\Admin\Models\Forum\EditForumModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -306,6 +307,7 @@
     <Content Include="Areas\Admin\Views\Category\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Forum\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Forum\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Forum\Edit.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

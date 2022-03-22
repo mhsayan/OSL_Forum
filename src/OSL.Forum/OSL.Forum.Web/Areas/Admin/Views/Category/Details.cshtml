@@ -40,8 +40,9 @@
                     <div class="card">
                         <div class="row">
                             <div class="col-8 my-3 pl-4">
-                                @Html.ActionLink(forum.Name, "Details", "Category", new { id = forum.Id },
-                                    new { @class = "stretched-link" })
+                                @*@Html.ActionLink(forum.Name, "Details", "Category", new { id = forum.Id },
+                                    new { @class = "stretched-link" })*@
+                                @forum.Name
                             </div>
                             @if (Model.Roles.Contains("SuperAdmin") || Model.Roles.Contains("Admin"))
                             {
@@ -49,7 +50,7 @@
                                     <a href="#" class="d-grid gap-2 d-flex float-right p-1 ml-3">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
-                                    <a href="#" class="d-grid gap-2 d-flex float-right p-1">
+                                    <a href="@Url.Action("Edit", "Forum", new { id = forum.Id, categoryId = Model.Category.Id })" class="d-grid gap-2 d-flex float-right p-1">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
                                 </div>

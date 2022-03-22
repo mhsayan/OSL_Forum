@@ -38,6 +38,57 @@ namespace OSL.Forum.Core.Services
             return forum;
         }
 
+        public BO.Forum GetForum(Guid forumId)
+        {
+            if (forumId == Guid.Empty)
+                throw new ArgumentNullException(nameof(forumId));
+
+            var forumEntity = _unitOfWork.Forums.GetById(forumId);
+
+            if (forumEntity == null)
+                return null;
+
+            var forum = _mapper.Map<BO.Forum>(forumEntity);
+
+            return forum;
+        }
+
+        public BO.Forum GetForum(string forumName)
+        {
+            if (string.IsNullOrWhiteSpace(forumName))
+                throw new ArgumentNullException(nameof(forumName));
+
+            var forumEntity = _unitOfWork.Forums.Get(c => c.Name == forumName, "").FirstOrDefault();
+
+            if (forumEntity == null)
+                return null;
+
+            var forum = _mapper.Map<BO.Forum>(forumEntity);
+
+            return forum;
+        }
+
+        public void EditForum(BO.Forum forum)
+        {
+            if (forum is null)
+                throw new ArgumentNullException(nameof(forum));
+
+            var oldForum = GetForum(forum.Name);
+
+            if (oldForum != null)
+                throw new DuplicateNameException("This forum already exists.");
+
+            var forumEntity = _unitOfWork.Forums.GetById(forum.Id);
+
+            if (forumEntity is null)
+                throw new InvalidOperationException("Forum is not found.");
+
+            forumEntity.Name = forum.Name;
+            forumEntity.ModificationDate = forum.ModificationDate;
+
+            _unitOfWork.Save();
+        }
+
         #region Helper Region
 
         //public BO.Category GetCategory(Guid categoryId)
@@ -71,27 +122,6 @@ namespace OSL.Forum.Core.Services
         //    }
 
         //    return categories;
-        //}
-
-        //public void EditCategory(BO.Category category)
-        //{
-        //    if (category is null)
-        //        throw new ArgumentNullException(nameof(category));
-
-        //    var oldCategory = GetCategory(category.Name);
-
-        //    if (oldCategory != null)
-        //        throw new DuplicateNameException("This category already exists.");
-
-        //    var categoryEntity = _unitOfWork.Categories.GetById(category.Id);
-
-        //    if (categoryEntity is null)
-        //        throw new InvalidOperationException("Category is not found.");
-
-        //    categoryEntity.Name = category.Name;
-        //    categoryEntity.ModificationDate = DateTime.Now;
-
-        //    _unitOfWork.Save();
         //}
 
         //public void DeleteCategory(Guid categoryId)
