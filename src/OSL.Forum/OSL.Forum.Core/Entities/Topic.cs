@@ -9,7 +9,7 @@ using OSL.Forum.Base;
 
 namespace OSL.Forum.Core.Entities
 {
-    public class Category : IEntity<Guid>
+    public class Topic : IEntity<Guid>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -17,6 +17,10 @@ namespace OSL.Forum.Core.Entities
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
-        public IList<Forum> Forums { get; set; }
+        public Guid ForumId { get; set; }
+        public Forum Forum { get; set; }
+        public Guid ApplicationUserId { get; set; }
+        public bool Status { get; set; }
+        public IList<Post> Posts { get; set; }
     }
 }

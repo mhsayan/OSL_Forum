@@ -9,14 +9,19 @@ using OSL.Forum.Base;
 
 namespace OSL.Forum.Core.Entities
 {
-    public class Category : IEntity<Guid>
+    public class Post : IEntity<Guid>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [MaxLength(64)]
         public string Name { get; set; }
+        [MaxLength(10000)]
+        public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
-        public IList<Forum> Forums { get; set; }
+        public Guid TopicId { get; set; }
+        public Topic Topic { get; set; }
+        public Guid ApplicationUserId { get; set; }
+        public bool Status { get; set; }
     }
 }
