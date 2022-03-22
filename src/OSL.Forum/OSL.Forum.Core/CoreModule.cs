@@ -41,6 +41,7 @@ namespace OSL.Forum.Core
 
             //Service Classes
             builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
+            builder.RegisterType<ForumService>().As<IForumService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

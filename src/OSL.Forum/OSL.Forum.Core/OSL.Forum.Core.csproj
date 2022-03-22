@@ -137,7 +137,9 @@
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\IForumRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Services\ForumService.cs" />
     <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\IForumService.cs" />
     <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="UnitOfWorks\CoreUnitOfWork.cs" />
     <Compile Include="UnitOfWorks\ICoreUnitOfWork.cs" />
