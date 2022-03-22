@@ -22,19 +22,19 @@ namespace OSL.Forum.Core.Contexts
 
             modelBuilder.Entity<Entities.Forum>()
                 .HasKey(f => f.Id)
-                .HasOptional(f => f.Category)
+                .HasRequired(f => f.Category)
                 .WithMany(c => c.Forums)
                 .HasForeignKey(f => f.CategoryId);
 
             modelBuilder.Entity<Topic>()
                 .HasKey(t => t.Id)
-                .HasOptional(t => t.Forum)
+                .HasRequired(t => t.Forum)
                 .WithMany(f => f.Topics)
                 .HasForeignKey(t => t.ForumId);
 
             modelBuilder.Entity<Post>()
                 .HasKey(p => p.Id)
-                .HasOptional(p => p.Topic)
+                .HasRequired(p => p.Topic)
                 .WithMany(t => t.Posts)
                 .HasForeignKey(p => p.TopicId);
 
@@ -42,5 +42,8 @@ namespace OSL.Forum.Core.Contexts
         }
 
         DbSet<Category> Categories { get; set; }
+        DbSet<Entities.Forum> Forums { get; set; }
+        DbSet<Topic> Topics { get; set; }
+        DbSet<Post> Posts { get; set; }
     }
 }

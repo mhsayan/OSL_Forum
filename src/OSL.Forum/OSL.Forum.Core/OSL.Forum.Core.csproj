@@ -113,6 +113,10 @@
     <Compile Include="Migrations\202203200838163_AddedAutoGeneretedIdForCategory.designer.cs">
       <DependentUpon>202203200838163_AddedAutoGeneretedIdForCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203220532001_AddEntities.cs" />
+    <Compile Include="Migrations\202203220532001_AddEntities.designer.cs">
+      <DependentUpon>202203220532001_AddEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -143,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203200838163_AddedAutoGeneretedIdForCategory.resx">
       <DependentUpon>202203200838163_AddedAutoGeneretedIdForCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203220532001_AddEntities.resx">
+      <DependentUpon>202203220532001_AddEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
