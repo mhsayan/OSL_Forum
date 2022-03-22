@@ -100,6 +100,7 @@
     <Compile Include="Entities\Forum.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Topic.cs" />
+    <Compile Include="Enums\Status.cs" />
     <Compile Include="Migrations\202203190620544_AddCategoryTable.cs" />
     <Compile Include="Migrations\202203190620544_AddCategoryTable.designer.cs">
       <DependentUpon>202203190620544_AddCategoryTable.cs</DependentUpon>

@@ -17,6 +17,6 @@ namespace OSL.Forum.Core.Entities
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
-        public IList<Forum> Forums { get; set; }
+        public virtual IList<Forum> Forums { get; set; }
     }
 }

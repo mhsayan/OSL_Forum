@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OSL.Forum.Base;
+using OSL.Forum.Core.Enums;
 
 namespace OSL.Forum.Core.Entities
 {
@@ -18,9 +19,9 @@ namespace OSL.Forum.Core.Entities
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
         public Guid ForumId { get; set; }
-        public Forum Forum { get; set; }
+        public virtual Forum Forum { get; set; }
         public Guid ApplicationUserId { get; set; }
-        public bool Status { get; set; }
-        public IList<Post> Posts { get; set; }
+        public Status Status { get; set; }
+        public virtual IList<Post> Posts { get; set; }
     }
 }

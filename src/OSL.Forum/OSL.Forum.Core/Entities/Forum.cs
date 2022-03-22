@@ -18,8 +18,8 @@ namespace OSL.Forum.Core.Entities
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
         public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
         public Guid ApplicationUserId { get; set; }
-        public IList<Topic> Topics { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual IList<Topic> Topics { get; set; }
     }
 }
