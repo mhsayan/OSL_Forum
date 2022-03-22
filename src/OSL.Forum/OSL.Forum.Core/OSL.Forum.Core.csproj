@@ -92,6 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Category.cs" />
+    <Compile Include="BusinessObjects\FavoriteForum.cs" />
+    <Compile Include="BusinessObjects\Forum.cs" />
+    <Compile Include="BusinessObjects\Post.cs" />
+    <Compile Include="BusinessObjects\Topic.cs" />
     <Compile Include="Contexts\CoreDbContext.cs" />
     <Compile Include="Contexts\ICoreDbContext.cs" />
     <Compile Include="CoreModule.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="Entities\Forum.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Topic.cs" />
+    <Compile Include="Enums\ApprovalType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Migrations\202203190620544_AddCategoryTable.cs" />
     <Compile Include="Migrations\202203190620544_AddCategoryTable.designer.cs">
@@ -116,6 +121,10 @@
     <Compile Include="Migrations\202203220532001_AddEntities.cs" />
     <Compile Include="Migrations\202203220532001_AddEntities.designer.cs">
       <DependentUpon>202203220532001_AddEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203220600378_AddedApprovalTypeInForum.cs" />
+    <Compile Include="Migrations\202203220600378_AddedApprovalTypeInForum.designer.cs">
+      <DependentUpon>202203220600378_AddedApprovalTypeInForum.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
@@ -150,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203220532001_AddEntities.resx">
       <DependentUpon>202203220532001_AddEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203220600378_AddedApprovalTypeInForum.resx">
+      <DependentUpon>202203220600378_AddedApprovalTypeInForum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
