@@ -13,6 +13,7 @@ namespace OSL.Forum.Core.Entities
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        [Required]
         [MaxLength(64)]
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
