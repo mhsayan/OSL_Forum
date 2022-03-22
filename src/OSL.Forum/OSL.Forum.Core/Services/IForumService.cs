@@ -14,5 +14,6 @@ namespace OSL.Forum.Core.Services
         BO.Forum GetForum(string forumName, Guid categoryId);
         void EditForum(BO.Forum forum);
         BO.Forum GetForum(Guid forumId);
+        void DeleteForum(Guid forumId);
     }
 }

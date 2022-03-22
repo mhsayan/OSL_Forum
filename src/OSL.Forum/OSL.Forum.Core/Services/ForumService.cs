@@ -89,51 +89,14 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        #region Helper Region
+        public void DeleteForum(Guid forumId)
+        {
+            if (forumId == Guid.Empty)
+                throw new ArgumentNullException(nameof(forumId));
 
-        //public BO.Category GetCategory(Guid categoryId)
-        //{
-        //    if (categoryId == Guid.Empty)
-        //        throw new ArgumentNullException(nameof(categoryId));
-
-        //    var categoryEntity = _unitOfWork.Categories.GetById(categoryId);
-
-        //    if (categoryEntity == null)
-        //        return null;
-
-        //    var category = _mapper.Map<BO.Category>(categoryEntity);
-
-        //    return category;
-        //}
-
-        //public IList<BO.Category> GetCategories()
-        //{
-        //    var categoryEntities = _unitOfWork.Categories.GetAll();
-        //    var categoryList = from c in categoryEntities
-        //                       orderby c.ModificationDate descending
-        //                       select c;
-
-        //    var categories = new List<BO.Category>();
-
-        //    foreach (var entity in categoryList)
-        //    {
-        //        var category = _mapper.Map<BO.Category>(entity);
-        //        categories.Add(category);
-        //    }
-
-        //    return categories;
-        //}
-
-        //public void DeleteCategory(Guid categoryId)
-        //{
-        //    if (categoryId == Guid.Empty)
-        //        throw new ArgumentNullException(nameof(categoryId));
-
-        //    _unitOfWork.Categories.Remove(categoryId);
-        //    _unitOfWork.Save();
-        //}
-
-        #endregion
+            _unitOfWork.Forums.Remove(forumId);
+            _unitOfWork.Save();
+        }
 
         public void CreateForum(BO.Forum forum)
         {

@@ -47,7 +47,7 @@
                             @if (Model.Roles.Contains("SuperAdmin") || Model.Roles.Contains("Admin"))
                             {
                                 <div class="col-4 my-3">
-                                    <a href="#" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                    <a href="@Url.Action("Delete", "Forum", new { id = forum.Id, categoryId = Model.Category.Id })" class="d-grid gap-2 d-flex float-right p-1 ml-3">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </a>
                                     <a href="@Url.Action("Edit", "Forum", new { id = forum.Id, categoryId = Model.Category.Id })" class="d-grid gap-2 d-flex float-right p-1">

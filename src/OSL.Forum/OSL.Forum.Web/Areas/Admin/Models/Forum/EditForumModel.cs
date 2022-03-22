@@ -69,5 +69,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _forumService.EditForum(forum);
             _categoryService.UpdateModificationDate(modificationDate, forum.CategoryId);
         }
+
+        public void Delete(Guid forumId)
+        {
+            if (forumId == Guid.Empty)
+                throw new ArgumentNullException(nameof(forumId));
+
+            _forumService.DeleteForum(forumId);
+        }
     }
 }
