@@ -52,18 +52,22 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         {
             var user = _profileService.GetUser();
 
+            if (user == null)
+                throw new InvalidOperationException(nameof(user));
+
+            var time = _dateTimeUtility.Now;
             var forum = new BO.Forum()
             {
                 Name = this.Name,
                 CategoryId = this.CategoryId,
                 ApplicationUserId = user.Id,
-                CreationDate = _dateTimeUtility.Now,
-                ModificationDate = _dateTimeUtility.Now,
+                CreationDate = time,
+                ModificationDate = time,
                 ApprovalType = ApprovalType.Manual.ToString()
             };
 
             _forumService.CreateForum(forum);
-            _categoryService.UpdateModificationDate(forum.ModificationDate, forum.CategoryId);
+            _categoryService.UpdateModificationDate(time, forum.CategoryId);
         }
     }
 }
