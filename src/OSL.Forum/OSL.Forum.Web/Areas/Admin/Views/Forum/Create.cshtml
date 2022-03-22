@@ -30,7 +30,7 @@
                         <b>Create New Forum</b>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
+                        @using (Html.BeginForm("Create", "Forum", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })

@@ -50,7 +50,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 _logger.Error("New Forum Create failed.");
                 _logger.Error(ex.Message);
 
-                return View(model);
+                return View();
             }
         }
     }

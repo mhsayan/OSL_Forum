@@ -21,7 +21,7 @@ namespace OSL.Forum.Web.Services
         public ApplicationUser GetUser()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            var user = UserManager.FindByName(userId);
+            var user = UserManager.FindById(userId);
 
             return user ?? null;
         }
