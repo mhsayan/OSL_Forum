@@ -42,12 +42,12 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 model.Resolve(_scope);
                 model.Create();
 
-                return Redirect(nameof(Index));
+                return RedirectToAction("Details", "Category", new { id = model.CategoryId });
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                _logger.Error("New Category Create failed.");
+                _logger.Error("New Forum Create failed.");
                 _logger.Error(ex.Message);
 
                 return View(model);

@@ -20,6 +20,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         public string Name { get; set; }
         private ILifetimeScope _scope;
         private IProfileService _profileService;
+        private IForumService _forumService;
         private IDateTimeUtility _dateTimeUtility;
 
         public CreateForumModel()
@@ -28,10 +29,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public CreateForumModel(ICategoryService categoryService,
             IProfileService profileService,
-            IDateTimeUtility dateTimeUtility)
+            IDateTimeUtility dateTimeUtility,
+            IForumService forumService)
         {
             _profileService = profileService;
             _dateTimeUtility = dateTimeUtility;
+            _forumService = forumService;
         }
 
         public void Resolve(ILifetimeScope scope)
@@ -39,6 +42,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
+            _forumService = _scope.Resolve<IForumService>();
         }
 
         public void Create()
@@ -55,7 +59,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
                 ApprovalType = ApprovalType.Manual.ToString()
             };
 
-
+            _forumService.CreateForum(forum);
         }
     }
 }

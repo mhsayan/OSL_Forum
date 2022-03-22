@@ -130,6 +130,10 @@
     <Compile Include="Migrations\202203220633349_AddedFixedTableNameForEntities.designer.cs">
       <DependentUpon>202203220633349_AddedFixedTableNameForEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs" />
+    <Compile Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.designer.cs">
+      <DependentUpon>202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -175,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203220633349_AddedFixedTableNameForEntities.resx">
       <DependentUpon>202203220633349_AddedFixedTableNameForEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.resx">
+      <DependentUpon>202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
