@@ -119,5 +119,20 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Categories.Add(categoryEntity);
             _unitOfWork.Save();
         }
+
+        public void UpdateModificationDate(DateTime modificationDate, Guid categoryId)
+        {
+            if (categoryId == Guid.Empty)
+                throw new ArgumentNullException(nameof(categoryId));
+
+            var categoryEntity = _unitOfWork.Categories.GetById(categoryId);
+
+            if (categoryEntity is null)
+                throw new InvalidOperationException("Category is not found.");
+
+            categoryEntity.ModificationDate = modificationDate;
+
+            _unitOfWork.Save();
+        }
     }
 }

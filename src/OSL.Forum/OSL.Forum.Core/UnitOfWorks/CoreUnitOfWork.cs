@@ -13,12 +13,15 @@ namespace OSL.Forum.Core.UnitOfWorks
     public class CoreUnitOfWork : UnitOfWork, ICoreUnitOfWork
     {
         public ICategoryRepository Categories { get; private set; }
+        public IForumRepository Forums { get; private set; }
 
         public CoreUnitOfWork(ICoreDbContext context,
-            ICategoryRepository categories
+            ICategoryRepository categories,
+            IForumRepository forums
         ) : base((DbContext)context)
         {
             Categories = categories;
+            Forums = forums;
         }
     }
 }

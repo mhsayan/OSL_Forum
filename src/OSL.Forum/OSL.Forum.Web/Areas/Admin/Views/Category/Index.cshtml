@@ -44,10 +44,12 @@
                                 @if (Model.Roles.Contains("SuperAdmin"))
                                 {
                                     <div class="col-4">
-                                        @Html.ActionLink("Edit", "Edit", "Category", new { id = category.Id },
-                                            new { @class = "btn btn-info d-grid gap-2 d-flex float-right p-1 ml-3" })
-                                        @Html.ActionLink("Delete", "Delete", "Category", new { id = category.Id },
-                                            new { @class = "btn btn-danger d-grid gap-2 d-flex float-right p-1 ml-3" })
+                                        <a href="@Url.Action("Delete", "Category", new { id = category.Id })" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="@Url.Action("Edit", "Category", new { id = category.Id })" class="d-grid gap-2 d-flex float-right p-1">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                 }
                             </div>
