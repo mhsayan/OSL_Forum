@@ -33,9 +33,8 @@
                     <div class="card">
                         <div class="row">
                             <div class="col-8 my-3 pl-4">
-                                @*@Html.ActionLink(forum.Name, "Details", "Category", new { id = forum.Id },
-                                    new { @class = "stretched-link" })*@
-                                @forum.Name
+                                @Html.ActionLink(forum.Name, "Topic", "Post", new { id = forum.Id },
+                                    new { @class = "stretched-link" })
                             </div>
                         </div>
                     </div>
