@@ -1,13 +1,16 @@
-﻿@model OSL.Forum.Web.Areas.Admin.Models.Category.CreateCategoryModel
+﻿@model OSL.Forum.Web.Models.CreateTopicModel
 @{
-    ViewBag.Title = "Create Category";
+    ViewBag.Title = "Create Topic";
 }
+<link href="~/Themes/AdminLTE/plugins/summernote/summernote.css" rel="stylesheet" />
+<script src="~/Themes/AdminLTE/plugins/summernote/summernote.js"></script>
+
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Create A New Category</h1>
+                <h1>Create A New Topic</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -30,7 +33,7 @@
                         <b>Create New Category</b>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("Create", "Category", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
+                        @using (Html.BeginForm("Create", "Post", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -42,14 +45,17 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                @Html.LabelFor(m => m.Description, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(m => m.Description, new { rows = "10", cols = "150", @class = "form-control col-md-6 topicDescription", @maxlength = "10000", @minlength = "50" })
+                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <input type="submit" class="btn btn-primary" value="Submit" />
                                 </div>
                             </div>
-                        }
-
-                        @section Scripts {
-                            @Scripts.Render("~/bundles/jqueryval")
                         }
                     </div>
                 </div>
@@ -57,3 +63,24 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('.topicDescription').summernote({
+            height: 100,                  
+            minHeight: 50,
+            maxHeight: 200, 
+            focus: true,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+}
