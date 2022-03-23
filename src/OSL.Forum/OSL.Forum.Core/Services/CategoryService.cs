@@ -56,7 +56,8 @@ namespace OSL.Forum.Core.Services
 
         public IList<BO.Category> GetCategories()
         {
-            var categoryEntities = _unitOfWork.Categories.GetAll();
+            var categoryEntities = _unitOfWork.Categories.Get(null, "Forums");
+
             var categoryList = from c in categoryEntities
                                orderby c.ModificationDate descending
                                select c;
@@ -65,6 +66,7 @@ namespace OSL.Forum.Core.Services
 
             foreach (var entity in categoryList)
             {
+                entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).ToList();
                 var category = _mapper.Map<BO.Category>(entity);
                 categories.Add(category);
             }

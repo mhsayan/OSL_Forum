@@ -55,9 +55,17 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <p class="card-text text-muted">
-                                Asked : @category.CreationDate
-                            </p>
+                            <ul class="list-group list-group-flush">
+                                @foreach (var forum in category.Forums)
+                                {
+                                    <li class="list-group-item">
+                                        @*@Html.ActionLink(forum.Name, "Details", "Category", new { id = forum.Id },
+                                            new { @class = "stretched-link" })*@
+                                        @forum.Name
+                                    </li>
+
+                                }
+                            </ul>
                         </div>
                     </div>
                 </div>
