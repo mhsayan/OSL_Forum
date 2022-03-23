@@ -30,7 +30,7 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Details(Guid id)
+        public ActionResult Details(Guid id)
         {
             var model = _scope.Resolve<DetailsModel>();
             model.Resolve(_scope);

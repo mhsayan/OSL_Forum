@@ -39,9 +39,8 @@
                                 @foreach (var forum in category.Forums)
                                 {
                                     <li class="list-group-item">
-                                        @*@Html.ActionLink(forum.Name, "Details", "Category", new { id = forum.Id },
-                                            new { @class = "stretched-link" })*@
-                                        @forum.Name
+                                        @Html.ActionLink(forum.Name, "Topic", "Post", new { id = forum.Id },
+                                            new { @class = "stretched-link" })
                                     </li>
                                 }
                             </ul>
