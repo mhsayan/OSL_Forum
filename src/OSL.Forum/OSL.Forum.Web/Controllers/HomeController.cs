@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -25,6 +26,15 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<IndexViewModel>();
             model.Resolve(_scope);
             ViewBag.Categories = model.GetCategories();
+
+            return View(model);
+        }
+
+        public async Task<ActionResult> Details(Guid id)
+        {
+            var model = _scope.Resolve<DetailsModel>();
+            model.Resolve(_scope);
+            model.GetCategory(id);
 
             return View(model);
         }
