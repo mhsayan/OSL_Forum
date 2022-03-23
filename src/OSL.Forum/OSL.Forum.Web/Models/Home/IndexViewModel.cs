@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
-using Microsoft.Ajax.Utilities;
-using OSL.Forum.Core.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using OSL.Forum.Web.Models;
+using OSL.Forum.Core.Services;
+using BO = OSL.Forum.Core.BusinessObjects;
 
-namespace OSL.Forum.Web.Areas.Admin.Models.Category
+namespace OSL.Forum.Web.Models.Home
 {
-    public class CategoriesModel
+    public class IndexViewModel
     {
         public IList<string> Roles { get; set; }
         private ILifetimeScope _scope;
@@ -24,11 +21,11 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
         private readonly ApplicationUserManager _userManager = new ApplicationUserManager(UserStore);
 
-        public CategoriesModel()
+        public IndexViewModel()
         {
         }
 
-        public CategoriesModel(ICategoryService categoryService,
+        public IndexViewModel(ICategoryService categoryService,
             IMapper mapper)
         {
             _categoryService = categoryService;
@@ -51,11 +48,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
             Roles = await _userManager.GetRolesAsync(userId);
-        }
-
-        public void Delete(Guid categoryId)
-        {
-            _categoryService.DeleteCategory(categoryId);
         }
     }
 }
