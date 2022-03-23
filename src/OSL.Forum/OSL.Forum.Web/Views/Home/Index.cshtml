@@ -29,9 +29,8 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-12">
-                                    @*@Html.ActionLink(category.Name, "Details", "Category", new { id = category.Id },
-                                        new { @class = "stretched-link" })*@
-                                    @category.Name
+                                    @Html.ActionLink(category.Name, "Details", "Home", new { id = category.Id },
+                                        new { @class = "stretched-link" })
                                 </div>
                             </div>
                         </div>
@@ -44,7 +43,6 @@
                                             new { @class = "stretched-link" })*@
                                         @forum.Name
                                     </li>
-
                                 }
                             </ul>
                         </div>
