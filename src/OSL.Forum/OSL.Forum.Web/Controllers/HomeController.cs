@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Autofac;
 using log4net;
+using OSL.Forum.Web.Models.Home;
 
 namespace OSL.Forum.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(HomeController));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(HomeController));
+        private readonly ILifetimeScope _scope;
+
+        public HomeController(ILifetimeScope scope)
+        {
+            _scope = scope;
+        }
+
+
         public ActionResult Index()
         {
-            Log.Info("Action Index has been fired.");
+            var model = _scope.Resolve<IndexViewModel>();
+            model.Resolve(_scope);
+            ViewBag.Categories = model.GetCategories();
 
-            return View();
+            return View(model);
         }
 
         public ActionResult About()
