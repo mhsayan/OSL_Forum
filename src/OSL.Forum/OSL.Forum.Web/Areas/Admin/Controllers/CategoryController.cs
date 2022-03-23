@@ -19,6 +19,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         // GET: Category
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         public async Task<ActionResult> Index()
         {
             var model = _scope.Resolve<CategoriesModel>();
@@ -96,6 +97,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index), "Category");
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         public async Task<ActionResult> Details(Guid id)
         {
             var model = _scope.Resolve<CategoryDetailsModel>();

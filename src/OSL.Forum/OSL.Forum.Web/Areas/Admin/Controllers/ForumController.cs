@@ -9,6 +9,7 @@ using OSL.Forum.Web.Areas.Admin.Models.Forum;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class ForumController : Controller
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(CategoryController));
