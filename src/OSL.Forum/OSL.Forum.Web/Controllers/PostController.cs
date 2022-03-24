@@ -32,14 +32,15 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Create()
+        [Authorize]
+        public ActionResult Create(Guid id)
         {
             var model = _scope.Resolve<CreateTopicModel>();
             model.Resolve(_scope);
 
             return View(model);
         }
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateTopicModel model)
@@ -50,11 +51,10 @@ namespace OSL.Forum.Web.Controllers
             try
             {
                 model.Resolve(_scope);
-                //model.Create();
+                model.Create();
+                model.CreatePost();
 
-                return View();
-
-                //return RedirectToAction("Details", "Category", new { id = model.CategoryId });
+                return RedirectToAction("Details", "Home", new { id = model.Id });
             }
             catch (Exception ex)
             {

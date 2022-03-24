@@ -37,6 +37,7 @@
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Name, new { @class = "col-md-6 control-label" })
                                 <div class="col-md-10">
@@ -69,9 +70,9 @@
 
     <script>
         $('.topicDescription').summernote({
-            height: 100,                  
+            height: 100,
             minHeight: 50,
-            maxHeight: 200, 
+            maxHeight: 200,
             focus: true,
             toolbar: [
                 ['style', ['style']],
