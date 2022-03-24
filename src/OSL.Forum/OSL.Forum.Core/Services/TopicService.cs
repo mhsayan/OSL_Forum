@@ -23,94 +23,66 @@ namespace OSL.Forum.Core.Services
             _mapper = mapper;
         }
 
-        public BO.Forum GetForum(string forumName, Guid categoryId)
+        public BO.Topic GetTopic(string topicName, Guid forumId)
         {
-            if (string.IsNullOrWhiteSpace(forumName))
-                throw new ArgumentNullException(nameof(forumName));
+            if (string.IsNullOrWhiteSpace(topicName))
+                throw new ArgumentNullException(nameof(topicName));
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Name == forumName && c.CategoryId == categoryId, "").FirstOrDefault();
+            var topicEntity = _unitOfWork.Topics.Get(c =>
+                c.Name == topicName && c.ForumId == forumId, "").FirstOrDefault();
 
-            if (forumEntity == null)
+            if (topicEntity == null)
                 return null;
 
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
+            var topic = _mapper.Map<BO.Topic>(topicEntity);
 
-            return forum;
+            return topic;
         }
 
-        public BO.Forum GetForum(Guid forumId)
+        public BO.Topic GetTopic(Guid topicId)
         {
-            if (forumId == Guid.Empty)
-                throw new ArgumentNullException(nameof(forumId));
+            if (topicId == Guid.Empty)
+                throw new ArgumentNullException(nameof(topicId));
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Id == forumId, "Topics").FirstOrDefault();
+            var topicEntity = _unitOfWork.Topics.Get(c =>
+                c.Id == topicId, "Posts").FirstOrDefault();
 
-            if (forumEntity == null)
+            if (topicEntity == null)
                 return null;
 
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
+            var topic = _mapper.Map<BO.Topic>(topicEntity);
 
-            return forum;
+            return topic;
         }
 
-        public BO.Forum GetForum(string forumName)
+        public BO.Topic GetTopic(string topicName)
         {
-            if (string.IsNullOrWhiteSpace(forumName))
-                throw new ArgumentNullException(nameof(forumName));
+            if (string.IsNullOrWhiteSpace(topicName))
+                throw new ArgumentNullException(nameof(topicName));
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Name == forumName, "").FirstOrDefault();
+            var topicEntity = _unitOfWork.Topics.Get(c => c.Name == topicName, "").FirstOrDefault();
 
-            if (forumEntity == null)
+            if (topicEntity == null)
                 return null;
 
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
+            var topic = _mapper.Map<BO.Topic>(topicEntity);
 
-            return forum;
+            return topic;
         }
 
-        public void EditForum(BO.Forum forum)
+        public void CreateTopic(BO.Topic topic)
         {
-            if (forum is null)
-                throw new ArgumentNullException(nameof(forum));
+            if (topic is null)
+                throw new ArgumentNullException(nameof(topic));
 
-            var oldForum = GetForum(forum.Name);
+            var oldForum = GetTopic(topic.Name, topic.ForumId);
 
             if (oldForum != null)
-                throw new DuplicateNameException("This forum already exists.");
+                throw new DuplicateNameException("This Topic already exists under this forum.");
 
-            var forumEntity = _unitOfWork.Forums.GetById(forum.Id);
+            var topicEntity = _mapper.Map<EO.Topic>(topic);
 
-            if (forumEntity is null)
-                throw new InvalidOperationException("Forum is not found.");
-
-            forumEntity.Name = forum.Name;
-            forumEntity.ModificationDate = forum.ModificationDate;
-
-            _unitOfWork.Save();
-        }
-
-        public void DeleteForum(Guid forumId)
-        {
-            if (forumId == Guid.Empty)
-                throw new ArgumentNullException(nameof(forumId));
-
-            _unitOfWork.Forums.Remove(forumId);
-            _unitOfWork.Save();
-        }
-
-        public void CreateForum(BO.Forum forum)
-        {
-            if (forum is null)
-                throw new ArgumentNullException(nameof(forum));
-
-            var oldForum = GetForum(forum.Name, forum.CategoryId);
-
-            if (oldForum != null)
-                throw new DuplicateNameException("This Forum name already exists under this category.");
-
-            var forumEntity = _mapper.Map<EO.Forum>(forum);
-
-            _unitOfWork.Forums.Add(forumEntity);
+            _unitOfWork.Topics.Add(topicEntity);
             _unitOfWork.Save();
         }
     }

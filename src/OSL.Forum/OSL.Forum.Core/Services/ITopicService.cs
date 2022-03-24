@@ -10,10 +10,9 @@ namespace OSL.Forum.Core.Services
 {
     public interface ITopicService
     {
-        void CreateForum(BO.Forum forum);
-        BO.Forum GetForum(string forumName, Guid categoryId);
-        void EditForum(BO.Forum forum);
-        BO.Forum GetForum(Guid forumId);
-        void DeleteForum(Guid forumId);
+        void CreateTopic(BO.Topic topic);
+        BO.Topic GetTopic(string topicName, Guid forumId);
+        BO.Topic GetTopic(Guid topicId);
+        BO.Topic GetTopic(string topicName);
     }
 }

@@ -23,94 +23,55 @@ namespace OSL.Forum.Core.Services
             _mapper = mapper;
         }
 
-        public BO.Forum GetForum(string forumName, Guid categoryId)
+        public BO.Post GetPost(Guid postId)
         {
-            if (string.IsNullOrWhiteSpace(forumName))
-                throw new ArgumentNullException(nameof(forumName));
+            if (postId == Guid.Empty)
+                throw new ArgumentNullException(nameof(postId));
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Name == forumName && c.CategoryId == categoryId, "").FirstOrDefault();
+            var postEntity = _unitOfWork.Posts.Get(c => c.Id == postId, "Topics").FirstOrDefault();
 
-            if (forumEntity == null)
+            if (postEntity == null)
                 return null;
 
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
+            var post = _mapper.Map<BO.Post>(postEntity);
 
-            return forum;
+            return post;
         }
 
-        public BO.Forum GetForum(Guid forumId)
+        public void EditPost(BO.Post post)
         {
-            if (forumId == Guid.Empty)
-                throw new ArgumentNullException(nameof(forumId));
+            if (post is null)
+                throw new ArgumentNullException(nameof(post));
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Id == forumId, "Topics").FirstOrDefault();
+            var postEntity = _unitOfWork.Posts.GetById(post.Id);
 
-            if (forumEntity == null)
-                return null;
-
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
-
-            return forum;
-        }
-
-        public BO.Forum GetForum(string forumName)
-        {
-            if (string.IsNullOrWhiteSpace(forumName))
-                throw new ArgumentNullException(nameof(forumName));
-
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Name == forumName, "").FirstOrDefault();
-
-            if (forumEntity == null)
-                return null;
-
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
-
-            return forum;
-        }
-
-        public void EditForum(BO.Forum forum)
-        {
-            if (forum is null)
-                throw new ArgumentNullException(nameof(forum));
-
-            var oldForum = GetForum(forum.Name);
-
-            if (oldForum != null)
-                throw new DuplicateNameException("This forum already exists.");
-
-            var forumEntity = _unitOfWork.Forums.GetById(forum.Id);
-
-            if (forumEntity is null)
+            if (postEntity is null)
                 throw new InvalidOperationException("Forum is not found.");
 
-            forumEntity.Name = forum.Name;
-            forumEntity.ModificationDate = forum.ModificationDate;
+            postEntity.Name = post.Name;
+            postEntity.Description = post.Description;
+            postEntity.ModificationDate = post.ModificationDate;
 
             _unitOfWork.Save();
         }
 
-        public void DeleteForum(Guid forumId)
+        public void DeletePost(Guid postId)
         {
-            if (forumId == Guid.Empty)
-                throw new ArgumentNullException(nameof(forumId));
+            if (postId == Guid.Empty)
+                throw new ArgumentNullException(nameof(postId));
 
-            _unitOfWork.Forums.Remove(forumId);
+            _unitOfWork.Posts.Remove(postId);
             _unitOfWork.Save();
         }
 
-        public void CreateForum(BO.Forum forum)
+        public void CreatePost(BO.Post post)
         {
-            if (forum is null)
-                throw new ArgumentNullException(nameof(forum));
+            if (post is null)
+                throw new ArgumentNullException(nameof(post));
 
-            var oldForum = GetForum(forum.Name, forum.CategoryId);
+            var postEntity = _mapper.Map<EO.Post>(post);
 
-            if (oldForum != null)
-                throw new DuplicateNameException("This Forum name already exists under this category.");
-
-            var forumEntity = _mapper.Map<EO.Forum>(forum);
-
-            _unitOfWork.Forums.Add(forumEntity);
+            _unitOfWork.Posts.Add(postEntity);
             _unitOfWork.Save();
         }
     }
