@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
+using Microsoft.AspNet.Identity;
 using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Topic;
 
 namespace OSL.Forum.Web.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(PostController));
@@ -22,16 +24,46 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
 
-        public ActionResult Edit(Guid postId, Guid topicId)
+        public ActionResult Edit(Guid postId)
         {
             var model = _scope.Resolve<EditPostModel>();
             model.Resolve(_scope);
             model.GetPost(postId);
+            model.GetTopic();
+            model.GetForum();
+            model.GetCategory();
 
             return View(model);
         }
 
-        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditPostModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            if (model.ApplicationUserId != User.Identity.GetUserId())
+                return View();
+
+            try
+            {
+                model.Resolve(_scope);
+                model.EditPost();
+                model.UpdateTopicModificationDate();
+
+                return RedirectToAction("Details", "Topic", new { topicId = model.TopicId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("Post Edit failed.");
+                _logger.Error(ex.Message);
+
+                return View(model);
+            }
+        }
+
         public ActionResult Create(Guid forumId)
         {
             var model = _scope.Resolve<CreateTopicModel>();
@@ -42,7 +74,6 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        //[Authorize]
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Create(CreateTopicModel model)

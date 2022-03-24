@@ -30,6 +30,7 @@ namespace OSL.Forum.Web.Models.Post
         [StringLength(10000, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 50)]
         public string Description { get; set; }
         public string ApplicationUserId { get; set; }
+        public BO.Topic Topic { get; set; }
         public BO.Forum Forum { get; set; }
         public BO.Category Category { get; set; }
         private DateTime Time { get; set; }
@@ -78,12 +79,24 @@ namespace OSL.Forum.Web.Models.Post
             _mapper.Map(post, this);
         }
 
-        public void Edit()
+        public void EditPost()
         {
+            Time = _dateTimeUtility.Now;
+
             var post = _mapper.Map<BO.Post>(this);
-            post.ModificationDate = _dateTimeUtility.Now;
+            post.ModificationDate = Time;
 
             _postService.EditPost(post);
+        }
+
+        public void UpdateTopicModificationDate()
+        {
+            _topicService.UpdateModificationDate(TopicId, Time);
+        }
+
+        public void GetTopic()
+        {
+            Topic = _topicService.GetTopic(TopicId);
         }
 
         public void GetCategory()
@@ -91,9 +104,9 @@ namespace OSL.Forum.Web.Models.Post
             Category = _categoryService.GetCategory(Forum.CategoryId);
         }
 
-        public void GetForum(Guid forumId)
+        public void GetForum()
         {
-            Forum = _forumService.GetForum(forumId);
+            Forum = _forumService.GetForum(Topic.ForumId);
         }
     }
 }
