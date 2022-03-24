@@ -12,7 +12,7 @@ namespace OSL.Forum.Core.Services
     {
         void CreateTopic(BO.Topic topic);
         BO.Topic GetTopic(string topicName, Guid forumId);
-        BO.Topic GetTopic(Guid topicId);
+        (BO.Topic topic, List<BO.Post> posts) GetTopic(Guid topicId);
         BO.Topic GetTopic(string topicName);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -69,13 +70,14 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public ActionResult Details(Guid topicId)
+        public async Task<ActionResult> Details(Guid topicId)
         {
             var model = _scope.Resolve<TopicDetailsModel>();
             model.Resolve(_scope);
             model.GetTopic(topicId);
             model.GetForum();
             model.GetCategory();
+            await model.GetUserRoles();
 
             return View(model);
         }

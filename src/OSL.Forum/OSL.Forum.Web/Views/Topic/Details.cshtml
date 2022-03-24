@@ -23,20 +23,22 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="text-primary text-bold">
+                <h4 class="text-primary text-bold">
                     @Model.Category.Name / @Model.Forum.Name
-                </h3>
+                </h4>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="text-primary text-bold">
+        <div class="row m-2">
+            <div class="col">
+                <h5 class="text-bold">
                     @Model.Topic.Name
-                    <a href="@Url.Action("Create", "Topic", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right m-2">
-                        Reply
-                        <i class="far fa-reply m-1"></i>
-                    </a>
-                </h3>
+                </h5>
+            </div>
+            <div class="col">
+                <a href="@Url.Action("Create", "Topic", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right">
+                    Reply
+                    <i class="fas fa-reply m-1"></i>
+                </a>
             </div>
         </div>
         <div class="row">
@@ -45,19 +47,39 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="row">
-                            <div class="col-sm-12 my-3 pl-4">
-                                @post.Name
+                            <div class="col-sm-8 my-3 pl-4">
+                                <h6 class="text-bold">@post.Name</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8 my-3 pl-4">
+                                <h6 class="text-bold">@post.Name</h6>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 my-3 pl-4">
                                 @Html.Raw(post.Description)
                             </div>
+                            @if (Model.Roles.Contains("SuperAdmin") || Model.Roles.Contains("Admin"))
+                            {
+                                <div class="col-4 my-3">
+                                    <a href="@Url.Action("Delete", "Forum", new { id = forum.Id, categoryId = Model.Category.Id })" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="@Url.Action("Edit", "Forum", new { id = forum.Id, categoryId = Model.Category.Id })" class="d-grid gap-2 d-flex float-right p-1">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
             }
         </div>
+        <a href="@Url.Action("Create", "Topic", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right mr-3">
+            Reply
+            <i class="fas fa-reply m-1"></i>
+        </a>
     </div>
 </section>
 

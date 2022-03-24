@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
@@ -18,6 +19,8 @@ namespace OSL.Forum.Web.Models.Topic
         public BO.Category Category { get; set; }
         public BO.Topic Topic { get; set; }
         private DateTime Time { get; set; }
+        public bool IsAuthenticated { get; set; }
+        public IList<string> UserRoles { get; set; }
         private ILifetimeScope _scope;
         private ICategoryService _categoryService;
         private ITopicService _topicService;
@@ -52,7 +55,16 @@ namespace OSL.Forum.Web.Models.Topic
 
         public void GetTopic(Guid topicId)
         {
-            Topic = _topicService.GetTopic(topicId);
+            var (topic, posts) = _topicService.GetTopic(topicId);
+
+            foreach (var post in posts)
+            {
+                post.Owner = _profileService.Owner(post.ApplicationUserId);
+                post.OwnerName = _profileService.GetUser(post.ApplicationUserId).Name;
+            }
+
+            Topic.Name = topic.Name;
+            Topic.Posts = posts;
         }
 
         public void GetCategory()
@@ -63,6 +75,11 @@ namespace OSL.Forum.Web.Models.Topic
         public void GetForum()
         {
             Forum = _forumService.GetForum(Topic.ForumId);
+        }
+
+        public async Task GetUserRoles()
+        {
+            UserRoles = await _profileService.UserRoles();
         }
     }
 }
