@@ -9,7 +9,7 @@ using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
-using OSL.Forum.Web.Models.Post;
+using OSL.Forum.Web.Models.Topic;
 using OSL.Forum.Web.Profiles;
 using OSL.Forum.Web.Services;
 using IndexViewModel = OSL.Forum.Web.Models.Home.IndexViewModel;

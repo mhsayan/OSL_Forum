@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
-namespace OSL.Forum.Web.Models.Post
+namespace OSL.Forum.Web.Models.Topic
 {
     public class TopicViewModel
     {
@@ -21,8 +17,6 @@ namespace OSL.Forum.Web.Models.Post
         private IForumService _forumService;
         private ICategoryService _categoryService;
         private IMapper _mapper;
-        private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        private readonly ApplicationUserManager _userManager = new ApplicationUserManager(UserStore);
         public TopicViewModel()
         {
         }

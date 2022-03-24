@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -11,12 +10,12 @@ using OSL.Forum.Web.Models.Topic;
 
 namespace OSL.Forum.Web.Controllers
 {
-    public class PostController : Controller
+    public class TopicController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(PostController));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(TopicController));
         private readonly ILifetimeScope _scope;
 
-        public PostController(ILifetimeScope scope)
+        public TopicController(ILifetimeScope scope)
         {
             _scope = scope;
         }
@@ -58,7 +57,7 @@ namespace OSL.Forum.Web.Controllers
                 model.Create();
                 model.CreatePost();
 
-                return RedirectToAction("Topic", "Post", new { id = model.ForumId });
+                return RedirectToAction("Topic", "Topic", new { id = model.ForumId });
             }
             catch (Exception ex)
             {
