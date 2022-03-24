@@ -51,6 +51,7 @@ namespace OSL.Forum.Web
             builder.RegisterType<DetailsModel>().AsSelf();
             builder.RegisterType<TopicViewModel>().AsSelf();
             builder.RegisterType<CreateTopicModel>().AsSelf();
+            builder.RegisterType<TopicDetailsModel>().AsSelf();
         }
     }
 }

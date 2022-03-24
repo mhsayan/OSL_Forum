@@ -242,6 +242,7 @@
     <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Topic\TopicDetailsModel.cs" />
     <Compile Include="Models\Topic\TopicViewModel.cs" />
     <Compile Include="Profiles\WebProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2330,6 +2331,7 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Topic\Topics.cshtml" />
     <Content Include="Views\Topic\Create.cshtml" />
+    <Content Include="Views\Topic\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

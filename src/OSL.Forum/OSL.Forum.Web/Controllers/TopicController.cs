@@ -68,5 +68,16 @@ namespace OSL.Forum.Web.Controllers
                 return View(model);
             }
         }
+
+        public ActionResult Details(Guid topicId)
+        {
+            var model = _scope.Resolve<TopicDetailsModel>();
+            model.Resolve(_scope);
+            model.GetTopic(topicId);
+            model.GetForum();
+            model.GetCategory();
+
+            return View(model);
+        }
     }
 }
