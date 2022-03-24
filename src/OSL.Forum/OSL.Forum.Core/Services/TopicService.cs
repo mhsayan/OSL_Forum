@@ -70,6 +70,22 @@ namespace OSL.Forum.Core.Services
             return topic;
         }
 
+        public void UpdateModificationDate(Guid topicId, DateTime modificationDate)
+        {
+            if (topicId == Guid.Empty)
+                throw new ArgumentNullException(nameof(topicId));
+
+            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+
+            if (topicEntity == null)
+                throw new ArgumentException(nameof(topicEntity));
+
+            topicEntity.ModificationDate = modificationDate;
+
+            _unitOfWork.Save();
+
+        }
+
         public void CreateTopic(BO.Topic topic)
         {
             if (topic is null)

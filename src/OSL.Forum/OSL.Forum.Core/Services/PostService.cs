@@ -28,7 +28,7 @@ namespace OSL.Forum.Core.Services
             if (postId == Guid.Empty)
                 throw new ArgumentNullException(nameof(postId));
 
-            var postEntity = _unitOfWork.Posts.Get(c => c.Id == postId, "Topics").FirstOrDefault();
+            var postEntity = _unitOfWork.Posts.Get(c => c.Id == postId, "").FirstOrDefault();
 
             if (postEntity == null)
                 return null;
@@ -46,7 +46,7 @@ namespace OSL.Forum.Core.Services
             var postEntity = _unitOfWork.Posts.GetById(post.Id);
 
             if (postEntity is null)
-                throw new InvalidOperationException("Forum is not found.");
+                throw new InvalidOperationException("Post is not found.");
 
             postEntity.Name = post.Name;
             postEntity.Description = post.Description;
