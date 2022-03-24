@@ -48,6 +48,7 @@ namespace OSL.Forum.Core.Services
             if (forumEntity == null)
                 return null;
 
+            forumEntity.Topics = forumEntity.Topics.OrderByDescending(t => t.ModificationDate).ToList();
             var forum = _mapper.Map<BO.Forum>(forumEntity);
 
             return forum;
