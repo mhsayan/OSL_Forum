@@ -16,6 +16,6 @@ namespace OSL.Forum.Core.BusinessObjects
         public virtual Entities.Forum Forum { get; set; }
         public string ApplicationUserId { get; set; }
         public string Status { get; set; }
-        public virtual IList<Entities.Post> Posts { get; set; }
+        public virtual IList<Post> Posts { get; set; }
     }
 }

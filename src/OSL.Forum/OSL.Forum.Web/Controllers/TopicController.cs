@@ -11,17 +11,17 @@ using OSL.Forum.Web.Models.Topic;
 
 namespace OSL.Forum.Web.Controllers
 {
-    public class PostController : Controller
+    public class TopicController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(PostController));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(TopicController));
         private readonly ILifetimeScope _scope;
 
-        public PostController(ILifetimeScope scope)
+        public TopicController(ILifetimeScope scope)
         {
             _scope = scope;
         }
         // GET: Post
-        public ActionResult Topic(Guid id)
+        public ActionResult Topics(Guid id)
         {
             var model = _scope.Resolve<TopicViewModel>();
             model.Resolve(_scope);
@@ -58,7 +58,7 @@ namespace OSL.Forum.Web.Controllers
                 model.Create();
                 model.CreatePost();
 
-                return RedirectToAction("Topic", "Post", new { id = model.ForumId });
+                return RedirectToAction("Topics", "Topic", new { id = model.ForumId });
             }
             catch (Exception ex)
             {
@@ -68,6 +68,21 @@ namespace OSL.Forum.Web.Controllers
 
                 return View(model);
             }
+        }
+
+        public async Task<ActionResult> Details(Guid topicId)
+        {
+            var model = _scope.Resolve<TopicDetailsModel>();
+            model.Resolve(_scope);
+            model.GetTopic(topicId);
+            model.GetForum();
+            model.GetCategory();
+            model.UserAuthenticatedStatus();
+
+            if (model.IsAuthenticated)
+                await model.GetUserRoles();
+
+            return View(model);
         }
     }
 }

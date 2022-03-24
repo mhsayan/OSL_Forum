@@ -221,6 +221,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,12 +237,13 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\Category\CreateCategoryModel.cs" />
     <Compile Include="Models\ConfirmEmailModel.cs" />
-    <Compile Include="Models\CreateTopicModel.cs" />
+    <Compile Include="Models\Topic\CreateTopicModel.cs" />
     <Compile Include="Models\Home\DetailsModel.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Post\TopicViewModel.cs" />
+    <Compile Include="Models\Topic\TopicDetailsModel.cs" />
+    <Compile Include="Models\Topic\TopicViewModel.cs" />
     <Compile Include="Profiles\WebProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seeds\IdentityHelper.cs" />
@@ -2326,13 +2328,16 @@
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
     <Content Include="Views\Account\ConfirmRegistration.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
-    <Content Include="Views\Post\Topic.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Topic\Topics.cshtml" />
+    <Content Include="Views\Topic\Create.cshtml" />
+    <Content Include="Views\Topic\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Logs\" />
+    <Folder Include="Models\Post\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using AutoMapper;
@@ -12,7 +9,7 @@ using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
-namespace OSL.Forum.Web.Models
+namespace OSL.Forum.Web.Models.Topic
 {
     public class CreateTopicModel
     {

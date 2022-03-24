@@ -1,4 +1,4 @@
-﻿@model OSL.Forum.Web.Models.Post.TopicViewModel
+﻿@model OSL.Forum.Web.Models.Topic.TopicViewModel
 @{
     ViewBag.Title = "Topics";
 }
@@ -29,7 +29,7 @@
                 </h3>
             </div>
             <div class="col-md-4">
-                <a href="@Url.Action("Create", "Post", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right m-2">
+                <a href="@Url.Action("Create", "Topic", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right m-2">
                     <i class="fa fa-plus-square m-1"></i>
                     New Topic
                 </a>
@@ -42,9 +42,8 @@
                     <div class="card">
                         <div class="row">
                             <div class="col-sm-12 my-3 pl-4">
-                                @*@Html.ActionLink(forum.Name, "Details", "Category", new { id = forum.Id },
-                                    new { @class = "stretched-link" })*@
-                                @topic.Name
+                                @Html.ActionLink(@topic.Name, "Details", "Topic", new { topicId = topic.Id },
+                                    new { @class = "stretched-link" })
                             </div>
                         </div>
                     </div>
@@ -53,5 +52,3 @@
         </div>
     </div>
 </section>
-
-

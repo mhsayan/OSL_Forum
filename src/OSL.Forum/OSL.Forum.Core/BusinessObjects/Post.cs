@@ -16,5 +16,7 @@ namespace OSL.Forum.Core.BusinessObjects
         public virtual Topic Topic { get; set; }
         public string ApplicationUserId { get; set; }
         public string Status { get; set; }
+        public bool Owner { get; set; }
+        public string OwnerName { get; set; }
     }
 }
