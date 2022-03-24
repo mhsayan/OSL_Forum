@@ -137,8 +137,12 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TopicRepository.cs" />
+    <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\ForumRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\ITopicRepository.cs" />
+    <Compile Include="Repositories\IPostRepository.cs" />
     <Compile Include="Repositories\IForumRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
     <Compile Include="Services\ForumService.cs" />
