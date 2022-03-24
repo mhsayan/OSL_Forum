@@ -28,6 +28,8 @@ namespace OSL.Forum.Web.Models
         [StringLength(10000, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 50)]
         public string Description { get; set; }
         private ApplicationUser ApplicationUser { get; set; }
+        public BO.Forum Forum { get; set; }
+        public BO.Category Category { get; set; }
         private DateTime Time { get; set; }
         private ILifetimeScope _scope;
         private ICategoryService _categoryService;
@@ -35,6 +37,7 @@ namespace OSL.Forum.Web.Models
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
         private IProfileService _profileService;
+        private IForumService _forumService;
         private IMapper _mapper;
 
         public CreateTopicModel()
@@ -44,7 +47,7 @@ namespace OSL.Forum.Web.Models
         public CreateTopicModel(ICategoryService categoryService,
             IMapper mapper, IDateTimeUtility dateTimeUtility,
             IProfileService profileService, ITopicService topicService,
-            IPostService postService)
+            IPostService postService, IForumService forumService)
         {
             _categoryService = categoryService;
             _mapper = mapper;
@@ -52,6 +55,7 @@ namespace OSL.Forum.Web.Models
             _profileService = profileService;
             _topicService = topicService;
             _postService = postService;
+            _forumService = forumService;
         }
 
         public void Resolve(ILifetimeScope scope)
@@ -63,6 +67,7 @@ namespace OSL.Forum.Web.Models
             _profileService = _scope.Resolve<IProfileService>();
             _topicService = _scope.Resolve<ITopicService>();
             _postService = _scope.Resolve<IPostService>();
+            _forumService = _scope.Resolve<IForumService>();
         }
 
         public void Create()
@@ -106,6 +111,16 @@ namespace OSL.Forum.Web.Models
             };
 
             _postService.CreatePost(post);
+        }
+
+        public void GetCategory()
+        {
+            Category = _categoryService.GetCategory(Forum.CategoryId);
+        }
+
+        public void GetForum(Guid forumId)
+        {
+            Forum = _forumService.GetForum(forumId);
         }
     }
 }

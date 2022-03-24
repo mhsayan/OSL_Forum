@@ -10,12 +10,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Create A New Topic</h1>
+                <h1>Create New Topic</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Create Category</li>
+                    <li class="breadcrumb-item"><a href="#">Topics</a></li>
+                    <li class="breadcrumb-item active">Create Topic</li>
                 </ol>
             </div>
         </div>
@@ -26,11 +26,18 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-8">
+                <h3 class="text-primary text-bold">
+                    @Model.Category.Name / @Model.Forum.Name
+                </h3>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
 
                 <div class="card card-primary">
                     <div class="card-header text-uppercase">
-                        <b>Create New Category</b>
+                        <b>Create New Topic</b>
                     </div>
                     <div class="card-body">
                         @using (Html.BeginForm("Create", "Post", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))

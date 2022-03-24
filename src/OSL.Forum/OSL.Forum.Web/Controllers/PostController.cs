@@ -37,6 +37,8 @@ namespace OSL.Forum.Web.Controllers
         {
             var model = _scope.Resolve<CreateTopicModel>();
             model.Resolve(_scope);
+            model.GetForum(forumId);
+            model.GetCategory();
 
             return View(model);
         }
@@ -51,6 +53,8 @@ namespace OSL.Forum.Web.Controllers
             try
             {
                 model.Resolve(_scope);
+                model.GetForum(model.ForumId);
+                model.GetCategory();
                 model.Create();
                 model.CreatePost();
 
@@ -62,7 +66,7 @@ namespace OSL.Forum.Web.Controllers
                 _logger.Error("New Topic Creation failed.");
                 _logger.Error(ex.Message);
 
-                return View();
+                return View(model);
             }
         }
     }
