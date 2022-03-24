@@ -57,14 +57,14 @@
                                         Model.UserRoles.Contains("Admin") ||
                                         Model.UserRoles.Contains("Moderator") || post.Owner))
                                     {
-                                        <a href="@Url.Action("Delete", "Forum", new {id = post.Id, categoryId = Model.Category.Id})" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <a href="@Url.Action("Delete", "Post", new {postId = post.Id, topicId = @Model.Topic.Id})" class="d-grid gap-2 d-flex float-right p-1 ml-3">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </a>
                                     }
 
                                     @if (Model.IsAuthenticated && post.Owner)
                                     {
-                                        <a href="@Url.Action("Edit", "Forum", new {id = post.Id, categoryId = Model.Category.Id})" class="d-grid gap-2 d-flex float-right p-1">
+                                        <a href="@Url.Action("Edit", "Post", new {postId = post.Id, topicId = @Model.Topic.Id})" class="d-grid gap-2 d-flex float-right p-1">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
                                     }

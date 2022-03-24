@@ -237,6 +237,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\Category\CreateCategoryModel.cs" />
     <Compile Include="Models\ConfirmEmailModel.cs" />
+    <Compile Include="Models\Post\EditPostModel.cs" />
     <Compile Include="Models\Topic\CreateTopicModel.cs" />
     <Compile Include="Models\Home\DetailsModel.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
@@ -2332,12 +2333,12 @@
     <Content Include="Views\Topic\Topics.cshtml" />
     <Content Include="Views\Topic\Create.cshtml" />
     <Content Include="Views\Topic\Details.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Logs\" />
-    <Folder Include="Models\Post\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
