@@ -55,16 +55,13 @@ namespace OSL.Forum.Web.Models.Topic
 
         public void GetTopic(Guid topicId)
         {
-            var (topic, posts) = _topicService.GetTopic(topicId);
+            Topic = _topicService.GetTopic(topicId);
 
-            foreach (var post in posts)
+            foreach (var post in Topic.Posts)
             {
                 post.Owner = _profileService.Owner(post.ApplicationUserId);
                 post.OwnerName = _profileService.GetUser(post.ApplicationUserId).Name;
             }
-
-            Topic.Name = topic.Name;
-            Topic.Posts = posts;
         }
 
         public void GetCategory()

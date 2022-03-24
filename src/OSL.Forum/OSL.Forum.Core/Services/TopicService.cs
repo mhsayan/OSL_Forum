@@ -39,7 +39,7 @@ namespace OSL.Forum.Core.Services
             return topic;
         }
 
-        public (BO.Topic topic, List<BO.Post> posts) GetTopic(Guid topicId)
+        public BO.Topic GetTopic(Guid topicId)
         {
             if (topicId == Guid.Empty)
                 throw new ArgumentNullException(nameof(topicId));
@@ -48,18 +48,11 @@ namespace OSL.Forum.Core.Services
                 c.Id == topicId, "Posts").FirstOrDefault();
 
             if (topicEntity == null)
-                return (null, null);
+                return null;
 
             var topic = _mapper.Map<BO.Topic>(topicEntity);
 
-            var posts = new List<BO.Post>();
-
-            foreach (var post in topic.Posts)
-            {
-                posts.Add(_mapper.Map<BO.Post>(post));
-            }
-
-            return (topic, posts);
+            return topic;
         }
 
         public BO.Topic GetTopic(string topicName)
