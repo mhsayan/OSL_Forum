@@ -28,21 +28,17 @@
                     <i class="far fa-star m-2"></i>
                 </h3>
             </div>
-            @if (Model.IsAuthenticated)
-            {
-                <div class="col-md-4">
-                    <a href="#" class="btn btn-primary d-grid gap-2 d-flex float-right m-2">
-                        <i class="fa fa-plus-square m-1"></i>
-                        New Topic
-                        @*@Url.Action("Create", "Forum", new { categoryId = @Model.Forum.Id })*@
-                    </a>
-                </div>
-            }
+            <div class="col-md-4">
+                <a href="@Url.Action("Create", "Post", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right m-2">
+                    <i class="fa fa-plus-square m-1"></i>
+                    New Topic
+                </a>
+            </div>
         </div>
         <div class="row">
             @foreach (var topic in Model.Forum.Topics)
             {
-                <div class="col-sm-12 p-3">
+                <div class="col-sm-12">
                     <div class="card">
                         <div class="row">
                             <div class="col-sm-12 my-3 pl-4">

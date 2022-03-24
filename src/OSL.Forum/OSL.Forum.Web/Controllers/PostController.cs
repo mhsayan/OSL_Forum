@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
+using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Post;
 
 namespace OSL.Forum.Web.Controllers
@@ -29,6 +30,44 @@ namespace OSL.Forum.Web.Controllers
             model.LoadUserInfo();
 
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult Create(Guid forumId)
+        {
+            var model = _scope.Resolve<CreateTopicModel>();
+            model.Resolve(_scope);
+            model.GetForum(forumId);
+            model.GetCategory();
+
+            return View(model);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateTopicModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+                model.Resolve(_scope);
+                model.GetForum(model.ForumId);
+                model.GetCategory();
+                model.Create();
+                model.CreatePost();
+
+                return RedirectToAction("Topic", "Post", new { id = model.ForumId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("New Topic Creation failed.");
+                _logger.Error(ex.Message);
+
+                return View(model);
+            }
         }
     }
 }

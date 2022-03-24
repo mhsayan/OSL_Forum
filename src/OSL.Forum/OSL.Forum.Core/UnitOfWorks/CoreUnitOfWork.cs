@@ -14,14 +14,18 @@ namespace OSL.Forum.Core.UnitOfWorks
     {
         public ICategoryRepository Categories { get; private set; }
         public IForumRepository Forums { get; private set; }
+        public IPostRepository Posts { get; private set; }
+        public ITopicRepository Topics { get; private set; }
 
         public CoreUnitOfWork(ICoreDbContext context,
-            ICategoryRepository categories,
-            IForumRepository forums
-        ) : base((DbContext)context)
+            ICategoryRepository categories, IForumRepository forums,
+            IPostRepository posts, ITopicRepository topics
+            ) : base((DbContext)context)
         {
             Categories = categories;
             Forums = forums;
+            Posts = posts;
+            Topics = topics;
         }
     }
 }
