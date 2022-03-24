@@ -20,7 +20,7 @@ namespace OSL.Forum.Web.Models
         [Display(Name = "Topic Name")]
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
-        public Guid Id { get; set; }
+        public Guid ForumId { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
         [AllowHtml]
@@ -80,7 +80,7 @@ namespace OSL.Forum.Web.Models
                 CreationDate = Time,
                 ModificationDate = Time,
                 ApplicationUserId = ApplicationUser.Id,
-                ForumId = this.Id,
+                ForumId = this.ForumId,
                 Status = Status.Pending.ToString()
             };
 

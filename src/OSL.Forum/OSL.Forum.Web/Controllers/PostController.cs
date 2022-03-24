@@ -33,7 +33,7 @@ namespace OSL.Forum.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Create(Guid id)
+        public ActionResult Create(Guid forumId)
         {
             var model = _scope.Resolve<CreateTopicModel>();
             model.Resolve(_scope);
@@ -54,7 +54,7 @@ namespace OSL.Forum.Web.Controllers
                 model.Create();
                 model.CreatePost();
 
-                return RedirectToAction("Details", "Home", new { id = model.Id });
+                return RedirectToAction("Topic", "Post", new { id = model.ForumId });
             }
             catch (Exception ex)
             {
