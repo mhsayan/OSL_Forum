@@ -78,5 +78,10 @@ namespace OSL.Forum.Web.Models.Topic
         {
             UserRoles = await _profileService.UserRoles();
         }
+
+        public void UserAuthenticatedStatus()
+        {
+            IsAuthenticated = _profileService.IsAuthenticated();
+        }
     }
 }

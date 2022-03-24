@@ -77,7 +77,10 @@ namespace OSL.Forum.Web.Controllers
             model.GetTopic(topicId);
             model.GetForum();
             model.GetCategory();
-            await model.GetUserRoles();
+            model.UserAuthenticatedStatus();
+
+            if (model.IsAuthenticated)
+                await model.GetUserRoles();
 
             return View(model);
         }
