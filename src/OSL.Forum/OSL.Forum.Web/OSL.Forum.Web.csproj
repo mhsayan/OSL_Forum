@@ -2328,7 +2328,7 @@
     <Content Include="Views\Account\ConfirmRegistration.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
-    <Content Include="Views\Topic\Topic.cshtml" />
+    <Content Include="Views\Topic\Topics.cshtml" />
     <Content Include="Views\Topic\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -20,7 +20,7 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
         // GET: Post
-        public ActionResult Topic(Guid id)
+        public ActionResult Topics(Guid id)
         {
             var model = _scope.Resolve<TopicViewModel>();
             model.Resolve(_scope);
@@ -57,7 +57,7 @@ namespace OSL.Forum.Web.Controllers
                 model.Create();
                 model.CreatePost();
 
-                return RedirectToAction("Topic", "Topic", new { id = model.ForumId });
+                return RedirectToAction("Topics", "Topic", new { id = model.ForumId });
             }
             catch (Exception ex)
             {
