@@ -101,9 +101,13 @@ namespace OSL.Forum.Web.Controllers
         //    }
         //}
 
-        public ActionResult Delete()
+        public ActionResult Delete(Guid postId, Guid topicId)
         {
-            return null;
+            var model = _scope.Resolve<EditPostModel>();
+            model.Resolve(_scope);
+            model.Delete(postId);
+
+            return RedirectToAction("Details", "Topic", new { topicId = topicId });
         }
     }
 }
