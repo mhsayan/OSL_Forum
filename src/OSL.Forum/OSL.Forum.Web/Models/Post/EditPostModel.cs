@@ -108,5 +108,10 @@ namespace OSL.Forum.Web.Models.Post
         {
             Forum = _forumService.GetForum(Topic.ForumId);
         }
+
+        public void Delete(Guid postId)
+        {
+            _postService.DeletePost(postId);
+        }
     }
 }
