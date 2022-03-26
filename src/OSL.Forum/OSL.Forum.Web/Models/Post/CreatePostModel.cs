@@ -26,9 +26,9 @@ namespace OSL.Forum.Web.Models.Post
         [StringLength(10000, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 50)]
         public string Description { get; set; }
         public Guid TopicId { get; set; }
-        public BO.Topic Topic { get; set; }
-        public BO.Forum Forum { get; set; }
-        public BO.Category Category { get; set; }
+        public BO.Topic BoTopic { get; set; }
+        public BO.Forum BoForum { get; set; }
+        public BO.Category BoCategory { get; set; }
         private DateTime Time { get; set; }
         private ILifetimeScope _scope;
         private ICategoryService _categoryService;
@@ -90,17 +90,17 @@ namespace OSL.Forum.Web.Models.Post
 
         public void GetTopic(Guid topicId)
         {
-            Topic = _topicService.GetTopic(topicId);
+            BoTopic = _topicService.GetTopic(topicId);
         }
 
         public void GetCategory()
         {
-            Category = _categoryService.GetCategory(Forum.CategoryId);
+            BoCategory = _categoryService.GetCategory(BoForum.CategoryId);
         }
 
         public void GetForum()
         {
-            Forum = _forumService.GetForum(Topic.ForumId);
+            BoForum = _forumService.GetForum(BoTopic.ForumId);
         }
     }
 }
