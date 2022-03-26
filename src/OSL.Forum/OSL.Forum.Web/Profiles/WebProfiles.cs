@@ -22,6 +22,7 @@ namespace OSL.Forum.Web.Profiles
             CreateMap<IndexViewModel, Category>().ReverseMap();
             CreateMap<DetailsModel, Category>().ReverseMap();
             CreateMap<EditPostModel, Post>().ReverseMap();
+            CreateMap<CreatePostModel, Post>().ReverseMap();
         }
     }
 }

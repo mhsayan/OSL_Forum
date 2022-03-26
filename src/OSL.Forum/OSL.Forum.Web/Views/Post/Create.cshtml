@@ -1,6 +1,6 @@
-﻿@model OSL.Forum.Web.Models.Topic.CreateTopicModel
+﻿@model OSL.Forum.Web.Models.Post.CreatePostModel
 @{
-    ViewBag.Title = "Create Topic";
+    ViewBag.Title = "Reply Post";
 }
 <link href="~/Themes/AdminLTE/plugins/summernote/summernote.css" rel="stylesheet" />
 <script src="~/Themes/AdminLTE/plugins/summernote/summernote.js"></script>
@@ -10,16 +10,16 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Create New Topic</h1>
+                <h1>Post Reply</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Topics</a></li>
-                    <li class="breadcrumb-item active">Create Topic</li>
+                    <li class="breadcrumb-item"><a href="#">Topic Details</a></li>
+                    <li class="breadcrumb-item active">Reply Post</li>
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
 
 
@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h3 class="text-primary text-bold">
-                    @Model.Category.Name / @Model.Forum.Name
+                    @Model.Category.Name / @Model.Forum.Name / @Model.Topic.Name
                 </h3>
             </div>
         </div>
@@ -37,14 +37,14 @@
 
                 <div class="card card-primary">
                     <div class="card-header text-uppercase">
-                        <b>Create New Topic</b>
+                        <b>Reply</b>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("Create", "Topic", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
+                        @using (Html.BeginForm("Create", "Post", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.ForumId)
+                            @Html.HiddenFor(model => model.TopicId)
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Name, new { @class = "col-md-6 control-label" })
                                 <div class="col-md-10">

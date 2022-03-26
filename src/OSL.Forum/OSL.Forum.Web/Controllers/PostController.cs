@@ -64,11 +64,12 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public ActionResult Create(Guid forumId)
+        public ActionResult Create(Guid topicId)
         {
-            var model = _scope.Resolve<CreateTopicModel>();
+            var model = _scope.Resolve<CreatePostModel>();
             model.Resolve(_scope);
-            model.GetForum(forumId);
+            model.GetTopic(topicId);
+            model.GetForum();
             model.GetCategory();
 
             return View(model);
