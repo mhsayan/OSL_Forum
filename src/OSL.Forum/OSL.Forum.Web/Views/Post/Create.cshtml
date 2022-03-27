@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Description, new { @class = "col-md-6 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextAreaFor(m => m.Description, new { rows = "10", cols = "150", @class = "form-control col-md-6 topicDescription", @maxlength = "10000", @minlength = "50" })
+                                    @Html.TextAreaFor(m => m.Description, new { rows = "10", cols = "150", @class = "form-control col-md-6 postDescription", @maxlength = "10000", @minlength = "50" })
                                     @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-        $('.topicDescription').summernote({
+        $('.postDescription').summernote({
             height: 100,
             minHeight: 50,
             maxHeight: 200,
