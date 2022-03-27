@@ -86,5 +86,16 @@ namespace OSL.Forum.Web.Services
             if (!result.Succeeded)
                 throw new InvalidOperationException("User profile update failed.");
         }
+
+        public async Task AddUserToRole(string userId, string role)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentNullException(nameof(userId));
+
+            var result = await UserManager.AddToRoleAsync(userId, role);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException("Role assign failed.");
+        }
     }
 }
