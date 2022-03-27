@@ -5,11 +5,11 @@ using System.Web;
 
 namespace OSL.Forum.Web.Seeds
 {
-    public class Roles
+    public enum Roles
     {
-        public const string SuperAdmin = "SuperAdmin";
-        public const string Admin = "Admin";
-        public const string Moderator = "Moderator";
-        public const string User = "User";
+        SuperAdmin,
+        Admin,
+        Moderator,
+        User
     }
 }

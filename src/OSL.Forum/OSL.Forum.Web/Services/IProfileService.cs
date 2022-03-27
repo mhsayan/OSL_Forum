@@ -17,5 +17,6 @@ namespace OSL.Forum.Web.Services
         bool IsAuthenticated();
         Task EditProfileAsync(ApplicationUser applicationUser);
         Task AddUserToRole(string userId, string role);
+        List<ApplicationUser> GetUserList();
     }
 }

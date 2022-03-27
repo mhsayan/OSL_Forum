@@ -7,6 +7,7 @@ using AutoMapper;
 using OSL.Forum.Core.Profiles;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
+using OSL.Forum.Web.Areas.Admin.Models.UserManagement;
 using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
@@ -58,6 +59,8 @@ namespace OSL.Forum.Web
             builder.RegisterType<CreatePostModel>().AsSelf();
             builder.RegisterType<ProfileDetailsModel>().AsSelf();
             builder.RegisterType<EditProfileModel>().AsSelf();
+            builder.RegisterType<AssignRoleModel>().AsSelf();
+
         }
     }
 }

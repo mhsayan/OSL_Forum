@@ -97,5 +97,12 @@ namespace OSL.Forum.Web.Services
             if (!result.Succeeded)
                 throw new InvalidOperationException("Role assign failed.");
         }
+
+        public List<ApplicationUser> GetUserList()
+        {
+            var users = UserManager.Users.ToList();
+
+            return users;
+        }
     }
 }
