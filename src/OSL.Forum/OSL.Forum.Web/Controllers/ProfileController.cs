@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
+using Microsoft.AspNet.Identity;
+using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Profile;
 
 namespace OSL.Forum.Web.Controllers
@@ -25,8 +27,58 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<ProfileDetailsModel>();
             model.Resolve(_scope);
             model.GetUserInfo();
+            model.GetMyPosts();
 
             return View(model);
+        }
+
+        public ActionResult EditPost(Guid postId)
+        {
+            var model = _scope.Resolve<EditPostModel>();
+            model.Resolve(_scope);
+            model.GetPost(postId);
+            model.GetTopic();
+            model.GetForum();
+            model.GetCategory();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(EditPostModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            if (model.ApplicationUserId != User.Identity.GetUserId())
+                return View();
+
+            try
+            {
+                model.Resolve(_scope);
+                model.EditPost();
+                model.UpdateTopicModificationDate();
+
+                return Redirect(nameof(MyProfile));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("Post Edit failed.");
+                _logger.Error(ex.Message);
+
+                return View(model);
+            }
+        }
+
+        public ActionResult DeletePost(Guid postId, Guid topicId)
+        {
+            var model = _scope.Resolve<EditPostModel>();
+            model.Resolve(_scope);
+            model.Delete(postId);
+
+            return Redirect(nameof(MyProfile));
         }
 
         public ActionResult Edit()

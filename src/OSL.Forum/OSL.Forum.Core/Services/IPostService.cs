@@ -14,5 +14,6 @@ namespace OSL.Forum.Core.Services
         void EditPost(BO.Post post);
         void DeletePost(Guid postId);
         void CreatePost(BO.Post post);
+        List<BO.Post> GetMyPosts(string userId);
     }
 }
