@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
+using OSL.Forum.Web.Models.Profile;
 
 namespace OSL.Forum.Web.Controllers
 {
@@ -21,7 +22,11 @@ namespace OSL.Forum.Web.Controllers
         // GET: Profile
         public ActionResult MyProfile()
         {
-            return View();
+            var model = _scope.Resolve<ProfileDetailsModel>();
+            model.Resolve(_scope);
+            model.GetUserInfo();
+
+            return View(model);
         }
 
         public ActionResult Edit()
