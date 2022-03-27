@@ -76,7 +76,10 @@ namespace OSL.Forum.Web.Services
 
             var user = UserManager.FindById(applicationUser.Id);
 
-            _mapper.Map(applicationUser, user);
+            if (user.Name == applicationUser.Name)
+                throw new InvalidOperationException("The name is the same as your previous name.");
+
+            user.Name = applicationUser.Name;
 
             var result = await UserManager.UpdateAsync(user);
 

@@ -28,6 +28,7 @@ namespace OSL.Forum.Web.Profiles
             CreateMap<CreatePostModel, Post>().ReverseMap();
             CreateMap<ProfileDetailsModel, Post>().ReverseMap();
             CreateMap<EditProfileModel, ApplicationUser>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUser>().ReverseMap();
         }
     }
 }
