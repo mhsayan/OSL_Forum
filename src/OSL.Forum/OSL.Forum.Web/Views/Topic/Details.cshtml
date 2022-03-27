@@ -35,7 +35,7 @@
                 </h5>
             </div>
             <div class="col">
-                <a href="@Url.Action("Create", "Topic", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right">
+                <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right">
                     Reply
                     <i class="fas fa-reply m-1"></i>
                 </a>
@@ -86,7 +86,7 @@
                 </div>
             }
         </div>
-        <a href="@Url.Action("Create", "Topic", new { forumId = @Model.Forum.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right mr-3">
+        <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right mr-3">
             Reply
             <i class="fas fa-reply m-1"></i>
         </a>

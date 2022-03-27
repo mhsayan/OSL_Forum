@@ -42,6 +42,7 @@ namespace OSL.Forum.Web.Controllers
 
             return View(model);
         }
+
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]

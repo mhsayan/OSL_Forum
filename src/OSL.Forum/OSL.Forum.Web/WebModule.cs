@@ -54,6 +54,7 @@ namespace OSL.Forum.Web
             builder.RegisterType<CreateTopicModel>().AsSelf();
             builder.RegisterType<TopicDetailsModel>().AsSelf();
             builder.RegisterType<EditPostModel>().AsSelf();
+            builder.RegisterType<CreatePostModel>().AsSelf();
         }
     }
 }

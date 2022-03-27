@@ -64,42 +64,45 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public ActionResult Create(Guid forumId)
+        public ActionResult Create(Guid topicId)
         {
-            var model = _scope.Resolve<CreateTopicModel>();
+            var model = _scope.Resolve<CreatePostModel>();
             model.Resolve(_scope);
-            model.GetForum(forumId);
+            model.GetTopic(topicId);
+            model.GetForum();
             model.GetCategory();
 
             return View(model);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create(CreateTopicModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View();
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreatePostModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
 
-        //    try
-        //    {
-        //        model.Resolve(_scope);
-        //        model.GetForum(model.ForumId);
-        //        model.GetCategory();
-        //        model.Create();
-        //        model.CreatePost();
+            try
+            {
+                model.Resolve(_scope);
+                model.GetTopic(model.TopicId);
+                model.GetForum();
+                model.GetCategory();
+                model.CreatePost();
+                model.UpdateTopicModificationDate();
 
-        //        return RedirectToAction("Topic", "Post", new { id = model.ForumId });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("", ex.Message);
-        //        _logger.Error("New Topic Creation failed.");
-        //        _logger.Error(ex.Message);
+                return RedirectToAction("Details", "Topic", new { topicId = model.TopicId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("Post Reply failed.");
+                _logger.Error(ex.Message);
 
-        //        return View(model);
-        //    }
-        //}
+                return View(model);
+            }
+        }
 
         public ActionResult Delete(Guid postId, Guid topicId)
         {

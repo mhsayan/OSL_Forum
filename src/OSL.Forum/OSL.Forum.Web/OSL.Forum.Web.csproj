@@ -237,6 +237,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\Category\CreateCategoryModel.cs" />
     <Compile Include="Models\ConfirmEmailModel.cs" />
+    <Compile Include="Models\Post\CreatePostModel.cs" />
     <Compile Include="Models\Post\EditPostModel.cs" />
     <Compile Include="Models\Topic\CreateTopicModel.cs" />
     <Compile Include="Models\Home\DetailsModel.cs" />
