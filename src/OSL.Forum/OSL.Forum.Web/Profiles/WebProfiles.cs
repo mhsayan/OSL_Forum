@@ -6,9 +6,11 @@ using AutoMapper;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
+using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Profile;
+using IndexViewModel = OSL.Forum.Web.Models.Home.IndexViewModel;
 
 namespace OSL.Forum.Web.Profiles
 {
@@ -25,6 +27,8 @@ namespace OSL.Forum.Web.Profiles
             CreateMap<EditPostModel, Post>().ReverseMap();
             CreateMap<CreatePostModel, Post>().ReverseMap();
             CreateMap<ProfileDetailsModel, Post>().ReverseMap();
+            CreateMap<EditProfileModel, ApplicationUser>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUser>().ReverseMap();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Web.Models;
@@ -11,8 +12,14 @@ namespace OSL.Forum.Web.Services
 {
     public class ProfileService : IProfileService
     {
+        private IMapper _mapper;
         private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
         private static readonly ApplicationUserManager UserManager = new ApplicationUserManager(UserStore);
+
+        public ProfileService(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
 
         public string UserID()
         {
@@ -37,7 +44,7 @@ namespace OSL.Forum.Web.Services
             return user;
         }
 
-        public async Task<IList<string>> UserRoles()
+        public async Task<IList<string>> UserRolesAsync()
         {
             var userId = UserID();
 
@@ -60,6 +67,24 @@ namespace OSL.Forum.Web.Services
         public bool IsAuthenticated()
         {
             return HttpContext.Current.User.Identity.IsAuthenticated;
+        }
+
+        public async Task EditProfileAsync(ApplicationUser applicationUser)
+        {
+            if (applicationUser == null)
+                throw new ArgumentNullException(nameof(applicationUser));
+
+            var user = UserManager.FindById(applicationUser.Id);
+
+            if (user.Name == applicationUser.Name)
+                throw new InvalidOperationException("The name is the same as your previous name.");
+
+            user.Name = applicationUser.Name;
+
+            var result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException("User profile update failed.");
         }
     }
 }
