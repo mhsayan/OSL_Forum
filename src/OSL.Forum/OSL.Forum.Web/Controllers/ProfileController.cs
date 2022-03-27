@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -83,7 +84,35 @@ namespace OSL.Forum.Web.Controllers
 
         public ActionResult Edit()
         {
-            return View();
+            var model = _scope.Resolve<EditProfileModel>();
+            model.Resolve(_scope);
+            model.LoadUserInfo();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditProfileModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+                model.Resolve(_scope);
+                await model.EditProfileAsync();
+
+                return Redirect(nameof(MyProfile));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("User profile edit failed.");
+                _logger.Error(ex.Message);
+
+                return View(model);
+            }
         }
     }
 }

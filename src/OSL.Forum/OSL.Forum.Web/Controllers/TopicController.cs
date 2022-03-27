@@ -81,7 +81,7 @@ namespace OSL.Forum.Web.Controllers
             model.UserAuthenticatedStatus();
 
             if (model.IsAuthenticated)
-                await model.GetUserRoles();
+                await model.GetUserRolesAsync();
 
             return View(model);
         }

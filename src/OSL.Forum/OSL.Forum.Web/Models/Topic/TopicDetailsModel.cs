@@ -74,9 +74,9 @@ namespace OSL.Forum.Web.Models.Topic
             Forum = _forumService.GetForum(Topic.ForumId);
         }
 
-        public async Task GetUserRoles()
+        public async Task GetUserRolesAsync()
         {
-            UserRoles = await _profileService.UserRoles();
+            UserRoles = await _profileService.UserRolesAsync();
         }
 
         public void UserAuthenticatedStatus()
