@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Services
@@ -17,6 +18,6 @@ namespace OSL.Forum.Web.Services
         bool IsAuthenticated();
         Task EditProfileAsync(ApplicationUser applicationUser);
         Task AddUserToRole(string userId, string role);
-        List<ApplicationUser> GetUserList();
+        List<SelectListItem> GetUserList();
     }
 }

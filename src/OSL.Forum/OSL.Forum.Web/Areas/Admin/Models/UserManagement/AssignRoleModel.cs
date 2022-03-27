@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
@@ -20,6 +21,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
         [Required]
         public Roles UserRole { get; set; }
         public IList<ApplicationUser> ApplicationUsers { get; set; }
+        public List<SelectListItem> ApplicationUserList { get; set; }
         private ILifetimeScope _scope;
         private IProfileService _profileService;
 
@@ -40,12 +42,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
 
         public void GetUsers()
         {
-            ApplicationUsers = _profileService.GetUserList();
-
-            var roles = from Roles s in Enum.GetValues(typeof(Roles))
-                        select new { ID = s.ToString(), Name = s.ToString() };
-
-
+            ApplicationUserList = _profileService.GetUserList();
         }
     }
 }

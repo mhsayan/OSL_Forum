@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -98,9 +99,13 @@ namespace OSL.Forum.Web.Services
                 throw new InvalidOperationException("Role assign failed.");
         }
 
-        public List<ApplicationUser> GetUserList()
+        public List<SelectListItem> GetUserList()
         {
-            var users = UserManager.Users.ToList();
+            var users = UserManager.Users.ToList().Select(u => new SelectListItem
+            {
+                Text = u.Email,
+                Value = u.Id
+            }).ToList();
 
             return users;
         }

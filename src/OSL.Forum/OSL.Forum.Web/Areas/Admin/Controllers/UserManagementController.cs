@@ -26,6 +26,16 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             model.Resolve(_scope);
             model.GetUsers();
 
+            return View(model);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult AssignRole(AssignRoleModel model)
+        {
+            model.Resolve(_scope);
+            model.GetUsers();
+
             return View();
         }
     }

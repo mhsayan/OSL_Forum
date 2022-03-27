@@ -4,6 +4,13 @@
 @{
     ViewBag.Title = "AssignRole";
 }
+<link href="~/Themes/AdminLTE/plugins/select2/css/select2.css" rel="stylesheet" />
+<script src="~/Themes/AdminLTE/plugins/select2/js/select2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.select2').select2();
+    });
+</script>
 
 <section class="content-header">
     <div class="container-fluid">
@@ -31,19 +38,25 @@
                         <b>Assign Role</b>
                     </div>
                     <div class="card-body">
-                        @using (Html.BeginForm("Edit", "Forum", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
+                        @using (Html.BeginForm("AssignRole", "UserManagement", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
                             <div class="form-group">
+                                @Html.LabelFor(m => m.UserId, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(m => m.UserId, Model.ApplicationUserList,
+                                        "Select User", htmlAttributes: new { @class = "form-control col-md-6 select2" })
+                                    @Html.ValidationMessageFor(m => m.UserId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 @Html.LabelFor(m => m.UserRole, new { @class = "col-md-6 control-label" })
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(m => m.UserRole, new SelectList(Enum.GetValues(typeof(Roles))),
-                                        "Select Role", htmlAttributes: new { @class = "form-control col-md-6" })
+                                        "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2" })
                                     @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
                                 </div>
-                                @*@Html.EnumDropDownListFor(m => m.UserRole, "Select one")*@
-
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
@@ -51,14 +64,16 @@
                                 </div>
                             </div>
                         }
-
-                        @section Scripts {
-                            @Scripts.Render("~/bundles/jqueryval")
-                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
