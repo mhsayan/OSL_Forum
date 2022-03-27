@@ -43,3 +43,62 @@
         </div>
     </div>
 </section>
+
+@*My Posts Section*@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row align-content-center text-primary">
+            <p>
+                <h3>
+                    My Posts
+                </h3>
+            </p>
+        </div>
+        <div class="row">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="col-sm-12">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-8 mt-2 pl-2">
+                                    <h6 class="text-bold">
+                                        @post.Name
+                                        @if (@post.Status == "Accepted")
+                                        {
+                                            <span class="badge bg-green">Accepted</span>
+                                        }
+                                        @if (@post.Status == "Rejected")
+                                        {
+                                            <span class="badge bg-danger">Rejected</span>
+                                        }
+                                        @if (@post.Status == "Pending")
+                                        {
+                                            <span class="badge bg-yellow">Pending</span>
+                                        }
+
+                                    </h6>
+                                </div>
+                                <div class="col-4 mt-2">
+                                    <a href="@Url.Action("Delete", "Post", new {postId = post.Id, topicId = @post.TopicId})" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="@Url.Action("Edit", "Post", new {postId = post.Id, topicId = @post.TopicId})" class="d-grid gap-2 d-flex float-right p-1">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 my-3 pl-4">
+                                    @Html.Raw(post.Description)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

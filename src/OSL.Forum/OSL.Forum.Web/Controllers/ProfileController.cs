@@ -25,6 +25,7 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<ProfileDetailsModel>();
             model.Resolve(_scope);
             model.GetUserInfo();
+            model.GetMyPosts();
 
             return View(model);
         }

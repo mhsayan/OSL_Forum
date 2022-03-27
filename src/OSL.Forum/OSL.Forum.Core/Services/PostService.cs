@@ -74,5 +74,22 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Posts.Add(postEntity);
             _unitOfWork.Save();
         }
+
+        public List<BO.Post> GetMyPosts(string userId)
+        {
+            var postEntity = _unitOfWork.Posts.Get(p => p.ApplicationUserId == userId, "");
+
+            if (postEntity == null)
+                return null;
+
+            var posts = new List<BO.Post>();
+
+            foreach (var post in postEntity)
+            {
+                posts.Add(_mapper.Map<BO.Post>(post));
+            }
+
+            return posts;
+        }
     }
 }
