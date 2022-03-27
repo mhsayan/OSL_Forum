@@ -10,6 +10,7 @@ using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
+using OSL.Forum.Web.Models.Profile;
 using OSL.Forum.Web.Models.Topic;
 using OSL.Forum.Web.Profiles;
 using OSL.Forum.Web.Services;
@@ -55,6 +56,7 @@ namespace OSL.Forum.Web
             builder.RegisterType<TopicDetailsModel>().AsSelf();
             builder.RegisterType<EditPostModel>().AsSelf();
             builder.RegisterType<CreatePostModel>().AsSelf();
+            builder.RegisterType<ProfileDetailsModel>().AsSelf();
         }
     }
 }

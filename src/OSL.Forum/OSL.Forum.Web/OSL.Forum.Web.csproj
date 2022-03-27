@@ -221,6 +221,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TopicController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,6 +240,7 @@
     <Compile Include="Models\ConfirmEmailModel.cs" />
     <Compile Include="Models\Post\CreatePostModel.cs" />
     <Compile Include="Models\Post\EditPostModel.cs" />
+    <Compile Include="Models\Profile\ProfileDetailsModel.cs" />
     <Compile Include="Models\Topic\CreateTopicModel.cs" />
     <Compile Include="Models\Home\DetailsModel.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />
@@ -2335,6 +2337,8 @@
     <Content Include="Views\Topic\Create.cshtml" />
     <Content Include="Views\Topic\Details.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Profile\MyProfile.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

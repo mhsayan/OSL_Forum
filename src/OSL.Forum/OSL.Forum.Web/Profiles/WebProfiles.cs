@@ -8,6 +8,7 @@ using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
+using OSL.Forum.Web.Models.Profile;
 
 namespace OSL.Forum.Web.Profiles
 {
@@ -23,6 +24,7 @@ namespace OSL.Forum.Web.Profiles
             CreateMap<DetailsModel, Category>().ReverseMap();
             CreateMap<EditPostModel, Post>().ReverseMap();
             CreateMap<CreatePostModel, Post>().ReverseMap();
+            CreateMap<ProfileDetailsModel, Post>().ReverseMap();
         }
     }
 }
