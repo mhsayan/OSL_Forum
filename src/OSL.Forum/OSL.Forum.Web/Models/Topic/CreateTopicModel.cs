@@ -83,7 +83,8 @@ namespace OSL.Forum.Web.Models.Topic
                 ModificationDate = Time,
                 ApplicationUserId = ApplicationUser.Id,
                 ForumId = this.ForumId,
-                Status = Status.Pending.ToString()
+                Status = Status.Pending.ToString(),
+                ApprovalType = ApprovalType.Manual.ToString()
             };
 
             _topicService.CreateTopic(topic);

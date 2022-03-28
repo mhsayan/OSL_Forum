@@ -135,6 +135,10 @@
     <Compile Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.designer.cs">
       <DependentUpon>202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.cs" />
+    <Compile Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.designer.cs">
+      <DependentUpon>202203280951541_AddApprovalTypeFromForumToTopic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.resx">
       <DependentUpon>202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.resx">
+      <DependentUpon>202203280951541_AddApprovalTypeFromForumToTopic.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

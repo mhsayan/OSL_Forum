@@ -21,7 +21,6 @@ namespace OSL.Forum.Core.Entities
         public DateTime ModificationDate { get; set; }
         public Guid CategoryId { get; set; }
         public string ApplicationUserId { get; set; }
-        public string ApprovalType { get; set; }
         public virtual Category Category { get; set; }
         public virtual IList<Topic> Topics { get; set; }
     }
