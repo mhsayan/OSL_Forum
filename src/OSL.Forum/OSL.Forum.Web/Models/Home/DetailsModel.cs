@@ -6,6 +6,7 @@ using Autofac;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 

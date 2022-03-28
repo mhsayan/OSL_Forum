@@ -8,6 +8,7 @@ using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Services

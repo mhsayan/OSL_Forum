@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Autofac;
 using AutoMapper;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Web.Services;

@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Services
