@@ -38,8 +38,12 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return Redirect(nameof(Index));
         }
 
-        public ActionResult Reject()
+        public ActionResult Reject(Guid postId)
         {
+            var model = _scope.Resolve<PendingPostListModel>();
+            model.Resolve(_scope);
+            model.RejectPost(postId);
+
             return Redirect(nameof(Index));
         }
     }
