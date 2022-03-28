@@ -159,6 +159,8 @@
     <Compile Include="Repositories\IPostRepository.cs" />
     <Compile Include="Repositories\IForumRepository.cs" />
     <Compile Include="Repositories\ICategoryRepository.cs" />
+    <Compile Include="Services\FavoriteForumService.cs" />
+    <Compile Include="Services\IFavoriteForumService.cs" />
     <Compile Include="Services\IPostService.cs" />
     <Compile Include="Services\PostService.cs" />
     <Compile Include="Services\TopicService.cs" />
