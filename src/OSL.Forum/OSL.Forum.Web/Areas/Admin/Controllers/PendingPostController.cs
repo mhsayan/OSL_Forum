@@ -29,8 +29,12 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        public ActionResult Accept()
+        public ActionResult Accept(Guid postId)
         {
+            var model = _scope.Resolve<PendingPostListModel>();
+            model.Resolve(_scope);
+            model.AcceptPost(postId);
+
             return Redirect(nameof(Index));
         }
 

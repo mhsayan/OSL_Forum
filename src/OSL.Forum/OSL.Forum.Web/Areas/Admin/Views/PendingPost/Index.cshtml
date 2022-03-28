@@ -32,11 +32,11 @@
                                     <h6 class="text-bold">@post.Name</h6>
                                 </div>
                                 <div class="col-4 mt-2">
-                                    <a href="@Url.Action("Reject", "PendingPost", new {postId = post.Id, topicId = post.TopicId})" class="d-grid gap-2 d-flex float-right p-1 ml-3">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <a href="@Url.Action("Reject", "PendingPost", new {postId = post.Id})" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <i class="far fa-times-circle" aria-hidden="true"></i>
                                     </a>
-                                    <a href="@Url.Action("Accept", "PendingPost", new {postId = post.Id, topicId = post.TopicId})" class="d-grid gap-2 d-flex float-right p-1">
-                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    <a href="@Url.Action("Accept", "PendingPost", new {postId = post.Id})" class="d-grid gap-2 d-flex float-right p-1">
+                                        <i class="far fa-check-circle" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
