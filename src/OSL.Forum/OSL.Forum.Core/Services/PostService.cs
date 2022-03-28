@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using OSL.Forum.Core.Enums;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -78,6 +79,23 @@ namespace OSL.Forum.Core.Services
         public List<BO.Post> GetMyPosts(string userId)
         {
             var postEntity = _unitOfWork.Posts.Get(p => p.ApplicationUserId == userId, "");
+
+            if (postEntity == null)
+                return null;
+
+            var posts = new List<BO.Post>();
+
+            foreach (var post in postEntity)
+            {
+                posts.Add(_mapper.Map<BO.Post>(post));
+            }
+
+            return posts;
+        }
+
+        public List<BO.Post> PendingPosts()
+        {
+            var postEntity = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), "");
 
             if (postEntity == null)
                 return null;

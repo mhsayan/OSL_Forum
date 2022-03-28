@@ -15,5 +15,6 @@ namespace OSL.Forum.Core.Services
         void DeletePost(Guid postId);
         void CreatePost(BO.Post post);
         List<BO.Post> GetMyPosts(string userId);
+        List<BO.Post> PendingPosts();
     }
 }

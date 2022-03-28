@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Autofac;
+﻿using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Profiles;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
+using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
 using OSL.Forum.Web.Areas.Admin.Models.UserManagement;
-using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Profile;
@@ -60,6 +56,7 @@ namespace OSL.Forum.Web
             builder.RegisterType<ProfileDetailsModel>().AsSelf();
             builder.RegisterType<EditProfileModel>().AsSelf();
             builder.RegisterType<AssignRoleModel>().AsSelf();
+            builder.RegisterType<PendingPostListModel>().AsSelf();
         }
     }
 }
