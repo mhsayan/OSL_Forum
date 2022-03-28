@@ -124,5 +124,20 @@ namespace OSL.Forum.Core.Services
 
             _unitOfWork.Save();
         }
+
+        public void RejectPost(Guid postId)
+        {
+            if (postId == Guid.Empty)
+                throw new ArgumentException(nameof(postId));
+
+            var postEntity = _unitOfWork.Posts.GetById(postId);
+
+            if (postEntity == null)
+                throw new InvalidOperationException("Post is not found.");
+
+            postEntity.Status = Status.Rejected.ToString();
+
+            _unitOfWork.Save();
+        }
     }
 }

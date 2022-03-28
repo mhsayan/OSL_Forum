@@ -17,5 +17,6 @@ namespace OSL.Forum.Core.Services
         List<BO.Post> GetMyPosts(string userId);
         List<BO.Post> PendingPosts();
         void AcceptPost(Guid postId);
+        void RejectPost(Guid postId);
     }
 }

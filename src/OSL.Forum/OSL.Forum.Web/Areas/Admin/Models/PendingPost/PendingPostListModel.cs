@@ -51,5 +51,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 
             _postService.AcceptPost(postId);
         }
+
+        public void RejectPost(Guid postId)
+        {
+            if (postId == Guid.Empty)
+                throw new ArgumentException(nameof(postId));
+
+            _postService.RejectPost(postId);
+        }
     }
 }
