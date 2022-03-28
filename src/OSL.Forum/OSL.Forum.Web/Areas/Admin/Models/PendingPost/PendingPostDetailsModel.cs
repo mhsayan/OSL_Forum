@@ -21,6 +21,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
         private ILifetimeScope _scope;
         private IPostService _postService;
         private IProfileService _profileService;
+        private ITopicService _topicService;
         private IMapper _mapper;
 
         public PendingPostDetailsModel()
@@ -29,11 +30,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
         }
 
         public PendingPostDetailsModel(IPostService postService, IMapper mapper,
-            IProfileService profileService)
+            IProfileService profileService, ITopicService topicService)
         {
             _postService = postService;
             _profileService = profileService;
             _mapper = mapper;
+            _topicService = topicService;
         }
 
         public void Resolve(ILifetimeScope scope)
@@ -42,6 +44,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             _postService = _scope.Resolve<IPostService>();
             _profileService = _scope.Resolve<IProfileService>();
             _mapper = _scope.Resolve<IMapper>();
+            _topicService = _scope.Resolve<ITopicService>();
         }
 
         public void GetPendingPost(Guid postId)
@@ -52,20 +55,15 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             _mapper.Map(Post, this);
         }
 
-        public void AcceptPost(Guid postId)
+        public void UpdatePostStatus(string status)
         {
-            if (postId == Guid.Empty)
-                throw new ArgumentException(nameof(postId));
-
-            _postService.AcceptPost(postId);
+            _postService.UpdatePostStatus(Id, status);
         }
 
-        public void RejectPost(Guid postId)
+        public void UpdateTopicApprovalType()
         {
-            if (postId == Guid.Empty)
-                throw new ArgumentException(nameof(postId));
-
-            _postService.RejectPost(postId);
+            if (ApprovalStatus)
+                _topicService.UpdateTopicApprovalType(TopicId);
         }
     }
 }

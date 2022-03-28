@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using OSL.Forum.Core.Enums;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -84,6 +85,21 @@ namespace OSL.Forum.Core.Services
 
             _unitOfWork.Save();
 
+        }
+
+        public void UpdateTopicApprovalType(Guid topicId)
+        {
+            if (topicId == Guid.Empty)
+                throw new ArgumentException(nameof(topicId));
+
+            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+
+            if (topicEntity == null)
+                throw new InvalidOperationException("Topic is not found.");
+
+            topicEntity.ApprovalType = ApprovalType.Auto.ToString();
+
+            _unitOfWork.Save();
         }
 
         public void CreateTopic(BO.Topic topic)

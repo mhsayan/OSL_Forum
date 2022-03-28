@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
+using OSL.Forum.Core.Enums;
 using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
@@ -40,7 +41,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Post(PendingPostDetailsModel model)
+        public ActionResult Post(string button, PendingPostDetailsModel model)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -48,6 +49,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             try
             {
                 model.Resolve(_scope);
+
+                if (button == "Accept")
+                    model.UpdatePostStatus(Status.Approved.ToString());
+
+                if (button == "Reject")
+                    model.UpdatePostStatus(Status.Rejected.ToString());
+
+                model.UpdateTopicApprovalType();
 
                 return Redirect(nameof(Index));
             }
@@ -65,7 +74,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         {
             var model = _scope.Resolve<PendingPostListModel>();
             model.Resolve(_scope);
-            model.AcceptPost(postId);
+            model.UpdatePostStatus(postId, Status.Approved.ToString());
 
             return Redirect(nameof(Index));
         }
@@ -74,7 +83,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         {
             var model = _scope.Resolve<PendingPostListModel>();
             model.Resolve(_scope);
-            model.RejectPost(postId);
+            model.UpdatePostStatus(postId, Status.Rejected.ToString());
 
             return Redirect(nameof(Index));
         }
