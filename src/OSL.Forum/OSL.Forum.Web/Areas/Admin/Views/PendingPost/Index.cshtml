@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Edit Forum</h1>
+                <h1>All Pending Posts</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -40,9 +40,12 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="row ml-3">
+                                @post.Topic.Name / @post.Topic.Forum.Name / @post.Topic.Forum.Category.Name
+                            </div>
                             <div class="row">
                                 <i class="far fa-newspaper ml-4 m-1"></i>
-                                by <b class="ml-2">@*@post.OwnerName*@</b>
+                                by <b class="ml-2">@post.OwnerName</b>
                             </div>
                         </div>
                         <div class="card-body">
