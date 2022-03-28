@@ -83,11 +83,11 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
             };
         }
 
-        public async Task AddUserToRole()
+        public async Task AddUserToRoleAsync()
         {
             var applicationUserRole = _mapper.Map<ApplicationUserRole>(this);
 
-            await _profileService.AddUserToRole(applicationUserRole);
+            await _profileService.AddUserToRoleAsync(applicationUserRole);
         }
     }
 }

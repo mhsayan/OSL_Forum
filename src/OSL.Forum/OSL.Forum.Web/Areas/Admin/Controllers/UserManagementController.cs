@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -33,13 +34,26 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult AssignRole(AssignRoleModel model)
+        public async Task<ActionResult> AssignRole(AssignRoleModel model)
         {
-            model.Resolve(_scope);
-            
-            
+            if (!ModelState.IsValid)
+                return View();
 
-            return View();
+            try
+            {
+                model.Resolve(_scope);
+                await model.AddUserToRoleAsync();
+
+                return Redirect(nameof(AssignRole));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("User role assign failed.");
+                _logger.Error(ex.Message);
+
+                return View(model);
+            }
         }
     }
 }

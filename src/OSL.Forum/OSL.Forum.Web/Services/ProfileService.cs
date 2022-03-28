@@ -89,7 +89,7 @@ namespace OSL.Forum.Web.Services
                 throw new InvalidOperationException("User profile update failed.");
         }
 
-        public async Task AddUserToRole(ApplicationUserRole applicationUserRole)
+        public async Task AddUserToRoleAsync(ApplicationUserRole applicationUserRole)
         {
             if (applicationUserRole == null)
                 throw new ArgumentNullException(nameof(applicationUserRole));
