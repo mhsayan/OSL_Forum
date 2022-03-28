@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Services
@@ -51,6 +53,11 @@ namespace OSL.Forum.Web.Services
             return await UserManager.GetRolesAsync(userId);
         }
 
+        public async Task<IList<string>> UserRolesAsync(string userId)
+        {
+            return await UserManager.GetRolesAsync(userId);
+        }
+
         public bool Owner(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
@@ -85,6 +92,50 @@ namespace OSL.Forum.Web.Services
 
             if (!result.Succeeded)
                 throw new InvalidOperationException("User profile update failed.");
+        }
+
+        public async Task AddUserToRoleAsync(ApplicationUserRole applicationUserRole)
+        {
+            if (applicationUserRole == null)
+                throw new ArgumentNullException(nameof(applicationUserRole));
+
+            await RemoveUserFromRolesAsync(applicationUserRole.UserId);
+
+            var result = await UserManager.AddToRoleAsync(applicationUserRole.UserId, applicationUserRole.UserRole);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException("Role assign failed.");
+        }
+
+        public List<SelectListItem> GetUserList()
+        {
+            var user = GetUser();
+
+            var users = UserManager.Users.ToList()
+                .Where(u => u.Email != user.Email)
+                .Select(u => new SelectListItem
+                {
+                    Text = u.Email,
+                    Value = u.Id.ToString()
+                }).ToList();
+
+            return users;
+        }
+
+        public async Task RemoveUserFromRolesAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentNullException(nameof(userId));
+
+            var userRoles = await UserRolesAsync(userId);
+
+            foreach (var userRole in userRoles)
+            {
+                var result = await UserManager.RemoveFromRolesAsync(userId, userRole);
+
+                if (!result.Succeeded)
+                    throw new InvalidOperationException("Role remove failed.");
+            }
         }
     }
 }

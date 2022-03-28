@@ -1,0 +1,84 @@
+﻿@using System.Web.Mvc.Html
+@using Roles = OSL.Forum.Web.Seeds.Roles
+@model OSL.Forum.Web.Areas.Admin.Models.UserManagement.AssignRoleModel
+@{
+    ViewBag.Title = "AssignRole";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Assign Role</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Assign Role</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="card card-primary">
+                    <div class="card-header text-uppercase">
+                        <b>Assign Role</b>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("AssignRole", "UserManagement", FormMethod.Post, new { @class = "form-horizontal ml-3 mb-3", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserId, new { @class = "col-md-6 control-label" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(m => m.UserId, Model.ApplicationUserList,
+                                        "Select User", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
+                                    @Html.ValidationMessageFor(m => m.UserId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    @Html.LabelFor(m => m.UserRole, new { @class = "col-md-6 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(m => m.UserRole, Model.SuperAdminRoleList,
+                                            "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
+                                        @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    @Html.LabelFor(m => m.UserRole, new { @class = "col-md-6 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(m => m.UserRole, Model.AdminRoleList,
+                                            "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
+                                        @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" class="btn btn-primary" value="Submit" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

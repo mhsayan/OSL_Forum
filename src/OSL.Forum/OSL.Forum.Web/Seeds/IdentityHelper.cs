@@ -15,24 +15,24 @@ namespace OSL.Forum.Web.Seeds
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            if (!roleManager.RoleExists(Roles.SuperAdmin))
+            if (!roleManager.RoleExists(Roles.SuperAdmin.ToString()))
             {
-                var roleResult = roleManager.Create(new IdentityRole(Roles.SuperAdmin));
+                var roleResult = roleManager.Create(new IdentityRole(Roles.SuperAdmin.ToString()));
             }
 
-            if (!roleManager.RoleExists(Roles.Admin))
+            if (!roleManager.RoleExists(Roles.Admin.ToString()))
             {
-                var roleResult = roleManager.Create(new IdentityRole(Roles.Admin));
+                var roleResult = roleManager.Create(new IdentityRole(Roles.Admin.ToString()));
             }
 
-            if (!roleManager.RoleExists(Roles.Moderator))
+            if (!roleManager.RoleExists(Roles.Moderator.ToString()))
             {
-                var roleResult = roleManager.Create(new IdentityRole(Roles.Moderator));
+                var roleResult = roleManager.Create(new IdentityRole(Roles.Moderator.ToString()));
             }
 
-            if (!roleManager.RoleExists(Roles.User))
+            if (!roleManager.RoleExists(Roles.User.ToString()))
             {
-                var roleResult = roleManager.Create(new IdentityRole(Roles.User));
+                var roleResult = roleManager.Create(new IdentityRole(Roles.User.ToString()));
             }
 
             string name = "Super Admin";
@@ -55,7 +55,7 @@ namespace OSL.Forum.Web.Seeds
 
                 if (userResult.Succeeded)
                 {
-                    var result = userManager.AddToRole(user.Id, Roles.SuperAdmin);
+                    var result = userManager.AddToRole(user.Id, Roles.SuperAdmin.ToString());
                 }
             }
         }
