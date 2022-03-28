@@ -149,6 +149,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IFavoriteForumRepository.cs" />
+    <Compile Include="Repositories\FavoriteForumRepository.cs" />
     <Compile Include="Repositories\TopicRepository.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\ForumRepository.cs" />
