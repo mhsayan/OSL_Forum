@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
@@ -12,7 +13,9 @@ using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Profile;
+using Category = OSL.Forum.Core.BusinessObjects.Category;
 using IndexViewModel = OSL.Forum.Web.Models.Home.IndexViewModel;
+using Post = OSL.Forum.Core.BusinessObjects.Post;
 
 namespace OSL.Forum.Web.Profiles
 {

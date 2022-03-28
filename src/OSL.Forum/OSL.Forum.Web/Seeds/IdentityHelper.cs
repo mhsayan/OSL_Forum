@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Seeds
