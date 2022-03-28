@@ -20,12 +20,6 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             _scope = scope;
         }
 
-        // GET: Admin/Forum
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult Create(Guid categoryId)
         {
             return View();
