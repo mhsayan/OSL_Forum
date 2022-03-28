@@ -16,7 +16,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
         public string Name { get; set; }
         public string Description { get; set; }
         public bool ApprovalStatus { get; set; }
-        public Topic Topic { get; set; }
+        public Guid TopicId { get; set; }
         public Post Post { get; set; }
         private ILifetimeScope _scope;
         private IPostService _postService;
