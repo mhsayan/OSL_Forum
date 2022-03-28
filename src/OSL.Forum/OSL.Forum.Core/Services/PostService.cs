@@ -110,32 +110,17 @@ namespace OSL.Forum.Core.Services
             return posts;
         }
 
-        public void AcceptPost(Guid postId)
+        public void UpdatePostStatus(Guid postId, string status)
         {
-            if (postId == Guid.Empty)
-                throw new ArgumentException(nameof(postId));
+            if (postId == Guid.Empty && string.IsNullOrWhiteSpace(status))
+                throw new ArgumentException("Post Id or status missing.");
 
             var postEntity = _unitOfWork.Posts.GetById(postId);
 
             if (postEntity == null)
                 throw new InvalidOperationException("Post is not found.");
 
-            postEntity.Status = Status.Approved.ToString();
-
-            _unitOfWork.Save();
-        }
-
-        public void RejectPost(Guid postId)
-        {
-            if (postId == Guid.Empty)
-                throw new ArgumentException(nameof(postId));
-
-            var postEntity = _unitOfWork.Posts.GetById(postId);
-
-            if (postEntity == null)
-                throw new InvalidOperationException("Post is not found.");
-
-            postEntity.Status = Status.Rejected.ToString();
+            postEntity.Status = status;
 
             _unitOfWork.Save();
         }

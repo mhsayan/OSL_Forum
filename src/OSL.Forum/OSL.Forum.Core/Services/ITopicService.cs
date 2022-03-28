@@ -15,5 +15,6 @@ namespace OSL.Forum.Core.Services
         BO.Topic GetTopic(Guid topicId);
         BO.Topic GetTopic(string topicName);
         void UpdateModificationDate(Guid topicId, DateTime time);
+        void UpdateTopicApprovalType(Guid topicId);
     }
 }

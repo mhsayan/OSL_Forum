@@ -44,20 +44,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             }
         }
 
-        public void AcceptPost(Guid postId)
+        public void UpdatePostStatus(Guid postId, string status)
         {
             if (postId == Guid.Empty)
                 throw new ArgumentException(nameof(postId));
 
-            _postService.AcceptPost(postId);
-        }
-
-        public void RejectPost(Guid postId)
-        {
-            if (postId == Guid.Empty)
-                throw new ArgumentException(nameof(postId));
-
-            _postService.RejectPost(postId);
+            _postService.UpdatePostStatus(postId, status);
         }
     }
 }

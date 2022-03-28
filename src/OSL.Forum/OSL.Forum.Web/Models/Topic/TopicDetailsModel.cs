@@ -59,7 +59,7 @@ namespace OSL.Forum.Web.Models.Topic
             Topic = _topicService.GetTopic(topicId);
 
             var postList = new List<BO.Post>();
-            
+
             foreach (var topicPost in Topic.Posts)
             {
                 var post = new BO.Post();

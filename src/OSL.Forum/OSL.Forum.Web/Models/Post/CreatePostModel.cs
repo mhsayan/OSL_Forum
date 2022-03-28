@@ -78,7 +78,10 @@ namespace OSL.Forum.Web.Models.Post
             post.CreationDate = Time;
             post.ModificationDate = Time;
             post.ApplicationUserId = user.Id;
-            post.Status = Status.Pending.ToString();
+
+            if (BoTopic.ApprovalType == ApprovalType.Auto.ToString())
+                post.Status = Status.Approved.ToString();
+            else post.Status = Status.Pending.ToString();
 
             _postService.CreatePost(post);
         }

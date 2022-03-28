@@ -62,8 +62,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
                 CategoryId = this.CategoryId,
                 ApplicationUserId = user.Id,
                 CreationDate = time,
-                ModificationDate = time,
-                ApprovalType = ApprovalType.Manual.ToString()
+                ModificationDate = time
             };
 
             _forumService.CreateForum(forum);
