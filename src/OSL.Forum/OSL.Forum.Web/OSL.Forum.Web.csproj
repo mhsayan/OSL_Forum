@@ -218,6 +218,7 @@
     <Compile Include="Areas\Admin\Models\Category\EditCategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\Forum\CreateForumModel.cs" />
     <Compile Include="Areas\Admin\Models\Forum\EditForumModel.cs" />
+    <Compile Include="Areas\Admin\Models\PendingPost\PendingPostDetailsModel.cs" />
     <Compile Include="Areas\Admin\Models\PendingPost\PendingPostListModel.cs" />
     <Compile Include="Areas\Admin\Models\UserManagement\AssignRoleModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -323,6 +324,7 @@
     <Content Include="Areas\Admin\Views\Forum\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\UserManagement\AssignRole.cshtml" />
     <Content Include="Areas\Admin\Views\PendingPost\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PendingPost\Post.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

@@ -29,6 +29,38 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        public ActionResult Post(Guid postId)
+        {
+            var model = _scope.Resolve<PendingPostDetailsModel>();
+            model.Resolve(_scope);
+            model.GetPendingPost(postId);
+
+            return View(model);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Post(PendingPostDetailsModel model)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            try
+            {
+                model.Resolve(_scope);
+
+                return Redirect(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                _logger.Error("Post Status update failed.");
+                _logger.Error(ex.Message);
+
+                return View(model);
+            }
+        }
+
         public ActionResult Accept(Guid postId)
         {
             var model = _scope.Resolve<PendingPostListModel>();

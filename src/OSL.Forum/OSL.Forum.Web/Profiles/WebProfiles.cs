@@ -6,6 +6,7 @@ using AutoMapper;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
+using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
 using OSL.Forum.Web.Areas.Admin.Models.UserManagement;
 using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
@@ -32,6 +33,7 @@ namespace OSL.Forum.Web.Profiles
             CreateMap<ApplicationUser, ApplicationUser>().ReverseMap();
             CreateMap<AssignRoleModel, ApplicationUserRole>().ReverseMap();
             CreateMap<Post, Post>().ReverseMap();
+            CreateMap<PendingPostDetailsModel, Post>().ReverseMap();
         }
     }
 }
