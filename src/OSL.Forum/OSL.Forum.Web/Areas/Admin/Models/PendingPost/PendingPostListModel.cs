@@ -43,5 +43,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
                 post.OwnerName = _profileService.GetUser(post.ApplicationUserId).Name;
             }
         }
+
+        public void AcceptPost(Guid postId)
+        {
+            if (postId == Guid.Empty)
+                throw new ArgumentException(nameof(postId));
+
+            _postService.AcceptPost(postId);
+        }
     }
 }

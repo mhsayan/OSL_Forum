@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
+using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Services;
@@ -57,11 +58,24 @@ namespace OSL.Forum.Web.Models.Topic
         {
             Topic = _topicService.GetTopic(topicId);
 
-            foreach (var post in Topic.Posts)
+            var postList = new List<BO.Post>();
+            
+            foreach (var topicPost in Topic.Posts)
             {
-                post.Owner = _profileService.Owner(post.ApplicationUserId);
-                post.OwnerName = _profileService.GetUser(post.ApplicationUserId).Name;
+                var post = new BO.Post();
+
+                if (topicPost.Status == Status.Approved.ToString())
+                {
+                    topicPost.Owner = _profileService.Owner(topicPost.ApplicationUserId);
+                    topicPost.OwnerName = _profileService.GetUser(topicPost.ApplicationUserId).Name;
+
+                    _mapper.Map(topicPost, post);
+
+                    postList.Add(post);
+                }
             }
+
+            Topic.Posts = postList;
         }
 
         public void GetCategory()
