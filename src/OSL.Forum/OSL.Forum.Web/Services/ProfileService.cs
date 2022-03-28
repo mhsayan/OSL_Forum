@@ -53,6 +53,11 @@ namespace OSL.Forum.Web.Services
             return await UserManager.GetRolesAsync(userId);
         }
 
+        public async Task<IList<string>> UserRolesAsync(string userId)
+        {
+            return await UserManager.GetRolesAsync(userId);
+        }
+
         public bool Owner(string userId)
         {
             if (string.IsNullOrWhiteSpace(userId))
@@ -94,6 +99,8 @@ namespace OSL.Forum.Web.Services
             if (applicationUserRole == null)
                 throw new ArgumentNullException(nameof(applicationUserRole));
 
+            await RemoveUserFromRolesAsync(applicationUserRole.UserId);
+
             var result = await UserManager.AddToRoleAsync(applicationUserRole.UserId, applicationUserRole.UserRole);
 
             if (!result.Succeeded)
@@ -113,6 +120,22 @@ namespace OSL.Forum.Web.Services
                 }).ToList();
 
             return users;
+        }
+
+        public async Task RemoveUserFromRolesAsync(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+                throw new ArgumentNullException(nameof(userId));
+
+            var userRoles = await UserRolesAsync(userId);
+
+            foreach (var userRole in userRoles)
+            {
+                var result = await UserManager.RemoveFromRolesAsync(userId, userRole);
+
+                if (!result.Succeeded)
+                    throw new InvalidOperationException("Role remove failed.");
+            }
         }
     }
 }
