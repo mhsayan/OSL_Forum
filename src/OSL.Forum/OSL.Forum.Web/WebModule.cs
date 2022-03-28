@@ -60,7 +60,6 @@ namespace OSL.Forum.Web
             builder.RegisterType<ProfileDetailsModel>().AsSelf();
             builder.RegisterType<EditProfileModel>().AsSelf();
             builder.RegisterType<AssignRoleModel>().AsSelf();
-
         }
     }
 }

@@ -25,6 +25,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             var model = _scope.Resolve<AssignRoleModel>();
             model.Resolve(_scope);
             model.GetUsers();
+            model.AdminRoles();
+            model.SuperAdminRoles();
 
             return View(model);
         }
@@ -34,7 +36,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         public ActionResult AssignRole(AssignRoleModel model)
         {
             model.Resolve(_scope);
-            model.GetUsers();
+            
+            
 
             return View();
         }

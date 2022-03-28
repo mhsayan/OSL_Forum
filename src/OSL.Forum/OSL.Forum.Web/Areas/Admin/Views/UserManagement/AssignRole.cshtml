@@ -4,13 +4,6 @@
 @{
     ViewBag.Title = "AssignRole";
 }
-<link href="~/Themes/AdminLTE/plugins/select2/css/select2.css" rel="stylesheet" />
-<script src="~/Themes/AdminLTE/plugins/select2/js/select2.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.select2').select2();
-    });
-</script>
 
 <section class="content-header">
     <div class="container-fluid">
@@ -46,17 +39,29 @@
                                 @Html.LabelFor(m => m.UserId, new { @class = "col-md-6 control-label" })
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(m => m.UserId, Model.ApplicationUserList,
-                                        "Select User", htmlAttributes: new { @class = "form-control col-md-6 select2" })
+                                        "Select User", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
                                     @Html.ValidationMessageFor(m => m.UserId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.UserRole, new { @class = "col-md-6 control-label" })
-                                <div class="col-md-10">
-                                    @Html.DropDownListFor(m => m.UserRole, new SelectList(Enum.GetValues(typeof(Roles))),
-                                        "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2" })
-                                    @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
-                                </div>
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    @Html.LabelFor(m => m.UserRole, new { @class = "col-md-6 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(m => m.UserRole, Model.SuperAdminRoleList,
+                                            "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
+                                        @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
+                                    </div>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    @Html.LabelFor(m => m.UserRole, new { @class = "col-md-6 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(m => m.UserRole, Model.AdminRoleList,
+                                            "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
+                                        @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
+                                    </div>
+                                }
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">

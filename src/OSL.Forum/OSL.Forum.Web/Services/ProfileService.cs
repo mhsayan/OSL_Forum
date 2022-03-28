@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Services
@@ -88,12 +89,12 @@ namespace OSL.Forum.Web.Services
                 throw new InvalidOperationException("User profile update failed.");
         }
 
-        public async Task AddUserToRole(string userId, string role)
+        public async Task AddUserToRole(ApplicationUserRole applicationUserRole)
         {
-            if (string.IsNullOrWhiteSpace(userId))
-                throw new ArgumentNullException(nameof(userId));
+            if (applicationUserRole == null)
+                throw new ArgumentNullException(nameof(applicationUserRole));
 
-            var result = await UserManager.AddToRoleAsync(userId, role);
+            var result = await UserManager.AddToRoleAsync(applicationUserRole.UserId, applicationUserRole.UserRole);
 
             if (!result.Succeeded)
                 throw new InvalidOperationException("Role assign failed.");
@@ -101,11 +102,15 @@ namespace OSL.Forum.Web.Services
 
         public List<SelectListItem> GetUserList()
         {
-            var users = UserManager.Users.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Email,
-                Value = u.Id
-            }).ToList();
+            var user = GetUser();
+
+            var users = UserManager.Users.ToList()
+                .Where(u => u.Email != user.Email)
+                .Select(u => new SelectListItem
+                {
+                    Text = u.Email,
+                    Value = u.Id.ToString()
+                }).ToList();
 
             return users;
         }

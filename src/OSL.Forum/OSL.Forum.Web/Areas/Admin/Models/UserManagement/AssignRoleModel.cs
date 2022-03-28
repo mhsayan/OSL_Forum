@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using AutoMapper;
+using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Models;
@@ -19,30 +21,73 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
         [Required]
         public string UserId { get; set; }
         [Required]
-        public Roles UserRole { get; set; }
-        public IList<ApplicationUser> ApplicationUsers { get; set; }
+        public string UserRole { get; set; }
         public List<SelectListItem> ApplicationUserList { get; set; }
+        public List<SelectListItem> AdminRoleList { get; set; }
+        public List<SelectListItem> SuperAdminRoleList { get; set; }
         private ILifetimeScope _scope;
         private IProfileService _profileService;
+        private IMapper _mapper;
 
         public AssignRoleModel()
         {
         }
 
-        public AssignRoleModel(IProfileService profileService)
+        public AssignRoleModel(IProfileService profileService, IMapper mapper)
         {
             _profileService = profileService;
+            _mapper = mapper;
         }
 
         public void Resolve(ILifetimeScope scope)
         {
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();
+            _mapper = _scope.Resolve<IMapper>();
         }
 
         public void GetUsers()
         {
             ApplicationUserList = _profileService.GetUserList();
+        }
+
+        public void SuperAdminRoles()
+        {
+            SuperAdminRoleList = new List<SelectListItem>()
+            {
+                new SelectListItem
+                {
+                    Text = Roles.Admin.ToString(),
+                    Value = Roles.Admin.ToString()
+                }
+            };
+
+            SuperAdminRoleList.AddRange(AdminRoleList);
+
+        }
+
+        public void AdminRoles()
+        {
+            AdminRoleList = new List<SelectListItem>()
+            {
+                new SelectListItem
+                {
+                    Text = Roles.Moderator.ToString(),
+                    Value = Roles.Moderator.ToString()
+                },
+                new SelectListItem
+                {
+                    Text = Roles.User.ToString(),
+                    Value = Roles.User.ToString()
+                },
+            };
+        }
+
+        public async Task AddUserToRole()
+        {
+            var applicationUserRole = _mapper.Map<ApplicationUserRole>(this);
+
+            await _profileService.AddUserToRole(applicationUserRole);
         }
     }
 }

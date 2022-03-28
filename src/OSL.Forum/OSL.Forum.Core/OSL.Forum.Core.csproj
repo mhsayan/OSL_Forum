@@ -96,6 +96,7 @@
     <Compile Include="BusinessObjects\Forum.cs" />
     <Compile Include="BusinessObjects\Post.cs" />
     <Compile Include="BusinessObjects\Topic.cs" />
+    <Compile Include="BusinessObjects\ApplicationUserRole.cs" />
     <Compile Include="Contexts\CoreDbContext.cs" />
     <Compile Include="Contexts\ICoreDbContext.cs" />
     <Compile Include="CoreModule.cs" />
