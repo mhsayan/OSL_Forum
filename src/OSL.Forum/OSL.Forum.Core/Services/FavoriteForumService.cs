@@ -33,7 +33,7 @@ namespace OSL.Forum.Core.Services
             foreach (var favoriteForum in favoriteForumsEntity)
             {
                 var favForum = new BO.FavoriteForum();
-                _mapper.Map(favoriteForumsEntity, favForum);
+                _mapper.Map(favoriteForum, favForum);
 
                 favoriteForums.Add(favForum);
             }

@@ -8,7 +8,6 @@ namespace OSL.Forum.Core.BusinessObjects
     {
         public Guid Id { get; set; }
         public string ApplicationUserId { get; set; }
-        [ForeignKey("Forum")]
         public Guid ForumId { get; set; }
         public Forum Forum { get; set; }
 
