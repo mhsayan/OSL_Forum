@@ -39,6 +39,8 @@ namespace OSL.Forum.Core
                 .InstancePerLifetimeScope();
             builder.RegisterType<PostRepository>().As<IPostRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<FavoriteForumRepository>().As<IFavoriteForumRepository>()
+                .InstancePerLifetimeScope();
 
             //Unit Of Work
             builder.RegisterType<CoreUnitOfWork>().As<ICoreUnitOfWork>().InstancePerLifetimeScope();
@@ -48,6 +50,7 @@ namespace OSL.Forum.Core
             builder.RegisterType<ForumService>().As<IForumService>().InstancePerLifetimeScope();
             builder.RegisterType<PostService>().As<IPostService>().InstancePerLifetimeScope();
             builder.RegisterType<TopicService>().As<ITopicService>().InstancePerLifetimeScope();
+            builder.RegisterType<FavoriteForumService>().As<IFavoriteForumService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
+using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;

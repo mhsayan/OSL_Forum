@@ -222,6 +222,7 @@
     <Compile Include="Areas\Admin\Models\PendingPost\PendingPostListModel.cs" />
     <Compile Include="Areas\Admin\Models\UserManagement\AssignRoleModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FavoriteForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\Category\CreateCategoryModel.cs" />
     <Compile Include="Models\ConfirmEmailModel.cs" />
+    <Compile Include="Models\FavoriteForum\FavoriteForumModel.cs" />
     <Compile Include="Models\Post\CreatePostModel.cs" />
     <Compile Include="Models\Post\EditPostModel.cs" />
     <Compile Include="Models\Profile\EditProfileModel.cs" />
@@ -2351,6 +2353,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Logs\" />
+    <Folder Include="Views\FavoriteForum\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

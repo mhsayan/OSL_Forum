@@ -5,6 +5,7 @@ using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
 using OSL.Forum.Web.Areas.Admin.Models.UserManagement;
+using OSL.Forum.Web.Models.FavoriteForum;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Profile;
@@ -58,6 +59,7 @@ namespace OSL.Forum.Web
             builder.RegisterType<AssignRoleModel>().AsSelf();
             builder.RegisterType<PendingPostListModel>().AsSelf();
             builder.RegisterType<PendingPostDetailsModel>().AsSelf();
+            builder.RegisterType<FavoriteForumModel>().AsSelf();
         }
     }
 }

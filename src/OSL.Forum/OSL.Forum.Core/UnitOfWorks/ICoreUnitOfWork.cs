@@ -14,5 +14,6 @@ namespace OSL.Forum.Core.UnitOfWorks
         IForumRepository Forums { get; }
         IPostRepository Posts { get; }
         ITopicRepository Topics { get; }
+        IFavoriteForumRepository FavoriteForums { get; }
     }
 }
