@@ -51,7 +51,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public ActionResult Edit(Guid id, Guid categoryId)
         {
-            return id == Guid.Empty ? View("Error") : View();
+            var model = _scope.Resolve<EditForumModel>();
+            model.Resolve(_scope);
+            model.GetForum(id);
+
+            return View(model);
         }
 
         [HttpPost]
