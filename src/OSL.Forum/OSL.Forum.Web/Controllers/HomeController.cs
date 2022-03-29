@@ -25,7 +25,11 @@ namespace OSL.Forum.Web.Controllers
         {
             var model = _scope.Resolve<IndexViewModel>();
             model.Resolve(_scope);
-            ViewBag.Categories = model.GetCategories();
+            model.GetCategories();
+            model.UserAuthenticatedStatus();
+
+            if (model.IsAuthenticated)
+                model.GetFavoriteForums();
 
             return View(model);
         }

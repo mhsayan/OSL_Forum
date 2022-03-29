@@ -23,6 +23,24 @@ namespace OSL.Forum.Core.Services
             _mapper = mapper;
         }
 
+        public List<BO.FavoriteForum> GetUserFavoriteForums(string userId)
+        {
+            var favoriteForumsEntity = _unitOfWork.FavoriteForums
+                .Get(ff => ff.ApplicationUserId == userId, "");
+
+            var favoriteForums = new List<BO.FavoriteForum>();
+
+            foreach (var favoriteForum in favoriteForumsEntity)
+            {
+                var favForum = new BO.FavoriteForum();
+                _mapper.Map(favoriteForumsEntity, favForum);
+
+                favoriteForums.Add(favForum);
+            }
+
+            return favoriteForums;
+        }
+
         public BO.FavoriteForum GetFavoriteForum(Guid forumId, string userId)
         {
             var favoriteForumEntity = _unitOfWork.FavoriteForums
