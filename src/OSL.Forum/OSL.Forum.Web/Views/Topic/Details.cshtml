@@ -42,6 +42,22 @@
             </div>
         </div>
         <div class="row">
+            @if (@Model.Topic.Posts.Count == 0)
+            {
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="row p-5">
+                            <div class="col align-content-center text-center">
+                                <h3 class="text-bold">No Posts Yet!</h3>
+                                <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary">
+                                    <i class="fas fa-plus m-1"></i>
+                                    Add a Post
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             @foreach (var post in Model.Topic.Posts)
             {
                 <div class="col-sm-12">
