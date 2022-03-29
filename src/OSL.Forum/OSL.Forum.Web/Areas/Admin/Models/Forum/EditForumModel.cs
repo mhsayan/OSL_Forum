@@ -17,6 +17,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
         public Guid CategoryId { get; set; }
+        public BO.Forum BoForum { get; set; }
         private ILifetimeScope _scope;
         private IForumService _forumService;
         private ICategoryService _categoryService;
@@ -46,17 +47,17 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
         }
 
-        public BO.Forum GetForum(Guid forumId)
+        public void GetForum(Guid forumId)
         {
             if (forumId == Guid.Empty)
                 throw new ArgumentNullException(nameof(forumId));
 
-            var forum = _forumService.GetForum(forumId);
+            BoForum = _forumService.GetForum(forumId);
 
-            if (forum == null)
+            if (BoForum == null)
                 throw new InvalidOperationException("Forum not found");
 
-            return forum;
+            _mapper.Map(BoForum, this);
         }
 
         public void Edit()

@@ -18,18 +18,20 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         [Display(Name = "Forum Name")]
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
+        public BO.Category BoCategory { get; set; }
         private ILifetimeScope _scope;
         private IProfileService _profileService;
         private IForumService _forumService;
         private IDateTimeUtility _dateTimeUtility;
         private ICategoryService _categoryService;
+        private IMapper _mapper;
 
         public CreateForumModel()
         {
         }
 
         public CreateForumModel(ICategoryService categoryService,
-            IProfileService profileService,
+            IProfileService profileService, IMapper mapper,
             IDateTimeUtility dateTimeUtility,
             IForumService forumService)
         {
@@ -37,6 +39,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _dateTimeUtility = dateTimeUtility;
             _forumService = forumService;
             _categoryService = categoryService;
+            _mapper = mapper;
         }
 
         public void Resolve(ILifetimeScope scope)
@@ -46,6 +49,18 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
             _forumService = _scope.Resolve<IForumService>();
             _categoryService = _scope.Resolve<ICategoryService>();
+            _mapper = _scope.Resolve<IMapper>();
+        }
+
+        public void GetCategory(Guid categoryId)
+        {
+            if (categoryId == Guid.Empty)
+                throw new ArgumentNullException(nameof(categoryId));
+
+            BoCategory = _categoryService.GetCategory(categoryId);
+
+            if (BoCategory == null)
+                throw new InvalidOperationException("Forum not found");
         }
 
         public void Create()

@@ -27,46 +27,37 @@ namespace OSL.Forum.Web.Models.Post
         public string Description { get; set; }
         public Guid TopicId { get; set; }
         public BO.Topic BoTopic { get; set; }
-        public BO.Forum BoForum { get; set; }
-        public BO.Category BoCategory { get; set; }
         private DateTime Time { get; set; }
         private ILifetimeScope _scope;
-        private ICategoryService _categoryService;
         private ITopicService _topicService;
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
         private IProfileService _profileService;
-        private IForumService _forumService;
         private IMapper _mapper;
 
         public CreatePostModel()
         {
         }
 
-        public CreatePostModel(ICategoryService categoryService,
-            IMapper mapper, IDateTimeUtility dateTimeUtility,
+        public CreatePostModel(IMapper mapper, IDateTimeUtility dateTimeUtility,
             IProfileService profileService, ITopicService topicService,
-            IPostService postService, IForumService forumService)
+            IPostService postService)
         {
-            _categoryService = categoryService;
             _mapper = mapper;
             _dateTimeUtility = dateTimeUtility;
             _profileService = profileService;
             _topicService = topicService;
             _postService = postService;
-            _forumService = forumService;
         }
 
         public void Resolve(ILifetimeScope scope)
         {
             _scope = scope;
-            _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
             _profileService = _scope.Resolve<IProfileService>();
             _topicService = _scope.Resolve<ITopicService>();
             _postService = _scope.Resolve<IPostService>();
-            _forumService = _scope.Resolve<IForumService>();
         }
 
         public void CreatePost()
@@ -94,16 +85,6 @@ namespace OSL.Forum.Web.Models.Post
         public void GetTopic(Guid topicId)
         {
             BoTopic = _topicService.GetTopic(topicId);
-        }
-
-        public void GetCategory()
-        {
-            BoCategory = _categoryService.GetCategory(BoForum.CategoryId);
-        }
-
-        public void GetForum()
-        {
-            BoForum = _forumService.GetForum(BoTopic.ForumId);
         }
     }
 }

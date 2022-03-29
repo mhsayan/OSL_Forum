@@ -38,9 +38,6 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<EditPostModel>();
             model.Resolve(_scope);
             model.GetPost(postId);
-            model.GetTopic();
-            model.GetForum();
-            model.GetCategory();
 
             return View(model);
         }

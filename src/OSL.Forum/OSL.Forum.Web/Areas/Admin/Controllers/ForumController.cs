@@ -22,7 +22,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public ActionResult Create(Guid categoryId)
         {
-            return View();
+            var model = _scope.Resolve<CreateForumModel>();
+            model.Resolve(_scope);
+            model.GetCategory(categoryId);
+
+            return View(model);
         }
 
         [HttpPost]
@@ -51,7 +55,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public ActionResult Edit(Guid id, Guid categoryId)
         {
-            return id == Guid.Empty ? View("Error") : View();
+            var model = _scope.Resolve<EditForumModel>();
+            model.Resolve(_scope);
+            model.GetForum(id);
+
+            return View(model);
         }
 
         [HttpPost]

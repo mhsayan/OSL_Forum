@@ -28,6 +28,7 @@ namespace OSL.Forum.Web.Profiles
             CreateMap<EditCategoryModel, Category>().ReverseMap();
             CreateMap<EditForumModel, Core.BusinessObjects.Forum>().ReverseMap();
             CreateMap<IndexViewModel, Category>().ReverseMap();
+            CreateMap<CreateForumModel, Category>().ReverseMap();
             CreateMap<DetailsModel, Category>().ReverseMap();
             CreateMap<EditPostModel, Post>().ReverseMap();
             CreateMap<CreatePostModel, Post>().ReverseMap();

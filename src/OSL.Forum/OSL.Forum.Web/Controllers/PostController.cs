@@ -29,9 +29,7 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<EditPostModel>();
             model.Resolve(_scope);
             model.GetPost(postId);
-            model.GetTopic();
-            model.GetForum();
-            model.GetCategory();
+            //model.GetTopic();
 
             return View(model);
         }
@@ -69,8 +67,6 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<CreatePostModel>();
             model.Resolve(_scope);
             model.GetTopic(topicId);
-            model.GetForum();
-            model.GetCategory();
 
             return View(model);
         }
@@ -87,8 +83,6 @@ namespace OSL.Forum.Web.Controllers
             {
                 model.Resolve(_scope);
                 model.GetTopic(model.TopicId);
-                model.GetForum();
-                model.GetCategory();
                 model.CreatePost();
                 model.UpdateTopicModificationDate();
 

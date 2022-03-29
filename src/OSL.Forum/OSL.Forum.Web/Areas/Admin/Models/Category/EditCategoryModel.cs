@@ -40,7 +40,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             _mapper = _scope.Resolve<IMapper>();
         }
 
-        public BO.Category GetCategory(Guid categoryId)
+        public void GetCategory(Guid categoryId)
         {
             if (categoryId == Guid.Empty)
                 throw new ArgumentNullException(nameof(categoryId));
@@ -50,7 +50,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             if (category == null)
                 throw new InvalidOperationException("Category not found");
 
-            return category;
+            _mapper.Map(category, this);
         }
 
         public void Edit()
