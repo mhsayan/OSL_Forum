@@ -1,0 +1,46 @@
+﻿@model OSL.Forum.Web.Models.FavoriteForum.FavoriteForumModel
+@{
+    ViewBag.Title = "FavoriteForums";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Favorite Forums</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Favorite Forums</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-primary text-bold">Your Favorite Forums</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var favoriteForum in Model.FavoriteForums)
+            {
+                <div class="col-6 p-3">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-8 my-3 pl-4">
+                                @Html.ActionLink(favoriteForum.Forum.Name, "Topics", "Topic", new { id = favoriteForum.Forum.Id },
+                                    new { @class = "stretched-link" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+

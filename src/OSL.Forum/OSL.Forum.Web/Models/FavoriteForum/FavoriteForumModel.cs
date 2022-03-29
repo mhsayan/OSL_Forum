@@ -6,11 +6,13 @@ using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Web.Services;
+using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.FavoriteForum
 {
     public class FavoriteForumModel
     {
+        public IList<BO.FavoriteForum> FavoriteForums { get; set; }
         private IFavoriteForumService _favoriteForumService;
         private IForumService _forumService;
         private IMapper _mapper;
@@ -52,6 +54,12 @@ namespace OSL.Forum.Web.Models.FavoriteForum
             var user = _profileService.GetUser();
 
             _favoriteForumService.RemoveFromFavorite(forumId, user.Id);
+        }
+
+        public void GetFavoriteForums()
+        {
+            var user = _profileService.GetUser();
+            FavoriteForums = _favoriteForumService.GetUserFavoriteForums(user.Id);
         }
     }
 }

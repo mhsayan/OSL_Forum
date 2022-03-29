@@ -13,7 +13,7 @@ namespace OSL.Forum.Core.BusinessObjects
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
         public Guid ForumId { get; set; }
-        public virtual Entities.Forum Forum { get; set; }
+        public virtual Forum Forum { get; set; }
         public string ApplicationUserId { get; set; }
         public string ApprovalType { get; set; }
         public string Status { get; set; }

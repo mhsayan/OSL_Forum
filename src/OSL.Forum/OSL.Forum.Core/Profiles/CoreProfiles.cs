@@ -19,7 +19,7 @@ namespace OSL.Forum.Core.Profiles
             CreateMap<EO.Post, BO.Post>().ReverseMap();
             CreateMap<EO.FavoriteForum, BO.FavoriteForum>().ReverseMap();
             CreateMap<BO.ApplicationUserRole, BO.ApplicationUserRole>().ReverseMap();
-            CreateMap<BO.FavoriteForum, BO.FavoriteForum>().ReverseMap();
+            CreateMap<EO.FavoriteForum, BO.FavoriteForum>().ReverseMap();
         }
     }
 }

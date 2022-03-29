@@ -66,7 +66,7 @@ namespace OSL.Forum.Core.Services
 
             foreach (var entity in categoryList)
             {
-                entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).Take(5).ToList();
+                entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).Take(4).ToList();
                 var category = _mapper.Map<BO.Category>(entity);
                 categories.Add(category);
             }
