@@ -86,6 +86,7 @@ namespace OSL.Forum.Core.Services
 
             forumEntity.Name = forum.Name;
             forumEntity.ModificationDate = forum.ModificationDate;
+            forumEntity.ApplicationUserId = forum.ApplicationUserId;
 
             _unitOfWork.Save();
         }

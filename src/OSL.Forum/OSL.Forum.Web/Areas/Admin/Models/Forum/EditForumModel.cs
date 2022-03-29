@@ -4,6 +4,7 @@ using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
+using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Forum
@@ -22,6 +23,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         private IForumService _forumService;
         private ICategoryService _categoryService;
         private IDateTimeUtility _dateTimeUtility;
+        private IProfileService _profileService;
         private IMapper _mapper;
 
         public EditForumModel()
@@ -30,12 +32,14 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public EditForumModel(ICategoryService categoryService,
             IMapper mapper, IForumService forumService,
-            IDateTimeUtility dateTimeUtility)
+            IDateTimeUtility dateTimeUtility,
+            IProfileService profileService)
         {
             _categoryService = categoryService;
             _mapper = mapper;
             _forumService = forumService;
             _dateTimeUtility = dateTimeUtility;
+            _profileService = profileService;
         }
 
         public void Resolve(ILifetimeScope scope)
@@ -45,6 +49,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _mapper = _scope.Resolve<IMapper>();
             _forumService = _scope.Resolve<IForumService>();
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
+            _profileService = _scope.Resolve<IProfileService>();
         }
 
         public void GetForum(Guid forumId)
@@ -62,10 +67,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public void Edit()
         {
+            var user = _profileService.GetUser();
             var modificationDate = _dateTimeUtility.Now;
 
             var forum = _mapper.Map<BO.Forum>(this);
             forum.ModificationDate = modificationDate;
+            forum.ApplicationUserId = user.Id;
 
             _forumService.EditForum(forum);
             _categoryService.UpdateModificationDate(modificationDate, forum.CategoryId);
