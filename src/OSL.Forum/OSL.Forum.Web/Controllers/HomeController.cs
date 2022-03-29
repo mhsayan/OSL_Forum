@@ -21,10 +21,10 @@ namespace OSL.Forum.Web.Controllers
         }
 
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var model = _scope.Resolve<IndexViewModel>();
-            model.Resolve(_scope);
+            await model.Resolve(_scope);
             model.GetCategories();
             model.UserAuthenticatedStatus();
 
