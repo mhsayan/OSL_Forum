@@ -106,7 +106,6 @@
     <Compile Include="Contexts\CoreDbContext.cs" />
     <Compile Include="Contexts\ICoreDbContext.cs" />
     <Compile Include="CoreModule.cs" />
-    <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\FavoriteForum.cs" />
     <Compile Include="Entities\Forum.cs" />
@@ -145,6 +144,10 @@
     <Compile Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.cs" />
     <Compile Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.designer.cs">
       <DependentUpon>202203280951541_AddApprovalTypeFromForumToTopic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202203290438442_AddFavoriteForumTable.cs" />
+    <Compile Include="Migrations\202203290438442_AddFavoriteForumTable.designer.cs">
+      <DependentUpon>202203290438442_AddFavoriteForumTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
@@ -209,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.resx">
       <DependentUpon>202203280951541_AddApprovalTypeFromForumToTopic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203290438442_AddFavoriteForumTable.resx">
+      <DependentUpon>202203290438442_AddFavoriteForumTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,8 +15,8 @@ namespace OSL.Forum.Core.Entities
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        [ForeignKey("Forum")]
         public Guid ForumId { get; set; }
-        public Forum Forum { get; set; }
+        public virtual Forum Forum { get; set; }
     }
 }
