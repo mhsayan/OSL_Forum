@@ -10,10 +10,8 @@ namespace OSL.Forum.Core.Services
 {
     public interface IFavoriteForumService
     {
-        void CreateForum(BO.Forum forum);
-        BO.Forum GetForum(string forumName, Guid categoryId);
-        void EditForum(BO.Forum forum);
-        BO.Forum GetForum(Guid forumId);
-        void DeleteForum(Guid forumId);
+        void AddToFavorite(Guid forumId, string userId);
+        void RemoveFromFavorite(Guid forumId, string userId);
+        BO.FavoriteForum GetFavoriteForum(Guid forumId, string userId);
     }
 }
