@@ -26,7 +26,7 @@ namespace OSL.Forum.Web.Controllers
             model.Resolve(_scope);
             model.AddToFavorite(forumId);
 
-            return null;
+            return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
         public ActionResult RemoveFromFavorite(Guid forumId)
@@ -35,7 +35,7 @@ namespace OSL.Forum.Web.Controllers
             model.Resolve(_scope);
             model.RemoveFromFavorite(forumId);
 
-            return null;
+            return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
     }
 }

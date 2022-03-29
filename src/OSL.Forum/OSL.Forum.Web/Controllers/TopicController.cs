@@ -29,6 +29,9 @@ namespace OSL.Forum.Web.Controllers
             model.GetCategory();
             model.LoadUserInfo();
 
+            if (model.IsAuthenticated)
+                model.FavoriteForumStatus();
+
             return View(model);
         }
 

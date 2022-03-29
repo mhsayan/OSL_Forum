@@ -26,7 +26,7 @@ namespace OSL.Forum.Core.Services
         public BO.FavoriteForum GetFavoriteForum(Guid forumId, string userId)
         {
             var favoriteForumEntity = _unitOfWork.FavoriteForums
-                .Get(ff => ff.Id == forumId && ff.ApplicationUserId == userId, "").FirstOrDefault();
+                .Get(ff => ff.ForumId == forumId && ff.ApplicationUserId == userId, "").FirstOrDefault();
 
             if (favoriteForumEntity == null)
                 return null;
@@ -60,7 +60,7 @@ namespace OSL.Forum.Core.Services
             if (oldFavoriteForum == null)
                 throw new InvalidOperationException("This Forum is not in your Favorite list.");
 
-            _unitOfWork.FavoriteForums.Remove(forumId);
+            _unitOfWork.FavoriteForums.Remove(oldFavoriteForum.Id);
             _unitOfWork.Save();
         }
     }
