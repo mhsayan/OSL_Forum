@@ -14,24 +14,18 @@ namespace OSL.Forum.Web.Models.Topic
         public BO.Forum Forum { get; set; }
         public bool IsAuthenticated { get; set; }
         public bool IsFavorite { get; set; }
-        public BO.Category Category { get; set; }
         private ILifetimeScope _scope;
         private IForumService _forumService;
-        private ICategoryService _categoryService;
         private IFavoriteForumService _favoriteForumService;
         private IProfileService _profileService;
-        private IMapper _mapper;
         public TopicViewModel()
         {
         }
 
         public TopicViewModel(IForumService forumService,
-            IMapper mapper, ICategoryService categoryService,
             IFavoriteForumService favoriteForumService, IProfileService profileService)
         {
             _forumService = forumService;
-            _mapper = mapper;
-            _categoryService = categoryService;
             _favoriteForumService = favoriteForumService;
             _profileService = profileService;
         }
@@ -40,8 +34,6 @@ namespace OSL.Forum.Web.Models.Topic
         {
             _scope = scope;
             _forumService = _scope.Resolve<IForumService>();
-            _mapper = _scope.Resolve<IMapper>();
-            _categoryService = _scope.Resolve<ICategoryService>();
             _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
             _profileService = _scope.Resolve<IProfileService>();
         }
@@ -63,11 +55,6 @@ namespace OSL.Forum.Web.Models.Topic
             var favoriteForum = _favoriteForumService.GetFavoriteForum(Forum.Id, user.Id);
 
             IsFavorite = favoriteForum != null;
-        }
-
-        public void GetCategory()
-        {
-            Category = _categoryService.GetCategory(Forum.CategoryId);
         }
     }
 }

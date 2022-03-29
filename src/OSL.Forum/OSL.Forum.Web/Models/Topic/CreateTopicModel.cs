@@ -27,28 +27,22 @@ namespace OSL.Forum.Web.Models.Topic
         public string Description { get; set; }
         private ApplicationUser ApplicationUser { get; set; }
         public BO.Forum Forum { get; set; }
-        public BO.Category Category { get; set; }
         private DateTime Time { get; set; }
         private ILifetimeScope _scope;
-        private ICategoryService _categoryService;
         private ITopicService _topicService;
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
         private IProfileService _profileService;
         private IForumService _forumService;
-        private IMapper _mapper;
 
         public CreateTopicModel()
         {
         }
 
-        public CreateTopicModel(ICategoryService categoryService,
-            IMapper mapper, IDateTimeUtility dateTimeUtility,
+        public CreateTopicModel(IDateTimeUtility dateTimeUtility,
             IProfileService profileService, ITopicService topicService,
             IPostService postService, IForumService forumService)
         {
-            _categoryService = categoryService;
-            _mapper = mapper;
             _dateTimeUtility = dateTimeUtility;
             _profileService = profileService;
             _topicService = topicService;
@@ -59,8 +53,6 @@ namespace OSL.Forum.Web.Models.Topic
         public void Resolve(ILifetimeScope scope)
         {
             _scope = scope;
-            _categoryService = _scope.Resolve<ICategoryService>();
-            _mapper = _scope.Resolve<IMapper>();
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
             _profileService = _scope.Resolve<IProfileService>();
             _topicService = _scope.Resolve<ITopicService>();
@@ -110,11 +102,6 @@ namespace OSL.Forum.Web.Models.Topic
             };
 
             _postService.CreatePost(post);
-        }
-
-        public void GetCategory()
-        {
-            Category = _categoryService.GetCategory(Forum.CategoryId);
         }
 
         public void GetForum(Guid forumId)

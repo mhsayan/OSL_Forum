@@ -31,8 +31,6 @@ namespace OSL.Forum.Web.Models.Post
         public string Description { get; set; }
         public string ApplicationUserId { get; set; }
         public BO.Topic Topic { get; set; }
-        public BO.Forum Forum { get; set; }
-        public BO.Category Category { get; set; }
         private DateTime Time { get; set; }
         private ILifetimeScope _scope;
         private ICategoryService _categoryService;
@@ -92,21 +90,6 @@ namespace OSL.Forum.Web.Models.Post
         public void UpdateTopicModificationDate()
         {
             _topicService.UpdateModificationDate(TopicId, Time);
-        }
-
-        public void GetTopic()
-        {
-            Topic = _topicService.GetTopic(TopicId);
-        }
-
-        public void GetCategory()
-        {
-            Category = _categoryService.GetCategory(Forum.CategoryId);
-        }
-
-        public void GetForum()
-        {
-            Forum = _forumService.GetForum(Topic.ForumId);
         }
 
         public void Delete(Guid postId)

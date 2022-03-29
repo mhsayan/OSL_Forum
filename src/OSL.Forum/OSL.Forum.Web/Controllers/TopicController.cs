@@ -26,7 +26,6 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<TopicViewModel>();
             model.Resolve(_scope);
             model.GetForum(id);
-            model.GetCategory();
             model.LoadUserInfo();
 
             if (model.IsAuthenticated)
@@ -41,7 +40,6 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<CreateTopicModel>();
             model.Resolve(_scope);
             model.GetForum(forumId);
-            model.GetCategory();
 
             return View(model);
         }
@@ -58,7 +56,6 @@ namespace OSL.Forum.Web.Controllers
             {
                 model.Resolve(_scope);
                 model.GetForum(model.ForumId);
-                model.GetCategory();
                 model.Create();
                 model.CreatePost();
 
@@ -79,8 +76,6 @@ namespace OSL.Forum.Web.Controllers
             var model = _scope.Resolve<TopicDetailsModel>();
             model.Resolve(_scope);
             model.GetTopic(topicId);
-            model.GetForum();
-            model.GetCategory();
             model.UserAuthenticatedStatus();
 
             if (model.IsAuthenticated)
