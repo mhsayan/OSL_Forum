@@ -22,7 +22,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public ActionResult Create(Guid categoryId)
         {
-            return View();
+            var model = _scope.Resolve<CreateForumModel>();
+            model.Resolve(_scope);
+            model.GetCategory(categoryId);
+
+            return View(model);
         }
 
         [HttpPost]
