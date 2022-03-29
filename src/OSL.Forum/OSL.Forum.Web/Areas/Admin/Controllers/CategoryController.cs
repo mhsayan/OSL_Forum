@@ -61,7 +61,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            return id == Guid.Empty ? View("Error") : View();
+            var model = _scope.Resolve<EditCategoryModel>();
+            model.Resolve(_scope);
+            model.GetCategory(id);
+
+            return View(model);
         }
 
         [HttpPost]
