@@ -20,6 +20,15 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
 
+        public ActionResult FavoriteForums()
+        {
+            var model = _scope.Resolve<FavoriteForumModel>();
+            model.Resolve(_scope);
+            model.GetFavoriteForums();
+
+            return View(model);
+        }
+
         public ActionResult AddToFavorite(Guid forumId)
         {
             var model = _scope.Resolve<FavoriteForumModel>();

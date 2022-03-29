@@ -28,15 +28,9 @@ namespace OSL.Forum.Core.Services
             var favoriteForumsEntity = _unitOfWork.FavoriteForums
                 .Get(ff => ff.ApplicationUserId == userId, "");
 
-            var favoriteForums = new List<BO.FavoriteForum>();
-
-            foreach (var favoriteForum in favoriteForumsEntity)
-            {
-                var favForum = new BO.FavoriteForum();
-                _mapper.Map(favoriteForum, favForum);
-
-                favoriteForums.Add(favForum);
-            }
+            var favoriteForums = favoriteForumsEntity.Select(favoriteForum =>
+                _mapper.Map<BO.FavoriteForum>(favoriteForum)
+                ).ToList();
 
             return favoriteForums;
         }

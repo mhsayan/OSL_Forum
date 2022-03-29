@@ -2348,12 +2348,12 @@
     <Content Include="Views\Profile\MyProfile.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\EditPost.cshtml" />
+    <Content Include="Views\FavoriteForum\FavoriteForums.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Logs\" />
-    <Folder Include="Views\FavoriteForum\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
