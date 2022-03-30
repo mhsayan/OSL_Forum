@@ -10,6 +10,7 @@ using OSL.Forum.Web.Areas.Admin.Models.UserManagement;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class UserManagementController : Controller
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(UserManagementController));
