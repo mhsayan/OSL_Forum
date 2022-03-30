@@ -21,10 +21,10 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/UserManagement
-        public ActionResult AssignRole()
+        public async Task<ActionResult> AssignRole()
         {
             var model = _scope.Resolve<AssignRoleModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetUsers();
             model.AdminRoles();
             model.SuperAdminRoles();
@@ -37,11 +37,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         public async Task<ActionResult> AssignRole(AssignRoleModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 await model.AddUserToRoleAsync();
 
                 return Redirect(nameof(AssignRole));

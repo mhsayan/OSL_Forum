@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Web.Models;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
-    public class CreateCategoryModel
+    public class CreateCategoryModel : BaseModel
     {
         [Required]
         [Display(Name = "Category Name")]
@@ -27,11 +29,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             _mapper = mapper;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void Create()

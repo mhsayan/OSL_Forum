@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
@@ -11,7 +12,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Models.Profile
 {
-    public class ProfileDetailsModel
+    public class ProfileDetailsModel : BaseModel
     {
         public ApplicationUser ApplicationUser { get; set; }
         public List<BO.Post> Posts { get; set; }
@@ -33,12 +34,14 @@ namespace OSL.Forum.Web.Models.Profile
             _postService = postService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();
             _mapper = _scope.Resolve<IMapper>();
             _postService = _scope.Resolve<IPostService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetUserInfo()

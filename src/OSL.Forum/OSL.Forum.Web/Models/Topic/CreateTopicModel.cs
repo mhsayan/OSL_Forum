@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Autofac;
 using AutoMapper;
@@ -12,7 +13,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
 {
-    public class CreateTopicModel
+    public class CreateTopicModel : BaseModel
     {
         [Required]
         [Display(Name = "Topic Name")]
@@ -50,7 +51,7 @@ namespace OSL.Forum.Web.Models.Topic
             _forumService = forumService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
@@ -58,6 +59,8 @@ namespace OSL.Forum.Web.Models.Topic
             _topicService = _scope.Resolve<ITopicService>();
             _postService = _scope.Resolve<IPostService>();
             _forumService = _scope.Resolve<IForumService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void Create()

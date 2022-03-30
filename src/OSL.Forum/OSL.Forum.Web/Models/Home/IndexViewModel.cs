@@ -14,7 +14,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Home
 {
-    public class IndexViewModel
+    public class IndexViewModel : BaseModel
     {
         public IList<BO.FavoriteForum> FavoriteForums { get; set; }
         public IList<BO.Category> Categories { get; set; }
@@ -37,12 +37,14 @@ namespace OSL.Forum.Web.Models.Home
             _profileService = profileService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
             _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
             _profileService = _scope.Resolve<IProfileService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetCategories()

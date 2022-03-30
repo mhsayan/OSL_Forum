@@ -23,28 +23,31 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         public async Task<ActionResult> Index()
         {
             var model = _scope.Resolve<CategoriesModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             ViewBag.Categories = model.GetCategories();
             await model.LoadUserInfo();
 
             return View(model);
         }
 
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var model = _scope.Resolve<CreateCategoryModel>();
+            await model.ResolveAsync(_scope);
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateCategoryModel model)
+        public async Task<ActionResult> Create(CreateCategoryModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 model.Create();
 
                 return Redirect(nameof(Index));
@@ -59,10 +62,10 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Edit(Guid id)
+        public async Task<ActionResult> Edit(Guid id)
         {
             var model = _scope.Resolve<EditCategoryModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetCategory(id);
 
             return View(model);
@@ -70,14 +73,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditCategoryModel model)
+        public async Task<ActionResult> Edit(EditCategoryModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 model.Edit();
 
                 return RedirectToAction(nameof(Index));
@@ -92,10 +95,10 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             var model = _scope.Resolve<CategoriesModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.Delete(id);
 
             return RedirectToAction(nameof(Index), "Category");
@@ -105,7 +108,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         public async Task<ActionResult> Details(Guid id)
         {
             var model = _scope.Resolve<CategoryDetailsModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetCategory(id);
             await model.LoadUserInfo();
 

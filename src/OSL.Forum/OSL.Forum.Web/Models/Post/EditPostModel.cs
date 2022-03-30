@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -14,7 +15,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Post
 {
-    public class EditPostModel
+    public class EditPostModel : BaseModel
     {
         [Required]
         public Guid Id { get; set; }
@@ -59,7 +60,7 @@ namespace OSL.Forum.Web.Models.Post
             _forumService = forumService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
@@ -69,6 +70,8 @@ namespace OSL.Forum.Web.Models.Post
             _topicService = _scope.Resolve<ITopicService>();
             _postService = _scope.Resolve<IPostService>();
             _forumService = _scope.Resolve<IForumService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetPost(Guid postId)

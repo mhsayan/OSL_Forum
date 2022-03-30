@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -20,28 +21,28 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
 
-        public ActionResult FavoriteForums()
+        public async Task<ActionResult> FavoriteForums()
         {
             var model = _scope.Resolve<FavoriteForumModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetFavoriteForums();
 
             return View(model);
         }
 
-        public ActionResult AddToFavorite(Guid forumId)
+        public async Task<ActionResult> AddToFavorite(Guid forumId)
         {
             var model = _scope.Resolve<FavoriteForumModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.AddToFavorite(forumId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
-        public ActionResult RemoveFromFavorite(Guid forumId)
+        public async Task<ActionResult> RemoveFromFavorite(Guid forumId)
         {
             var model = _scope.Resolve<FavoriteForumModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.RemoveFromFavorite(forumId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });

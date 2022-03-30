@@ -21,10 +21,10 @@ namespace OSL.Forum.Web.Controllers
         }
 
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var model = _scope.Resolve<IndexViewModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetCategories();
             model.UserAuthenticatedStatus();
 
@@ -34,10 +34,10 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Details(Guid id)
+        public async Task<ActionResult> Details(Guid id)
         {
             var model = _scope.Resolve<DetailsModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetCategory(id);
 
             return View(model);

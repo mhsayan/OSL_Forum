@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Autofac;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -19,9 +20,11 @@ namespace OSL.Forum.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly ILifetimeScope _scope;
 
-        public AccountController()
+        public AccountController(ILifetimeScope scope)
         {
+            _scope = scope;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -181,9 +184,12 @@ namespace OSL.Forum.Web.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public ActionResult ConfirmRegistration()
+        public async Task<ActionResult> ConfirmRegistration()
         {
-            return View();
+            var model = _scope.Resolve<BaseModel>();
+            await model.ResolveAsync(_scope);
+
+            return View(model);
         }
 
         //
@@ -196,7 +202,9 @@ namespace OSL.Forum.Web.Controllers
                 return View("Error");
             }
 
-            var model = new ConfirmEmailModel();
+            var model = _scope.Resolve<ConfirmEmailModel>();
+            await model.ResolveAsync(_scope);
+
             var user = await UserManager.FindByIdAsync(userId);
 
             if (user is null)
@@ -252,9 +260,12 @@ namespace OSL.Forum.Web.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
+        public async Task<ActionResult> ForgotPasswordConfirmation()
         {
-            return View();
+            var model = _scope.Resolve<BaseModel>();
+            await model.ResolveAsync(_scope);
+
+            return View(model);
         }
 
         //
@@ -296,9 +307,12 @@ namespace OSL.Forum.Web.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
+        public async Task<ActionResult> ResetPasswordConfirmation()
         {
-            return View();
+            var model = _scope.Resolve<BaseModel>();
+            await model.ResolveAsync(_scope);
+
+            return View(model);
         }
 
         //

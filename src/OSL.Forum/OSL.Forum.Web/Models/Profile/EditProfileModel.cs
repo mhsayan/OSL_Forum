@@ -11,7 +11,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Models.Profile
 {
-    public class EditProfileModel
+    public class EditProfileModel : BaseModel
     {
         [Required]
         public string Id { get; set; }
@@ -34,11 +34,13 @@ namespace OSL.Forum.Web.Models.Profile
             _mapper = mapper;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();
             _mapper = _scope.Resolve<IMapper>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public async Task EditProfileAsync()

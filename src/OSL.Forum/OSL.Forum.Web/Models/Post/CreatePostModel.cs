@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -14,7 +15,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Post
 {
-    public class CreatePostModel
+    public class CreatePostModel : BaseModel
     {
         [Required]
         [Display(Name = "Post Title")]
@@ -50,7 +51,7 @@ namespace OSL.Forum.Web.Models.Post
             _postService = postService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _mapper = _scope.Resolve<IMapper>();
@@ -58,6 +59,8 @@ namespace OSL.Forum.Web.Models.Post
             _profileService = _scope.Resolve<IProfileService>();
             _topicService = _scope.Resolve<ITopicService>();
             _postService = _scope.Resolve<IPostService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void CreatePost()

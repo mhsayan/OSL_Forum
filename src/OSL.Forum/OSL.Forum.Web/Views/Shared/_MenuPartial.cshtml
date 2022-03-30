@@ -1,23 +1,4 @@
-﻿@*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>*@
+﻿@model OSL.Forum.Web.Models.BaseModel
 
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
@@ -33,7 +14,7 @@
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-link">
                     @Html.ActionLink("Home", "Index", "Home")
                 </li>
             </ul>
@@ -41,6 +22,20 @@
 
         <!-- Right navbar links -->
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item m-1">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (Model.ShowDashboard)
+                        {
+                            <a class="nav-link" href="/Admin/Category/Index">
+                                Dashboard
+                            </a>
+                        }
+                    }
+                </li>
+            </ul>
+
             @Html.Partial("_LoginPartial")
         </ul>
     </div>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
@@ -9,7 +10,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
 {
-    public class TopicViewModel
+    public class TopicViewModel : BaseModel
     {
         public BO.Forum Forum { get; set; }
         public bool IsAuthenticated { get; set; }
@@ -30,12 +31,14 @@ namespace OSL.Forum.Web.Models.Topic
             _profileService = profileService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _forumService = _scope.Resolve<IForumService>();
             _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
             _profileService = _scope.Resolve<IProfileService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetForum(Guid forumId)

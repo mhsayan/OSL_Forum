@@ -1,16 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
+using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 {
-    public class CreateForumModel
+    public class CreateForumModel : BaseModel
     {
         [Required]
         public Guid CategoryId { get; set; }
@@ -42,7 +44,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _mapper = mapper;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();
@@ -50,6 +52,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _forumService = _scope.Resolve<IForumService>();
             _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetCategory(Guid categoryId)
