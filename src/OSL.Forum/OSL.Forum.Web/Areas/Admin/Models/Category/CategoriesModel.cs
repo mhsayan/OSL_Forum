@@ -16,7 +16,7 @@ using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
-    public class CategoriesModel
+    public class CategoriesModel : BaseModel
     {
         public IList<string> Roles { get; set; }
         private ILifetimeScope _scope;
@@ -36,11 +36,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             _mapper = mapper;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public IList<BO.Category> GetCategories()

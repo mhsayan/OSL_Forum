@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Web.Models;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
-    public class EditCategoryModel
+    public class EditCategoryModel : BaseModel
     {
         [Required]
         public Guid Id { get; set; }
@@ -33,11 +35,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             _mapper = mapper;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetCategory(Guid categoryId)
