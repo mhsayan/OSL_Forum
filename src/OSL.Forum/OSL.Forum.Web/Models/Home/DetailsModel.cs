@@ -12,7 +12,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Home
 {
-    public class DetailsModel
+    public class DetailsModel : BaseModel
     {
         public BO.Category Category { get; set; }
         public IList<string> Roles { get; set; }
@@ -32,11 +32,13 @@ namespace OSL.Forum.Web.Models.Home
             _mapper = mapper;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetCategory(Guid categoryId)

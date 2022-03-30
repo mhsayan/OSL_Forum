@@ -25,7 +25,7 @@ namespace OSL.Forum.Web.Models
             _profileService = profileService;
         }
 
-        public virtual async Task Resolve(ILifetimeScope scope)
+        public virtual async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();

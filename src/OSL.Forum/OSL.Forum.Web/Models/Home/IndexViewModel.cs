@@ -37,14 +37,14 @@ namespace OSL.Forum.Web.Models.Home
             _profileService = profileService;
         }
 
-        public override async Task Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
             _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
             _profileService = _scope.Resolve<IProfileService>();
 
-            await base.Resolve(_scope);
+            await base.ResolveAsync(_scope);
         }
 
         public void GetCategories()
