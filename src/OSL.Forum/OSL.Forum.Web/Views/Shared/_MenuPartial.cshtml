@@ -11,10 +11,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse order-3 text-black-50" id="navbarCollapse">
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-link">
                     @Html.ActionLink("Home", "Index", "Home")
                 </li>
             </ul>
@@ -28,7 +28,7 @@
                     {
                         if (Model.ShowDashboard)
                         {
-                            <a href="/Admin/Category/Index">
+                            <a class="nav-link" href="/Admin/Category/Index">
                                 Dashboard
                             </a>
                         }

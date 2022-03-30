@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model OSL.Forum.Web.Models.BaseModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -55,7 +56,19 @@
             </ul>
 
             <!-- Right navbar links -->
-            <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto text-decoration-none">
+                <li class="nav-item m-1">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (Model.ShowDashboard)
+                        {
+                            <a class="nav-link" href="/Admin/Category/Index">
+                                Dashboard
+                            </a>
+                        }
+                    }
+                </li>
+
                 @Html.Partial("_LoginPartial")
             </ul>
         </nav>
