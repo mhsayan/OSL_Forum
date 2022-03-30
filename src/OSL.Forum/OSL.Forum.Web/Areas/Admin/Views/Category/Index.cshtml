@@ -76,42 +76,35 @@
                 <nav aria-label="Page navigation example">
                     @if (Model.Pager.EndPage > 1)
                     {
-                        <ul class="pagination">
+                        <ul class="pagination justify-content-center">
                             @if (Model.Pager.CurrentPage > 1)
                             {
-                                <li>
-                                    <a href="~/Admin/Category/Index">First</a>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Admin/Category/Index">First</a>
                                 </li>
-                                <li>
-                                    <a href="~/Admin/Category/Index?page=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Admin/Category/Index?page=@(Model.Pager.CurrentPage - 1)">Previous</a>
                                 </li>
                             }
 
                             @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
                             {
-                                <li class="@(page == Model.Pager.CurrentPage ? "active" : "")">
+                                <li class="@(page == Model.Pager.CurrentPage ? "active" : "") page-link">
                                     <a href="~/Admin/Category/Index?page=@page">@page</a>
                                 </li>
                             }
 
                             @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
                             {
-                                <li>
-                                    <a href="~/Admin/Category/Index?page=@(Model.Pager.CurrentPage + 1)">Next</a>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Admin/Category/Index?page=@(Model.Pager.CurrentPage + 1)">Next</a>
                                 </li>
-                                <li>
-                                    <a href="~/Admin/Category/Index?page=@(Model.Pager.TotalPages)">Last</a>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Admin/Category/Index?page=@(Model.Pager.TotalPages)">Last</a>
                                 </li>
                             }
                         </ul>
                     }
-                    @*<ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>*@
                 </nav>
             </div>
         </div>
