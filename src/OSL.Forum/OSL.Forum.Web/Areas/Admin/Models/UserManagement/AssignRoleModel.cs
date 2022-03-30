@@ -16,7 +16,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
 {
-    public class AssignRoleModel
+    public class AssignRoleModel : BaseModel
     {
         [Required]
         public string UserId { get; set; }
@@ -39,11 +39,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
             _mapper = mapper;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();
             _mapper = _scope.Resolve<IMapper>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetUsers()

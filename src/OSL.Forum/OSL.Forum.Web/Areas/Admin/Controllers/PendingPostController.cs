@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -21,19 +22,19 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/PendingPost
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var model = _scope.Resolve<PendingPostListModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetPendingPostList();
 
             return View(model);
         }
 
-        public ActionResult Post(Guid postId)
+        public async Task<ActionResult> Post(Guid postId)
         {
             var model = _scope.Resolve<PendingPostDetailsModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetPendingPost(postId);
 
             return View(model);
@@ -41,14 +42,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Post(string button, PendingPostDetailsModel model)
+        public async Task<ActionResult> Post(string button, PendingPostDetailsModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
 
                 if (button == "Accept")
                     model.UpdatePostStatus(Status.Approved.ToString());
@@ -70,19 +71,19 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Accept(Guid postId)
+        public async Task<ActionResult> Accept(Guid postId)
         {
             var model = _scope.Resolve<PendingPostListModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.UpdatePostStatus(postId, Status.Approved.ToString());
 
             return Redirect(nameof(Index));
         }
 
-        public ActionResult Reject(Guid postId)
+        public async Task<ActionResult> Reject(Guid postId)
         {
             var model = _scope.Resolve<PendingPostListModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.UpdatePostStatus(postId, Status.Rejected.ToString());
 
             return Redirect(nameof(Index));

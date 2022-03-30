@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
@@ -20,10 +21,10 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             _scope = scope;
         }
 
-        public ActionResult Create(Guid categoryId)
+        public async Task<ActionResult> Create(Guid categoryId)
         {
             var model = _scope.Resolve<CreateForumModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetCategory(categoryId);
 
             return View(model);
@@ -31,14 +32,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateForumModel model)
+        public async Task<ActionResult> Create(CreateForumModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 model.Create();
 
                 return RedirectToAction("Details", "Category", new { id = model.CategoryId });
@@ -49,14 +50,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 _logger.Error("New Forum Create failed.");
                 _logger.Error(ex.Message);
 
-                return View();
+                return View(model);
             }
         }
 
-        public ActionResult Edit(Guid id, Guid categoryId)
+        public async Task<ActionResult> Edit(Guid id, Guid categoryId)
         {
             var model = _scope.Resolve<EditForumModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetForum(id);
 
             return View(model);
@@ -64,14 +65,14 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditForumModel model)
+        public async Task<ActionResult> Edit(EditForumModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 model.Edit();
 
                 return RedirectToAction("Details", "Category", new { id = model.CategoryId });
@@ -86,10 +87,10 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Delete(Guid id, Guid categoryId)
+        public async Task<ActionResult> Delete(Guid id, Guid categoryId)
         {
             var model = _scope.Resolve<EditForumModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.Delete(id);
 
             return RedirectToAction("Details", "Category", new { id = categoryId });

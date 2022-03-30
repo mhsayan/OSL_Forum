@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 {
-    public class PendingPostListModel
+    public class PendingPostListModel : BaseModel
     {
         public List<Post> Posts { get; set; }
         private ILifetimeScope _scope;
@@ -27,11 +29,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             _profileService = profileService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _postService = _scope.Resolve<IPostService>();
             _profileService = _scope.Resolve<IProfileService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetPendingPostList()

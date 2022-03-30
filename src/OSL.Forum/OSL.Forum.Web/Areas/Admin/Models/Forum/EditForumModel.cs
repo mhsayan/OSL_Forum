@@ -1,15 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
+using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 {
-    public class EditForumModel
+    public class EditForumModel : BaseModel
     {
         [Required]
         public Guid Id { get; set; }
@@ -42,7 +44,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _profileService = profileService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
@@ -50,6 +52,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _forumService = _scope.Resolve<IForumService>();
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
             _profileService = _scope.Resolve<IProfileService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetForum(Guid forumId)
