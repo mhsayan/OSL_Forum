@@ -20,6 +20,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
     public class CategoriesModel : BaseModel
     {
         public IList<string> Roles { get; set; }
+        public IList<BO.Category> Categories { get; set; }
         private ILifetimeScope _scope;
         private ICategoryService _categoryService;
         private IMapper _mapper;
@@ -47,13 +48,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             await base.ResolveAsync(_scope);
         }
 
-        public IList<BO.Category> GetCategories(int? page)
+        public void GetCategories(int? page)
         {
             var totalItem = _categoryService.GetCategoryCount();
 
             Pager = new Pager(totalItem, page);
 
-            return _categoryService.GetCategories(Pager.CurrentPage, Pager.PageSize);
+            Categories = _categoryService.GetCategories(Pager.CurrentPage, Pager.PageSize);
         }
 
         public async Task LoadUserInfo()

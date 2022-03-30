@@ -24,7 +24,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         {
             var model = _scope.Resolve<CategoriesModel>();
             await model.ResolveAsync(_scope);
-            ViewBag.Categories = model.GetCategories(page);
+            model.GetCategories(page);
             await model.LoadUserInfo();
 
             return View(model);
