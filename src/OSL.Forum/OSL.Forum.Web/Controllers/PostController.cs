@@ -24,10 +24,10 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
 
-        public ActionResult Edit(Guid postId)
+        public async Task<ActionResult> Edit(Guid postId)
         {
             var model = _scope.Resolve<EditPostModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetPost(postId);
             //model.GetTopic();
 
@@ -36,7 +36,7 @@ namespace OSL.Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditPostModel model)
+        public async Task<ActionResult> Edit(EditPostModel model)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -46,7 +46,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 model.EditPost();
                 model.UpdateTopicModificationDate();
 
@@ -62,10 +62,10 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public ActionResult Create(Guid topicId)
+        public async Task<ActionResult> Create(Guid topicId)
         {
             var model = _scope.Resolve<CreatePostModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetTopic(topicId);
 
             return View(model);
@@ -74,14 +74,14 @@ namespace OSL.Forum.Web.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreatePostModel model)
+        public async Task<ActionResult> Create(CreatePostModel model)
         {
             if (!ModelState.IsValid)
                 return View();
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 model.GetTopic(model.TopicId);
                 model.CreatePost();
                 model.UpdateTopicModificationDate();
@@ -98,10 +98,10 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public ActionResult Delete(Guid postId, Guid topicId)
+        public async Task<ActionResult> Delete(Guid postId, Guid topicId)
         {
             var model = _scope.Resolve<EditPostModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.Delete(postId);
 
             return RedirectToAction("Details", "Topic", new { topicId = topicId });
