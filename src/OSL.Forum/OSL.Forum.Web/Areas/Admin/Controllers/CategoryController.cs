@@ -7,7 +7,6 @@ using OSL.Forum.Web.Areas.Admin.Models.Category;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
     public class CategoryController : Controller
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(CategoryController));
@@ -30,6 +29,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Create()
         {
             var model = _scope.Resolve<CreateCategoryModel>();
@@ -38,6 +38,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateCategoryModel model)
@@ -62,6 +63,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Edit(Guid id)
         {
             var model = _scope.Resolve<EditCategoryModel>();
@@ -71,6 +73,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(EditCategoryModel model)
@@ -95,6 +98,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Delete(Guid id)
         {
             var model = _scope.Resolve<CategoriesModel>();

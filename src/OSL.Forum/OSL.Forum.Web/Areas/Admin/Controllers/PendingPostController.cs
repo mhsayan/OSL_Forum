@@ -11,6 +11,7 @@ using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
     public class PendingPostController : Controller
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(PendingPostController));
