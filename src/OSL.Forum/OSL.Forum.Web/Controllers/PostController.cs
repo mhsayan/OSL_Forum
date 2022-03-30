@@ -71,13 +71,12 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreatePostModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {

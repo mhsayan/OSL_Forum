@@ -12,6 +12,7 @@ using OSL.Forum.Web.Models.Profile;
 
 namespace OSL.Forum.Web.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(ProfileController));
