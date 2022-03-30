@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
+using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
@@ -19,11 +20,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         // GET: Category
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
             var model = _scope.Resolve<CategoriesModel>();
             await model.ResolveAsync(_scope);
-            ViewBag.Categories = model.GetCategories();
+            ViewBag.Categories = model.GetCategories(page);
             await model.LoadUserInfo();
 
             return View(model);

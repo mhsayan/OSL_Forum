@@ -137,5 +137,10 @@ namespace OSL.Forum.Core.Services
 
             _unitOfWork.Save();
         }
+
+        public int GetCategoryCount()
+        {
+            return _unitOfWork.Categories.GetCount();
+        }
     }
 }
