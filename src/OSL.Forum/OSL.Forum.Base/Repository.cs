@@ -86,7 +86,8 @@ namespace OSL.Forum.Base
             return query.ToList();
         }
 
-        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "", int pageIndex = 1, int pageSize = 10)
+        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "",
+            int pageIndex = 1, int pageSize = 10)
         {
             IQueryable<TEntity> query = _dbSet;
 
@@ -101,7 +102,7 @@ namespace OSL.Forum.Base
                 query = query.Include(includeProperty);
             }
 
-            var result = query.OrderByDescending(s => s.Id).Skip((1 - 1) * 5).Take(5).ToList();
+            var result = query.OrderByDescending(s => s.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
             return result;
         }

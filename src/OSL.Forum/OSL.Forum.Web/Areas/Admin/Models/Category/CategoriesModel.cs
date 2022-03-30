@@ -51,13 +51,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         {
             var totalItem = _categoryService.GetCategoryCount();
 
-            var pager = new Pager(totalItem, page);
+            Pager = new Pager(totalItem, page);
 
             //var data = _categoryService.GetCategoryList(
             //    pager.CurrentPage,
             //    pager.PageSize);
 
-            return _categoryService.GetCategories();
+            return _categoryService.GetCategories(Pager.CurrentPage, Pager.PageSize);
         }
 
         public async Task LoadUserInfo()
