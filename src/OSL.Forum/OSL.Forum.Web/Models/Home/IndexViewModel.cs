@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
@@ -19,6 +20,7 @@ namespace OSL.Forum.Web.Models.Home
         public IList<BO.FavoriteForum> FavoriteForums { get; set; }
         public IList<BO.Category> Categories { get; set; }
         public bool IsAuthenticated { get; set; }
+        public Pager Pager { get; set; }
         private ILifetimeScope _scope;
         private ICategoryService _categoryService;
         private IFavoriteForumService _favoriteForumService;
@@ -47,9 +49,13 @@ namespace OSL.Forum.Web.Models.Home
             await base.ResolveAsync(_scope);
         }
 
-        public void GetCategories()
+        public void GetCategories(int? page)
         {
-            Categories = _categoryService.GetCategories();
+            var totalItem = _categoryService.GetCategoryCount();
+
+            Pager = new Pager(totalItem, page);
+
+            Categories = _categoryService.GetCategories(Pager.CurrentPage, Pager.PageSize);
         }
 
         public void UserAuthenticatedStatus()
