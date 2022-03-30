@@ -86,6 +86,26 @@ namespace OSL.Forum.Base
             return query.ToList();
         }
 
+        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "", int pageIndex = 1, int pageSize = 10)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                         (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            var result = query.OrderByDescending(s => s.Id).Skip((1 - 1) * 5).Take(5).ToList();
+
+            return result;
+        }
+
         public virtual IList<TEntity> GetAll()
         {
             return _dbSet.ToList();

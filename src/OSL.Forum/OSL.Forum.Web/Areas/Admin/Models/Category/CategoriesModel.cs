@@ -53,6 +53,10 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
             var pager = new Pager(totalItem, page);
 
+            //var data = _categoryService.GetCategoryList(
+            //    pager.CurrentPage,
+            //    pager.PageSize);
+
             return _categoryService.GetCategories();
         }
 

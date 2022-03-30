@@ -142,5 +142,25 @@ namespace OSL.Forum.Core.Services
         {
             return _unitOfWork.Categories.GetCount();
         }
+
+        public IList<BO.Category> GetCategories(int pageIndex, int pageSize)
+        {
+            var categoryEntities = _unitOfWork.Categories.Get(null, "Forums", pageIndex, pageSize);
+
+            var categoryList = from c in categoryEntities
+                               orderby c.ModificationDate descending
+                               select c;
+
+            var categories = new List<BO.Category>();
+
+            foreach (var entity in categoryList)
+            {
+                entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).Take(4).ToList();
+                var category = _mapper.Map<BO.Category>(entity);
+                categories.Add(category);
+            }
+
+            return categories;
+        }
     }
 }
