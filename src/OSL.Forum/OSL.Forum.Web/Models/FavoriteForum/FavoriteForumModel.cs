@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
@@ -10,7 +11,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.FavoriteForum
 {
-    public class FavoriteForumModel
+    public class FavoriteForumModel : BaseModel
     {
         public IList<BO.FavoriteForum> FavoriteForums { get; set; }
         private IFavoriteForumService _favoriteForumService;
@@ -33,13 +34,15 @@ namespace OSL.Forum.Web.Models.FavoriteForum
             _profileService = profileService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _profileService = _scope.Resolve<IProfileService>();
             _mapper = _scope.Resolve<IMapper>();
             _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
             _forumService = _scope.Resolve<IForumService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void AddToFavorite(Guid forumId)
