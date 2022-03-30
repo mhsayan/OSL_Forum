@@ -23,20 +23,20 @@ namespace OSL.Forum.Web.Controllers
         }
 
         // GET: Profile
-        public ActionResult MyProfile()
+        public async Task<ActionResult> MyProfile()
         {
             var model = _scope.Resolve<ProfileDetailsModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetUserInfo();
             model.GetMyPosts();
 
             return View(model);
         }
 
-        public ActionResult EditPost(Guid postId)
+        public async Task<ActionResult> EditPost(Guid postId)
         {
             var model = _scope.Resolve<EditPostModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.GetPost(postId);
 
             return View(model);
@@ -44,7 +44,7 @@ namespace OSL.Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(EditPostModel model)
+        public async Task<ActionResult> EditPost(EditPostModel model)
         {
             if (!ModelState.IsValid)
                 return View();
@@ -54,7 +54,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 model.EditPost();
                 model.UpdateTopicModificationDate();
 
@@ -70,19 +70,19 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public ActionResult DeletePost(Guid postId, Guid topicId)
+        public async Task<ActionResult> DeletePost(Guid postId, Guid topicId)
         {
             var model = _scope.Resolve<EditPostModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.Delete(postId);
 
             return Redirect(nameof(MyProfile));
         }
 
-        public ActionResult Edit()
+        public async Task<ActionResult> Edit()
         {
             var model = _scope.Resolve<EditProfileModel>();
-            model.Resolve(_scope);
+            await model.ResolveAsync(_scope);
             model.LoadUserInfo();
 
             return View(model);
@@ -97,7 +97,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                model.Resolve(_scope);
+                await model.ResolveAsync(_scope);
                 await model.EditProfileAsync();
 
                 return Redirect(nameof(MyProfile));
