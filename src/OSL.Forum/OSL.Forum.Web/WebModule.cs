@@ -62,6 +62,7 @@ namespace OSL.Forum.Web
             builder.RegisterType<PendingPostDetailsModel>().AsSelf();
             builder.RegisterType<FavoriteForumModel>().AsSelf();
             builder.RegisterType<BaseModel>().AsSelf();
+            builder.RegisterType<ConfirmEmailModel>().AsSelf();
         }
     }
 }
