@@ -14,7 +14,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
 {
-    public class TopicDetailsModel
+    public class TopicDetailsModel : BaseModel
     {
         private ApplicationUser ApplicationUser { get; set; }
         public BO.Topic Topic { get; set; }
@@ -39,12 +39,14 @@ namespace OSL.Forum.Web.Models.Topic
             _topicService = topicService;
         }
 
-        public void Resolve(ILifetimeScope scope)
+        public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
             _mapper = _scope.Resolve<IMapper>();
             _profileService = _scope.Resolve<IProfileService>();
             _topicService = _scope.Resolve<ITopicService>();
+
+            await base.ResolveAsync(_scope);
         }
 
         public void GetTopic(Guid topicId)
