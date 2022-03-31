@@ -38,9 +38,9 @@ namespace OSL.Forum.Core.Services
         public List<BO.FavoriteForum> GetUserFavoriteForums(int pageIndex, int pageSize, string userId)
         {
             var favoriteForumsEntity = _unitOfWork.FavoriteForums
-                .Get(ff => ff.ApplicationUserId == userId, "", pageIndex, pageSize);
+                .Get(ff => ff.ApplicationUserId == userId, q => q.OrderBy(c => c.ForumId), "", pageIndex, pageSize, false);
 
-            var favoriteForums = favoriteForumsEntity.Select(favoriteForum =>
+            var favoriteForums = favoriteForumsEntity.data.Select(favoriteForum =>
                 _mapper.Map<BO.FavoriteForum>(favoriteForum)
                 ).ToList();
 

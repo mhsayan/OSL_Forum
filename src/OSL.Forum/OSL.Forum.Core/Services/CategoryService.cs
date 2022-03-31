@@ -145,9 +145,9 @@ namespace OSL.Forum.Core.Services
 
         public IList<BO.Category> GetCategories(int pageIndex, int pageSize)
         {
-            var categoryEntities = _unitOfWork.Categories.Get(null, "Forums", pageIndex, pageSize);
+            var categoryEntities = _unitOfWork.Categories.Get(null, q => q.OrderByDescending(c => c.ModificationDate), "Forums", pageIndex, pageSize, false);
 
-            var categoryList = from c in categoryEntities
+            var categoryList = from c in categoryEntities.data
                                orderby c.ModificationDate descending
                                select c;
 

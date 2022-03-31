@@ -109,12 +109,12 @@ namespace OSL.Forum.Core.Services
 
         public IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, Guid categoryId)
         {
-            var forumEntities = _unitOfWork.Forums.Get(c => c.CategoryId == categoryId, "", pagerCurrentPage, pagerPageSize);
+            var forumEntities = _unitOfWork.Forums.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
 
-            if (forumEntities == null)
+            if (forumEntities.data == null)
                 return null;
 
-            var forumList = from c in forumEntities
+            var forumList = from c in forumEntities.data
                             orderby c.ModificationDate descending
                             select c;
 

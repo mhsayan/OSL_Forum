@@ -34,6 +34,10 @@ namespace OSL.Forum.Base
         IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "", int pageIndex = 1,
             int pageSize = 10);
 
+        IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>,
+                IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "", int pageIndex = 1, int pageSize = 10);
+
         IList<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "", bool isTrackingOff = false);
