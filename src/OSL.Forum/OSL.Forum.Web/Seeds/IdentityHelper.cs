@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
@@ -36,9 +37,9 @@ namespace OSL.Forum.Web.Seeds
                 var roleResult = roleManager.Create(new IdentityRole(Roles.User.ToString()));
             }
 
-            string name = "Super Admin";
-            string userName = "superadmin@oslforum.com";
-            string password = "Superadmin@1234#";
+            string name = ConfigurationManager.AppSettings["Name"].ToString();
+            string userName = ConfigurationManager.AppSettings["SuperAdminEmail"].ToString();
+            string password = ConfigurationManager.AppSettings["Password"].ToString();
 
             var user = userManager.FindByName(userName);
 

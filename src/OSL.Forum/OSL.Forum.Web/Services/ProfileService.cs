@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,6 +11,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
+using OSL.Forum.Web.Seeds;
+using Roles = System.Web.Security.Roles;
 
 namespace OSL.Forum.Web.Services
 {
@@ -111,9 +114,10 @@ namespace OSL.Forum.Web.Services
         public List<SelectListItem> GetUserList()
         {
             var user = GetUser();
+            var superAdmin = ConfigurationManager.AppSettings["SuperAdminEmail"].ToString();
 
             var users = UserManager.Users.ToList()
-                .Where(u => u.Email != user.Email)
+                .Where(u => u.Email != user.Email && u.Email != superAdmin)
                 .Select(u => new SelectListItem
                 {
                     Text = u.Email,
