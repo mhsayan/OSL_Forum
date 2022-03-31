@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row">
-            @foreach (var forum in Model.Category.Forums)
+            @foreach (var forum in Model.Forums)
             {
                 <div class="col-6 p-3">
                     <div class="card">
@@ -40,6 +40,63 @@
                     </div>
                 </div>
             }
+        </div>
+        <div class="row">
+            <div class="col">
+                <nav aria-label="Page navigation example">
+                    @if (Model.Pager.EndPage > 1)
+                    {
+                        <ul class="pagination justify-content-center">
+                            @if (Model.Pager.CurrentPage == 1)
+                            {
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/Home/Details?id=@Model.Category.Id">First</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/Home/Details?page=@(Model.Pager.CurrentPage - 1)&id=@Model.Category.Id">Previous</a>
+                                </li>
+                            }
+
+                            @if (Model.Pager.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Home/Details?id=@Model.Category.Id">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Home/Details?page=@(Model.Pager.CurrentPage - 1)&id=@Model.Category.Id">Previous</a>
+                                </li>
+                            }
+
+                            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                            {
+                                <li class="@(page == Model.Pager.CurrentPage ? "active" : "") page-link">
+                                    <a href="~/Home/Details?page=@page&id=@Model.Category.Id">@page</a>
+                                </li>
+                            }
+
+                            @if (Model.Pager.CurrentPage == Model.Pager.TotalPages)
+                            {
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/Home/Details?page=@(Model.Pager.CurrentPage + 1)&id=@Model.Category.Id">Next</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/Home/Details?page=@(Model.Pager.TotalPages)&id=@Model.Category.Id">Last</a>
+                                </li>
+                            }
+
+                            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Home/Details?page=@(Model.Pager.CurrentPage + 1)&id=@Model.Category.Id">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/Home/Details?page=@(Model.Pager.TotalPages)&id=@Model.Category.Id">Last</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </nav>
+            </div>
         </div>
     </div>
 </section>

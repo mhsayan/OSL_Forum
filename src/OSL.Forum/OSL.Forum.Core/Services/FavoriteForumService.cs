@@ -30,9 +30,26 @@ namespace OSL.Forum.Core.Services
 
             var favoriteForums = favoriteForumsEntity.Select(favoriteForum =>
                 _mapper.Map<BO.FavoriteForum>(favoriteForum)
+            ).ToList();
+
+            return favoriteForums;
+        }
+
+        public List<BO.FavoriteForum> GetUserFavoriteForums(int pageIndex, int pageSize, string userId)
+        {
+            var favoriteForumsEntity = _unitOfWork.FavoriteForums
+                .Get(ff => ff.ApplicationUserId == userId, "", pageIndex, pageSize);
+
+            var favoriteForums = favoriteForumsEntity.Select(favoriteForum =>
+                _mapper.Map<BO.FavoriteForum>(favoriteForum)
                 ).ToList();
 
             return favoriteForums;
+        }
+
+        public int GetFavoriteForumCount(string userId)
+        {
+            return _unitOfWork.FavoriteForums.Get(ff => ff.ApplicationUserId == userId, "").Count;
         }
 
         public BO.FavoriteForum GetFavoriteForum(Guid forumId, string userId)

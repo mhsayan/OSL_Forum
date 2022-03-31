@@ -100,6 +100,31 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
+        public int GetForumCount(Guid categoryId)
+        {
+            var totalForum = _unitOfWork.Forums.Get(f => f.CategoryId == categoryId, "").Count;
+
+            return totalForum;
+        }
+
+        public IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, Guid categoryId)
+        {
+            var forumEntities = _unitOfWork.Forums.Get(c => c.CategoryId == categoryId, "", pagerCurrentPage, pagerPageSize);
+
+            if (forumEntities == null)
+                return null;
+
+            var forumList = from c in forumEntities
+                            orderby c.ModificationDate descending
+                            select c;
+
+            var forums = forumList.Select(forum =>
+                _mapper.Map<BO.Forum>(forum)
+                ).ToList();
+
+            return forums;
+        }
+
         public void CreateForum(BO.Forum forum)
         {
             if (forum is null)

@@ -6,6 +6,7 @@ using System.Web;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
@@ -14,6 +15,7 @@ namespace OSL.Forum.Web.Models.FavoriteForum
     public class FavoriteForumModel : BaseModel
     {
         public IList<BO.FavoriteForum> FavoriteForums { get; set; }
+        public Pager Pager { get; set; }
         private IFavoriteForumService _favoriteForumService;
         private IForumService _forumService;
         private IMapper _mapper;
@@ -59,10 +61,13 @@ namespace OSL.Forum.Web.Models.FavoriteForum
             _favoriteForumService.RemoveFromFavorite(forumId, user.Id);
         }
 
-        public void GetFavoriteForums()
+        public void GetFavoriteForums(int? page)
         {
             var user = _profileService.GetUser();
-            FavoriteForums = _favoriteForumService.GetUserFavoriteForums(user.Id);
+            var totalItem = _favoriteForumService.GetFavoriteForumCount(user.Id);
+
+            Pager = new Pager(totalItem, page);
+            FavoriteForums = _favoriteForumService.GetUserFavoriteForums(Pager.CurrentPage, Pager.PageSize, user.Id);
         }
     }
 }

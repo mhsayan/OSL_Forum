@@ -110,11 +110,12 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
-        public async Task<ActionResult> Details(Guid id)
+        public async Task<ActionResult> Details(int? page, Guid id)
         {
             var model = _scope.Resolve<CategoryDetailsModel>();
             await model.ResolveAsync(_scope);
             model.GetCategory(id);
+            model.GetForums(id, page);
             await model.LoadUserInfo();
 
             return View(model);
