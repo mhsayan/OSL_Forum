@@ -21,11 +21,12 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
         // GET: Post
-        public async Task<ActionResult> Topics(Guid id)
+        public async Task<ActionResult> Topics(int? page, Guid id)
         {
             var model = _scope.Resolve<TopicViewModel>();
             await model.ResolveAsync(_scope);
             model.GetForum(id);
+            model.GetTopics(page, id);
             model.LoadUserInfo();
 
             if (model.IsAuthenticated)

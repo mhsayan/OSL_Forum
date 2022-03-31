@@ -102,6 +102,29 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
+        public int GetTopicCount(Guid forumId)
+        {
+            return _unitOfWork.Topics.Get(t => t.ForumId == forumId, "").Count;
+        }
+
+        public IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, Guid forumId)
+        {
+            var topicEntities = _unitOfWork.Topics.Get(c => c.ForumId == forumId, "", pagerCurrentPage, pagerPageSize);
+
+            if (topicEntities == null)
+                return null;
+
+            var topicList = from c in topicEntities
+                            orderby c.ModificationDate descending
+                            select c;
+
+            var topics = topicList.Select(topic =>
+                _mapper.Map<BO.Topic>(topic)
+                ).ToList();
+
+            return topics;
+        }
+
         public void CreateTopic(BO.Topic topic)
         {
             if (topic is null)

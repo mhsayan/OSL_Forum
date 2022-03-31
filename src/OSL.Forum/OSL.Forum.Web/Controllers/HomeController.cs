@@ -21,11 +21,11 @@ namespace OSL.Forum.Web.Controllers
         }
 
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
             var model = _scope.Resolve<IndexViewModel>();
             await model.ResolveAsync(_scope);
-            model.GetCategories();
+            model.GetCategories(page);
             model.UserAuthenticatedStatus();
 
             if (model.IsAuthenticated)
@@ -34,11 +34,12 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Details(Guid id)
+        public async Task<ActionResult> Details(int? page, Guid id)
         {
             var model = _scope.Resolve<DetailsModel>();
             await model.ResolveAsync(_scope);
             model.GetCategory(id);
+            model.GetForums(id, page);
 
             return View(model);
         }

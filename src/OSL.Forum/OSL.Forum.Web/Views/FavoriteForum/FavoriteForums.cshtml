@@ -41,6 +41,63 @@
                 </div>
             }
         </div>
+        <div class="row">
+            <div class="col">
+                <nav aria-label="Page navigation example">
+                    @if (Model.Pager.EndPage > 1)
+                    {
+                        <ul class="pagination justify-content-center">
+                            @if (Model.Pager.CurrentPage == 1)
+                            {
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums">First</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums?page=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                                </li>
+                            }
+
+                            @if (Model.Pager.CurrentPage > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums?page=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                                </li>
+                            }
+
+                            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                            {
+                                <li class="@(page == Model.Pager.CurrentPage ? "active" : "") page-link">
+                                    <a href="~/FavoriteForum/FavoriteForums?page=@page">@page</a>
+                                </li>
+                            }
+
+                            @if (Model.Pager.CurrentPage == Model.Pager.TotalPages)
+                            {
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums?page=@(Model.Pager.CurrentPage + 1)">Next</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums?page=@(Model.Pager.TotalPages)">Last</a>
+                                </li>
+                            }
+
+                            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums?page=@(Model.Pager.CurrentPage + 1)">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="~/FavoriteForum/FavoriteForums?page=@(Model.Pager.TotalPages)">Last</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </nav>
+            </div>
+        </div>
     </div>
 </section>
 

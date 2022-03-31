@@ -12,6 +12,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.Entities;
+using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
@@ -19,9 +20,11 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
     public class CategoriesModel : BaseModel
     {
         public IList<string> Roles { get; set; }
+        public IList<BO.Category> Categories { get; set; }
         private ILifetimeScope _scope;
         private ICategoryService _categoryService;
         private IMapper _mapper;
+        public Pager Pager { get; set; }
         private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
         private readonly ApplicationUserManager _userManager = new ApplicationUserManager(UserStore);
 
@@ -45,9 +48,13 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             await base.ResolveAsync(_scope);
         }
 
-        public IList<BO.Category> GetCategories()
+        public void GetCategories(int? page)
         {
-            return _categoryService.GetCategories();
+            var totalItem = _categoryService.GetCategoryCount();
+
+            Pager = new Pager(totalItem, page);
+
+            Categories = _categoryService.GetCategories(Pager.CurrentPage, Pager.PageSize);
         }
 
         public async Task LoadUserInfo()

@@ -21,11 +21,11 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
 
-        public async Task<ActionResult> FavoriteForums()
+        public async Task<ActionResult> FavoriteForums(int? page)
         {
             var model = _scope.Resolve<FavoriteForumModel>();
             await model.ResolveAsync(_scope);
-            model.GetFavoriteForums();
+            model.GetFavoriteForums(page);
 
             return View(model);
         }

@@ -86,6 +86,27 @@ namespace OSL.Forum.Base
             return query.ToList();
         }
 
+        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "",
+            int pageIndex = 1, int pageSize = 10)
+        {
+            IQueryable<TEntity> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                         (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            var result = query.OrderByDescending(s => s.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            return result;
+        }
+
         public virtual IList<TEntity> GetAll()
         {
             return _dbSet.ToList();
@@ -133,6 +154,34 @@ namespace OSL.Forum.Base
                 else
                     return (result.ToList(), total, totalDisplay);
             }
+        }
+
+        public virtual (IList<TEntity> data, int total, int totalDisplay) Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            string includeProperties = "", int pageIndex = 1, int pageSize = 10, bool isTrackingOff = false)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            var total = query.Count();
+            var totalDisplay = total;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+                totalDisplay = query.Count();
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                         (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            var result = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+            if (isTrackingOff)
+                return (result.AsNoTracking().ToList(), total, totalDisplay);
+            else
+                return (result.ToList(), total, totalDisplay);
         }
 
         public virtual (IList<TEntity> data, int total, int totalDisplay) GetDynamic(
