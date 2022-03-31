@@ -2225,6 +2225,7 @@
     <Content Include="Themes\AdminLTE\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="Themes\AdminLTE\plugins\uplot\uPlot.min.css" />
     <Content Include="Themes\Logo\OSL.jpeg" />
+    <Content Include="Themes\Logo\OSL.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
