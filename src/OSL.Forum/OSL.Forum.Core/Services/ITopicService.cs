@@ -16,5 +16,7 @@ namespace OSL.Forum.Core.Services
         BO.Topic GetTopic(string topicName);
         void UpdateModificationDate(Guid topicId, DateTime time);
         void UpdateTopicApprovalType(Guid topicId);
+        int GetTopicCount(Guid id);
+        IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, Guid forumId);
     }
 }
