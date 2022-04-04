@@ -9,6 +9,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using OSL.Forum.Core;
 using OSL.Forum.Core.Entities;
+using OSL.Forum.Membership;
 using Owin;
 using OSL.Forum.Web.Models;
 
@@ -83,6 +84,7 @@ namespace OSL.Forum.Web
             //Modules
             builder.RegisterModule(new WebModule());
             builder.RegisterModule(new CoreModule(connectionString));
+            builder.RegisterModule(new MembershipModule(connectionString));
 
             var container = builder.Build();
             AutofacContainer = container;
