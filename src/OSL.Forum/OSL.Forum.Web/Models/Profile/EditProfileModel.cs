@@ -7,6 +7,7 @@ using System.Web;
 using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Entities;
+using OSL.Forum.Membership.Entities;
 using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Models.Profile

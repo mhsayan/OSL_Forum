@@ -14,9 +14,9 @@ namespace OSL.Forum.Membership.Entities
     {
         [Display(Name = "Name"), Required]
         [StringLength(64)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public virtual async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

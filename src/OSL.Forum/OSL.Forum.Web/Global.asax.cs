@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Seeds;
 
 namespace OSL.Forum.Web
 {
@@ -18,8 +17,6 @@ namespace OSL.Forum.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ApplicationDbContext context = new ApplicationDbContext();
-            IdentityHelper.SeedIdentities(context);
         }
     }
 }

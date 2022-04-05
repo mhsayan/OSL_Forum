@@ -9,6 +9,7 @@ using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
+using OSL.Forum.Membership.Entities;
 using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 

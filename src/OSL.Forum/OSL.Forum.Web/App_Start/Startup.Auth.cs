@@ -10,9 +10,14 @@ using Microsoft.Owin.Security.Google;
 using OSL.Forum.Core;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Membership;
+using OSL.Forum.Membership.Contexts;
+using OSL.Forum.Membership.Entities;
+using OSL.Forum.Membership.Seeds;
+using OSL.Forum.Membership.Services;
 using Owin;
 using OSL.Forum.Web.Models;
 
+[assembly: OwinStartupAttribute(typeof(OSL.Forum.Web.Startup))]
 namespace OSL.Forum.Web
 {
     public partial class Startup
@@ -25,7 +30,6 @@ namespace OSL.Forum.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
@@ -91,6 +95,10 @@ namespace OSL.Forum.Web
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
+            // Seed Roles
+            new UserRoles().GenerateUserRoles();
+            // Seed SuperAdminUser
+            new SuperAdminUser(AutofacContainer.Resolve<UserManager<ApplicationUser>>()).GenerateSuperAdminUser();
         }
     }
 }

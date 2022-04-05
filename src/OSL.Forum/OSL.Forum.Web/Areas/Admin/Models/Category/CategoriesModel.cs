@@ -13,7 +13,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Utilities;
+using OSL.Forum.Membership.Entities;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.Web.Models;
+using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
@@ -25,18 +28,18 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         private ICategoryService _categoryService;
         private IMapper _mapper;
         public Pager Pager { get; set; }
-        private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        private readonly ApplicationUserManager _userManager = new ApplicationUserManager(UserStore);
+        private IProfileService _profileService;
 
         public CategoriesModel()
         {
         }
 
         public CategoriesModel(ICategoryService categoryService,
-            IMapper mapper)
+            IMapper mapper, IProfileService profileService)
         {
             _categoryService = categoryService;
             _mapper = mapper;
+            _profileService = profileService;
         }
 
         public override async Task ResolveAsync(ILifetimeScope scope)
@@ -44,6 +47,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             _scope = scope;
             _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
+            _profileService = _scope.Resolve<IProfileService>();
 
             await base.ResolveAsync(_scope);
         }
@@ -59,8 +63,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public async Task LoadUserInfo()
         {
-            var userId = HttpContext.Current.User.Identity.GetUserId();
-            Roles = await _userManager.GetRolesAsync(userId);
+            Roles = await _profileService.UserRolesAsync();
         }
 
         public void Delete(Guid categoryId)

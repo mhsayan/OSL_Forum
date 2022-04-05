@@ -129,8 +129,12 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="MembershipModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seeds\SuperAdminUser.cs" />
+    <Compile Include="Seeds\UserRoles.cs" />
     <Compile Include="Services\ApplicationSignInManager.cs" />
     <Compile Include="Services\ApplicationUserManager.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Utilities\Roles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

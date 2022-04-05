@@ -5,6 +5,7 @@ using System.Web;
 using AutoMapper;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Core.Entities;
+using OSL.Forum.Membership.Entities;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Areas.Admin.Models.PendingPost;

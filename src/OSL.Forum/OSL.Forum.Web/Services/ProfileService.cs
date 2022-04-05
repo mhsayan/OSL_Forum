@@ -10,8 +10,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Core.Entities;
+using OSL.Forum.Membership.Contexts;
+using OSL.Forum.Membership.Entities;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Seeds;
 using Roles = System.Web.Security.Roles;
 
 namespace OSL.Forum.Web.Services
@@ -19,8 +21,7 @@ namespace OSL.Forum.Web.Services
     public class ProfileService : IProfileService
     {
         private IMapper _mapper;
-        private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        private static readonly ApplicationUserManager UserManager = new ApplicationUserManager(UserStore);
+        private static readonly ApplicationUserManager UserManager = new ApplicationUserManager(new NHibernate.AspNet.Identity.UserStore<ApplicationUser>(MembershipDbContext.GetSession()));
 
         public ProfileService(IMapper mapper)
         {

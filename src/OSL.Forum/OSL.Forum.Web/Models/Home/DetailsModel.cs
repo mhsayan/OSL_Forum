@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
+using OSL.Forum.Membership.Entities;
+using OSL.Forum.Membership.Services;
+using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Home
@@ -23,18 +26,19 @@ namespace OSL.Forum.Web.Models.Home
         private ICategoryService _categoryService;
         private IForumService _forumService;
         private IMapper _mapper;
-        private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        private readonly ApplicationUserManager _userManager = new ApplicationUserManager(UserStore);
+        private IProfileService _profileService;
+
         public DetailsModel()
         {
         }
 
         public DetailsModel(ICategoryService categoryService,
-            IMapper mapper, IForumService forumService)
+            IMapper mapper, IForumService forumService, IProfileService profileService)
         {
             _categoryService = categoryService;
             _mapper = mapper;
             _forumService = forumService;
+            _profileService = profileService;
         }
 
         public override async Task ResolveAsync(ILifetimeScope scope)
@@ -43,6 +47,7 @@ namespace OSL.Forum.Web.Models.Home
             _categoryService = _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
             _forumService = _scope.Resolve<IForumService>();
+            _profileService = _scope.Resolve<IProfileService>();
 
             await base.ResolveAsync(_scope);
         }
@@ -62,8 +67,7 @@ namespace OSL.Forum.Web.Models.Home
 
         public async Task LoadUserInfo()
         {
-            var userId = HttpContext.Current.User.Identity.GetUserId();
-            Roles = await _userManager.GetRolesAsync(userId);
+            Roles = await _profileService.UserRolesAsync();
         }
     }
 }

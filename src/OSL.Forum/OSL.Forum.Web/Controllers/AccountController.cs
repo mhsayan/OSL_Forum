@@ -10,8 +10,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OSL.Forum.Core.Entities;
+using OSL.Forum.Membership.Entities;
+using OSL.Forum.Membership.Services;
+using OSL.Forum.Membership.Utilities;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Seeds;
 
 namespace OSL.Forum.Web.Controllers
 {
