@@ -1,15 +1,51 @@
-﻿using System.Data.Entity;
+﻿using NHibernate;
 using OSL.Forum.NHibernateBase;
 
 namespace OSL.Forum.Base
 {
     public class UnitOfWork : IUnitOfWork
     {
-        protected readonly DbContext _dbContext;
+        protected readonly ISession _session;
+        protected readonly ITransaction _transaction;
 
-        public UnitOfWork(DbContext dbContext) => _dbContext = dbContext;
+        public UnitOfWork(ISession session)
+        {
+            _session = session;
+            _transaction = _session.BeginTransaction();
+        }
 
-        public void Dispose() => _dbContext?.Dispose();
-        public void Save() => _dbContext?.SaveChanges();
+        public void Commit()
+        {
+            try
+            {
+                if (_transaction != null && _transaction.IsActive)
+                {
+                    _transaction.Commit();
+                }
+            }
+            catch
+            {
+                if (_transaction != null && _transaction.IsActive)
+                {
+                    _transaction.Rollback();
+                }
+            }
+        }
+
+        public void Rollback()
+        {
+            if (_transaction != null && _transaction.IsActive)
+            {
+                _transaction.Rollback();
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_transaction != null)
+            {
+                _transaction.Dispose();
+            }
+        }
     }
 }
