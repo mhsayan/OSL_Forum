@@ -125,6 +125,15 @@ namespace OSL.Forum.Core.Services
             return topics;
         }
 
+        public void DeleteTopic(Guid topicId)
+        {
+            if (topicId == Guid.Empty)
+                throw new ArgumentNullException(nameof(topicId));
+
+            _unitOfWork.Topics.Remove(topicId);
+            _unitOfWork.Save();
+        }
+
         public void CreateTopic(BO.Topic topic)
         {
             if (topic is null)

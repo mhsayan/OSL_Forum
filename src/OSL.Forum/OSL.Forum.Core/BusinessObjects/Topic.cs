@@ -15,6 +15,7 @@ namespace OSL.Forum.Core.BusinessObjects
         public Guid ForumId { get; set; }
         public virtual Forum Forum { get; set; }
         public string ApplicationUserId { get; set; }
+        public bool Owner { get; set; }
         public string ApprovalType { get; set; }
         public string Status { get; set; }
         public virtual IList<Post> Posts { get; set; }

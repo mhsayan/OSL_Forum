@@ -58,9 +58,28 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="row">
-                            <div class="col-sm-12 my-3 pl-4">
+                            <div class="col-sm-8 my-3 pl-4">
                                 @Html.ActionLink(@topic.Name, "Details", "Topic", new { topicId = topic.Id },
                                     new { @class = "stretched-link" })
+                            </div>
+                            <div class="col-sm-4 my-3 pr-4">
+                                @if (Model.IsAuthenticated && (
+                                    Model.UserRoles.Contains("SuperAdmin") ||
+                                    Model.UserRoles.Contains("Admin") ||
+                                    Model.UserRoles.Contains("Moderator") || topic.Owner))
+                                {
+                                    <a href="@Url.Action("Delete", "Topic", new {topicId = topic.Id, forumId = topic.ForumId})" class="d-grid gap-2 d-flex float-right p-1 ml-3">
+                                        <i class="fa fa-trash m-1" aria-hidden="true"></i>
+                                    </a>
+                                }
+
+                                @if (Model.IsAuthenticated && topic.Owner)
+                                {
+                                    <a href="@Url.Action("Edit", "Post", new {topicId = topic.Id, forumId = topic.ForumId})" class="d-grid btn btn-outline-info gap-2 d-flex float-right p-1">
+                                        <i class="fa fa-ban m-1" aria-hidden="true"></i>
+                                        Cancel
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
