@@ -130,7 +130,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(applicationUserId))
                 throw new ArgumentException("User id is missing.");
 
-            var userPendingPostCount = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString() && p.ApplicationUserId == applicationUserId, "").Count;
+            var userPendingPostCount = _unitOfWork.Posts.Get(p => p.ApplicationUserId == applicationUserId, "").Count;
 
             return userPendingPostCount == 0 ? 0 : userPendingPostCount;
         }

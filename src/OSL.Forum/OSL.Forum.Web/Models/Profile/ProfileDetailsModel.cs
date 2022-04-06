@@ -53,9 +53,9 @@ namespace OSL.Forum.Web.Models.Profile
 
         public void GetMyPosts(int? page)
         {
-            var userTotalPendingPost = _postService.UserPostCount(ApplicationUser.Id);
+            var userTotalPost = _postService.UserPostCount(ApplicationUser.Id);
 
-            Pager = new Pager(userTotalPendingPost, page);
+            Pager = new Pager(userTotalPost, page);
 
             Posts = _postService.GetMyPosts(Pager.CurrentPage, Pager.PageSize, ApplicationUser.Id);
         }
