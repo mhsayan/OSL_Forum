@@ -9,9 +9,9 @@ using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
 
 namespace OSL.Forum.NHibernate.Core.Profiles
 {
-    public class CoreProfiles : Profile
+    public class NHibernateCoreProfiles : Profile
     {
-        public CoreProfiles()
+        public NHibernateCoreProfiles()
         {
             CreateMap<EO.Category, BO.Category>().ReverseMap();
             CreateMap<EO.Forum, BO.Forum>().ReverseMap();

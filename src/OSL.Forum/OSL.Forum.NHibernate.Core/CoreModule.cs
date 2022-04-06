@@ -18,13 +18,6 @@ namespace OSL.Forum.NHibernate.Core
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CoreDbContext>().AsSelf()
-                .WithParameter("connectionString", _connectionString)
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<CoreDbContext>().As<ICoreDbContext>()
-                .WithParameter("connectionString", _connectionString)
-                .InstancePerLifetimeScope();
 
             //Utilities
             builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
