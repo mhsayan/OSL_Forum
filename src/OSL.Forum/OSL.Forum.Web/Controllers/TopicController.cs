@@ -84,5 +84,14 @@ namespace OSL.Forum.Web.Controllers
 
             return View(model);
         }
+
+        public async Task<ActionResult> Delete(Guid topicId, Guid forumId)
+        {
+            var model = _scope.Resolve<TopicViewModel>();
+            await model.ResolveAsync(_scope);
+            model.Delete(topicId);
+
+            return RedirectToAction("Topics", "Topic", new { id = forumId });
+        }
     }
 }

@@ -76,5 +76,10 @@ namespace OSL.Forum.Web.Models.Topic
             Pager = new Pager(totalItem, page);
             Topics = _topicService.GetTopics(Pager.CurrentPage, Pager.PageSize, forumId);
         }
+
+        public void Delete(Guid topicId)
+        {
+            _topicService.DeleteTopic(topicId);
+        }
     }
 }
