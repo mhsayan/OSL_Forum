@@ -30,7 +30,12 @@ namespace OSL.Forum.Web.Controllers
             model.LoadUserInfo();
 
             if (model.IsAuthenticated)
+            {
                 model.FavoriteForumStatus();
+                await model.GetUserRolesAsync();
+            }
+
+
 
             return View(model);
         }
