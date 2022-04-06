@@ -1,4 +1,5 @@
-﻿@model OSL.Forum.Web.Models.Topic.TopicDetailsModel
+﻿@using System.Data.Entity
+@model OSL.Forum.Web.Models.Topic.TopicDetailsModel
 @{
     ViewBag.Title = "Topics";
 }
@@ -89,6 +90,18 @@
                             <div class="row">
                                 <i class="far fa-newspaper ml-4 m-1"></i>
                                 by <b class="ml-2">@post.OwnerName</b>
+
+                                @if (@post.CreationDate != @post.ModificationDate)
+                                {
+                                    <small class="ml-2 mt-1">Edited at</small>
+                                    <small class="ml-1 mt-1">@post.ModificationDate</small>
+                                }
+                                else
+                                {
+                                    <small class="ml-2 mt-1">Created at</small>
+                                    <small class="ml-1 mt-1">@post.CreationDate</small>
+                                }
+
                             </div>
                         </div>
                         <div class="card-body">
