@@ -93,16 +93,23 @@ namespace OSL.Forum.Core.Services
             return posts;
         }
 
-        public List<BO.Post> PendingPosts()
+        public int GetPendingPostCount()
         {
-            var postEntity = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), "");
+            var pendingPostCount = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), "").Count;
 
-            if (postEntity == null)
+            return pendingPostCount == 0 ? 0 : pendingPostCount;
+        }
+
+        public List<BO.Post> PendingPosts(int pagerCurrentPage, int pagerPageSize)
+        {
+            var postEntity = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), q => q.OrderBy(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+
+            if (postEntity.data == null)
                 return null;
 
             var posts = new List<BO.Post>();
 
-            foreach (var post in postEntity)
+            foreach (var post in postEntity.data)
             {
                 posts.Add(_mapper.Map<BO.Post>(post));
             }
