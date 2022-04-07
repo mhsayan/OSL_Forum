@@ -80,7 +80,8 @@ namespace OSL.Forum.Web.Models.Topic
                 ApplicationUserId = ApplicationUser.Id,
                 ForumId = this.ForumId,
                 Status = Status.Pending.ToString(),
-                ApprovalType = ApprovalType.Manual.ToString()
+                ApprovalType = ApprovalType.Manual.ToString(),
+                ActivityStatus = ActivityStatus.Inactive.ToString()
             };
 
             _topicService.CreateTopic(topic);

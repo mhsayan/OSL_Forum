@@ -90,11 +90,32 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
         public async Task<ActionResult> Delete(Guid topicId, Guid forumId)
         {
             var model = _scope.Resolve<TopicViewModel>();
             await model.ResolveAsync(_scope);
             model.Delete(topicId);
+
+            return RedirectToAction("Topics", "Topic", new { id = forumId });
+        }
+
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
+        public async Task<ActionResult> Close(Guid topicId, Guid forumId)
+        {
+            var model = _scope.Resolve<TopicViewModel>();
+            await model.ResolveAsync(_scope);
+            model.Close(topicId);
+
+            return RedirectToAction("Topics", "Topic", new { id = forumId });
+        }
+
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
+        public async Task<ActionResult> Open(Guid topicId, Guid forumId)
+        {
+            var model = _scope.Resolve<TopicViewModel>();
+            await model.ResolveAsync(_scope);
+            model.Open(topicId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
