@@ -9,7 +9,7 @@ using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Membership.Entities;
-using OSL.Forum.Web.Services;
+using OSL.Forum.Membership.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
@@ -81,7 +81,8 @@ namespace OSL.Forum.Web.Models.Topic
                 ApplicationUserId = ApplicationUser.Id,
                 ForumId = this.ForumId,
                 Status = Status.Pending.ToString(),
-                ApprovalType = ApprovalType.Manual.ToString()
+                ApprovalType = ApprovalType.Manual.ToString(),
+                ActivityStatus = ActivityStatus.Inactive.ToString()
             };
 
             _topicService.CreateTopic(topic);

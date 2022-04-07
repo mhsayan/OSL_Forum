@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Autofac;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.Membership.Utilities;
-using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Models
 {

@@ -7,8 +7,8 @@ using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 {

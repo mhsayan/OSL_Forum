@@ -9,6 +9,7 @@ using NHibernate;
 using NHibernate.AspNet.Identity;
 using OSL.Forum.Membership.Contexts;
 using OSL.Forum.Membership.Entities;
+using OSL.Forum.Membership.Services;
 
 namespace OSL.Forum.Membership
 {
@@ -26,6 +27,8 @@ namespace OSL.Forum.Membership
             builder.Register(s => MembershipDbContext.GetSession()).As<ISession>().InstancePerLifetimeScope();
             builder.RegisterType<UserStore<ApplicationUser>>().As<IUserStore<ApplicationUser>>();
             builder.RegisterType<UserManager<ApplicationUser>>();
+
+            builder.RegisterType<ProfileService>().As<IProfileService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }

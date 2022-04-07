@@ -111,6 +111,7 @@
     <Compile Include="Entities\Forum.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Topic.cs" />
+    <Compile Include="Enums\ActivityStatus.cs" />
     <Compile Include="Enums\ApprovalType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Migrations\202203190620544_AddCategoryTable.cs" />
@@ -148,6 +149,10 @@
     <Compile Include="Migrations\202203290438442_AddFavoriteForumTable.cs" />
     <Compile Include="Migrations\202203290438442_AddFavoriteForumTable.designer.cs">
       <DependentUpon>202203290438442_AddFavoriteForumTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.cs" />
+    <Compile Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.designer.cs">
+      <DependentUpon>202204070513109_AddedActivityStatusForTopicEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
@@ -216,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203290438442_AddFavoriteForumTable.resx">
       <DependentUpon>202203290438442_AddFavoriteForumTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.resx">
+      <DependentUpon>202204070513109_AddedActivityStatusForTopicEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

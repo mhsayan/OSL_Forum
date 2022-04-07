@@ -6,14 +6,16 @@ using System.Web;
 using Autofac;
 using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Core.Utilities;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 {
     public class PendingPostListModel : BaseModel
     {
         public List<Post> Posts { get; set; }
+        public Pager Pager { get; set; }
         private ILifetimeScope _scope;
         private IPostService _postService;
         private IProfileService _profileService;
@@ -38,9 +40,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             await base.ResolveAsync(_scope);
         }
 
-        public void GetPendingPostList()
+        public void GetPendingPostList(int? page)
         {
-            Posts = _postService.PendingPosts();
+            var totalPendingPost = _postService.GetPendingPostCount();
+
+            Pager = new Pager(totalPendingPost, page);
+            Posts = _postService.PendingPosts(Pager.CurrentPage, Pager.PageSize);
 
             foreach (var post in Posts)
             {

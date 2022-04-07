@@ -14,8 +14,10 @@ namespace OSL.Forum.Core.Services
         void EditPost(BO.Post post);
         void DeletePost(Guid postId);
         void CreatePost(BO.Post post);
-        List<BO.Post> GetMyPosts(string userId);
-        List<BO.Post> PendingPosts();
+        List<BO.Post> PendingPosts(int pagerCurrentPage, int pagerPageSize);
         void UpdatePostStatus(Guid postId, string status);
+        int UserPostCount(string applicationUserId);
+        List<BO.Post> GetMyPosts(int pagerCurrentPage, int pagerPageSize, string applicationUserId);
+        int GetPendingPostCount();
     }
 }

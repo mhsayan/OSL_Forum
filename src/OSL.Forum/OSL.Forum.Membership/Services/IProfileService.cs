@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using OSL.Forum.Core.BusinessObjects;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Membership.Entities;
-using OSL.Forum.Web.Models;
 
-namespace OSL.Forum.Web.Services
+namespace OSL.Forum.Membership.Services
 {
     public interface IProfileService
     {

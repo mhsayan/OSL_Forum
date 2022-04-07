@@ -24,12 +24,12 @@ namespace OSL.Forum.Web.Controllers
         }
 
         // GET: Profile
-        public async Task<ActionResult> MyProfile()
+        public async Task<ActionResult> MyProfile(int? page)
         {
             var model = _scope.Resolve<ProfileDetailsModel>();
             await model.ResolveAsync(_scope);
             model.GetUserInfo();
-            model.GetMyPosts();
+            model.GetMyPosts(page);
 
             return View(model);
         }

@@ -1,4 +1,6 @@
-﻿@model OSL.Forum.Web.Models.Topic.TopicDetailsModel
+﻿@using System.Data.Entity
+@using OSL.Forum.Core.Enums
+@model OSL.Forum.Web.Models.Topic.TopicDetailsModel
 @{
     ViewBag.Title = "Topics";
 }
@@ -34,12 +36,15 @@
                     @Model.Topic.Name
                 </h5>
             </div>
-            <div class="col">
-                <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right">
-                    Reply
-                    <i class="fas fa-reply m-1"></i>
-                </a>
-            </div>
+            @if (@Model.Topic.ActivityStatus == ActivityStatus.Active.ToString())
+            {
+                <div class="col">
+                    <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right">
+                        Reply
+                        <i class="fas fa-reply m-1"></i>
+                    </a>
+                </div>
+            }
         </div>
         <div class="row">
             @if (@Model.Topic.Posts.Count == 0)
@@ -49,10 +54,13 @@
                         <div class="row p-5">
                             <div class="col align-content-center text-center">
                                 <h3 class="text-bold">No Posts Yet!</h3>
-                                <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary">
-                                    <i class="fas fa-plus m-1"></i>
-                                    Add a Post
-                                </a>
+                                @if (@Model.Topic.ActivityStatus == ActivityStatus.Active.ToString())
+                                {
+                                    <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary">
+                                        <i class="fas fa-plus m-1"></i>
+                                        Add a Post
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -89,6 +97,18 @@
                             <div class="row">
                                 <i class="far fa-newspaper ml-4 m-1"></i>
                                 by <b class="ml-2">@post.OwnerName</b>
+
+                                @if (@post.CreationDate != @post.ModificationDate)
+                                {
+                                    <small class="ml-2 mt-1">Edited at</small>
+                                    <small class="ml-1 mt-1">@post.ModificationDate</small>
+                                }
+                                else
+                                {
+                                    <small class="ml-2 mt-1">Created at</small>
+                                    <small class="ml-1 mt-1">@post.CreationDate</small>
+                                }
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -102,10 +122,13 @@
                 </div>
             }
         </div>
-        <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right mr-3">
-            Reply
-            <i class="fas fa-reply m-1"></i>
-        </a>
+        @if (@Model.Topic.ActivityStatus == ActivityStatus.Active.ToString())
+        {
+            <a href="@Url.Action("Create", "Post", new { topicId = @Model.Topic.Id })" class="btn btn-primary d-grid gap-2 d-flex float-right mr-3">
+                Reply
+                <i class="fas fa-reply m-1"></i>
+            </a>
+        }
     </div>
 </section>
 

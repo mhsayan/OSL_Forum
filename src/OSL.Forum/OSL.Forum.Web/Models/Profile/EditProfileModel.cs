@@ -8,7 +8,7 @@ using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Membership.Entities;
-using OSL.Forum.Web.Services;
+using OSL.Forum.Membership.Services;
 
 namespace OSL.Forum.Web.Models.Profile
 {

@@ -10,7 +10,7 @@ using AutoMapper;
 using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
-using OSL.Forum.Web.Services;
+using OSL.Forum.Membership.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Post
@@ -65,6 +65,9 @@ namespace OSL.Forum.Web.Models.Post
 
         public void CreatePost()
         {
+            if (BoTopic.ActivityStatus != ActivityStatus.Active.ToString())
+                return;
+
             var user = _profileService.GetUser();
             Time = _dateTimeUtility.Now;
 

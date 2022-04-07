@@ -92,7 +92,7 @@ namespace OSL.Forum.NHibernate.Core.Services
             categoryEntity.Name = category.Name;
             categoryEntity.ModificationDate = DateTime.Now;
 
-            _unitOfWork.Save();
+            _unitOfWork.Commit();
         }
 
         public void DeleteCategory(Guid categoryId)
@@ -101,7 +101,7 @@ namespace OSL.Forum.NHibernate.Core.Services
                 throw new ArgumentNullException(nameof(categoryId));
 
             _unitOfWork.Categories.Remove(categoryId);
-            _unitOfWork.Save();
+            _unitOfWork.Commit();
         }
 
         public void CreateCategory(BO.Category category)
@@ -120,7 +120,7 @@ namespace OSL.Forum.NHibernate.Core.Services
             var categoryEntity = _mapper.Map<EO.Category>(category);
 
             _unitOfWork.Categories.Add(categoryEntity);
-            _unitOfWork.Save();
+            _unitOfWork.Commit();
         }
 
         public void UpdateModificationDate(DateTime modificationDate, Guid categoryId)
@@ -135,7 +135,7 @@ namespace OSL.Forum.NHibernate.Core.Services
 
             categoryEntity.ModificationDate = modificationDate;
 
-            _unitOfWork.Save();
+            _unitOfWork.Commit();
         }
 
         public int GetCategoryCount()
@@ -145,15 +145,11 @@ namespace OSL.Forum.NHibernate.Core.Services
 
         public IList<BO.Category> GetCategories(int pageIndex, int pageSize)
         {
-            var categoryEntities = _unitOfWork.Categories.Get(null, q => q.OrderByDescending(c => c.ModificationDate), "Forums", pageIndex, pageSize, false);
-
-            var categoryList = from c in categoryEntities.data
-                               orderby c.ModificationDate descending
-                               select c;
+            var categoryEntities = _unitOfWork.Categories.Get(null, q => q.OrderByDescending(c => c.ModificationDate), "Forums", pageIndex, pageSize);
 
             var categories = new List<BO.Category>();
 
-            foreach (var entity in categoryList)
+            foreach (var entity in categoryEntities)
             {
                 entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).Take(4).ToList();
                 var category = _mapper.Map<BO.Category>(entity);

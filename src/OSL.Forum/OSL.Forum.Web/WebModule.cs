@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Profiles;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
 using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
@@ -12,7 +13,6 @@ using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Profile;
 using OSL.Forum.Web.Models.Topic;
 using OSL.Forum.Web.Profiles;
-using OSL.Forum.Web.Services;
 using IndexViewModel = OSL.Forum.Web.Models.Home.IndexViewModel;
 
 namespace OSL.Forum.Web
@@ -40,8 +40,6 @@ namespace OSL.Forum.Web
                 .InstancePerLifetimeScope();
 
             //Service Classes
-            builder.RegisterType<ProfileService>().As<IProfileService>().InstancePerLifetimeScope();
-
             builder.RegisterType<CreateCategoryModel>().AsSelf();
             builder.RegisterType<CategoriesModel>().AsSelf();
             builder.RegisterType<EditCategoryModel>().AsSelf();

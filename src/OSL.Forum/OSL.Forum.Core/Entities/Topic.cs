@@ -24,6 +24,7 @@ namespace OSL.Forum.Core.Entities
         public string ApplicationUserId { get; set; }
         public string ApprovalType { get; set; }
         public string Status { get; set; }
+        public string ActivityStatus { get; set; }
         public virtual IList<Post> Posts { get; set; }
     }
 }

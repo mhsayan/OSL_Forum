@@ -10,7 +10,7 @@ using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Membership.Entities;
-using OSL.Forum.Web.Services;
+using OSL.Forum.Membership.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
