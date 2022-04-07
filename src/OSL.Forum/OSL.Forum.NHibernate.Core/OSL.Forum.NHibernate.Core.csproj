@@ -118,6 +118,8 @@
     <Compile Include="Contexts\NHibernateCoreDbContext.cs" />
     <Compile Include="Convention\TableNameConvention.cs" />
     <Compile Include="Enums\ActivityStatus.cs" />
+    <Compile Include="Mappings\CategoryMapping.cs" />
+    <Compile Include="Mappings\FavoriteForumMapping.cs" />
     <Compile Include="NHibernateCoreModule.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\FavoriteForum.cs" />
@@ -152,8 +154,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mappings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
