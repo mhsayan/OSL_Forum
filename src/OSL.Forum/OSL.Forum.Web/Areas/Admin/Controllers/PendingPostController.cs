@@ -23,11 +23,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/PendingPost
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page)
         {
             var model = _scope.Resolve<PendingPostListModel>();
             await model.ResolveAsync(_scope);
-            model.GetPendingPostList();
+            model.GetPendingPostList(page);
 
             return View(model);
         }

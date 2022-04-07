@@ -7,6 +7,7 @@ using Autofac;
 using AutoMapper;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
+using OSL.Forum.Core.Utilities;
 using BO = OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Web.Services;
 
@@ -16,6 +17,7 @@ namespace OSL.Forum.Web.Models.Profile
     {
         public ApplicationUser ApplicationUser { get; set; }
         public List<BO.Post> Posts { get; set; }
+        public Pager Pager { get; set; }
         private IProfileService _profileService { get; set; }
         private IPostService _postService { get; set; }
         private IMapper _mapper;
@@ -49,9 +51,13 @@ namespace OSL.Forum.Web.Models.Profile
             ApplicationUser = _profileService.GetUser();
         }
 
-        public void GetMyPosts()
+        public void GetMyPosts(int? page)
         {
-            Posts = _postService.GetMyPosts(ApplicationUser.Id);
+            var userTotalPost = _postService.UserPostCount(ApplicationUser.Id);
+
+            Pager = new Pager(userTotalPost, page);
+
+            Posts = _postService.GetMyPosts(Pager.CurrentPage, Pager.PageSize, ApplicationUser.Id);
         }
     }
 }

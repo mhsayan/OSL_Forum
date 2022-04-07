@@ -76,16 +76,16 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public List<BO.Post> GetMyPosts(string userId)
+        public List<BO.Post> GetMyPosts(int pagerCurrentPage, int pagerPageSize, string userId)
         {
-            var postEntity = _unitOfWork.Posts.Get(p => p.ApplicationUserId == userId, "");
+            var postEntity = _unitOfWork.Posts.Get(p => p.ApplicationUserId == userId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
 
-            if (postEntity == null)
+            if (postEntity.data == null)
                 return null;
 
             var posts = new List<BO.Post>();
 
-            foreach (var post in postEntity)
+            foreach (var post in postEntity.data)
             {
                 posts.Add(_mapper.Map<BO.Post>(post));
             }
@@ -93,16 +93,23 @@ namespace OSL.Forum.Core.Services
             return posts;
         }
 
-        public List<BO.Post> PendingPosts()
+        public int GetPendingPostCount()
         {
-            var postEntity = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), "");
+            var pendingPostCount = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), "").Count;
 
-            if (postEntity == null)
+            return pendingPostCount == 0 ? 0 : pendingPostCount;
+        }
+
+        public List<BO.Post> PendingPosts(int pagerCurrentPage, int pagerPageSize)
+        {
+            var postEntity = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), q => q.OrderBy(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+
+            if (postEntity.data == null)
                 return null;
 
             var posts = new List<BO.Post>();
 
-            foreach (var post in postEntity)
+            foreach (var post in postEntity.data)
             {
                 posts.Add(_mapper.Map<BO.Post>(post));
             }
@@ -123,6 +130,16 @@ namespace OSL.Forum.Core.Services
             postEntity.Status = status;
 
             _unitOfWork.Save();
+        }
+
+        public int UserPostCount(string applicationUserId)
+        {
+            if (string.IsNullOrWhiteSpace(applicationUserId))
+                throw new ArgumentException("User id is missing.");
+
+            var userPendingPostCount = _unitOfWork.Posts.Get(p => p.ApplicationUserId == applicationUserId, "").Count;
+
+            return userPendingPostCount == 0 ? 0 : userPendingPostCount;
         }
     }
 }
