@@ -90,6 +90,7 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
         public async Task<ActionResult> Delete(Guid topicId, Guid forumId)
         {
             var model = _scope.Resolve<TopicViewModel>();
@@ -99,6 +100,7 @@ namespace OSL.Forum.Web.Controllers
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
         public async Task<ActionResult> Close(Guid topicId, Guid forumId)
         {
             var model = _scope.Resolve<TopicViewModel>();
@@ -108,6 +110,7 @@ namespace OSL.Forum.Web.Controllers
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
         public async Task<ActionResult> Open(Guid topicId, Guid forumId)
         {
             var model = _scope.Resolve<TopicViewModel>();

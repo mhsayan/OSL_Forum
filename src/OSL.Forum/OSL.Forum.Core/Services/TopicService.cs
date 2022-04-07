@@ -109,9 +109,9 @@ namespace OSL.Forum.Core.Services
 
         public IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, Guid forumId)
         {
-            var topicEntities = _unitOfWork.Topics.Get(c => c.ForumId == forumId &&
-            c.ActivityStatus == ActivityStatus.Active.ToString(), q => q.OrderByDescending(c =>
-                c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+            var topicEntities = _unitOfWork.Topics.Get(c => c.ForumId == forumId,
+                q => q.OrderByDescending(c => c.ModificationDate), "",
+                pagerCurrentPage, pagerPageSize, false);
 
             if (topicEntities.data == null)
                 return null;
