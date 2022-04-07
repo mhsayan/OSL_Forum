@@ -65,6 +65,9 @@ namespace OSL.Forum.Web.Models.Post
 
         public void CreatePost()
         {
+            if (BoTopic.ActivityStatus != ActivityStatus.Active.ToString())
+                return;
+
             var user = _profileService.GetUser();
             Time = _dateTimeUtility.Now;
 
