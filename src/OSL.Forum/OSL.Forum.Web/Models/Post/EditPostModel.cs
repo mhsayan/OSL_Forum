@@ -86,6 +86,7 @@ namespace OSL.Forum.Web.Models.Post
 
             var post = _mapper.Map<BO.Post>(this);
             post.ModificationDate = Time;
+            post.Status = Status.Pending.ToString();
 
             _postService.EditPost(post);
         }
