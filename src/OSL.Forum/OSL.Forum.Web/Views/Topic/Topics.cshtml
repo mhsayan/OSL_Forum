@@ -1,4 +1,5 @@
-﻿@model OSL.Forum.Web.Models.Topic.TopicViewModel
+﻿@using OSL.Forum.Core.Enums
+@model OSL.Forum.Web.Models.Topic.TopicViewModel
 @{
     ViewBag.Title = "Topics";
 }
@@ -71,14 +72,21 @@
                                     <a href="@Url.Action("Delete", "Topic", new {topicId = topic.Id, forumId = topic.ForumId})" class="d-grid gap-2 d-flex float-right p-1 ml-3">
                                         <i class="fa fa-trash m-1" aria-hidden="true"></i>
                                     </a>
-                                }
 
-                                @if (Model.IsAuthenticated && topic.Owner)
-                                {
-                                    <a href="@Url.Action("Edit", "Post", new {topicId = topic.Id, forumId = topic.ForumId})" class="d-grid btn btn-outline-info gap-2 d-flex float-right p-1">
-                                        <i class="fa fa-ban m-1" aria-hidden="true"></i>
-                                        Cancel
-                                    </a>
+                                    if (topic.ActivityStatus == ActivityStatus.Active.ToString())
+                                    {
+                                        <a href="@Url.Action("Close", "Topic", new {topicId = topic.Id, forumId = topic.ForumId})" class="d-grid btn btn-outline-info gap-2 d-flex float-right p-1">
+                                            <i class="fa fa-ban m-1" aria-hidden="true"></i>
+                                            Close
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Open", "Topic", new {topicId = topic.Id, forumId = topic.ForumId})" class="d-grid btn btn-outline-info gap-2 d-flex float-right p-1">
+                                            <i class="fa fa-ban m-1" aria-hidden="true"></i>
+                                            Open
+                                        </a>
+                                    }
                                 }
                             </div>
                         </div>

@@ -98,5 +98,23 @@ namespace OSL.Forum.Web.Controllers
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
+
+        public async Task<ActionResult> Close(Guid topicId, Guid forumId)
+        {
+            var model = _scope.Resolve<TopicViewModel>();
+            await model.ResolveAsync(_scope);
+            model.Close(topicId);
+
+            return RedirectToAction("Topics", "Topic", new { id = forumId });
+        }
+
+        public async Task<ActionResult> Open(Guid topicId, Guid forumId)
+        {
+            var model = _scope.Resolve<TopicViewModel>();
+            await model.ResolveAsync(_scope);
+            model.Open(topicId);
+
+            return RedirectToAction("Topics", "Topic", new { id = forumId });
+        }
     }
 }

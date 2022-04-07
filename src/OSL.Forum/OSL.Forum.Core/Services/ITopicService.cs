@@ -19,5 +19,7 @@ namespace OSL.Forum.Core.Services
         int GetTopicCount(Guid id);
         IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, Guid forumId);
         void DeleteTopic(Guid topicId);
+        void CloseTopic(Guid topicId);
+        void OpenTopic(Guid topicId);
     }
 }

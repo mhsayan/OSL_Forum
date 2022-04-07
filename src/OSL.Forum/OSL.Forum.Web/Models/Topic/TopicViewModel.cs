@@ -107,5 +107,15 @@ namespace OSL.Forum.Web.Models.Topic
         {
             UserRoles = await _profileService.UserRolesAsync();
         }
+
+        public void Close(Guid topicId)
+        {
+            _topicService.CloseTopic(topicId);
+        }
+
+        public void Open(Guid topicId)
+        {
+            _topicService.OpenTopic(topicId);
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace OSL.Forum.Core.BusinessObjects
         public bool Owner { get; set; }
         public string ApprovalType { get; set; }
         public string Status { get; set; }
+        public string ActivityStatus { get; set; }
         public virtual IList<Post> Posts { get; set; }
     }
 }

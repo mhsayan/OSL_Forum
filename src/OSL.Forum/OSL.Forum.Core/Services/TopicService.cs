@@ -109,16 +109,14 @@ namespace OSL.Forum.Core.Services
 
         public IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, Guid forumId)
         {
-            var topicEntities = _unitOfWork.Topics.Get(c => c.ForumId == forumId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+            var topicEntities = _unitOfWork.Topics.Get(c => c.ForumId == forumId &&
+            c.ActivityStatus == ActivityStatus.Active.ToString(), q => q.OrderByDescending(c =>
+                c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
 
             if (topicEntities.data == null)
                 return null;
 
-            var topicList = from c in topicEntities.data
-                            orderby c.ModificationDate descending
-                            select c;
-
-            var topics = topicList.Select(topic =>
+            var topics = topicEntities.data.Select(topic =>
                 _mapper.Map<BO.Topic>(topic)
                 ).ToList();
 
@@ -131,6 +129,36 @@ namespace OSL.Forum.Core.Services
                 throw new ArgumentNullException(nameof(topicId));
 
             _unitOfWork.Topics.Remove(topicId);
+            _unitOfWork.Save();
+        }
+
+        public void CloseTopic(Guid topicId)
+        {
+            if (topicId == Guid.Empty)
+                throw new ArgumentNullException(nameof(topicId));
+
+            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+
+            if (topicEntity is null)
+                throw new InvalidOperationException("Topic is not found.");
+
+            topicEntity.ActivityStatus = ActivityStatus.Inactive.ToString();
+
+            _unitOfWork.Save();
+        }
+
+        public void OpenTopic(Guid topicId)
+        {
+            if (topicId == Guid.Empty)
+                throw new ArgumentNullException(nameof(topicId));
+
+            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+
+            if (topicEntity is null)
+                throw new InvalidOperationException("Topic is not found.");
+
+            topicEntity.ActivityStatus = ActivityStatus.Active.ToString();
+
             _unitOfWork.Save();
         }
 
