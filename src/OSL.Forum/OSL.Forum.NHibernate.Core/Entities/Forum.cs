@@ -13,14 +13,14 @@ namespace OSL.Forum.NHibernate.Core.Entities
     public class Forum : IEntity<Guid>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; set; }
         [Required]
         [MaxLength(64)]
-        public string Name { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime ModificationDate { get; set; }
-        public Guid CategoryId { get; set; }
-        public string ApplicationUserId { get; set; }
+        public virtual string Name { get; set; }
+        public virtual DateTime CreationDate { get; set; }
+        public virtual DateTime ModificationDate { get; set; }
+        public virtual Guid CategoryId { get; set; }
+        public virtual string ApplicationUserId { get; set; }
         public virtual Category Category { get; set; }
         public virtual IList<Topic> Topics { get; set; }
     }

@@ -13,10 +13,10 @@ namespace OSL.Forum.NHibernate.Core.Entities
     public class FavoriteForum : IEntity<Guid>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-        public string ApplicationUserId { get; set; }
+        public virtual Guid Id { get; set; }
+        public virtual string ApplicationUserId { get; set; }
         [ForeignKey("Forum")]
-        public Guid ForumId { get; set; }
+        public virtual Guid ForumId { get; set; }
         public virtual Forum Forum { get; set; }
     }
 }
