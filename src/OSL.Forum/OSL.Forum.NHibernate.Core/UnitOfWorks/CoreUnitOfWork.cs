@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NHibernate;
 using OSL.Forum.NHibernateBase;
-using OSL.Forum.NHibernate.Core.Contexts;
 using OSL.Forum.NHibernate.Core.Repositories;
 
 namespace OSL.Forum.NHibernate.Core.UnitOfWorks
@@ -14,9 +8,9 @@ namespace OSL.Forum.NHibernate.Core.UnitOfWorks
     {
         public ICategoryRepository Categories { get; private set; }
 
-        public CoreUnitOfWork(ICoreDbContext context,
+        public CoreUnitOfWork(ISession session,
             ICategoryRepository categories
-            ) : base((DbContext)context)
+            ) : base(session)
         {
             Categories = categories;
         }

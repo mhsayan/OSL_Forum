@@ -1,7 +1,6 @@
 ﻿using NHibernate;
-using OSL.Forum.NHibernateBase;
 
-namespace OSL.Forum.Base
+namespace OSL.Forum.NHibernateBase
 {
     public class UnitOfWork : IUnitOfWork
     {

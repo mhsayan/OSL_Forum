@@ -2396,6 +2396,10 @@
       <Project>{6DE9F306-BD60-4B9C-B346-3996E1EFA17F}</Project>
       <Name>OSL.Forum.Membership</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.NHibernate.Core\OSL.Forum.NHibernate.Core.csproj">
+      <Project>{A3E7298A-76AC-4DEF-A5E1-C727B2A6B97C}</Project>
+      <Name>OSL.Forum.NHibernate.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

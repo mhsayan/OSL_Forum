@@ -14,6 +14,7 @@ using OSL.Forum.Membership.Contexts;
 using OSL.Forum.Membership.Entities;
 using OSL.Forum.Membership.Seeds;
 using OSL.Forum.Membership.Services;
+using OSL.Forum.NHibernate.Core;
 using Owin;
 using OSL.Forum.Web.Models;
 
@@ -89,6 +90,7 @@ namespace OSL.Forum.Web
             builder.RegisterModule(new WebModule());
             builder.RegisterModule(new CoreModule(connectionString));
             builder.RegisterModule(new MembershipModule(connectionString));
+            builder.RegisterModule(new NHibernateCoreModule(connectionString));
 
             var container = builder.Build();
             AutofacContainer = container;

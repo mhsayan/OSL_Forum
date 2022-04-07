@@ -117,7 +117,7 @@
     <Compile Include="BusinessObjects\Topic.cs" />
     <Compile Include="Contexts\NHibernateCoreDbContext.cs" />
     <Compile Include="Convention\TableNameConvention.cs" />
-    <Compile Include="CoreModule.cs" />
+    <Compile Include="NHibernateCoreModule.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\FavoriteForum.cs" />
     <Compile Include="Entities\Forum.cs" />
