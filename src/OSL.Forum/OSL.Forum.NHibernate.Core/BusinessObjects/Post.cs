@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using OSL.Forum.Membership.Entities;
 using OSL.Forum.NHibernateBase;
 
 namespace OSL.Forum.NHibernate.Core.BusinessObjects
@@ -15,6 +16,7 @@ namespace OSL.Forum.NHibernate.Core.BusinessObjects
         public Guid TopicId { get; set; }
         public virtual Topic Topic { get; set; }
         public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         public string Status { get; set; }
         public bool Owner { get; set; }
         public string OwnerName { get; set; }

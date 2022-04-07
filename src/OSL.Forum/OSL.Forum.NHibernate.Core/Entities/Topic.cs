@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSL.Forum.Membership.Entities;
 using OSL.Forum.NHibernateBase;
 
 namespace OSL.Forum.NHibernate.Core.Entities
@@ -22,6 +23,7 @@ namespace OSL.Forum.NHibernate.Core.Entities
         public virtual Guid ForumId { get; set; }
         public virtual Forum Forum { get; set; }
         public virtual string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual string ApprovalType { get; set; }
         public virtual string Status { get; set; }
         public virtual IList<Post> Posts { get; set; }
