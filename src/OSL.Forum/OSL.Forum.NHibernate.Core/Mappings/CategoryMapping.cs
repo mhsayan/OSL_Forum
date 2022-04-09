@@ -14,7 +14,7 @@ namespace OSL.Forum.NHibernate.Core.Mappings
         public CategoryMapping()
         {
             Table("Categories");
-            Id(c => c.Id).GeneratedBy.Identity();
+            Id(c => c.Id).GeneratedBy.GuidComb();
             Map(c => c.Name).Length(64).Not.Nullable();
             Map(c => c.CreationDate).Not.Nullable();
             Map(c => c.ModificationDate).Not.Nullable();

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NHibernate.AspNet.Identity.Helpers;
 using OSL.Forum.NHibernate.Core.Convention;
+using OSL.Forum.NHibernate.Core.Mappings;
 
 namespace OSL.Forum.NHibernate.Core.Contexts
 {
@@ -30,11 +31,16 @@ namespace OSL.Forum.NHibernate.Core.Contexts
                 typeof(ApplicationUser)
             };
 
-            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+            var connectionString = ConfigurationManager.ConnectionStrings["NHibernateConnection"].ToString();
 
             FluentConfiguration _config = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.Conventions.AddFromAssemblyOf<TableNameConvention>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<CategoryMapping>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<ForumMapping>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TopicMapping>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PostMapping>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<FavoriteForumMapping>())
                 .ExposeConfiguration(cfg =>
                 {
                     cfg.SessionFactory().DefaultFlushMode(FlushMode.Commit);

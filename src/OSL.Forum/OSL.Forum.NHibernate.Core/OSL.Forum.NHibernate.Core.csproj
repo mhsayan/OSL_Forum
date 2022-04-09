@@ -120,6 +120,9 @@
     <Compile Include="Enums\ActivityStatus.cs" />
     <Compile Include="Mappings\CategoryMapping.cs" />
     <Compile Include="Mappings\FavoriteForumMapping.cs" />
+    <Compile Include="Mappings\ForumMapping.cs" />
+    <Compile Include="Mappings\PostMapping.cs" />
+    <Compile Include="Mappings\TopicMapping.cs" />
     <Compile Include="NHibernateCoreModule.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\FavoriteForum.cs" />

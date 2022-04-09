@@ -29,7 +29,7 @@ namespace OSL.Forum.Membership.Contexts
                 typeof(ApplicationUser)
             };
 
-            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+            var connectionString = ConfigurationManager.ConnectionStrings["NHibernateConnection"].ToString();
 
             FluentConfiguration _config = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))

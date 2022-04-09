@@ -13,10 +13,10 @@ namespace OSL.Forum.NHibernate.Core.Mappings
         public FavoriteForumMapping()
         {
             Table("FavoriteForums");
-            Id(ff => ff.Id).GeneratedBy.Identity();
-            Map(ff => ff.ApplicationUserId);
+            Id(ff => ff.Id).GeneratedBy.GuidComb();
+            Map(ff => ff.ApplicationUserId).Not.Nullable();
             References(ff => ff.ApplicationUser);
-            Map(ff => ff.ForumId);
+            Map(ff => ff.ForumId).Not.Nullable();
             References(ff => ff.Forum);
         }
     }
