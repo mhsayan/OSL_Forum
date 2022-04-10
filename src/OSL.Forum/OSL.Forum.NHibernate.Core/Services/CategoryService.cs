@@ -28,7 +28,7 @@ namespace OSL.Forum.NHibernate.Core.Services
             if (string.IsNullOrWhiteSpace(categoryName))
                 throw new ArgumentNullException(nameof(categoryName));
 
-            var categoryEntity = _unitOfWork.Categories.Get(c => c.Name == categoryName, "").FirstOrDefault();
+            var categoryEntity = _unitOfWork.Categories.Get(c => c.Name == categoryName).FirstOrDefault();
 
             if (categoryEntity == null)
                 return null;
@@ -56,7 +56,7 @@ namespace OSL.Forum.NHibernate.Core.Services
 
         public IList<BO.Category> GetCategories()
         {
-            var categoryEntities = _unitOfWork.Categories.Get(null, "Forums");
+            var categoryEntities = _unitOfWork.Categories.Get(null);
 
             var categoryList = from c in categoryEntities
                                orderby c.ModificationDate descending
@@ -145,7 +145,7 @@ namespace OSL.Forum.NHibernate.Core.Services
 
         public IList<BO.Category> GetCategories(int pageIndex, int pageSize)
         {
-            var categoryEntities = _unitOfWork.Categories.Get(null, q => q.OrderByDescending(c => c.ModificationDate), "Forums", pageIndex, pageSize);
+            var categoryEntities = _unitOfWork.Categories.Get(null, q => q.OrderByDescending(c => c.ModificationDate), pageIndex, pageSize);
 
             var categories = new List<BO.Category>();
 

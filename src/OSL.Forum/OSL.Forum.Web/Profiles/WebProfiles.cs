@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.NHibernate.Core.BusinessObjects;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Membership.Entities;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
@@ -14,9 +14,9 @@ using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Models.Profile;
-using Category = OSL.Forum.Core.BusinessObjects.Category;
+using Category = OSL.Forum.NHibernate.Core.BusinessObjects.Category;
 using IndexViewModel = OSL.Forum.Web.Models.Home.IndexViewModel;
-using Post = OSL.Forum.Core.BusinessObjects.Post;
+using Post = OSL.Forum.NHibernate.Core.BusinessObjects.Post;
 
 namespace OSL.Forum.Web.Profiles
 {
