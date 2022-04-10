@@ -43,6 +43,10 @@ namespace OSL.Forum.NHibernate.Core
 
             //Service Classes
             builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
+            builder.RegisterType<ForumService>().As<IForumService>().InstancePerLifetimeScope();
+            builder.RegisterType<PostService>().As<IPostService>().InstancePerLifetimeScope();
+            builder.RegisterType<TopicService>().As<ITopicService>().InstancePerLifetimeScope();
+            builder.RegisterType<FavoriteForumService>().As<IFavoriteForumService>().InstancePerLifetimeScope();
 
             base.Load(builder);
         }
