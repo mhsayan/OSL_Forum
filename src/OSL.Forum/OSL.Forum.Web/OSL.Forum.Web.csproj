@@ -2382,14 +2382,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OSL.Forum.Base\OSL.Forum.Base.csproj">
-      <Project>{54415a8e-6742-4bea-8c87-6b54eea9b547}</Project>
-      <Name>OSL.Forum.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OSL.Forum.Core\OSL.Forum.Core.csproj">
-      <Project>{d3610ed7-9f1e-4f53-a8c7-42fe0693e795}</Project>
-      <Name>OSL.Forum.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OSL.Forum.Membership\OSL.Forum.Membership.csproj">
       <Project>{6DE9F306-BD60-4B9C-B346-3996E1EFA17F}</Project>
       <Name>OSL.Forum.Membership</Name>
@@ -2397,6 +2389,10 @@
     <ProjectReference Include="..\OSL.Forum.NHibernate.Core\OSL.Forum.NHibernate.Core.csproj">
       <Project>{A3E7298A-76AC-4DEF-A5E1-C727B2A6B97C}</Project>
       <Name>OSL.Forum.NHibernate.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.NHibernateBase\OSL.Forum.NHibernateBase.csproj">
+      <Project>{130fb5c0-f1cf-4f25-a7c8-70f17d557bff}</Project>
+      <Name>OSL.Forum.NHibernateBase</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

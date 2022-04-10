@@ -92,7 +92,7 @@ namespace OSL.Forum.NHibernate.Core.Services
             categoryEntity.Name = category.Name;
             categoryEntity.ModificationDate = DateTime.Now;
 
-            _unitOfWork.Commit();
+            _unitOfWork.Save();
         }
 
         public void DeleteCategory(Guid categoryId)
@@ -101,7 +101,7 @@ namespace OSL.Forum.NHibernate.Core.Services
                 throw new ArgumentNullException(nameof(categoryId));
 
             _unitOfWork.Categories.Remove(categoryId);
-            _unitOfWork.Commit();
+            _unitOfWork.Save();
         }
 
         public void CreateCategory(BO.Category category)
@@ -120,7 +120,7 @@ namespace OSL.Forum.NHibernate.Core.Services
             var categoryEntity = _mapper.Map<EO.Category>(category);
 
             _unitOfWork.Categories.Add(categoryEntity);
-            _unitOfWork.Commit();
+            _unitOfWork.Save();
         }
 
         public void UpdateModificationDate(DateTime modificationDate, Guid categoryId)
@@ -135,7 +135,7 @@ namespace OSL.Forum.NHibernate.Core.Services
 
             categoryEntity.ModificationDate = modificationDate;
 
-            _unitOfWork.Commit();
+            _unitOfWork.Save();
         }
 
         public int GetCategoryCount()

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Autofac;
-using OSL.Forum.Core.BusinessObjects;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
+using OSL.Forum.NHibernate.Core.BusinessObjects;
+using OSL.Forum.NHibernate.Core.Services;
+using OSL.Forum.NHibernate.Core.Utilities;
 using OSL.Forum.Membership.Services;
 using OSL.Forum.Web.Models;
 

@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
-using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.NHibernate.Core.BusinessObjects;
 using OSL.Forum.Membership.Contexts;
 using OSL.Forum.Membership.Entities;
 

@@ -26,6 +26,7 @@ namespace OSL.Forum.NHibernate.Core.Entities
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual string ApprovalType { get; set; }
         public virtual string Status { get; set; }
+        public virtual string ActivityStatus { get; set; }
         public virtual IList<Post> Posts { get; set; }
     }
 }

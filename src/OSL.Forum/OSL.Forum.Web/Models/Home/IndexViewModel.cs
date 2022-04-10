@@ -7,8 +7,8 @@ using Autofac;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using OSL.Forum.Core.Entities;
-using OSL.Forum.Core.Services;
+using OSL.Forum.NHibernate.Core.Entities;
+using OSL.Forum.NHibernate.Core.Services;
 using OSL.Forum.NHibernate.Core.Services;
 using OSL.Forum.NHibernate.Core.Utilities;
 using OSL.Forum.Membership.Services;
@@ -68,8 +68,7 @@ namespace OSL.Forum.Web.Models.Home
         public void GetFavoriteForums()
         {
             var user = _profileService.GetUser();
-            //FavoriteForums = _favoriteForumService.GetUserFavoriteForums(user.Id).Take(4).ToList();
-            FavoriteForums = null;
+            FavoriteForums = _favoriteForumService.GetUserFavoriteForums(user.Id).Take(4).ToList();
         }
     }
 }

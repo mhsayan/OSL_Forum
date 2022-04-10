@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
-using OSL.Forum.Core.Entities;
-using OSL.Forum.Core.Services;
+using OSL.Forum.NHibernate.Core.Entities;
+using OSL.Forum.NHibernate.Core.Services;
 using OSL.Forum.Membership.Entities;
-using OSL.Forum.Core.Utilities;
+using OSL.Forum.NHibernate.Core.Utilities;
 using OSL.Forum.Membership.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
+using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Profile
 {

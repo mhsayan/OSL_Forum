@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
-using OSL.Forum.Core.Enums;
+using OSL.Forum.NHibernate.Core.Enums;
 using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using AutoMapper;
 using OSL.Forum.NHibernate.Core.BusinessObjects;
-using OSL.Forum.Core.Entities;
+using OSL.Forum.NHibernate.Core.Entities;
 using OSL.Forum.Membership.Entities;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
@@ -27,7 +27,7 @@ namespace OSL.Forum.Web.Profiles
             CreateMap<CreateCategoryModel, Category>().ReverseMap();
             CreateMap<CategoriesModel, Category>().ReverseMap();
             CreateMap<EditCategoryModel, Category>().ReverseMap();
-            CreateMap<EditForumModel, Core.BusinessObjects.Forum>().ReverseMap();
+            CreateMap<EditForumModel, NHibernate.Core.BusinessObjects.Forum>().ReverseMap();
             CreateMap<IndexViewModel, Category>().ReverseMap();
             CreateMap<CreateForumModel, Category>().ReverseMap();
             CreateMap<DetailsModel, Category>().ReverseMap();

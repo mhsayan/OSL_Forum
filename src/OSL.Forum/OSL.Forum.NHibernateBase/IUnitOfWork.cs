@@ -4,7 +4,7 @@ namespace OSL.Forum.NHibernateBase
 {
     public interface IUnitOfWork : IDisposable
     {
-        void Commit();
+        void Save();
         void Rollback();
     }
 }

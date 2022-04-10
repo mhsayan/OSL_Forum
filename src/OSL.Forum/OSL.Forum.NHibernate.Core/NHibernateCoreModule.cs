@@ -29,6 +29,14 @@ namespace OSL.Forum.NHibernate.Core
             //Repositories
             builder.RegisterType<CategoryRepository>().As<ICategoryRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<ForumRepository>().As<IForumRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<TopicRepository>().As<ITopicRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<PostRepository>().As<IPostRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<FavoriteForumRepository>().As<IFavoriteForumRepository>()
+                .InstancePerLifetimeScope();
 
             //Unit Of Work
             builder.RegisterType<CoreUnitOfWork>().As<ICoreUnitOfWork>().InstancePerLifetimeScope();

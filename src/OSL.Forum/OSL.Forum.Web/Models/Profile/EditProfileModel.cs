@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Autofac;
 using AutoMapper;
-using OSL.Forum.Core.Entities;
+using OSL.Forum.NHibernate.Core.Entities;
 using OSL.Forum.Membership.Entities;
 using OSL.Forum.Membership.Services;
 

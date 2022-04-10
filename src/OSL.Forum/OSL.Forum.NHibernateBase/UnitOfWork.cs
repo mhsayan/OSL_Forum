@@ -13,7 +13,7 @@ namespace OSL.Forum.NHibernateBase
             _transaction = _session.BeginTransaction();
         }
 
-        public void Commit()
+        public void Save()
         {
             try
             {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using OSL.Forum.Core.BusinessObjects;
 using OSL.Forum.Membership.Entities;
+using OSL.Forum.NHibernate.Core.BusinessObjects;
 
 namespace OSL.Forum.Membership.Services
 {

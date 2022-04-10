@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Autofac;
 using AutoMapper;
-using OSL.Forum.Core.Services;
+using OSL.Forum.NHibernate.Core.Services;
 using OSL.Forum.Web.Models;
-using BO = OSL.Forum.Core.BusinessObjects;
+using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {

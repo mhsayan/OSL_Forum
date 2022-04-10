@@ -11,5 +11,9 @@ namespace OSL.Forum.NHibernate.Core.UnitOfWorks
     public interface ICoreUnitOfWork : IUnitOfWork
     {
         ICategoryRepository Categories { get; }
+        IForumRepository Forums { get; }
+        ITopicRepository Topics { get; }
+        IPostRepository Posts { get; }
+        IFavoriteForumRepository FavoriteForums { get; }
     }
 }

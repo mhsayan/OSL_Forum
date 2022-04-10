@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Autofac;
 using log4net;
-using OSL.Forum.Core.Utilities;
+using OSL.Forum.NHibernate.Core.Utilities;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers

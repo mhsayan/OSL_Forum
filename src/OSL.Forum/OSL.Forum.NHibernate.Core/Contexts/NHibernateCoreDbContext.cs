@@ -27,10 +27,6 @@ namespace OSL.Forum.NHibernate.Core.Contexts
                 return _session;
             }
 
-            var myEntities = new[] {
-                typeof(ApplicationUser)
-            };
-
             var connectionString = ConfigurationManager.ConnectionStrings["NHibernateConnection"].ToString();
 
             FluentConfiguration _config = Fluently.Configure()
@@ -44,7 +40,6 @@ namespace OSL.Forum.NHibernate.Core.Contexts
                 .ExposeConfiguration(cfg =>
                 {
                     cfg.SessionFactory().DefaultFlushMode(FlushMode.Commit);
-                    cfg.AddDeserializedMapping(MappingHelper.GetIdentityMappings(myEntities), null);
                     new SchemaUpdate(cfg).Execute(false, true);
                 });
 

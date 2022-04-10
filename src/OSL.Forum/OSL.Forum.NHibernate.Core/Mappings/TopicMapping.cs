@@ -23,6 +23,7 @@ namespace OSL.Forum.NHibernate.Core.Mappings
             References(p => p.Forum);
             Map(t => t.Status).Not.Nullable();
             Map(t => t.ApprovalType).Not.Nullable();
+            Map(t => t.ActivityStatus).Not.Nullable();
             HasMany(t => t.Posts).Cascade.AllDeleteOrphan();
         }
     }

@@ -7,8 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
-using OSL.Forum.Core;
-using OSL.Forum.Core.Entities;
+using OSL.Forum.NHibernate.Core.Entities;
 using OSL.Forum.Membership;
 using OSL.Forum.Membership.Contexts;
 using OSL.Forum.Membership.Entities;
@@ -88,7 +87,7 @@ namespace OSL.Forum.Web
 
             //Modules
             builder.RegisterModule(new WebModule());
-            builder.RegisterModule(new CoreModule(connectionString));
+            //builder.RegisterModule(new CoreModule(connectionString));
             builder.RegisterModule(new MembershipModule(connectionString));
             builder.RegisterModule(new NHibernateCoreModule(connectionString));
 

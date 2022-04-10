@@ -1,7 +1,5 @@
 ﻿using Autofac;
 using AutoMapper;
-using OSL.Forum.Core.Profiles;
-using OSL.Forum.Membership.Services;
 using OSL.Forum.NHibernate.Core.Profiles;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Areas.Admin.Models.Forum;
@@ -26,7 +24,7 @@ namespace OSL.Forum.Web
                 {
                     //Register Mapper Profile
                     cfg.AddProfile<WebProfiles>();
-                    cfg.AddProfile<CoreProfiles>();
+                    //cfg.AddProfile<CoreProfiles>();
                     cfg.AddProfile<NHibernateCoreProfiles>();
                 }
             )).AsSelf().InstancePerRequest();

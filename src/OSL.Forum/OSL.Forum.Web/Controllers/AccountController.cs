@@ -9,7 +9,7 @@ using Autofac;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OSL.Forum.Core.Entities;
+using OSL.Forum.NHibernate.Core.Entities;
 using OSL.Forum.Membership.Entities;
 using OSL.Forum.Membership.Services;
 using OSL.Forum.Membership.Utilities;
