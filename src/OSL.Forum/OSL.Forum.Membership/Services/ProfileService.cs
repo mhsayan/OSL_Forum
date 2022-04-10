@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using NHibernate.AspNet.Identity;
 using OSL.Forum.NHibernate.Core.BusinessObjects;
 using OSL.Forum.Membership.Contexts;
 using OSL.Forum.Membership.Entities;
@@ -16,11 +17,12 @@ namespace OSL.Forum.Membership.Services
     public class ProfileService : IProfileService
     {
         private IMapper _mapper;
-        private static readonly ApplicationUserManager UserManager = new ApplicationUserManager(new NHibernate.AspNet.Identity.UserStore<ApplicationUser>(MembershipDbContext.GetSession()));
+        private readonly ApplicationUserManager _userManager;
 
         public ProfileService(IMapper mapper)
         {
             _mapper = mapper;
+            _userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(MembershipDbContext.GetSession()));
         }
 
         public string UserID()
@@ -31,7 +33,7 @@ namespace OSL.Forum.Membership.Services
         public ApplicationUser GetUser()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            var user = UserManager.FindById(userId);
+            var user = _userManager.FindById(userId);
 
             return user ?? null;
         }
@@ -41,7 +43,7 @@ namespace OSL.Forum.Membership.Services
             if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentNullException(nameof(userId));
 
-            var user = UserManager.FindById(userId);
+            var user = _userManager.FindById(userId);
 
             return user;
         }
@@ -50,12 +52,12 @@ namespace OSL.Forum.Membership.Services
         {
             var userId = UserID();
 
-            return await UserManager.GetRolesAsync(userId);
+            return await _userManager.GetRolesAsync(userId);
         }
 
         public async Task<IList<string>> UserRolesAsync(string userId)
         {
-            return await UserManager.GetRolesAsync(userId);
+            return await _userManager.GetRolesAsync(userId);
         }
 
         public bool Owner(string userId)
@@ -81,14 +83,14 @@ namespace OSL.Forum.Membership.Services
             if (applicationUser == null)
                 throw new ArgumentNullException(nameof(applicationUser));
 
-            var user = UserManager.FindById(applicationUser.Id);
+            var user = _userManager.FindById(applicationUser.Id);
 
             if (user.Name == applicationUser.Name)
                 throw new InvalidOperationException("The name is the same as your previous name.");
 
             user.Name = applicationUser.Name;
 
-            var result = await UserManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
                 throw new InvalidOperationException("User profile update failed.");
@@ -101,7 +103,7 @@ namespace OSL.Forum.Membership.Services
 
             await RemoveUserFromRolesAsync(applicationUserRole.UserId);
 
-            var result = await UserManager.AddToRoleAsync(applicationUserRole.UserId, applicationUserRole.UserRole);
+            var result = await _userManager.AddToRoleAsync(applicationUserRole.UserId, applicationUserRole.UserRole);
 
             if (!result.Succeeded)
                 throw new InvalidOperationException("Role assign failed.");
@@ -112,7 +114,7 @@ namespace OSL.Forum.Membership.Services
             var user = GetUser();
             var superAdmin = ConfigurationManager.AppSettings["SuperAdminEmail"].ToString();
 
-            var users = UserManager.Users.ToList()
+            var users = _userManager.Users.ToList()
                 .Where(u => u.Email != user.Email && u.Email != superAdmin)
                 .Select(u => new SelectListItem
                 {
@@ -132,7 +134,7 @@ namespace OSL.Forum.Membership.Services
 
             foreach (var userRole in userRoles)
             {
-                var result = await UserManager.RemoveFromRolesAsync(userId, userRole);
+                var result = await _userManager.RemoveFromRolesAsync(userId, userRole);
 
                 if (!result.Succeeded)
                     throw new InvalidOperationException("Role remove failed.");
