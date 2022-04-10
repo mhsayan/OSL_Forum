@@ -9,9 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
+using OSL.Forum.NHibernate.Core.Services;
+using OSL.Forum.NHibernate.Core.Utilities;
 using OSL.Forum.Membership.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
+using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
+using ICategoryService = OSL.Forum.NHibernate.Core.Services.ICategoryService;
 
 namespace OSL.Forum.Web.Models.Home
 {
@@ -66,7 +68,8 @@ namespace OSL.Forum.Web.Models.Home
         public void GetFavoriteForums()
         {
             var user = _profileService.GetUser();
-            FavoriteForums = _favoriteForumService.GetUserFavoriteForums(user.Id).Take(4).ToList();
+            //FavoriteForums = _favoriteForumService.GetUserFavoriteForums(user.Id).Take(4).ToList();
+            FavoriteForums = null;
         }
     }
 }

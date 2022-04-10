@@ -13,27 +13,23 @@ namespace OSL.Forum.NHibernateBase
         void Remove(TEntity entityToDelete);
         void Edit(TEntity entityToUpdate);
         int GetCount(Expression<Func<TEntity, bool>> filter = null);
-        IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "");
+        IList<TEntity> Get(Expression<Func<TEntity, bool>> filter);
         IList<TEntity> GetAll();
         TEntity GetById(TKey id);
         (IList<TEntity> data, int total, int totalDisplay) GetDynamic(
             Expression<Func<TEntity, bool>> filter = null,
-            string orderBy = null,
-            string includeProperties = "", int pageIndex = 1, int pageSize = 10);
+            string orderBy = null, int pageIndex = 1, int pageSize = 10);
 
-        IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "", int pageIndex = 1,
+        IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, int pageIndex = 1,
             int pageSize = 10);
 
         IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>,
-                IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "", int pageIndex = 1, int pageSize = 10);
+                IOrderedQueryable<TEntity>> orderBy = null, int pageIndex = 1, int pageSize = 10);
 
         IList<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
         IList<TEntity> GetDynamic(Expression<Func<TEntity, bool>> filter = null,
-            string orderBy = null,
-            string includeProperties = "");
+            string orderBy = null);
     }
 }

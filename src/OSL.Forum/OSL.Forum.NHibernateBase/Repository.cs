@@ -55,7 +55,7 @@ namespace OSL.Forum.NHibernateBase
             return count;
         }
 
-        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "")
+        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter)
         {
             IQueryable<TEntity> query = _session.Query<TEntity>();
 
@@ -64,16 +64,10 @@ namespace OSL.Forum.NHibernateBase
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Fetch(x => x.GetType().GetProperty(includeProperty));
-            }
-
             return query.ToList();
         }
 
-        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter, string includeProperties = "",
+        public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter,
             int pageIndex = 1, int pageSize = 10)
         {
             IQueryable<TEntity> query = _session.Query<TEntity>();
@@ -83,12 +77,6 @@ namespace OSL.Forum.NHibernateBase
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                         (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Fetch(x => x.GetType().GetProperty(includeProperty));
-            }
-
             var result = query.OrderByDescending(s => s.Id).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
             return result;
@@ -96,19 +84,13 @@ namespace OSL.Forum.NHibernateBase
 
         public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "", int pageIndex = 1, int pageSize = 10)
+            int pageIndex = 1, int pageSize = 10)
         {
             IQueryable<TEntity> query = _session.Query<TEntity>();
 
             if (filter != null)
             {
                 query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split
-                         (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Fetch(x => x.GetType().GetProperty(includeProperty));
             }
 
             if (orderBy != null)
@@ -133,8 +115,7 @@ namespace OSL.Forum.NHibernateBase
 
         public virtual (IList<TEntity> data, int total, int totalDisplay) GetDynamic(
             Expression<Func<TEntity, bool>> filter = null,
-            string orderBy = null,
-            string includeProperties = "", int pageIndex = 1, int pageSize = 10)
+            string orderBy = null, int pageIndex = 1, int pageSize = 10)
         {
             IQueryable<TEntity> query = _session.Query<TEntity>();
             var total = query.Count();
@@ -144,12 +125,6 @@ namespace OSL.Forum.NHibernateBase
             {
                 query = query.Where(filter);
                 totalDisplay = query.Count();
-            }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Fetch(x => x.GetType().GetProperty(includeProperty));
             }
 
             if (orderBy != null)
@@ -165,20 +140,13 @@ namespace OSL.Forum.NHibernateBase
         }
 
         public virtual IList<TEntity> Get(Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             IQueryable<TEntity> query = _session.Query<TEntity>();
 
             if (filter != null)
             {
                 query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Fetch(x => x.GetType().GetProperty(includeProperty));
             }
 
             if (orderBy != null)
@@ -193,20 +161,13 @@ namespace OSL.Forum.NHibernateBase
         }
 
         public virtual IList<TEntity> GetDynamic(Expression<Func<TEntity, bool>> filter = null,
-            string orderBy = null,
-            string includeProperties = "")
+            string orderBy = null)
         {
             IQueryable<TEntity> query = _session.Query<TEntity>();
 
             if (filter != null)
             {
                 query = query.Where(filter);
-            }
-
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Fetch(x => x.GetType().GetProperty(includeProperty));
             }
 
             if (orderBy != null)
