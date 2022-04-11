@@ -16,9 +16,9 @@ namespace OSL.Forum.NHibernate.Core.Mappings
             Map(f => f.Name).Length(64).Not.Nullable();
             Map(f => f.CreationDate).Not.Nullable();
             Map(f => f.ModificationDate).Not.Nullable();
-            Map(f => f.ApplicationUserId).Not.Nullable();
+            Map(f => f.ApplicationUserId).Formula("[ApplicationUser_id]").Not.Nullable();
             References(f => f.ApplicationUser);
-            Map(f => f.CategoryId).Not.Nullable();
+            Map(f => f.CategoryId).Formula("[Category_id]").Not.Nullable();
             References(f => f.Category);
             HasMany(f => f.Topics).Cascade.AllDeleteOrphan();
         }

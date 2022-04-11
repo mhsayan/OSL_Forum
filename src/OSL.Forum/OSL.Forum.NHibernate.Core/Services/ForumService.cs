@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using AutoMapper;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.NHibernate.Core.UnitOfWorks;
 using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
 using EO = OSL.Forum.NHibernate.Core.Entities;
@@ -12,13 +13,15 @@ namespace OSL.Forum.NHibernate.Core.Services
     public class ForumService : IForumService
     {
         private readonly ICoreUnitOfWork _unitOfWork;
+        private readonly IProfileService _profileService;
         private IMapper _mapper;
 
         public ForumService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper, IProfileService profileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _profileService = profileService;
         }
 
         public BO.Forum GetForum(string forumName, Guid categoryId)
@@ -130,6 +133,8 @@ namespace OSL.Forum.NHibernate.Core.Services
                 throw new DuplicateNameException("This Forum name already exists under this category.");
 
             var forumEntity = _mapper.Map<EO.Forum>(forum);
+            forumEntity.Category = _unitOfWork.Categories.GetById(forum.CategoryId);
+            forumEntity.ApplicationUser = _profileService.GetUser(forum.ApplicationUserId);
 
             _unitOfWork.Forums.Add(forumEntity);
             _unitOfWork.Save();
