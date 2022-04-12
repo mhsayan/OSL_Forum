@@ -42,7 +42,6 @@ namespace OSL.Forum.NHibernate.Core.Contexts
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TopicMapping>())
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PostMapping>())
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<FavoriteForumMapping>())
-                //.Mappings(m => m.FluentMappings.AddFromAssemblyOf<ApplicationUserMapping>())
                 .ExposeConfiguration(cfg =>
                 {
                     cfg.SessionFactory().DefaultFlushMode(FlushMode.Commit);

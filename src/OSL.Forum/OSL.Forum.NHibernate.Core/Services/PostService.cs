@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.NHibernate.Core.Enums;
 using OSL.Forum.NHibernate.Core.UnitOfWorks;
 using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
@@ -12,13 +13,15 @@ namespace OSL.Forum.NHibernate.Core.Services
     public class PostService : IPostService
     {
         private readonly ICoreUnitOfWork _unitOfWork;
+        private IProfileService _profileService;
         private IMapper _mapper;
 
         public PostService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper, IProfileService profileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _profileService = profileService;
         }
 
         public BO.Post GetPost(Guid postId)
@@ -69,6 +72,8 @@ namespace OSL.Forum.NHibernate.Core.Services
                 throw new ArgumentNullException(nameof(post));
 
             var postEntity = _mapper.Map<EO.Post>(post);
+            postEntity.Topic = _unitOfWork.Topics.GetById(post.TopicId);
+            postEntity.ApplicationUser = _profileService.GetUser(post.ApplicationUserId);
 
             _unitOfWork.Posts.Add(postEntity);
             _unitOfWork.Save();

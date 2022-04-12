@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.NHibernate.Core.UnitOfWorks;
 using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
 using EO = OSL.Forum.NHibernate.Core.Entities;
@@ -11,13 +12,15 @@ namespace OSL.Forum.NHibernate.Core.Services
     public class FavoriteForumService : IFavoriteForumService
     {
         private readonly ICoreUnitOfWork _unitOfWork;
+        private IProfileService _profileService;
         private IMapper _mapper;
 
         public FavoriteForumService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper, IProfileService profileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _profileService = profileService;
         }
 
         public List<BO.FavoriteForum> GetUserFavoriteForums(string userId)
@@ -71,8 +74,8 @@ namespace OSL.Forum.NHibernate.Core.Services
 
             var favoriteForumEntity = new EO.FavoriteForum()
             {
-                ForumId = forumId,
-                ApplicationUserId = userId
+                Forum = _unitOfWork.Forums.GetById(forumId),
+                ApplicationUser = _profileService.GetUser(userId)
             };
 
             _unitOfWork.FavoriteForums.Add(favoriteForumEntity);

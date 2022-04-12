@@ -21,7 +21,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            @*@if (Model.IsAuthenticated && Model.FavoriteForums.Count > 0)
+            @if (Model.IsAuthenticated && Model.FavoriteForums.Count > 0)
                 {
                     <div class="col-6 p-3">
                         <div class="card-primary shadow-sm">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                }*@
+                }
             @foreach (var category in @Model.Categories)
             {
                 <div class="col-6 p-3">

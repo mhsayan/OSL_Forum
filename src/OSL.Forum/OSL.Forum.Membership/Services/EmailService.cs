@@ -23,7 +23,7 @@ namespace OSL.Forum.Membership.Services
 
         void sendMail(IdentityMessage message)
         {
-            #region formatter
+            #region
             var html = new StringBuilder();
             html.Append(message.Body);
             #endregion
@@ -35,6 +35,7 @@ namespace OSL.Forum.Membership.Services
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html.ToString(), null, MediaTypeNames.Text.Html));
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+            smtpClient.UseDefaultCredentials = false;
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"].ToString(), ConfigurationManager.AppSettings["Password"].ToString());
             smtpClient.Credentials = credentials;
             smtpClient.EnableSsl = true;

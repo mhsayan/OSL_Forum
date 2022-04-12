@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using AutoMapper;
+using OSL.Forum.Membership.Services;
 using OSL.Forum.NHibernate.Core.Enums;
 using OSL.Forum.NHibernate.Core.UnitOfWorks;
 using BO = OSL.Forum.NHibernate.Core.BusinessObjects;
@@ -13,13 +14,15 @@ namespace OSL.Forum.NHibernate.Core.Services
     public class TopicService : ITopicService
     {
         private readonly ICoreUnitOfWork _unitOfWork;
+        private IProfileService _profileService;
         private IMapper _mapper;
 
         public TopicService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+            IMapper mapper, IProfileService profileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _profileService = profileService;
         }
 
         public BO.Topic GetTopic(string topicName, Guid forumId)
@@ -171,6 +174,8 @@ namespace OSL.Forum.NHibernate.Core.Services
                 throw new DuplicateNameException("This Topic already exists under this forum.");
 
             var topicEntity = _mapper.Map<EO.Topic>(topic);
+            topicEntity.Forum = _unitOfWork.Forums.GetById(topic.ForumId);
+            topicEntity.ApplicationUser = _profileService.GetUser(topic.ApplicationUserId);
 
             _unitOfWork.Topics.Add(topicEntity);
             _unitOfWork.Save();
