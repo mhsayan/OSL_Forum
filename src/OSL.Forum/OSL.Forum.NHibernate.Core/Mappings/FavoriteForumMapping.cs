@@ -16,9 +16,9 @@ namespace OSL.Forum.NHibernate.Core.Mappings
             Table("FavoriteForums");
             Id(ff => ff.Id).GeneratedBy.GuidComb();
             Map(ff => ff.ApplicationUserId).Formula("[ApplicationUser_id]").Not.Nullable();
-            References(ff => ff.ApplicationUser);
+            References(ff => ff.ApplicationUser).Not.Nullable();
             Map(ff => ff.ForumId).Formula("[Forum_id]").Not.Nullable();
-            References(ff => ff.Forum);
+            References(ff => ff.Forum).Not.Nullable();
         }
     }
 }

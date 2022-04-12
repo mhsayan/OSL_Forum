@@ -6,11 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Microsoft.AspNet.Identity;
 using NHibernate;
+using NHibernate.AspNet.Identity;
 using NHibernate.AspNet.Identity.Helpers;
 using NHibernate.Tool.hbm2ddl;
 using OSL.Forum.Membership.Convention;
 using OSL.Forum.Membership.Entities;
+using OSL.Forum.Membership.Mappings;
 
 namespace OSL.Forum.Membership.Contexts
 {
@@ -34,6 +37,7 @@ namespace OSL.Forum.Membership.Contexts
             FluentConfiguration _config = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.Conventions.AddFromAssemblyOf<TableNameConvention>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<ApplicationUserMapping>())
                 .ExposeConfiguration(cfg =>
                 {
                     cfg.SessionFactory().DefaultFlushMode(FlushMode.Commit);

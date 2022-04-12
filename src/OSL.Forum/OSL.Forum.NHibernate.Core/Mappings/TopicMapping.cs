@@ -18,9 +18,9 @@ namespace OSL.Forum.NHibernate.Core.Mappings
             Map(t => t.CreationDate).Not.Nullable();
             Map(t => t.ModificationDate).Not.Nullable();
             Map(t => t.ApplicationUserId).Formula("[ApplicationUser_id]").Not.Nullable();
-            References(t => t.ApplicationUser);
+            References(t => t.ApplicationUser).Not.Nullable();
             Map(t => t.ForumId).Formula("[Forum_id]").Not.Nullable();
-            References(p => p.Forum);
+            References(p => p.Forum).Not.Nullable();
             Map(t => t.Status).Not.Nullable();
             Map(t => t.ApprovalType).Not.Nullable();
             Map(t => t.ActivityStatus).Not.Nullable();

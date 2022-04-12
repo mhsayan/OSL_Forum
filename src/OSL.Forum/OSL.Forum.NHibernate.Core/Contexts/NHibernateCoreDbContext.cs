@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NHibernate.AspNet.Identity.Helpers;
+using OSL.Forum.Membership.Mappings;
 using OSL.Forum.NHibernate.Core.Convention;
 using OSL.Forum.NHibernate.Core.Mappings;
 
@@ -33,7 +34,7 @@ namespace OSL.Forum.NHibernate.Core.Contexts
 
             var connectionString = ConfigurationManager.ConnectionStrings["NHibernateConnection"].ToString();
 
-            FluentConfiguration _config = Fluently.Configure()
+            var config = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                 .Mappings(m => m.FluentMappings.Conventions.AddFromAssemblyOf<TableNameConvention>())
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<CategoryMapping>())
@@ -41,6 +42,7 @@ namespace OSL.Forum.NHibernate.Core.Contexts
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<TopicMapping>())
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<PostMapping>())
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<FavoriteForumMapping>())
+                //.Mappings(m => m.FluentMappings.AddFromAssemblyOf<ApplicationUserMapping>())
                 .ExposeConfiguration(cfg =>
                 {
                     cfg.SessionFactory().DefaultFlushMode(FlushMode.Commit);
@@ -48,7 +50,7 @@ namespace OSL.Forum.NHibernate.Core.Contexts
                     new SchemaUpdate(cfg).Execute(false, true);
                 });
 
-            _session = _config.BuildSessionFactory();
+            _session = config.BuildSessionFactory();
 
             return _session;
         }
