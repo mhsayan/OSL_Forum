@@ -1,11 +1,12 @@
-﻿using NHibernate;
+﻿using System.Data;
+using NHibernate;
 
 namespace OSL.Forum.NHibernateBase
 {
     public class UnitOfWork : IUnitOfWork
     {
         protected readonly ISession _session;
-        protected readonly ITransaction _transaction;
+        protected ITransaction _transaction;
 
         public UnitOfWork(ISession session)
         {
@@ -17,10 +18,8 @@ namespace OSL.Forum.NHibernateBase
         {
             try
             {
-                if (_transaction != null && _transaction.IsActive)
-                {
-                    _transaction.Commit();
-                }
+                _transaction = _session.BeginTransaction();
+                _transaction.Commit();
             }
             catch
             {

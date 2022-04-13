@@ -18,7 +18,7 @@ namespace OSL.Forum.NHibernate.Core.Mappings
             Map(c => c.Name).Length(64).Not.Nullable();
             Map(c => c.CreationDate).Not.Nullable();
             Map(c => c.ModificationDate).Not.Nullable();
-            HasMany(c => c.Forums).Cascade.SaveUpdate().Not.LazyLoad();
+            HasMany(c => c.Forums).Cascade.SaveUpdate().Not.LazyLoad().Inverse();
         }
     }
 }
