@@ -12,16 +12,7 @@ namespace OSL.Forum.Membership.Services
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return Task.Factory.StartNew(() =>
-            {
-                sendMail(message);
-            });
-        }
-
-        void sendMail(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             #region
             var html = new StringBuilder();
@@ -39,7 +30,7 @@ namespace OSL.Forum.Membership.Services
             System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["Email"].ToString(), ConfigurationManager.AppSettings["Password"].ToString());
             smtpClient.Credentials = credentials;
             smtpClient.EnableSsl = true;
-            smtpClient.Send(msg);
+            await smtpClient.SendMailAsync(msg);
         }
     }
 }

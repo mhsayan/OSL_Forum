@@ -25,7 +25,7 @@ namespace OSL.Forum.Membership.Seeds
 
             string name = ConfigurationManager.AppSettings["Name"].ToString();
             string email = ConfigurationManager.AppSettings["SuperAdminEmail"].ToString();
-            string password = ConfigurationManager.AppSettings["Password"].ToString();
+            string password = ConfigurationManager.AppSettings["SuperAdminPassword"].ToString();
 
             var user = _manager.FindByEmail(email);
 
