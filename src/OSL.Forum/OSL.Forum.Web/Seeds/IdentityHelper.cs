@@ -39,7 +39,7 @@ namespace OSL.Forum.Web.Seeds
 
             string name = ConfigurationManager.AppSettings["Name"].ToString();
             string userName = ConfigurationManager.AppSettings["SuperAdminEmail"].ToString();
-            string password = ConfigurationManager.AppSettings["Password"].ToString();
+            string password = ConfigurationManager.AppSettings["SuperAdminPassword"].ToString();
 
             var user = userManager.FindByName(userName);
 
