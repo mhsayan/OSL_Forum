@@ -20,7 +20,7 @@ namespace OSL.Forum.NHibernate.Core.Mappings
             References(f => f.ApplicationUser).Not.Nullable();
             Map(f => f.CategoryId).Formula("[Category_id]").Not.Nullable();
             References(f => f.Category).Not.Nullable();
-            HasMany(f => f.Topics).Cascade.SaveUpdate().Not.LazyLoad().Inverse();
+            HasMany(f => f.Topics).Cascade.SaveUpdate().LazyLoad().Inverse();
         }
     }
 }
