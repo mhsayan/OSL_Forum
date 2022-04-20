@@ -5,6 +5,11 @@
     ViewBag.Title = "AssignRole";
 }
 
+@section Styles
+{
+    <link href="~/Themes/AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+}
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -39,7 +44,7 @@
                                 @Html.LabelFor(m => m.UserId, new { @class = "col-md-6 control-label" })
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(m => m.UserId, Model.ApplicationUserList,
-                                        "Select User", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
+                                        "Select User", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "emailTypeHead" })
                                     @Html.ValidationMessageFor(m => m.UserId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -49,7 +54,7 @@
                                     @Html.LabelFor(m => m.UserRole, new { @class = "col-md-6 control-label" })
                                     <div class="col-md-10">
                                         @Html.DropDownListFor(m => m.UserRole, Model.SuperAdminRoleList,
-                                            "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "typeHead" })
+                                            "Select Role", htmlAttributes: new { @class = "form-control col-md-6 select2", @id = "roleTypeHead" })
                                         @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
                                     </div>
                                 }
@@ -80,5 +85,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('#emailTypeHead').select2();
+        $('#roleTypeHead').select2();
+    </script>
 }
 
