@@ -130,3 +130,38 @@
         </div>
     </div>
 </section>
+
+
+@section Scripts
+{
+
+    @if (TempData["Success"] != null)
+    {
+        <script>
+
+            toastr.options = {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center"
+            }
+            
+            toastr.success("@TempData["Success"]");
+        </script>
+    }
+
+    @if (TempData["Danger"] != null)
+    {
+        <script>
+
+            toastr.options = {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center"
+            }
+            
+            toastr.error("@TempData["Danger"]");
+        </script>
+    }
+}

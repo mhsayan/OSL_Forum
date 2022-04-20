@@ -52,6 +52,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 await model.ResolveAsync(_scope);
                 model.Create();
 
+                TempData["Success"] = "Category created successfully.";
+
                 return Redirect(nameof(Index));
             }
             catch (Exception ex)
@@ -87,6 +89,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 await model.ResolveAsync(_scope);
                 model.Edit();
 
+                TempData["Success"] = "Category edited successfully.";
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -105,6 +109,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             var model = _scope.Resolve<CategoriesModel>();
             await model.ResolveAsync(_scope);
             model.Delete(id);
+
+            TempData["Danger"] = "Category deleted successfully.";
 
             return RedirectToAction(nameof(Index), "Category");
         }
