@@ -13,7 +13,7 @@ namespace OSL.Forum.Core.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202203220532001_AddEntities"; }
+            get { return "202204210907527_AddEntities"; }
         }
         
         string IMigrationMetadata.Source
