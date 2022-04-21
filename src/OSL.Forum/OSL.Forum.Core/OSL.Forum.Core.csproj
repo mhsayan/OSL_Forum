@@ -154,6 +154,10 @@
     <Compile Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.designer.cs">
       <DependentUpon>202204070513109_AddedActivityStatusForTopicEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204210846206_ChangedEntityIdFromGuidToLong.cs" />
+    <Compile Include="Migrations\202204210846206_ChangedEntityIdFromGuidToLong.designer.cs">
+      <DependentUpon>202204210846206_ChangedEntityIdFromGuidToLong.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.resx">
       <DependentUpon>202204070513109_AddedActivityStatusForTopicEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204210846206_ChangedEntityIdFromGuidToLong.resx">
+      <DependentUpon>202204210846206_ChangedEntityIdFromGuidToLong.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
