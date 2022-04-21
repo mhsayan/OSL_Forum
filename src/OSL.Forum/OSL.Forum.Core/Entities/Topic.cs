@@ -10,16 +10,16 @@ using OSL.Forum.Base;
 namespace OSL.Forum.Core.Entities
 {
     [Table("Topics")]
-    public class Topic : IEntity<Guid>
+    public class Topic : IEntity<long>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         [Required]
         [MaxLength(64)]
         public string Name { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
-        public Guid ForumId { get; set; }
+        public long ForumId { get; set; }
         public virtual Forum Forum { get; set; }
         public string ApplicationUserId { get; set; }
         public string ApprovalType { get; set; }

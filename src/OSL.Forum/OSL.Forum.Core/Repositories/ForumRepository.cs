@@ -5,7 +5,7 @@ using OSL.Forum.Core.Entities;
 
 namespace OSL.Forum.Core.Repositories
 {
-    public class ForumRepository : Repository<Entities.Forum, Guid>, IForumRepository
+    public class ForumRepository : Repository<Entities.Forum, long>, IForumRepository
     {
         public ForumRepository(ICoreDbContext dbContext)
             : base((CoreDbContext)dbContext)

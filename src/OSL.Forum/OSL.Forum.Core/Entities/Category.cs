@@ -10,10 +10,10 @@ using OSL.Forum.Base;
 namespace OSL.Forum.Core.Entities
 {
     [Table("Categories")]
-    public class Category : IEntity<Guid>
+    public class Category : IEntity<long>
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         [Required]
         [MaxLength(64)]
         public string Name { get; set; }

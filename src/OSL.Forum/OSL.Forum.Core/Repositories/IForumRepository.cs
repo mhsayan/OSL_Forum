@@ -4,7 +4,7 @@ using OSL.Forum.Core.Entities;
 
 namespace OSL.Forum.Core.Repositories
 {
-    public interface IForumRepository : IRepository<Entities.Forum, Guid>
+    public interface IForumRepository : IRepository<Entities.Forum, long>
     {
 
     }
