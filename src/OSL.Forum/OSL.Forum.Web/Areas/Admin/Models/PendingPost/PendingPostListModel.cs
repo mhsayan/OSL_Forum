@@ -53,9 +53,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             }
         }
 
-        public void UpdatePostStatus(Guid postId, string status)
+        public void UpdatePostStatus(long postId, string status)
         {
-            if (postId == Guid.Empty)
+            if (postId == null)
                 throw new ArgumentException(nameof(postId));
 
             _postService.UpdatePostStatus(postId, status);

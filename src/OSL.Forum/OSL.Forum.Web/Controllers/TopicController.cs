@@ -21,7 +21,7 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
         // GET: Post
-        public async Task<ActionResult> Topics(int? page, Guid id)
+        public async Task<ActionResult> Topics(int? page, long id)
         {
             var model = _scope.Resolve<TopicViewModel>();
             await model.ResolveAsync(_scope);
@@ -41,7 +41,7 @@ namespace OSL.Forum.Web.Controllers
         }
 
         [Authorize]
-        public async Task<ActionResult> Create(Guid forumId)
+        public async Task<ActionResult> Create(long forumId)
         {
             var model = _scope.Resolve<CreateTopicModel>();
             await model.ResolveAsync(_scope);
@@ -77,7 +77,7 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Details(Guid topicId)
+        public async Task<ActionResult> Details(long topicId)
         {
             var model = _scope.Resolve<TopicDetailsModel>();
             await model.ResolveAsync(_scope);
@@ -91,7 +91,7 @@ namespace OSL.Forum.Web.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
-        public async Task<ActionResult> Delete(Guid topicId, Guid forumId)
+        public async Task<ActionResult> Delete(long topicId, long forumId)
         {
             var model = _scope.Resolve<TopicViewModel>();
             await model.ResolveAsync(_scope);
@@ -101,7 +101,7 @@ namespace OSL.Forum.Web.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
-        public async Task<ActionResult> Close(Guid topicId, Guid forumId)
+        public async Task<ActionResult> Close(long topicId, long forumId)
         {
             var model = _scope.Resolve<TopicViewModel>();
             await model.ResolveAsync(_scope);
@@ -111,7 +111,7 @@ namespace OSL.Forum.Web.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
-        public async Task<ActionResult> Open(Guid topicId, Guid forumId)
+        public async Task<ActionResult> Open(long topicId, long forumId)
         {
             var model = _scope.Resolve<TopicViewModel>();
             await model.ResolveAsync(_scope);

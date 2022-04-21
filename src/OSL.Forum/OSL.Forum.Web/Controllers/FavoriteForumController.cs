@@ -30,7 +30,7 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> AddToFavorite(Guid forumId)
+        public async Task<ActionResult> AddToFavorite(long forumId)
         {
             var model = _scope.Resolve<FavoriteForumModel>();
             await model.ResolveAsync(_scope);
@@ -39,7 +39,7 @@ namespace OSL.Forum.Web.Controllers
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
-        public async Task<ActionResult> RemoveFromFavorite(Guid forumId)
+        public async Task<ActionResult> RemoveFromFavorite(long forumId)
         {
             var model = _scope.Resolve<FavoriteForumModel>();
             await model.ResolveAsync(_scope);

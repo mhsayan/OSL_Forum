@@ -19,7 +19,7 @@ namespace OSL.Forum.Web.Models.Topic
         [Display(Name = "Topic Name")]
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
-        public Guid ForumId { get; set; }
+        public long ForumId { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
         [AllowHtml]
@@ -108,7 +108,7 @@ namespace OSL.Forum.Web.Models.Topic
             _postService.CreatePost(post);
         }
 
-        public void GetForum(Guid forumId)
+        public void GetForum(long forumId)
         {
             Forum = _forumService.GetForum(forumId);
         }

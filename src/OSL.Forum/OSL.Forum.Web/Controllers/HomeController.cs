@@ -34,7 +34,7 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Details(int? page, Guid id)
+        public async Task<ActionResult> Details(int? page, long id)
         {
             var model = _scope.Resolve<DetailsModel>();
             await model.ResolveAsync(_scope);

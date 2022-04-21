@@ -14,12 +14,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
     public class EditForumModel : BaseModel
     {
         [Required]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         [Required]
         [Display(Name = "Forum Name")]
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
-        public Guid CategoryId { get; set; }
+        public long CategoryId { get; set; }
         public BO.Forum BoForum { get; set; }
         private ILifetimeScope _scope;
         private IForumService _forumService;
@@ -56,9 +56,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             await base.ResolveAsync(_scope);
         }
 
-        public void GetForum(Guid forumId)
+        public void GetForum(long forumId)
         {
-            if (forumId == Guid.Empty)
+            if (forumId == null)
                 throw new ArgumentNullException(nameof(forumId));
 
             BoForum = _forumService.GetForum(forumId);
@@ -82,9 +82,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             _categoryService.UpdateModificationDate(modificationDate, forum.CategoryId);
         }
 
-        public void Delete(Guid forumId)
+        public void Delete(long forumId)
         {
-            if (forumId == Guid.Empty)
+            if (forumId == null)
                 throw new ArgumentNullException(nameof(forumId));
 
             _forumService.DeleteForum(forumId);

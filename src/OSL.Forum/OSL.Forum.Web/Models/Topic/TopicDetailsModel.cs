@@ -49,7 +49,7 @@ namespace OSL.Forum.Web.Models.Topic
             await base.ResolveAsync(_scope);
         }
 
-        public void GetTopic(Guid topicId)
+        public void GetTopic(long topicId)
         {
             Topic = _topicService.GetTopic(topicId);
 

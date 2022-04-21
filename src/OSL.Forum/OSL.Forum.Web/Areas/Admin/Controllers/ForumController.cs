@@ -21,7 +21,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             _scope = scope;
         }
 
-        public async Task<ActionResult> Create(Guid categoryId)
+        public async Task<ActionResult> Create(long categoryId)
         {
             var model = _scope.Resolve<CreateForumModel>();
             await model.ResolveAsync(_scope);
@@ -54,7 +54,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Edit(Guid id, Guid categoryId)
+        public async Task<ActionResult> Edit(long id, long categoryId)
         {
             var model = _scope.Resolve<EditForumModel>();
             await model.ResolveAsync(_scope);
@@ -87,7 +87,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Delete(Guid id, Guid categoryId)
+        public async Task<ActionResult> Delete(long id, long categoryId)
         {
             var model = _scope.Resolve<EditForumModel>();
             await model.ResolveAsync(_scope);

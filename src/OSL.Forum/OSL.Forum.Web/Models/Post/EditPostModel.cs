@@ -18,12 +18,12 @@ namespace OSL.Forum.Web.Models.Post
     public class EditPostModel : BaseModel
     {
         [Required]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         [Required]
         [Display(Name = "Post Title")]
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
-        public Guid TopicId { get; set; }
+        public long TopicId { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
         [AllowHtml]
@@ -74,7 +74,7 @@ namespace OSL.Forum.Web.Models.Post
             await base.ResolveAsync(_scope);
         }
 
-        public void GetPost(Guid postId)
+        public void GetPost(long postId)
         {
             var post = _postService.GetPost(postId);
             _mapper.Map(post, this);
@@ -96,7 +96,7 @@ namespace OSL.Forum.Web.Models.Post
             _topicService.UpdateModificationDate(TopicId, Time);
         }
 
-        public void Delete(Guid postId)
+        public void Delete(long postId)
         {
             _postService.DeletePost(postId);
         }

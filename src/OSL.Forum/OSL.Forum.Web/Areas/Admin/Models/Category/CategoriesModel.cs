@@ -63,7 +63,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             Roles = await _userManager.GetRolesAsync(userId);
         }
 
-        public void Delete(Guid categoryId)
+        public void Delete(long categoryId)
         {
             _categoryService.DeleteCategory(categoryId);
         }

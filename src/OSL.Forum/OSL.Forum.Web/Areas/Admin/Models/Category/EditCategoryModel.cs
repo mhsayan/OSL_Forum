@@ -15,7 +15,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
     public class EditCategoryModel : BaseModel
     {
         [Required]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         [Required]
         [Display(Name = "Category Name")]
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
@@ -44,9 +44,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             await base.ResolveAsync(_scope);
         }
 
-        public void GetCategory(Guid categoryId)
+        public void GetCategory(long categoryId)
         {
-            if (categoryId == Guid.Empty)
+            if (categoryId == null)
                 throw new ArgumentNullException(nameof(categoryId));
 
             var category = _categoryService.GetCategory(categoryId);

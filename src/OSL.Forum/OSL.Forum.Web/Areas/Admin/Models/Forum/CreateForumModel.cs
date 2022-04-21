@@ -15,7 +15,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
     public class CreateForumModel : BaseModel
     {
         [Required]
-        public Guid CategoryId { get; set; }
+        public long CategoryId { get; set; }
         [Required]
         [Display(Name = "Forum Name")]
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
@@ -56,9 +56,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             await base.ResolveAsync(_scope);
         }
 
-        public void GetCategory(Guid categoryId)
+        public void GetCategory(long categoryId)
         {
-            if (categoryId == Guid.Empty)
+            if (categoryId == null)
                 throw new ArgumentNullException(nameof(categoryId));
 
             BoCategory = _categoryService.GetCategory(categoryId);
