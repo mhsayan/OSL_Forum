@@ -38,9 +38,9 @@ namespace OSL.Forum.Core.Services
             return category;
         }
 
-        public BO.Category GetCategory(Guid categoryId)
+        public BO.Category GetCategory(long categoryId)
         {
-            if (categoryId == Guid.Empty)
+            if (categoryId == null)
                 throw new ArgumentNullException(nameof(categoryId));
 
             var categoryEntity = _unitOfWork.Categories.GetById(categoryId);
@@ -95,9 +95,9 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public void DeleteCategory(Guid categoryId)
+        public void DeleteCategory(long categoryId)
         {
-            if (categoryId == Guid.Empty)
+            if (categoryId == null)
                 throw new ArgumentNullException(nameof(categoryId));
 
             _unitOfWork.Categories.Remove(categoryId);
@@ -123,9 +123,9 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public void UpdateModificationDate(DateTime modificationDate, Guid categoryId)
+        public void UpdateModificationDate(DateTime modificationDate, long categoryId)
         {
-            if (categoryId == Guid.Empty)
+            if (categoryId == null)
                 throw new ArgumentNullException(nameof(categoryId));
 
             var categoryEntity = _unitOfWork.Categories.GetById(categoryId);

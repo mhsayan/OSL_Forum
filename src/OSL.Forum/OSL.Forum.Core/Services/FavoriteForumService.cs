@@ -52,7 +52,7 @@ namespace OSL.Forum.Core.Services
             return _unitOfWork.FavoriteForums.Get(ff => ff.ApplicationUserId == userId, "").Count;
         }
 
-        public BO.FavoriteForum GetFavoriteForum(Guid forumId, string userId)
+        public BO.FavoriteForum GetFavoriteForum(long forumId, string userId)
         {
             var favoriteForumEntity = _unitOfWork.FavoriteForums
                 .Get(ff => ff.ForumId == forumId && ff.ApplicationUserId == userId, "").FirstOrDefault();
@@ -65,7 +65,7 @@ namespace OSL.Forum.Core.Services
             return favoriteForum;
         }
 
-        public void AddToFavorite(Guid forumId, string userId)
+        public void AddToFavorite(long forumId, string userId)
         {
             var oldFavoriteForum = GetFavoriteForum(forumId, userId);
 
@@ -82,7 +82,7 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public void RemoveFromFavorite(Guid forumId, string userId)
+        public void RemoveFromFavorite(long forumId, string userId)
         {
             var oldFavoriteForum = GetFavoriteForum(forumId, userId);
 

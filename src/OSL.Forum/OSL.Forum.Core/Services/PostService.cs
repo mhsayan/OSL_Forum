@@ -24,9 +24,9 @@ namespace OSL.Forum.Core.Services
             _mapper = mapper;
         }
 
-        public BO.Post GetPost(Guid postId)
+        public BO.Post GetPost(long postId)
         {
-            if (postId == Guid.Empty)
+            if (postId == null)
                 throw new ArgumentNullException(nameof(postId));
 
             var postEntity = _unitOfWork.Posts.Get(c => c.Id == postId, "").FirstOrDefault();
@@ -57,9 +57,9 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public void DeletePost(Guid postId)
+        public void DeletePost(long postId)
         {
-            if (postId == Guid.Empty)
+            if (postId == null)
                 throw new ArgumentNullException(nameof(postId));
 
             _unitOfWork.Posts.Remove(postId);
@@ -118,9 +118,9 @@ namespace OSL.Forum.Core.Services
             return posts;
         }
 
-        public void UpdatePostStatus(Guid postId, string status)
+        public void UpdatePostStatus(long postId, string status)
         {
-            if (postId == Guid.Empty && string.IsNullOrWhiteSpace(status))
+            if (postId == null && string.IsNullOrWhiteSpace(status))
                 throw new ArgumentException("Post Id or status missing.");
 
             var postEntity = _unitOfWork.Posts.GetById(postId);

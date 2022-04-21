@@ -11,15 +11,15 @@ namespace OSL.Forum.Core.Services
     public interface ITopicService
     {
         void CreateTopic(BO.Topic topic);
-        BO.Topic GetTopic(string topicName, Guid forumId);
-        BO.Topic GetTopic(Guid topicId);
+        BO.Topic GetTopic(string topicName, long forumId);
+        BO.Topic GetTopic(long topicId);
         BO.Topic GetTopic(string topicName);
-        void UpdateModificationDate(Guid topicId, DateTime time);
-        void UpdateTopicApprovalType(Guid topicId);
-        int GetTopicCount(Guid id);
-        IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, Guid forumId);
-        void DeleteTopic(Guid topicId);
-        void CloseTopic(Guid topicId);
-        void OpenTopic(Guid topicId);
+        void UpdateModificationDate(long topicId, DateTime time);
+        void UpdateTopicApprovalType(long topicId);
+        int GetTopicCount(long id);
+        IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, long forumId);
+        void DeleteTopic(long topicId);
+        void CloseTopic(long topicId);
+        void OpenTopic(long topicId);
     }
 }

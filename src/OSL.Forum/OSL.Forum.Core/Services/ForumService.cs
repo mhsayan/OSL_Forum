@@ -23,7 +23,7 @@ namespace OSL.Forum.Core.Services
             _mapper = mapper;
         }
 
-        public BO.Forum GetForum(string forumName, Guid categoryId)
+        public BO.Forum GetForum(string forumName, long categoryId)
         {
             if (string.IsNullOrWhiteSpace(forumName))
                 throw new ArgumentNullException(nameof(forumName));
@@ -38,9 +38,9 @@ namespace OSL.Forum.Core.Services
             return forum;
         }
 
-        public BO.Forum GetForum(Guid forumId)
+        public BO.Forum GetForum(long forumId)
         {
-            if (forumId == Guid.Empty)
+            if (forumId == null)
                 throw new ArgumentNullException(nameof(forumId));
 
             var forumEntity = _unitOfWork.Forums.Get(c => c.Id == forumId, "Topics").FirstOrDefault();
@@ -91,23 +91,23 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public void DeleteForum(Guid forumId)
+        public void DeleteForum(long forumId)
         {
-            if (forumId == Guid.Empty)
+            if (forumId == null)
                 throw new ArgumentNullException(nameof(forumId));
 
             _unitOfWork.Forums.Remove(forumId);
             _unitOfWork.Save();
         }
 
-        public int GetForumCount(Guid categoryId)
+        public int GetForumCount(long categoryId)
         {
             var totalForum = _unitOfWork.Forums.Get(f => f.CategoryId == categoryId, "").Count;
 
             return totalForum;
         }
 
-        public IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, Guid categoryId)
+        public IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId)
         {
             var forumEntities = _unitOfWork.Forums.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
 
