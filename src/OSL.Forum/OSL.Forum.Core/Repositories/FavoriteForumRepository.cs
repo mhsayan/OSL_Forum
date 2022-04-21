@@ -5,7 +5,7 @@ using OSL.Forum.Core.Entities;
 
 namespace OSL.Forum.Core.Repositories
 {
-    public class FavoriteForumRepository : Repository<FavoriteForum, Guid>, IFavoriteForumRepository
+    public class FavoriteForumRepository : Repository<FavoriteForum, long>, IFavoriteForumRepository
     {
         public FavoriteForumRepository(ICoreDbContext dbContext)
             : base((CoreDbContext)dbContext)

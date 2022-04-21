@@ -11,11 +11,11 @@ namespace OSL.Forum.Core.Services
     public interface IForumService
     {
         void CreateForum(BO.Forum forum);
-        BO.Forum GetForum(string forumName, Guid categoryId);
+        BO.Forum GetForum(string forumName, long categoryId);
         void EditForum(BO.Forum forum);
-        BO.Forum GetForum(Guid forumId);
-        void DeleteForum(Guid forumId);
-        int GetForumCount(Guid categoryId);
-        IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, Guid categoryId);
+        BO.Forum GetForum(long forumId);
+        void DeleteForum(long forumId);
+        int GetForumCount(long categoryId);
+        IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId);
     }
 }

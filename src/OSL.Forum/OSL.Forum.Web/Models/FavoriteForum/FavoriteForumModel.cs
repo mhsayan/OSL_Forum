@@ -47,14 +47,14 @@ namespace OSL.Forum.Web.Models.FavoriteForum
             await base.ResolveAsync(_scope);
         }
 
-        public void AddToFavorite(Guid forumId)
+        public void AddToFavorite(long forumId)
         {
             var user = _profileService.GetUser();
 
             _favoriteForumService.AddToFavorite(forumId, user.Id);
         }
 
-        public void RemoveFromFavorite(Guid forumId)
+        public void RemoveFromFavorite(long forumId)
         {
             var user = _profileService.GetUser();
 

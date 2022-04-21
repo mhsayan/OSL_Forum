@@ -14,11 +14,11 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 {
     public class PendingPostDetailsModel : BaseModel
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool ApprovalStatus { get; set; }
-        public Guid TopicId { get; set; }
+        public long TopicId { get; set; }
         public Post Post { get; set; }
         private ILifetimeScope _scope;
         private IPostService _postService;
@@ -51,7 +51,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             await base.ResolveAsync(_scope);
         }
 
-        public void GetPendingPost(Guid postId)
+        public void GetPendingPost(long postId)
         {
             Post = _postService.GetPost(postId);
             Post.OwnerName = _profileService.GetUser(Post.ApplicationUserId).Name;

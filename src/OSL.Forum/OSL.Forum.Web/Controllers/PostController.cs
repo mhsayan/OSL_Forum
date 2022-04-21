@@ -24,7 +24,7 @@ namespace OSL.Forum.Web.Controllers
             _scope = scope;
         }
 
-        public async Task<ActionResult> Edit(Guid postId)
+        public async Task<ActionResult> Edit(long postId)
         {
             var model = _scope.Resolve<EditPostModel>();
             await model.ResolveAsync(_scope);
@@ -62,7 +62,7 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Create(Guid topicId)
+        public async Task<ActionResult> Create(long topicId)
         {
             var model = _scope.Resolve<CreatePostModel>();
             await model.ResolveAsync(_scope);
@@ -97,7 +97,7 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Delete(Guid postId, Guid topicId)
+        public async Task<ActionResult> Delete(long postId, long topicId)
         {
             var model = _scope.Resolve<EditPostModel>();
             await model.ResolveAsync(_scope);

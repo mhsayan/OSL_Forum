@@ -12,11 +12,11 @@ namespace OSL.Forum.Core.Services
     {
         void CreateCategory(BO.Category category);
         BO.Category GetCategory(string categoryName);
-        BO.Category GetCategory(Guid categoryId);
+        BO.Category GetCategory(long categoryId);
         IList<BO.Category> GetCategories();
         void EditCategory(BO.Category category);
-        void DeleteCategory(Guid categoryId);
-        void UpdateModificationDate(DateTime modificationDate, Guid categoryId);
+        void DeleteCategory(long categoryId);
+        void UpdateModificationDate(DateTime modificationDate, long categoryId);
         int GetCategoryCount();
         IList<BO.Category> GetCategories(int pageIndex, int pageSize);
     }

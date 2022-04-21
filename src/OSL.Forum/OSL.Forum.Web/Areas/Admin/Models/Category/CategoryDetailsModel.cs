@@ -49,12 +49,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             await base.ResolveAsync(_scope);
         }
 
-        public void GetCategory(Guid categoryId)
+        public void GetCategory(long categoryId)
         {
             Category = _categoryService.GetCategory(categoryId);
         }
 
-        public void GetForums(Guid categoryId, int? page)
+        public void GetForums(long categoryId, int? page)
         {
             var totalItem = _forumService.GetForumCount(categoryId);
 

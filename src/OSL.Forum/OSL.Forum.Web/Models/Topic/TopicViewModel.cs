@@ -56,7 +56,7 @@ namespace OSL.Forum.Web.Models.Topic
             await base.ResolveAsync(_scope);
         }
 
-        public void GetForum(Guid forumId)
+        public void GetForum(long forumId)
         {
             Forum = _forumService.GetForum(forumId);
         }
@@ -75,7 +75,7 @@ namespace OSL.Forum.Web.Models.Topic
             IsFavorite = favoriteForum != null;
         }
 
-        public void GetTopics(int? page, Guid forumId)
+        public void GetTopics(int? page, long forumId)
         {
             var totalItem = _topicService.GetTopicCount(forumId);
 
@@ -98,7 +98,7 @@ namespace OSL.Forum.Web.Models.Topic
             Topics = topicList;
         }
 
-        public void Delete(Guid topicId)
+        public void Delete(long topicId)
         {
             _topicService.DeleteTopic(topicId);
         }
@@ -108,12 +108,12 @@ namespace OSL.Forum.Web.Models.Topic
             UserRoles = await _profileService.UserRolesAsync();
         }
 
-        public void Close(Guid topicId)
+        public void Close(long topicId)
         {
             _topicService.CloseTopic(topicId);
         }
 
-        public void Open(Guid topicId)
+        public void Open(long topicId)
         {
             _topicService.OpenTopic(topicId);
         }

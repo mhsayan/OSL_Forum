@@ -4,7 +4,7 @@ using OSL.Forum.Core.Entities;
 
 namespace OSL.Forum.Core.Repositories
 {
-    public interface IFavoriteForumRepository : IRepository<FavoriteForum, Guid>
+    public interface IFavoriteForumRepository : IRepository<FavoriteForum, long>
     {
 
     }

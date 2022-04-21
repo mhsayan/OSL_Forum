@@ -32,7 +32,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Post(Guid postId)
+        public async Task<ActionResult> Post(long postId)
         {
             var model = _scope.Resolve<PendingPostDetailsModel>();
             await model.ResolveAsync(_scope);
@@ -72,7 +72,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Accept(Guid postId)
+        public async Task<ActionResult> Accept(long postId)
         {
             var model = _scope.Resolve<PendingPostListModel>();
             await model.ResolveAsync(_scope);
@@ -81,7 +81,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             return Redirect(nameof(Index));
         }
 
-        public async Task<ActionResult> Reject(Guid postId)
+        public async Task<ActionResult> Reject(long postId)
         {
             var model = _scope.Resolve<PendingPostListModel>();
             await model.ResolveAsync(_scope);

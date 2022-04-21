@@ -65,7 +65,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
-        public async Task<ActionResult> Edit(Guid id)
+        public async Task<ActionResult> Edit(long id)
         {
             var model = _scope.Resolve<EditCategoryModel>();
             await model.ResolveAsync(_scope);
@@ -100,7 +100,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<ActionResult> Delete(long id)
         {
             var model = _scope.Resolve<CategoriesModel>();
             await model.ResolveAsync(_scope);
@@ -110,7 +110,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
-        public async Task<ActionResult> Details(int? page, Guid id)
+        public async Task<ActionResult> Details(int? page, long id)
         {
             var model = _scope.Resolve<CategoryDetailsModel>();
             await model.ResolveAsync(_scope);

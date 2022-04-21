@@ -114,45 +114,9 @@
     <Compile Include="Enums\ActivityStatus.cs" />
     <Compile Include="Enums\ApprovalType.cs" />
     <Compile Include="Enums\Status.cs" />
-    <Compile Include="Migrations\202203190620544_AddCategoryTable.cs" />
-    <Compile Include="Migrations\202203190620544_AddCategoryTable.designer.cs">
-      <DependentUpon>202203190620544_AddCategoryTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203200628272_ModifiedCategoryTable.cs" />
-    <Compile Include="Migrations\202203200628272_ModifiedCategoryTable.designer.cs">
-      <DependentUpon>202203200628272_ModifiedCategoryTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203200838163_AddedAutoGeneretedIdForCategory.cs" />
-    <Compile Include="Migrations\202203200838163_AddedAutoGeneretedIdForCategory.designer.cs">
-      <DependentUpon>202203200838163_AddedAutoGeneretedIdForCategory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203220532001_AddEntities.cs" />
-    <Compile Include="Migrations\202203220532001_AddEntities.designer.cs">
-      <DependentUpon>202203220532001_AddEntities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203220600378_AddedApprovalTypeInForum.cs" />
-    <Compile Include="Migrations\202203220600378_AddedApprovalTypeInForum.designer.cs">
-      <DependentUpon>202203220600378_AddedApprovalTypeInForum.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203220633349_AddedFixedTableNameForEntities.cs" />
-    <Compile Include="Migrations\202203220633349_AddedFixedTableNameForEntities.designer.cs">
-      <DependentUpon>202203220633349_AddedFixedTableNameForEntities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs" />
-    <Compile Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.designer.cs">
-      <DependentUpon>202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.cs" />
-    <Compile Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.designer.cs">
-      <DependentUpon>202203280951541_AddApprovalTypeFromForumToTopic.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203290438442_AddFavoriteForumTable.cs" />
-    <Compile Include="Migrations\202203290438442_AddFavoriteForumTable.designer.cs">
-      <DependentUpon>202203290438442_AddFavoriteForumTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.cs" />
-    <Compile Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.designer.cs">
-      <DependentUpon>202204070513109_AddedActivityStatusForTopicEntity.cs</DependentUpon>
+    <Compile Include="Migrations\202204210907527_AddEntities.cs" />
+    <Compile Include="Migrations\202204210907527_AddEntities.designer.cs">
+      <DependentUpon>202204210907527_AddEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profiles\CoreProfiles.cs" />
@@ -187,7 +151,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\OSL.Forum.Base\OSL.Forum.Base.csproj">
       <Project>{54415A8E-6742-4BEA-8C87-6B54EEA9B547}</Project>
@@ -195,35 +158,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202203190620544_AddCategoryTable.resx">
-      <DependentUpon>202203190620544_AddCategoryTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203200628272_ModifiedCategoryTable.resx">
-      <DependentUpon>202203200628272_ModifiedCategoryTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203200838163_AddedAutoGeneretedIdForCategory.resx">
-      <DependentUpon>202203200838163_AddedAutoGeneretedIdForCategory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203220532001_AddEntities.resx">
-      <DependentUpon>202203220532001_AddEntities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203220600378_AddedApprovalTypeInForum.resx">
-      <DependentUpon>202203220600378_AddedApprovalTypeInForum.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203220633349_AddedFixedTableNameForEntities.resx">
-      <DependentUpon>202203220633349_AddedFixedTableNameForEntities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203220912262_ChangedDataTypeInForumPostAndTopicEntity.resx">
-      <DependentUpon>202203220912262_ChangedDataTypeInForumPostAndTopicEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203280951541_AddApprovalTypeFromForumToTopic.resx">
-      <DependentUpon>202203280951541_AddApprovalTypeFromForumToTopic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203290438442_AddFavoriteForumTable.resx">
-      <DependentUpon>202203290438442_AddFavoriteForumTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202204070513109_AddedActivityStatusForTopicEntity.resx">
-      <DependentUpon>202204070513109_AddedActivityStatusForTopicEntity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202204210907527_AddEntities.resx">
+      <DependentUpon>202204210907527_AddEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

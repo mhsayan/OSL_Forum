@@ -26,7 +26,7 @@ namespace OSL.Forum.Web.Models.Post
         [Display(Name = "Description")]
         [StringLength(10000, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 50)]
         public string Description { get; set; }
-        public Guid TopicId { get; set; }
+        public long TopicId { get; set; }
         public BO.Topic BoTopic { get; set; }
         private DateTime Time { get; set; }
         private ILifetimeScope _scope;
@@ -88,7 +88,7 @@ namespace OSL.Forum.Web.Models.Post
             _topicService.UpdateModificationDate(TopicId, Time);
         }
 
-        public void GetTopic(Guid topicId)
+        public void GetTopic(long topicId)
         {
             BoTopic = _topicService.GetTopic(topicId);
         }

@@ -6,9 +6,9 @@ namespace OSL.Forum.Core.BusinessObjects
 {
     public class FavoriteForum
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public string ApplicationUserId { get; set; }
-        public Guid ForumId { get; set; }
+        public long ForumId { get; set; }
         public Forum Forum { get; set; }
 
     }

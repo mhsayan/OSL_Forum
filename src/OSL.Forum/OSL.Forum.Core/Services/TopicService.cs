@@ -24,7 +24,7 @@ namespace OSL.Forum.Core.Services
             _mapper = mapper;
         }
 
-        public BO.Topic GetTopic(string topicName, Guid forumId)
+        public BO.Topic GetTopic(string topicName, long forumId)
         {
             if (string.IsNullOrWhiteSpace(topicName))
                 throw new ArgumentNullException(nameof(topicName));
@@ -40,10 +40,10 @@ namespace OSL.Forum.Core.Services
             return topic;
         }
 
-        public BO.Topic GetTopic(Guid topicId)
+        public BO.Topic GetTopic(long topicId)
         {
-            if (topicId == Guid.Empty)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.Get(c =>
                 c.Id == topicId, "Posts").FirstOrDefault();
@@ -71,10 +71,10 @@ namespace OSL.Forum.Core.Services
             return topic;
         }
 
-        public void UpdateModificationDate(Guid topicId, DateTime modificationDate)
+        public void UpdateModificationDate(long topicId, DateTime modificationDate)
         {
-            if (topicId == Guid.Empty)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 
@@ -87,10 +87,10 @@ namespace OSL.Forum.Core.Services
 
         }
 
-        public void UpdateTopicApprovalType(Guid topicId)
+        public void UpdateTopicApprovalType(long topicId)
         {
-            if (topicId == Guid.Empty)
-                throw new ArgumentException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 
@@ -102,12 +102,12 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public int GetTopicCount(Guid forumId)
+        public int GetTopicCount(long forumId)
         {
             return _unitOfWork.Topics.Get(t => t.ForumId == forumId, "").Count;
         }
 
-        public IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, Guid forumId)
+        public IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, long forumId)
         {
             var topicEntities = _unitOfWork.Topics.Get(c => c.ForumId == forumId,
                 q => q.OrderByDescending(c => c.ModificationDate), "",
@@ -123,19 +123,19 @@ namespace OSL.Forum.Core.Services
             return topics;
         }
 
-        public void DeleteTopic(Guid topicId)
+        public void DeleteTopic(long topicId)
         {
-            if (topicId == Guid.Empty)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             _unitOfWork.Topics.Remove(topicId);
             _unitOfWork.Save();
         }
 
-        public void CloseTopic(Guid topicId)
+        public void CloseTopic(long topicId)
         {
-            if (topicId == Guid.Empty)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 
@@ -147,10 +147,10 @@ namespace OSL.Forum.Core.Services
             _unitOfWork.Save();
         }
 
-        public void OpenTopic(Guid topicId)
+        public void OpenTopic(long topicId)
         {
-            if (topicId == Guid.Empty)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 
