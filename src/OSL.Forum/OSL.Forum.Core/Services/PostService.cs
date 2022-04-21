@@ -26,8 +26,8 @@ namespace OSL.Forum.Core.Services
 
         public BO.Post GetPost(long postId)
         {
-            if (postId == null)
-                throw new ArgumentNullException(nameof(postId));
+            if (postId == 0)
+                throw new ArgumentException("Post Id is required.");
 
             var postEntity = _unitOfWork.Posts.Get(c => c.Id == postId, "").FirstOrDefault();
 
@@ -59,8 +59,8 @@ namespace OSL.Forum.Core.Services
 
         public void DeletePost(long postId)
         {
-            if (postId == null)
-                throw new ArgumentNullException(nameof(postId));
+            if (postId == 0)
+                throw new ArgumentException("Post Id is required.");
 
             _unitOfWork.Posts.Remove(postId);
             _unitOfWork.Save();
@@ -120,7 +120,7 @@ namespace OSL.Forum.Core.Services
 
         public void UpdatePostStatus(long postId, string status)
         {
-            if (postId == null && string.IsNullOrWhiteSpace(status))
+            if (postId == 0 && string.IsNullOrWhiteSpace(status))
                 throw new ArgumentException("Post Id or status missing.");
 
             var postEntity = _unitOfWork.Posts.GetById(postId);

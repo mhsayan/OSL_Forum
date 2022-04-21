@@ -93,8 +93,8 @@ namespace OSL.Forum.Core.Services
 
         public void DeleteForum(long forumId)
         {
-            if (forumId == null)
-                throw new ArgumentNullException(nameof(forumId));
+            if (forumId == 0)
+                throw new ArgumentException("Forum id is required.");
 
             _unitOfWork.Forums.Remove(forumId);
             _unitOfWork.Save();

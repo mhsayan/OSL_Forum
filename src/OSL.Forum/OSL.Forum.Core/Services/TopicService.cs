@@ -42,8 +42,8 @@ namespace OSL.Forum.Core.Services
 
         public BO.Topic GetTopic(long topicId)
         {
-            if (topicId == null)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.Get(c =>
                 c.Id == topicId, "Posts").FirstOrDefault();
@@ -73,8 +73,8 @@ namespace OSL.Forum.Core.Services
 
         public void UpdateModificationDate(long topicId, DateTime modificationDate)
         {
-            if (topicId == null)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 
@@ -89,8 +89,8 @@ namespace OSL.Forum.Core.Services
 
         public void UpdateTopicApprovalType(long topicId)
         {
-            if (topicId == null)
-                throw new ArgumentException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 
@@ -125,8 +125,8 @@ namespace OSL.Forum.Core.Services
 
         public void DeleteTopic(long topicId)
         {
-            if (topicId == null)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             _unitOfWork.Topics.Remove(topicId);
             _unitOfWork.Save();
@@ -134,8 +134,8 @@ namespace OSL.Forum.Core.Services
 
         public void CloseTopic(long topicId)
         {
-            if (topicId == null)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 
@@ -149,8 +149,8 @@ namespace OSL.Forum.Core.Services
 
         public void OpenTopic(long topicId)
         {
-            if (topicId == null)
-                throw new ArgumentNullException(nameof(topicId));
+            if (topicId == 0)
+                throw new ArgumentException("Topic Id is required.");
 
             var topicEntity = _unitOfWork.Topics.GetById(topicId);
 

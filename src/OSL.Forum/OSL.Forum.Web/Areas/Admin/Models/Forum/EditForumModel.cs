@@ -58,8 +58,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public void GetForum(long forumId)
         {
-            if (forumId == null)
-                throw new ArgumentNullException(nameof(forumId));
+            if (forumId == 0)
+                throw new ArgumentException(nameof(forumId));
 
             BoForum = _forumService.GetForum(forumId);
 
@@ -84,8 +84,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public void Delete(long forumId)
         {
-            if (forumId == null)
-                throw new ArgumentNullException(nameof(forumId));
+            if (forumId == 0)
+                throw new ArgumentException("Forum Id is required");
 
             _forumService.DeleteForum(forumId);
         }

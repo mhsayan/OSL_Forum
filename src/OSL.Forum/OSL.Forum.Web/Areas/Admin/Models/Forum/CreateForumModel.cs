@@ -58,8 +58,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public void GetCategory(long categoryId)
         {
-            if (categoryId == null)
-                throw new ArgumentNullException(nameof(categoryId));
+            if (categoryId == 0)
+                throw new ArgumentException("Category Id is required");
 
             BoCategory = _categoryService.GetCategory(categoryId);
 
