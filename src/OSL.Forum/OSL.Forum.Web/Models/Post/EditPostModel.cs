@@ -34,42 +34,34 @@ namespace OSL.Forum.Web.Models.Post
         public BO.Topic Topic { get; set; }
         private DateTime Time { get; set; }
         private ILifetimeScope _scope;
-        private ICategoryService _categoryService;
         private ITopicService _topicService;
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
-        private IProfileService _profileService;
-        private IForumService _forumService;
         private IMapper _mapper;
 
         public EditPostModel()
         {
         }
 
-        public EditPostModel(ICategoryService categoryService,
-            IMapper mapper, IDateTimeUtility dateTimeUtility,
-            IProfileService profileService, ITopicService topicService,
-            IPostService postService, IForumService forumService)
+        public EditPostModel(IMapper mapper, IDateTimeUtility dateTimeUtility, ITopicService topicService,
+            IPostService postService)
         {
-            _categoryService = categoryService;
             _mapper = mapper;
             _dateTimeUtility = dateTimeUtility;
-            _profileService = profileService;
             _topicService = topicService;
             _postService = postService;
-            _forumService = forumService;
         }
 
         public override async Task ResolveAsync(ILifetimeScope scope)
         {
             _scope = scope;
-            _categoryService = _scope.Resolve<ICategoryService>();
+            _scope.Resolve<ICategoryService>();
             _mapper = _scope.Resolve<IMapper>();
             _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
-            _profileService = _scope.Resolve<IProfileService>();
+            _scope.Resolve<IProfileService>();
             _topicService = _scope.Resolve<ITopicService>();
             _postService = _scope.Resolve<IPostService>();
-            _forumService = _scope.Resolve<IForumService>();
+            _scope.Resolve<IForumService>();
 
             await base.ResolveAsync(_scope);
         }

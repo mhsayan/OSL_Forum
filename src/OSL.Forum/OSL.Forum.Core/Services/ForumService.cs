@@ -14,7 +14,7 @@ namespace OSL.Forum.Core.Services
     public class ForumService : IForumService
     {
         private readonly ICoreUnitOfWork _unitOfWork;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public ForumService(ICoreUnitOfWork unitOfWork,
             IMapper mapper)
@@ -40,8 +40,8 @@ namespace OSL.Forum.Core.Services
 
         public BO.Forum GetForum(long forumId)
         {
-            if (forumId == null)
-                throw new ArgumentNullException(nameof(forumId));
+            if (forumId == 0)
+                throw new ArgumentException("Forum Id is required.");
 
             var forumEntity = _unitOfWork.Forums.Get(c => c.Id == forumId, "Topics").FirstOrDefault();
 
@@ -109,12 +109,12 @@ namespace OSL.Forum.Core.Services
 
         public IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId)
         {
-            var forumEntities = _unitOfWork.Forums.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+            var (data, _, _) = _unitOfWork.Forums.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
 
-            if (forumEntities.data == null)
+            if (data == null)
                 return null;
 
-            var forumList = from c in forumEntities.data
+            var forumList = from c in data
                             orderby c.ModificationDate descending
                             select c;
 
