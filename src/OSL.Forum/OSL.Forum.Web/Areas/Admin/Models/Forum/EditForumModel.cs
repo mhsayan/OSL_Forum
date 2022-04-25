@@ -21,7 +21,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         public string Name { get; set; }
         public long CategoryId { get; set; }
         public BO.Forum BoForum { get; set; }
-        private ILifetimeScope _scope;
         private IForumService _forumService;
         private ICategoryService _categoryService;
         private IDateTimeUtility _dateTimeUtility;
@@ -32,28 +31,14 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         {
         }
 
-        public EditForumModel(ICategoryService categoryService,
-            IMapper mapper, IForumService forumService,
-            IDateTimeUtility dateTimeUtility,
-            IProfileService profileService)
+        protected override Task Resolve()
         {
-            _categoryService = categoryService;
-            _mapper = mapper;
-            _forumService = forumService;
-            _dateTimeUtility = dateTimeUtility;
-            _profileService = profileService;
-        }
+            _categoryService = CategoryService.Create();
+            _forumService = ForumService.Create();
+            _dateTimeUtility = DateTimeUtility.Create();
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _categoryService = _scope.Resolve<ICategoryService>();
-            _mapper = _scope.Resolve<IMapper>();
-            _forumService = _scope.Resolve<IForumService>();
-            _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
-            _profileService = _scope.Resolve<IProfileService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetForum(long forumId)

@@ -16,28 +16,19 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
     {
         public List<Post> Posts { get; set; }
         public Pager Pager { get; set; }
-        private ILifetimeScope _scope;
         private IPostService _postService;
         private IProfileService _profileService;
 
         public PendingPostListModel()
         {
-
         }
 
-        public PendingPostListModel(IPostService postService, IProfileService profileService)
+        protected override Task Resolve()
         {
-            _postService = postService;
-            _profileService = profileService;
-        }
+            _postService = PostService.Create();
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _postService = _scope.Resolve<IPostService>();
-            _profileService = _scope.Resolve<IProfileService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetPendingPostList(int? page)

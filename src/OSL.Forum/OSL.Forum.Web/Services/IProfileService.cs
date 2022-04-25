@@ -15,6 +15,7 @@ namespace OSL.Forum.Web.Services
         string UserID();
         ApplicationUser GetUser();
         ApplicationUser GetUser(string userId);
+        Task<IList<string>> UserRolesAsync(string userId);
         Task<IList<string>> UserRolesAsync();
         bool Owner(string userId);
         bool IsAuthenticated();

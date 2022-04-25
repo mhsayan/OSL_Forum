@@ -17,34 +17,19 @@ namespace OSL.Forum.Web.Models.FavoriteForum
         public IList<BO.FavoriteForum> FavoriteForums { get; set; }
         public Pager Pager { get; set; }
         private IFavoriteForumService _favoriteForumService;
-        private IForumService _forumService;
-        private IMapper _mapper;
         private IProfileService _profileService;
-        private ILifetimeScope _scope;
 
         public FavoriteForumModel()
         {
 
         }
 
-        public FavoriteForumModel(IFavoriteForumService favoriteForumService,
-            IForumService forumService, IMapper mapper, IProfileService profileService)
+        protected override Task Resolve()
         {
-            _favoriteForumService = favoriteForumService;
-            _forumService = forumService;
-            _mapper = mapper;
-            _profileService = profileService;
-        }
+            _favoriteForumService = FavoriteForumService.Create();
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _profileService = _scope.Resolve<IProfileService>();
-            _mapper = _scope.Resolve<IMapper>();
-            _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
-            _forumService = _scope.Resolve<IForumService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void AddToFavorite(long forumId)

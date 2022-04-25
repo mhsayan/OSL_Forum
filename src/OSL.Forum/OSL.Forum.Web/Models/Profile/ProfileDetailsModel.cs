@@ -18,32 +18,19 @@ namespace OSL.Forum.Web.Models.Profile
         public ApplicationUser ApplicationUser { get; set; }
         public List<BO.Post> Posts { get; set; }
         public Pager Pager { get; set; }
-        private IProfileService _profileService { get; set; }
-        private IPostService _postService { get; set; }
-        private IMapper _mapper;
-        private ILifetimeScope _scope;
+        private IProfileService _profileService;
+        private IPostService _postService;
 
         public ProfileDetailsModel()
         {
-
         }
 
-        public ProfileDetailsModel(IProfileService profileService, IMapper mapper,
-            IPostService postService)
+        protected override Task Resolve()
         {
-            _profileService = profileService;
-            _mapper = mapper;
-            _postService = postService;
-        }
+            _profileService = ProfileService.Create();
+            _postService = PostService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _profileService = _scope.Resolve<IProfileService>();
-            _mapper = _scope.Resolve<IMapper>();
-            _postService = _scope.Resolve<IPostService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetUserInfo()

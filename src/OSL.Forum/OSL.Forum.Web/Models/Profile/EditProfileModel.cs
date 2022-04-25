@@ -19,28 +19,19 @@ namespace OSL.Forum.Web.Models.Profile
         [Display(Name = "Name")]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
-        private IProfileService _profileService { get; set; }
+        private IProfileService _profileService;
         private IMapper _mapper;
-        private ILifetimeScope _scope;
 
         public EditProfileModel()
         {
 
         }
 
-        public EditProfileModel(IProfileService profileService, IMapper mapper)
+        protected override Task Resolve()
         {
-            _profileService = profileService;
-            _mapper = mapper;
-        }
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _profileService = _scope.Resolve<IProfileService>();
-            _mapper = _scope.Resolve<IMapper>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public async Task EditProfileAsync()

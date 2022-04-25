@@ -20,7 +20,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
         public bool ApprovalStatus { get; set; }
         public long TopicId { get; set; }
         public Post Post { get; set; }
-        private ILifetimeScope _scope;
         private IPostService _postService;
         private IProfileService _profileService;
         private ITopicService _topicService;
@@ -28,27 +27,15 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 
         public PendingPostDetailsModel()
         {
-
         }
 
-        public PendingPostDetailsModel(IPostService postService, IMapper mapper,
-            IProfileService profileService, ITopicService topicService)
+        protected override Task Resolve()
         {
-            _postService = postService;
-            _profileService = profileService;
-            _mapper = mapper;
-            _topicService = topicService;
-        }
+            _postService = PostService.Create();
+            _profileService = ProfileService.Create();
+            _topicService = TopicService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _postService = _scope.Resolve<IPostService>();
-            _profileService = _scope.Resolve<IProfileService>();
-            _mapper = _scope.Resolve<IMapper>();
-            _topicService = _scope.Resolve<ITopicService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetPendingPost(long postId)

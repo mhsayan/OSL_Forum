@@ -21,7 +21,6 @@ namespace OSL.Forum.Web.Models.Topic
         public IList<BO.Topic> Topics { get; set; }
         public IList<string> UserRoles { get; set; }
         public Pager Pager { get; set; }
-        private ILifetimeScope _scope;
         private IForumService _forumService;
         private ITopicService _topicService;
         private IFavoriteForumService _favoriteForumService;
@@ -32,28 +31,14 @@ namespace OSL.Forum.Web.Models.Topic
         {
         }
 
-        public TopicViewModel(IForumService forumService,
-            IFavoriteForumService favoriteForumService,
-            IProfileService profileService,
-            ITopicService topicService, IMapper mapper)
+        protected override Task Resolve()
         {
-            _forumService = forumService;
-            _favoriteForumService = favoriteForumService;
-            _profileService = profileService;
-            _topicService = topicService;
-            _mapper = mapper;
-        }
+            _forumService = ForumService.Create();
+            _favoriteForumService = FavoriteForumService.Create();
+            _profileService = ProfileService.Create();
+            _topicService = TopicService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _forumService = _scope.Resolve<IForumService>();
-            _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
-            _profileService = _scope.Resolve<IProfileService>();
-            _topicService = _scope.Resolve<ITopicService>();
-            _mapper = _scope.Resolve<IMapper>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetForum(long forumId)

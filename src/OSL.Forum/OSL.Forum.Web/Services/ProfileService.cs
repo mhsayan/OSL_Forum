@@ -18,13 +18,24 @@ namespace OSL.Forum.Web.Services
 {
     public class ProfileService : IProfileService
     {
-        private IMapper _mapper;
-        private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        private static readonly ApplicationUserManager UserManager = new ApplicationUserManager(UserStore);
+        private static ProfileService _profileService;
+        private readonly UserStore<ApplicationUser> UserStore;
+        private readonly ApplicationUserManager UserManager;
 
-        public ProfileService(IMapper mapper)
+        private ProfileService()
         {
-            _mapper = mapper;
+            UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            UserManager = new ApplicationUserManager(UserStore);
+        }
+
+        public static ProfileService Create()
+        {
+            if (_profileService == null)
+            {
+                _profileService = new ProfileService();
+            }
+
+            return _profileService;
         }
 
         public string UserID()

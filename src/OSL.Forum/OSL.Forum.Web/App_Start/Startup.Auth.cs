@@ -18,9 +18,6 @@ namespace OSL.Forum.Web
     {
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
 
-        public ILifetimeScope AutofacContainer { get; private set; }
-        public static string connectionString = "DefaultConnection";
-
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
@@ -72,23 +69,6 @@ namespace OSL.Forum.Web
             //    ClientId = "",
             //    ClientSecret = ""
             //});
-
-            var builder = new ContainerBuilder();
-
-            //Registering Dependency
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterFilterProvider();
-            builder.RegisterSource(new ViewRegistrationSource());
-
-            //Modules
-            builder.RegisterModule(new WebModule());
-            builder.RegisterModule(new CoreModule(connectionString));
-
-            var container = builder.Build();
-            AutofacContainer = container;
-
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
         }
     }
 }

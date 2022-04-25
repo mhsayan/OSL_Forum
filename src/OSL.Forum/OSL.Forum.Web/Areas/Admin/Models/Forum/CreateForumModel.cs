@@ -21,39 +21,23 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
         public BO.Category BoCategory { get; set; }
-        private ILifetimeScope _scope;
         private IProfileService _profileService;
         private IForumService _forumService;
         private IDateTimeUtility _dateTimeUtility;
         private ICategoryService _categoryService;
-        private IMapper _mapper;
 
         public CreateForumModel()
         {
         }
 
-        public CreateForumModel(ICategoryService categoryService,
-            IProfileService profileService, IMapper mapper,
-            IDateTimeUtility dateTimeUtility,
-            IForumService forumService)
+        protected override Task Resolve()
         {
-            _profileService = profileService;
-            _dateTimeUtility = dateTimeUtility;
-            _forumService = forumService;
-            _categoryService = categoryService;
-            _mapper = mapper;
-        }
+            _profileService = ProfileService.Create();
+            _dateTimeUtility = DateTimeUtility.Create();
+            _forumService = ForumService.Create();
+            _categoryService = CategoryService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _profileService = _scope.Resolve<IProfileService>();
-            _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
-            _forumService = _scope.Resolve<IForumService>();
-            _categoryService = _scope.Resolve<ICategoryService>();
-            _mapper = _scope.Resolve<IMapper>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetCategory(long categoryId)

@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Models;
+using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
@@ -21,31 +22,20 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
     {
         public IList<string> Roles { get; set; }
         public IList<BO.Category> Categories { get; set; }
-        private ILifetimeScope _scope;
-        private ICategoryService _categoryService;
-        private IMapper _mapper;
         public Pager Pager { get; set; }
-        private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        private readonly ApplicationUserManager _userManager = new ApplicationUserManager(UserStore);
+        private ICategoryService _categoryService;
+        private IProfileService _profileService;
 
         public CategoriesModel()
         {
         }
 
-        public CategoriesModel(ICategoryService categoryService,
-            IMapper mapper)
+        protected override Task Resolve()
         {
-            _categoryService = categoryService;
-            _mapper = mapper;
-        }
+            _categoryService = CategoryService.Create();
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _categoryService = _scope.Resolve<ICategoryService>();
-            _mapper = _scope.Resolve<IMapper>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetCategories(int? page)
@@ -59,8 +49,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public async Task LoadUserInfo()
         {
-            var userId = HttpContext.Current.User.Identity.GetUserId();
-            Roles = await _userManager.GetRolesAsync(userId);
+            Roles = await _profileService.UserRolesAsync();
         }
 
         public void Delete(long categoryId)

@@ -11,6 +11,7 @@ using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Models;
+using OSL.Forum.Web.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
@@ -21,32 +22,21 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         public IList<BO.Forum> Forums { get; set; }
         public IList<string> Roles { get; set; }
         public Pager Pager { get; set; }
-        private ILifetimeScope _scope;
         private ICategoryService _categoryService;
         private IForumService _forumService;
-        private IMapper _mapper;
-        private static readonly UserStore<ApplicationUser> UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-        private readonly ApplicationUserManager _userManager = new ApplicationUserManager(UserStore);
+        private IProfileService _profileService;
+
         public CategoryDetailsModel()
         {
         }
 
-        public CategoryDetailsModel(ICategoryService categoryService,
-            IMapper mapper, IForumService forumService)
+        protected override Task Resolve()
         {
-            _categoryService = categoryService;
-            _mapper = mapper;
-            _forumService = forumService;
-        }
+            _categoryService = CategoryService.Create();
+            _forumService = ForumService.Create();
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _categoryService = _scope.Resolve<ICategoryService>();
-            _mapper = _scope.Resolve<IMapper>();
-            _forumService = _scope.Resolve<IForumService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetCategory(long categoryId)
@@ -64,8 +54,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public async Task LoadUserInfo()
         {
-            var userId = HttpContext.Current.User.Identity.GetUserId();
-            Roles = await _userManager.GetRolesAsync(userId);
+            Roles = await _profileService.UserRolesAsync();
         }
     }
 }

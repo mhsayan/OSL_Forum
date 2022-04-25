@@ -33,7 +33,6 @@ namespace OSL.Forum.Web.Models.Post
         public string ApplicationUserId { get; set; }
         public BO.Topic Topic { get; set; }
         private DateTime Time { get; set; }
-        private ILifetimeScope _scope;
         private ITopicService _topicService;
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
@@ -43,27 +42,13 @@ namespace OSL.Forum.Web.Models.Post
         {
         }
 
-        public EditPostModel(IMapper mapper, IDateTimeUtility dateTimeUtility, ITopicService topicService,
-            IPostService postService)
+        protected override Task Resolve()
         {
-            _mapper = mapper;
-            _dateTimeUtility = dateTimeUtility;
-            _topicService = topicService;
-            _postService = postService;
-        }
+            _dateTimeUtility = DateTimeUtility.Create();
+            _topicService = TopicService.Create();
+            _postService = PostService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _scope.Resolve<ICategoryService>();
-            _mapper = _scope.Resolve<IMapper>();
-            _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
-            _scope.Resolve<IProfileService>();
-            _topicService = _scope.Resolve<ITopicService>();
-            _postService = _scope.Resolve<IPostService>();
-            _scope.Resolve<IForumService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetPost(long postId)

@@ -21,7 +21,6 @@ namespace OSL.Forum.Web.Models.Topic
         private DateTime Time { get; set; }
         public bool IsAuthenticated { get; set; }
         public IList<string> UserRoles { get; set; }
-        private ILifetimeScope _scope;
         private ITopicService _topicService;
         private IProfileService _profileService;
         private IMapper _mapper;
@@ -30,23 +29,12 @@ namespace OSL.Forum.Web.Models.Topic
         {
         }
 
-        public TopicDetailsModel(IMapper mapper,
-            IProfileService profileService,
-            ITopicService topicService)
+        protected override Task Resolve()
         {
-            _mapper = mapper;
-            _profileService = profileService;
-            _topicService = topicService;
-        }
+            _profileService = ProfileService.Create();
+            _topicService = TopicService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _mapper = _scope.Resolve<IMapper>();
-            _profileService = _scope.Resolve<IProfileService>();
-            _topicService = _scope.Resolve<ITopicService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetTopic(long topicId)

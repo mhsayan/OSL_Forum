@@ -25,7 +25,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
         public List<SelectListItem> ApplicationUserList { get; set; }
         public List<SelectListItem> AdminRoleList { get; set; }
         public List<SelectListItem> SuperAdminRoleList { get; set; }
-        private ILifetimeScope _scope;
         private IProfileService _profileService;
         private IMapper _mapper;
 
@@ -33,19 +32,11 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
         {
         }
 
-        public AssignRoleModel(IProfileService profileService, IMapper mapper)
+        protected override Task Resolve()
         {
-            _profileService = profileService;
-            _mapper = mapper;
-        }
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _profileService = _scope.Resolve<IProfileService>();
-            _mapper = _scope.Resolve<IMapper>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetUsers()

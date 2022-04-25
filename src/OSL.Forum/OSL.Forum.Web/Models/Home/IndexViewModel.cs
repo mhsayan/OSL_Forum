@@ -21,7 +21,6 @@ namespace OSL.Forum.Web.Models.Home
         public IList<BO.Category> Categories { get; set; }
         public bool IsAuthenticated { get; set; }
         public Pager Pager { get; set; }
-        private ILifetimeScope _scope;
         private ICategoryService _categoryService;
         private IFavoriteForumService _favoriteForumService;
         private IProfileService _profileService;
@@ -30,23 +29,13 @@ namespace OSL.Forum.Web.Models.Home
         {
         }
 
-        public IndexViewModel(ICategoryService categoryService,
-            IFavoriteForumService favoriteForumService,
-            IProfileService profileService)
+        protected override Task Resolve()
         {
-            _categoryService = categoryService;
-            _favoriteForumService = favoriteForumService;
-            _profileService = profileService;
-        }
+            _categoryService = CategoryService.Create();
+            _favoriteForumService = FavoriteForumService.Create();
+            _profileService = ProfileService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _categoryService = _scope.Resolve<ICategoryService>();
-            _favoriteForumService = _scope.Resolve<IFavoriteForumService>();
-            _profileService = _scope.Resolve<IProfileService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void GetCategories(int? page)

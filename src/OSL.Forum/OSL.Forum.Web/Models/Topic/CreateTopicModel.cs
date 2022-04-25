@@ -29,7 +29,6 @@ namespace OSL.Forum.Web.Models.Topic
         private ApplicationUser ApplicationUser { get; set; }
         public BO.Forum Forum { get; set; }
         private DateTime Time { get; set; }
-        private ILifetimeScope _scope;
         private ITopicService _topicService;
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
@@ -40,27 +39,15 @@ namespace OSL.Forum.Web.Models.Topic
         {
         }
 
-        public CreateTopicModel(IDateTimeUtility dateTimeUtility,
-            IProfileService profileService, ITopicService topicService,
-            IPostService postService, IForumService forumService)
+        protected override Task Resolve()
         {
-            _dateTimeUtility = dateTimeUtility;
-            _profileService = profileService;
-            _topicService = topicService;
-            _postService = postService;
-            _forumService = forumService;
-        }
+            _dateTimeUtility = DateTimeUtility.Create();
+            _profileService = ProfileService.Create();
+            _topicService = TopicService.Create();
+            _postService = PostService.Create();
+            _forumService = ForumService.Create();
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _dateTimeUtility = _scope.Resolve<IDateTimeUtility>();
-            _profileService = _scope.Resolve<IProfileService>();
-            _topicService = _scope.Resolve<ITopicService>();
-            _postService = _scope.Resolve<IPostService>();
-            _forumService = _scope.Resolve<IForumService>();
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
 
         public void Create()

@@ -13,23 +13,14 @@ namespace OSL.Forum.Web.Models
     {
         public bool ShowDashboard { get; set; }
         private IProfileService _profileService;
-        private ILifetimeScope _scope;
 
         public BaseModel()
         {
-
         }
 
-        public BaseModel(IProfileService profileService)
+        protected virtual async Task Resolve()
         {
-            _profileService = profileService;
-        }
-
-        public virtual async Task ResolveAsync(ILifetimeScope scope)
-        {
-            _scope = scope;
-            _profileService = _scope.Resolve<IProfileService>();
-
+            _profileService = ProfileService.Create();
             await GetUserInfo();
         }
 
