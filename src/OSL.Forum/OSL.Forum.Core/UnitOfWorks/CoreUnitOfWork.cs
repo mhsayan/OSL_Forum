@@ -12,23 +12,35 @@ namespace OSL.Forum.Core.UnitOfWorks
 {
     public class CoreUnitOfWork : UnitOfWork, ICoreUnitOfWork
     {
-        public ICategoryRepository Categories { get; private set; }
-        public IForumRepository Forums { get; private set; }
-        public IPostRepository Posts { get; private set; }
-        public ITopicRepository Topics { get; private set; }
-        public IFavoriteForumRepository FavoriteForums { get; private set; }
+        private static CoreUnitOfWork _coreUnitOfWork;
 
-        public CoreUnitOfWork(ICoreDbContext context,
-            ICategoryRepository categories, IForumRepository forums,
-            IPostRepository posts, ITopicRepository topics,
-            IFavoriteForumRepository favoriteForums
-            ) : base((DbContext)context)
+        private ICategoryRepository Categories { get; set; }
+        private IForumRepository Forums { get; set; }
+        private IPostRepository Posts { get; set; }
+        private ITopicRepository Topics { get; set; }
+        private IFavoriteForumRepository FavoriteForums { get; set; }
+
+        private CoreUnitOfWork()
         {
-            Categories = categories;
-            Forums = forums;
-            Posts = posts;
-            Topics = topics;
-            FavoriteForums = favoriteForums;
+            base.Resolve(new CoreDbContext());
+        }
+
+        public static CoreUnitOfWork Create()
+        {
+            if (_coreUnitOfWork == null)
+            {
+                _coreUnitOfWork = new CoreUnitOfWork()
+                {
+                    Categories = CategoryRepository.Create(),
+                    Forums = ForumRepository.Create(),
+                    Posts = PostRepository.Create(),
+                    Topics = TopicRepository.Create(),
+                    FavoriteForums = FavoriteForumRepository.Create(),
+
+                };
+            }
+
+            return _coreUnitOfWork;
         }
     }
 }

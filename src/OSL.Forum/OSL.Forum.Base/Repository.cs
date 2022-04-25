@@ -11,14 +11,20 @@ namespace OSL.Forum.Base
         : IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
-        protected DbContext _dbContext;
-        protected DbSet<TEntity> _dbSet;
+        private DbContext _dbContext;
+        private DbSet<TEntity> _dbSet;
 
-        public Repository(DbContext context)
+        protected Repository()
+        {
+
+        }
+
+        protected void Resolve(DbContext context)
         {
             _dbContext = context;
             _dbSet = _dbContext.Set<TEntity>();
         }
+
 
         public virtual void Add(TEntity entity)
         {

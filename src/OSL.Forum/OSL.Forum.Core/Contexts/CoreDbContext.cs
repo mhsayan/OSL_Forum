@@ -5,13 +5,19 @@ namespace OSL.Forum.Core.Contexts
 {
     public class CoreDbContext : DbContext, ICoreDbContext
     {
+        private static CoreDbContext _coreDbContext;
+
         public CoreDbContext() : base("DefaultConnection")
         {
 
         }
 
-        public CoreDbContext(string connectionString) : base(connectionString)
+        public static CoreDbContext Create()
         {
+            if (_coreDbContext == null)
+                _coreDbContext = new CoreDbContext();
+
+            return _coreDbContext;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
