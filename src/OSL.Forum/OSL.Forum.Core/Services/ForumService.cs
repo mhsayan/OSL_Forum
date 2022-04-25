@@ -13,14 +13,23 @@ namespace OSL.Forum.Core.Services
 {
     public class ForumService : IForumService
     {
-        private readonly ICoreUnitOfWork _unitOfWork;
+        private static ForumService _forumService;
+        private readonly CoreUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ForumService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+        private ForumService()
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _unitOfWork = CoreUnitOfWork.Create();
+        }
+
+        public static ForumService Create()
+        {
+            if (_forumService == null)
+            {
+                _forumService = new ForumService();
+            }
+
+            return _forumService;
         }
 
         public BO.Forum GetForum(string forumName, long categoryId)

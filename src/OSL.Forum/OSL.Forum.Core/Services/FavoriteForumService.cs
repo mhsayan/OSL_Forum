@@ -13,14 +13,23 @@ namespace OSL.Forum.Core.Services
 {
     public class FavoriteForumService : IFavoriteForumService
     {
-        private readonly ICoreUnitOfWork _unitOfWork;
+        private static FavoriteForumService _favoriteForumService;
+        private readonly CoreUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public FavoriteForumService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+        private FavoriteForumService()
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _unitOfWork = CoreUnitOfWork.Create();
+        }
+
+        public static FavoriteForumService Create()
+        {
+            if (_favoriteForumService == null)
+            {
+                _favoriteForumService = new FavoriteForumService();
+            }
+
+            return _favoriteForumService;
         }
 
         public List<BO.FavoriteForum> GetUserFavoriteForums(string userId)

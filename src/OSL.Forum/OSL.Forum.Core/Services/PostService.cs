@@ -14,14 +14,23 @@ namespace OSL.Forum.Core.Services
 {
     public class PostService : IPostService
     {
-        private readonly ICoreUnitOfWork _unitOfWork;
+        private static PostService _postService;
+        private readonly CoreUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public PostService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+        public PostService()
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _unitOfWork = CoreUnitOfWork.Create();
+        }
+
+        public static PostService Create()
+        {
+            if (_postService == null)
+            {
+                _postService = new PostService();
+            }
+
+            return _postService;
         }
 
         public BO.Post GetPost(long postId)

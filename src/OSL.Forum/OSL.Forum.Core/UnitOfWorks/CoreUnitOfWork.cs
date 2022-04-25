@@ -14,11 +14,11 @@ namespace OSL.Forum.Core.UnitOfWorks
     {
         private static CoreUnitOfWork _coreUnitOfWork;
 
-        private ICategoryRepository Categories { get; set; }
-        private IForumRepository Forums { get; set; }
-        private IPostRepository Posts { get; set; }
-        private ITopicRepository Topics { get; set; }
-        private IFavoriteForumRepository FavoriteForums { get; set; }
+        public ICategoryRepository Categories { get; set; }
+        public IForumRepository Forums { get; set; }
+        public IPostRepository Posts { get; set; }
+        public ITopicRepository Topics { get; set; }
+        public IFavoriteForumRepository FavoriteForums { get; set; }
 
         private CoreUnitOfWork()
         {
@@ -35,8 +35,7 @@ namespace OSL.Forum.Core.UnitOfWorks
                     Forums = ForumRepository.Create(),
                     Posts = PostRepository.Create(),
                     Topics = TopicRepository.Create(),
-                    FavoriteForums = FavoriteForumRepository.Create(),
-
+                    FavoriteForums = FavoriteForumRepository.Create()
                 };
             }
 

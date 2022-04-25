@@ -14,14 +14,23 @@ namespace OSL.Forum.Core.Services
 {
     public class TopicService : ITopicService
     {
-        private readonly ICoreUnitOfWork _unitOfWork;
+        private static TopicService _topicService;
+        private readonly CoreUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public TopicService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+        public TopicService()
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _unitOfWork = CoreUnitOfWork.Create();
+        }
+
+        public static TopicService Create()
+        {
+            if (_topicService == null)
+            {
+                _topicService = new TopicService();
+            }
+
+            return _topicService;
         }
 
         public BO.Topic GetTopic(string topicName, long forumId)

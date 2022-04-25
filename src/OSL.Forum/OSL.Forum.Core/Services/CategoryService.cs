@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
@@ -13,14 +11,23 @@ namespace OSL.Forum.Core.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICoreUnitOfWork _unitOfWork;
+        private static CategoryService _categoryService;
+        private readonly CoreUnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public CategoryService(ICoreUnitOfWork unitOfWork,
-            IMapper mapper)
+        private CategoryService()
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _unitOfWork = CoreUnitOfWork.Create();
+        }
+
+        public static CategoryService Create()
+        {
+            if (_categoryService == null)
+            {
+                _categoryService = new CategoryService();
+            }
+
+            return new CategoryService();
         }
 
         public BO.Category GetCategory(string categoryName)
