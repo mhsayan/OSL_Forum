@@ -23,7 +23,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _postService = PostService.Create();
             _profileService = ProfileService.Create();

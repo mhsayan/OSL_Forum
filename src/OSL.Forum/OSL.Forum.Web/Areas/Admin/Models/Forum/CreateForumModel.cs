@@ -30,7 +30,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _profileService = ProfileService.Create();
             _dateTimeUtility = DateTimeUtility.Create();

@@ -42,7 +42,7 @@ namespace OSL.Forum.Web.Models.Post
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _dateTimeUtility = DateTimeUtility.Create();
             _topicService = TopicService.Create();

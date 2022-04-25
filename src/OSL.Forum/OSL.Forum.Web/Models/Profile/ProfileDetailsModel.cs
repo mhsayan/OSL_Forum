@@ -25,7 +25,7 @@ namespace OSL.Forum.Web.Models.Profile
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _profileService = ProfileService.Create();
             _postService = PostService.Create();

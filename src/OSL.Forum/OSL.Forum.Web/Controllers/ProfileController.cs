@@ -15,19 +15,18 @@ namespace OSL.Forum.Web.Controllers
     [Authorize]
     public class ProfileController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(ProfileController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
-        public ProfileController(ILifetimeScope scope)
+        public ProfileController()
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(ProfileController));
         }
 
         // GET: Profile
         public async Task<ActionResult> MyProfile(int? page)
         {
-            var model = _scope.Resolve<ProfileDetailsModel>();
-            await model.ResolveAsync(_scope);
+            var model = new ProfileDetailsModel();
+            await model.Resolve();
             model.GetUserInfo();
             model.GetMyPosts(page);
 
@@ -36,8 +35,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> EditPost(long postId)
         {
-            var model = _scope.Resolve<EditPostModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditPostModel();
+            await model.Resolve();
             model.GetPost(postId);
 
             return View(model);
@@ -55,7 +54,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.EditPost();
                 model.UpdateTopicModificationDate();
 
@@ -73,8 +72,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> DeletePost(long postId, long topicId)
         {
-            var model = _scope.Resolve<EditPostModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditPostModel();
+            await model.Resolve();
             model.Delete(postId);
 
             return Redirect(nameof(MyProfile));
@@ -82,8 +81,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> Edit()
         {
-            var model = _scope.Resolve<EditProfileModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditProfileModel();
+            await model.Resolve();
             model.LoadUserInfo();
 
             return View(model);
@@ -98,7 +97,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 await model.EditProfileAsync();
 
                 return Redirect(nameof(MyProfile));

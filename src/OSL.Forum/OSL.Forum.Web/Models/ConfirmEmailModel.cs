@@ -10,18 +10,15 @@ namespace OSL.Forum.Web.Models
     public class ConfirmEmailModel : BaseModel
     {
         public bool Status { get; set; }
-        private ILifetimeScope _scope;
 
         public ConfirmEmailModel()
         {
 
         }
 
-        public override async Task ResolveAsync(ILifetimeScope scope)
+        public override Task Resolve()
         {
-            _scope = scope;
-
-            await base.ResolveAsync(_scope);
+            return Task.CompletedTask;
         }
     }
 }

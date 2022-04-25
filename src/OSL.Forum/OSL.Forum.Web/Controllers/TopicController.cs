@@ -13,18 +13,17 @@ namespace OSL.Forum.Web.Controllers
 {
     public class TopicController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(TopicController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
-        public TopicController(ILifetimeScope scope)
+        public TopicController()
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(HomeController));
         }
         // GET: Post
         public async Task<ActionResult> Topics(int? page, long id)
         {
-            var model = _scope.Resolve<TopicViewModel>();
-            await model.ResolveAsync(_scope);
+            var model = new TopicViewModel();
+            await model.Resolve();
             model.GetForum(id);
             model.GetTopics(page, id);
             model.LoadUserInfo();
@@ -43,8 +42,8 @@ namespace OSL.Forum.Web.Controllers
         [Authorize]
         public async Task<ActionResult> Create(long forumId)
         {
-            var model = _scope.Resolve<CreateTopicModel>();
-            await model.ResolveAsync(_scope);
+            var model = new CreateTopicModel();
+            await model.Resolve();
             model.GetForum(forumId);
 
             return View(model);
@@ -60,7 +59,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.GetForum(model.ForumId);
                 model.Create();
                 model.CreatePost();
@@ -79,8 +78,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> Details(long topicId)
         {
-            var model = _scope.Resolve<TopicDetailsModel>();
-            await model.ResolveAsync(_scope);
+            var model = new TopicDetailsModel();
+            await model.Resolve();
             model.GetTopic(topicId);
             model.UserAuthenticatedStatus();
 
@@ -93,8 +92,8 @@ namespace OSL.Forum.Web.Controllers
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
         public async Task<ActionResult> Delete(long topicId, long forumId)
         {
-            var model = _scope.Resolve<TopicViewModel>();
-            await model.ResolveAsync(_scope);
+            var model = new TopicViewModel();
+            await model.Resolve();
             model.Delete(topicId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
@@ -103,8 +102,8 @@ namespace OSL.Forum.Web.Controllers
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
         public async Task<ActionResult> Close(long topicId, long forumId)
         {
-            var model = _scope.Resolve<TopicViewModel>();
-            await model.ResolveAsync(_scope);
+            var model = new TopicViewModel();
+            await model.Resolve();
             model.Close(topicId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
@@ -113,8 +112,8 @@ namespace OSL.Forum.Web.Controllers
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
         public async Task<ActionResult> Open(long topicId, long forumId)
         {
-            var model = _scope.Resolve<TopicViewModel>();
-            await model.ResolveAsync(_scope);
+            var model = new TopicViewModel();
+            await model.Resolve();
             model.Open(topicId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });

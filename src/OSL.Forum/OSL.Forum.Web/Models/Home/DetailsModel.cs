@@ -28,7 +28,7 @@ namespace OSL.Forum.Web.Models.Home
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _categoryService = CategoryService.Create();
             _forumService = ForumService.Create();

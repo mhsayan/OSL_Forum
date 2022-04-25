@@ -30,7 +30,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _categoryService = CategoryService.Create();
             _forumService = ForumService.Create();

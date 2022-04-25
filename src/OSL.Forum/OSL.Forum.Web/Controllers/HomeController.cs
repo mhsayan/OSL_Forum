@@ -12,19 +12,18 @@ namespace OSL.Forum.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(HomeController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
-        public HomeController(ILifetimeScope scope)
+        public HomeController()
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(HomeController));
         }
 
 
         public async Task<ActionResult> Index(int? page)
         {
-            var model = _scope.Resolve<IndexViewModel>();
-            await model.ResolveAsync(_scope);
+            var model = new IndexViewModel();
+            await model.Resolve();
             model.GetCategories(page);
             model.UserAuthenticatedStatus();
 
@@ -36,8 +35,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> Details(int? page, long id)
         {
-            var model = _scope.Resolve<DetailsModel>();
-            await model.ResolveAsync(_scope);
+            var model = new DetailsModel();
+            await model.Resolve();
             model.GetCategory(id);
             model.GetForums(id, page);
 

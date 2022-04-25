@@ -18,7 +18,7 @@ namespace OSL.Forum.Web.Models
         {
         }
 
-        protected virtual async Task Resolve()
+        public virtual async Task Resolve()
         {
             _profileService = ProfileService.Create();
             await GetUserInfo();

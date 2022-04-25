@@ -24,7 +24,7 @@ namespace OSL.Forum.Web.Models.FavoriteForum
 
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _favoriteForumService = FavoriteForumService.Create();
             _profileService = ProfileService.Create();

@@ -10,20 +10,19 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(CategoryController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
-        public CategoryController(ILifetimeScope scope)
+        public CategoryController()
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(CategoryController));
         }
 
         // GET: Category
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         public async Task<ActionResult> Index(int? page)
         {
-            var model = _scope.Resolve<CategoriesModel>();
-            await model.ResolveAsync(_scope);
+            var model = new CategoriesModel();
+            await model.Resolve();
             model.GetCategories(page);
             await model.LoadUserInfo();
 
@@ -33,8 +32,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Create()
         {
-            var model = _scope.Resolve<CreateCategoryModel>();
-            await model.ResolveAsync(_scope);
+            var model = new CreateCategoryModel();
+            await model.Resolve();
 
             return View(model);
         }
@@ -49,7 +48,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.Create();
 
                 return Redirect(nameof(Index));
@@ -67,8 +66,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Edit(long id)
         {
-            var model = _scope.Resolve<EditCategoryModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditCategoryModel();
+            await model.Resolve();
             model.GetCategory(id);
 
             return View(model);
@@ -84,7 +83,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.Edit();
 
                 return RedirectToAction(nameof(Index));
@@ -102,8 +101,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Delete(long id)
         {
-            var model = _scope.Resolve<CategoriesModel>();
-            await model.ResolveAsync(_scope);
+            var model = new CategoriesModel();
+            await model.Resolve();
             model.Delete(id);
 
             return RedirectToAction(nameof(Index), "Category");
@@ -112,8 +111,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         public async Task<ActionResult> Details(int? page, long id)
         {
-            var model = _scope.Resolve<CategoryDetailsModel>();
-            await model.ResolveAsync(_scope);
+            var model = new CategoryDetailsModel();
+            await model.Resolve();
             model.GetCategory(id);
             model.GetForums(id, page);
             await model.LoadUserInfo();

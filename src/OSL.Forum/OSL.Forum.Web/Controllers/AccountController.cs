@@ -186,8 +186,8 @@ namespace OSL.Forum.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmRegistration()
         {
-            var model = _scope.Resolve<BaseModel>();
-            await model.ResolveAsync(_scope);
+            var model = new BaseModel();
+            await model.Resolve();
 
             return View(model);
         }
@@ -202,8 +202,8 @@ namespace OSL.Forum.Web.Controllers
                 return View("Error");
             }
 
-            var model = _scope.Resolve<ConfirmEmailModel>();
-            await model.ResolveAsync(_scope);
+            var model = new ConfirmEmailModel();
+            await model.Resolve();
 
             var user = await UserManager.FindByIdAsync(userId);
 
@@ -262,8 +262,8 @@ namespace OSL.Forum.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ForgotPasswordConfirmation()
         {
-            var model = _scope.Resolve<BaseModel>();
-            await model.ResolveAsync(_scope);
+            var model = new BaseModel();
+            await model.Resolve();
 
             return View(model);
         }
@@ -309,8 +309,8 @@ namespace OSL.Forum.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ResetPasswordConfirmation()
         {
-            var model = _scope.Resolve<BaseModel>();
-            await model.ResolveAsync(_scope);
+            var model = new BaseModel();
+            await model.Resolve();
 
             return View(model);
         }

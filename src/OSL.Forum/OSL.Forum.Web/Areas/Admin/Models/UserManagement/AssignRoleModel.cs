@@ -32,7 +32,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _profileService = ProfileService.Create();
 

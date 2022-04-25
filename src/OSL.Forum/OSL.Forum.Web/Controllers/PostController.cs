@@ -16,20 +16,18 @@ namespace OSL.Forum.Web.Controllers
     [Authorize]
     public class PostController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(PostController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
-        public PostController(ILifetimeScope scope)
+        public PostController()
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(PostController));
         }
 
         public async Task<ActionResult> Edit(long postId)
         {
-            var model = _scope.Resolve<EditPostModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditPostModel();
+            await model.Resolve();
             model.GetPost(postId);
-            //model.GetTopic();
 
             return View(model);
         }
@@ -46,7 +44,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.EditPost();
                 model.UpdateTopicModificationDate();
 
@@ -64,8 +62,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> Create(long topicId)
         {
-            var model = _scope.Resolve<CreatePostModel>();
-            await model.ResolveAsync(_scope);
+            var model = new CreatePostModel();
+            await model.Resolve();
             model.GetTopic(topicId);
 
             return View(model);
@@ -80,7 +78,7 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.GetTopic(model.TopicId);
                 model.CreatePost();
                 model.UpdateTopicModificationDate();
@@ -99,8 +97,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> Delete(long postId, long topicId)
         {
-            var model = _scope.Resolve<EditPostModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditPostModel();
+            await model.Resolve();
             model.Delete(postId);
 
             return RedirectToAction("Details", "Topic", new { topicId = topicId });

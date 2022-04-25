@@ -14,19 +14,18 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
     [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
     public class PendingPostController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(PendingPostController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
         public PendingPostController(ILifetimeScope scope)
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(PendingPostController));
         }
 
         // GET: Admin/PendingPost
         public async Task<ActionResult> Index(int? page)
         {
-            var model = _scope.Resolve<PendingPostListModel>();
-            await model.ResolveAsync(_scope);
+            var model = new PendingPostListModel();
+            await model.Resolve();
             model.GetPendingPostList(page);
 
             return View(model);
@@ -34,8 +33,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public async Task<ActionResult> Post(long postId)
         {
-            var model = _scope.Resolve<PendingPostDetailsModel>();
-            await model.ResolveAsync(_scope);
+            var model = new PendingPostDetailsModel();
+            await model.Resolve();
             model.GetPendingPost(postId);
 
             return View(model);
@@ -50,7 +49,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
 
                 if (button == "Accept")
                     model.UpdatePostStatus(Status.Approved.ToString());
@@ -74,8 +73,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public async Task<ActionResult> Accept(long postId)
         {
-            var model = _scope.Resolve<PendingPostListModel>();
-            await model.ResolveAsync(_scope);
+            var model = new PendingPostListModel();
+            await model.Resolve();
             model.UpdatePostStatus(postId, Status.Approved.ToString());
 
             return Redirect(nameof(Index));
@@ -83,8 +82,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public async Task<ActionResult> Reject(long postId)
         {
-            var model = _scope.Resolve<PendingPostListModel>();
-            await model.ResolveAsync(_scope);
+            var model = new PendingPostListModel();
+            await model.Resolve();
             model.UpdatePostStatus(postId, Status.Rejected.ToString());
 
             return Redirect(nameof(Index));

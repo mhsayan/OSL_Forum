@@ -13,19 +13,17 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
     [Authorize(Roles = "SuperAdmin, Admin")]
     public class UserManagementController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(UserManagementController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
         public UserManagementController(ILifetimeScope scope)
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(UserManagementController));
         }
 
-        // GET: Admin/UserManagement
         public async Task<ActionResult> AssignRole()
         {
-            var model = _scope.Resolve<AssignRoleModel>();
-            await model.ResolveAsync(_scope);
+            var model = new AssignRoleModel();
+            await model.Resolve();
             model.GetUsers();
             model.AdminRoles();
             model.SuperAdminRoles();
@@ -42,7 +40,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 await model.AddUserToRoleAsync();
 
                 return Redirect(nameof(AssignRole));

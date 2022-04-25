@@ -13,18 +13,17 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
     [Authorize(Roles = "SuperAdmin, Admin")]
     public class ForumController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(ForumController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
-        public ForumController(ILifetimeScope scope)
+        public ForumController()
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(ForumController));
         }
 
         public async Task<ActionResult> Create(long categoryId)
         {
-            var model = _scope.Resolve<CreateForumModel>();
-            await model.ResolveAsync(_scope);
+            var model = new CreateForumModel();
+            await model.Resolve();
             model.GetCategory(categoryId);
 
             return View(model);
@@ -39,7 +38,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.Create();
 
                 return RedirectToAction("Details", "Category", new { id = model.CategoryId });
@@ -56,8 +55,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public async Task<ActionResult> Edit(long id, long categoryId)
         {
-            var model = _scope.Resolve<EditForumModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditForumModel();
+            await model.Resolve();
             model.GetForum(id);
 
             return View(model);
@@ -72,7 +71,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.ResolveAsync(_scope);
+                await model.Resolve();
                 model.Edit();
 
                 return RedirectToAction("Details", "Category", new { id = model.CategoryId });
@@ -89,8 +88,8 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public async Task<ActionResult> Delete(long id, long categoryId)
         {
-            var model = _scope.Resolve<EditForumModel>();
-            await model.ResolveAsync(_scope);
+            var model = new EditForumModel();
+            await model.Resolve();
             model.Delete(id);
 
             return RedirectToAction("Details", "Category", new { id = categoryId });

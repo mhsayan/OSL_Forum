@@ -29,7 +29,7 @@ namespace OSL.Forum.Web.Models.Topic
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _profileService = ProfileService.Create();
             _topicService = TopicService.Create();

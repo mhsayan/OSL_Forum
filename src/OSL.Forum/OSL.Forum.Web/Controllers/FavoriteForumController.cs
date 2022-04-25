@@ -13,18 +13,17 @@ namespace OSL.Forum.Web.Controllers
     [Authorize]
     public class FavoriteForumController : Controller
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(FavoriteForumController));
-        private readonly ILifetimeScope _scope;
+        private readonly ILog _logger;
 
-        public FavoriteForumController(ILifetimeScope scope)
+        public FavoriteForumController()
         {
-            _scope = scope;
+            _logger = LogManager.GetLogger(typeof(FavoriteForumController));
         }
 
         public async Task<ActionResult> FavoriteForums(int? page)
         {
-            var model = _scope.Resolve<FavoriteForumModel>();
-            await model.ResolveAsync(_scope);
+            var model = new FavoriteForumModel();
+            await model.Resolve();
             model.GetFavoriteForums(page);
 
             return View(model);
@@ -32,8 +31,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> AddToFavorite(long forumId)
         {
-            var model = _scope.Resolve<FavoriteForumModel>();
-            await model.ResolveAsync(_scope);
+            var model = new FavoriteForumModel();
+            await model.Resolve();
             model.AddToFavorite(forumId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
@@ -41,8 +40,8 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> RemoveFromFavorite(long forumId)
         {
-            var model = _scope.Resolve<FavoriteForumModel>();
-            await model.ResolveAsync(_scope);
+            var model = new FavoriteForumModel();
+            await model.Resolve();
             model.RemoveFromFavorite(forumId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });

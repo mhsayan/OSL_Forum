@@ -31,7 +31,7 @@ namespace OSL.Forum.Web.Models.Topic
         {
         }
 
-        protected override Task Resolve()
+        public override Task Resolve()
         {
             _forumService = ForumService.Create();
             _favoriteForumService = FavoriteForumService.Create();
