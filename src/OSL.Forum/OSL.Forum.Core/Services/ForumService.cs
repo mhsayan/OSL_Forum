@@ -20,12 +20,12 @@ namespace OSL.Forum.Core.Services
 
         public static ForumService Create()
         {
-            if (_forumService == null)
-            {
-                _forumService = new ForumService();
-            }
+            //if (_forumService == null)
+            //{
+            //    _forumService = new ForumService();
+            //}
 
-            return _forumService;
+            return new ForumService(); ;
         }
 
         public BO.Forum GetForum(string forumName, long categoryId)
@@ -227,23 +227,7 @@ namespace OSL.Forum.Core.Services
                     CreationDate = forum.CreationDate,
                     ModificationDate = forum.ModificationDate,
                     CategoryId = forum.CategoryId,
-                    ApplicationUserId = forum.ApplicationUserId,
-                    Category = new BO.Category()
-                    {
-                        Id = forum.Category.Id,
-                        Name = forum.Category.Name,
-                        CreationDate = forum.Category.CreationDate,
-                        ModificationDate = forum.Category.ModificationDate
-                    },
-                    Topics = forum.Topics.Select(topic => new BO.Topic()
-                    {
-                        Id = topic.Id,
-                        Name = topic.Name,
-                        CreationDate = topic.CreationDate,
-                        ModificationDate = topic.ModificationDate,
-                        ApplicationUserId = topic.ApplicationUserId,
-                        ForumId = topic.ForumId,
-                    }).ToList()
+                    ApplicationUserId = forum.ApplicationUserId
                 }).ToList();
 
             return forums;

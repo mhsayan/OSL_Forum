@@ -19,12 +19,12 @@ namespace OSL.Forum.Core.Repositories
 
         public static PostRepository Create(ICoreDbContext dbContext)
         {
-            if (_postRepository == null)
-            {
-                _postRepository = new PostRepository(dbContext);
-            }
+            //if (_postRepository == null)
+            //{
+            //    _postRepository = new PostRepository(dbContext);
+            //}
 
-            return _postRepository;
+            return new PostRepository(dbContext);
         }
     }
 }

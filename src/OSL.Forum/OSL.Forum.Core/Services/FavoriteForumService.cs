@@ -19,12 +19,12 @@ namespace OSL.Forum.Core.Services
 
         public static FavoriteForumService Create()
         {
-            if (_favoriteForumService == null)
-            {
-                _favoriteForumService = new FavoriteForumService();
-            }
+            //if (_favoriteForumService == null)
+            //{
+            //    _favoriteForumService = new FavoriteForumService();
+            //}
 
-            return _favoriteForumService;
+            return new FavoriteForumService();
         }
 
         public List<BO.FavoriteForum> GetUserFavoriteForums(string userId)

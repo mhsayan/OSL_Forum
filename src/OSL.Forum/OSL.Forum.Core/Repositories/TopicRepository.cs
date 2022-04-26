@@ -19,12 +19,12 @@ namespace OSL.Forum.Core.Repositories
 
         public static TopicRepository Create(ICoreDbContext dbContext)
         {
-            if (_topicRepository == null)
-            {
-                _topicRepository = new TopicRepository(dbContext);
-            }
+            //if (_topicRepository == null)
+            //{
+            //    _topicRepository = new TopicRepository(dbContext);
+            //}
 
-            return _topicRepository;
+            return new TopicRepository(dbContext);
         }
     }
 }

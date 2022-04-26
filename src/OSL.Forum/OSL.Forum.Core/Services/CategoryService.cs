@@ -20,12 +20,12 @@ namespace OSL.Forum.Core.Services
 
         public static CategoryService Create()
         {
-            if (_categoryService == null)
-            {
-                _categoryService = new CategoryService();
-            }
+            //if (_categoryService == null)
+            //{
+            //    _categoryService = new CategoryService();
+            //}
 
-            return _categoryService;
+            return new CategoryService();
         }
 
         public BO.Category GetCategory(string categoryName)

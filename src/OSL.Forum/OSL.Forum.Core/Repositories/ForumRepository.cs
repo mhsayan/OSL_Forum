@@ -18,12 +18,12 @@ namespace OSL.Forum.Core.Repositories
 
         public static ForumRepository Create(ICoreDbContext dbContext)
         {
-            if (_forumRepository == null)
-            {
-                _forumRepository = new ForumRepository(dbContext);
-            }
+            //if (_forumRepository == null)
+            //{
+            //    _forumRepository = new ForumRepository(dbContext);
+            //}
 
-            return _forumRepository;
+            return new ForumRepository(dbContext);
         }
     }
 }

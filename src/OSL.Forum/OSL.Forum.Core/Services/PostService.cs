@@ -20,12 +20,12 @@ namespace OSL.Forum.Core.Services
 
         public static PostService Create()
         {
-            if (_postService == null)
-            {
-                _postService = new PostService();
-            }
+            //if (_postService == null)
+            //{
+            //    _postService = new PostService();
+            //}
 
-            return _postService;
+            return new PostService();
         }
 
         public BO.Post GetPost(long postId)

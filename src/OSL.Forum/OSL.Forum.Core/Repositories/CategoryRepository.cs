@@ -19,12 +19,12 @@ namespace OSL.Forum.Core.Repositories
 
         public static CategoryRepository Create(ICoreDbContext dbContext)
         {
-            if (_categoryRepository == null)
-            {
-                _categoryRepository = new CategoryRepository(dbContext);
-            }
+            //if (_categoryRepository == null)
+            //{
+            //    _categoryRepository = new CategoryRepository(dbContext);
+            //}
 
-            return _categoryRepository;
+            return new CategoryRepository(dbContext);
         }
     }
 }

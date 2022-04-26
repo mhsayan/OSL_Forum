@@ -19,12 +19,12 @@ namespace OSL.Forum.Core.Repositories
 
         public static FavoriteForumRepository Create(ICoreDbContext dbContext)
         {
-            if (_favoriteForumRepository == null)
-            {
-                _favoriteForumRepository = new FavoriteForumRepository(dbContext);
-            }
+            //if (_favoriteForumRepository == null)
+            //{
+            //    _favoriteForumRepository = new FavoriteForumRepository(dbContext);
+            //}
 
-            return _favoriteForumRepository;
+            return new FavoriteForumRepository(dbContext);
         }
     }
 }

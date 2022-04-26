@@ -21,12 +21,12 @@ namespace OSL.Forum.Core.Services
 
         public static TopicService Create()
         {
-            if (_topicService == null)
-            {
-                _topicService = new TopicService();
-            }
+            //if (_topicService == null)
+            //{
+            //    _topicService = new TopicService();
+            //}
 
-            return _topicService;
+            return new TopicService();
         }
 
         public BO.Topic GetTopic(string topicName, long forumId)
