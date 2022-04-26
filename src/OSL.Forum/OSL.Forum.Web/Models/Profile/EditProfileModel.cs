@@ -19,11 +19,11 @@ namespace OSL.Forum.Web.Models.Profile
 
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _profileService = ProfileService.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public async Task EditProfileAsync()

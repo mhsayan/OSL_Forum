@@ -24,11 +24,11 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
         {
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _profileService = ProfileService.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public void GetUsers()

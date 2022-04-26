@@ -36,7 +36,7 @@ namespace OSL.Forum.Web.Models.Topic
         {
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _dateTimeUtility = DateTimeUtility.Create();
             _profileService = ProfileService.Create();
@@ -44,7 +44,7 @@ namespace OSL.Forum.Web.Models.Topic
             _postService = PostService.Create();
             _forumService = ForumService.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public void Create()

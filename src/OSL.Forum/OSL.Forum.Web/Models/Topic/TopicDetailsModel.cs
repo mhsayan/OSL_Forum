@@ -22,12 +22,12 @@ namespace OSL.Forum.Web.Models.Topic
         {
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _profileService = ProfileService.Create();
             _topicService = TopicService.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public void GetTopic(long topicId)

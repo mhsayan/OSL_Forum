@@ -33,14 +33,14 @@ namespace OSL.Forum.Web.Models.Post
         {
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _dateTimeUtility = DateTimeUtility.Create();
             _profileService = ProfileService.Create();
             _topicService = TopicService.Create();
             _postService = PostService.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public void CreatePost()

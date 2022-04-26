@@ -19,12 +19,12 @@ namespace OSL.Forum.Web.Models.FavoriteForum
 
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _favoriteForumService = FavoriteForumService.Create();
             _profileService = ProfileService.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public void AddToFavorite(long forumId)

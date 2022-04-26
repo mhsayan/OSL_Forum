@@ -14,7 +14,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         public ITopicRepository Topics { get; set; }
         public IFavoriteForumRepository FavoriteForums { get; set; }
 
-        private CoreUnitOfWork()
+        public CoreUnitOfWork()
         {
             base.Resolve(new CoreDbContext());
         }

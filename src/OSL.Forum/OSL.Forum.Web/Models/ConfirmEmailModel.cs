@@ -11,9 +11,9 @@ namespace OSL.Forum.Web.Models
 
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
-            return Task.CompletedTask;
+            await base.Resolve();
         }
     }
 }

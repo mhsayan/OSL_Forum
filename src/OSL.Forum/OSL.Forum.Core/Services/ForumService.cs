@@ -243,15 +243,6 @@ namespace OSL.Forum.Core.Services
                         ModificationDate = topic.ModificationDate,
                         ApplicationUserId = topic.ApplicationUserId,
                         ForumId = topic.ForumId,
-                        Posts = topic.Posts.Select(post => new BO.Post()
-                        {
-                            Id = post.Id,
-                            Name = post.Name,
-                            CreationDate = post.CreationDate,
-                            ModificationDate = post.ModificationDate,
-                            ApplicationUserId = post.ApplicationUserId,
-                            TopicId = post.TopicId
-                        }).ToList()
                     }).ToList()
                 }).ToList();
 

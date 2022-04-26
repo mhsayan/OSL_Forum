@@ -28,14 +28,14 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         {
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _categoryService = CategoryService.Create();
             _forumService = ForumService.Create();
             _dateTimeUtility = DateTimeUtility.Create();
             _profileService = ProfileService.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public void GetForum(long forumId)

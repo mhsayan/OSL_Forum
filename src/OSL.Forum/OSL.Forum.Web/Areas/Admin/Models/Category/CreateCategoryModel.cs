@@ -20,12 +20,12 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         {
         }
 
-        public override Task Resolve()
+        public override async Task Resolve()
         {
             _categoryService = CategoryService.Create();
             _dateTimeUtility = DateTimeUtility.Create();
 
-            return Task.CompletedTask;
+            await base.Resolve();
         }
 
         public void Create()
