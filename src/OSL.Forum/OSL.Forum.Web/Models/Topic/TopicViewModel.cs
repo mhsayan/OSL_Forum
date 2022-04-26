@@ -25,7 +25,6 @@ namespace OSL.Forum.Web.Models.Topic
         private ITopicService _topicService;
         private IFavoriteForumService _favoriteForumService;
         private IProfileService _profileService;
-        private IMapper _mapper;
 
         public TopicViewModel()
         {
@@ -71,12 +70,7 @@ namespace OSL.Forum.Web.Models.Topic
 
             foreach (var topic in Topics)
             {
-                var topicOb = new BO.Topic();
-
                 topic.Owner = _profileService.Owner(topic.ApplicationUserId);
-
-                _mapper.Map(topic, topicOb);
-
                 topicList.Add(topic);
             }
 

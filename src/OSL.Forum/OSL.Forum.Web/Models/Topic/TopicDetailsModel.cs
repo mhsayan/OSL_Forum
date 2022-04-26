@@ -23,7 +23,6 @@ namespace OSL.Forum.Web.Models.Topic
         public IList<string> UserRoles { get; set; }
         private ITopicService _topicService;
         private IProfileService _profileService;
-        private IMapper _mapper;
 
         public TopicDetailsModel()
         {
@@ -45,14 +44,25 @@ namespace OSL.Forum.Web.Models.Topic
 
             foreach (var topicPost in Topic.Posts)
             {
-                var post = new BO.Post();
-
                 if (topicPost.Status == Status.Approved.ToString())
                 {
                     topicPost.Owner = _profileService.Owner(topicPost.ApplicationUserId);
                     topicPost.OwnerName = _profileService.GetUser(topicPost.ApplicationUserId).Name;
 
-                    _mapper.Map(topicPost, post);
+                    var post = new BO.Post()
+                    {
+                        Id = topicPost.Id,
+                        Name = topicPost.Name,
+                        TopicId = topicPost.TopicId,
+                        ApplicationUserId = topicPost.ApplicationUserId,
+                        Owner = topicPost.Owner,
+                        OwnerName = topicPost.OwnerName,
+                        Description = topicPost.Description,
+                        Status = topicPost.Status,
+                        CreationDate = topicPost.CreationDate,
+                        ModificationDate = topicPost.ModificationDate,
+                        Topic = topicPost.Topic
+                    };
 
                     postList.Add(post);
                 }

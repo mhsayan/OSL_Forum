@@ -20,7 +20,6 @@ namespace OSL.Forum.Web.Models.Profile
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
         private IProfileService _profileService;
-        private IMapper _mapper;
 
         public EditProfileModel()
         {
@@ -36,7 +35,11 @@ namespace OSL.Forum.Web.Models.Profile
 
         public async Task EditProfileAsync()
         {
-            var applicationUser = _mapper.Map<ApplicationUser>(this);
+            var applicationUser = new ApplicationUser()
+            {
+                Id = Id,
+                Name = Name
+            };
 
             await _profileService.EditProfileAsync(applicationUser);
         }
@@ -44,7 +47,9 @@ namespace OSL.Forum.Web.Models.Profile
         public void LoadUserInfo()
         {
             var user = _profileService.GetUser();
-            _mapper.Map(user, this);
+
+            this.Id = user.Id;
+            this.Name = user.Name;
         }
     }
 }

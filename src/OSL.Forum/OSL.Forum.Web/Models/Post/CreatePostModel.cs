@@ -33,7 +33,6 @@ namespace OSL.Forum.Web.Models.Post
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
         private IProfileService _profileService;
-        private IMapper _mapper;
 
         public CreatePostModel()
         {
@@ -57,10 +56,15 @@ namespace OSL.Forum.Web.Models.Post
             var user = _profileService.GetUser();
             Time = _dateTimeUtility.Now;
 
-            var post = _mapper.Map<BO.Post>(this);
-            post.CreationDate = Time;
-            post.ModificationDate = Time;
-            post.ApplicationUserId = user.Id;
+            var post = new BO.Post()
+            {
+                Name = this.Name,
+                Description = this.Description,
+                TopicId = this.TopicId,
+                CreationDate = Time,
+                ModificationDate = Time,
+                ApplicationUserId = user.Id
+            };
 
             if (BoTopic.ApprovalType == ApprovalType.Auto.ToString())
                 post.Status = Status.Approved.ToString();

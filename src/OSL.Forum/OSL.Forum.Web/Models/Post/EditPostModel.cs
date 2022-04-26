@@ -36,7 +36,6 @@ namespace OSL.Forum.Web.Models.Post
         private ITopicService _topicService;
         private IPostService _postService;
         private IDateTimeUtility _dateTimeUtility;
-        private IMapper _mapper;
 
         public EditPostModel()
         {
@@ -54,16 +53,30 @@ namespace OSL.Forum.Web.Models.Post
         public void GetPost(long postId)
         {
             var post = _postService.GetPost(postId);
-            _mapper.Map(post, this);
+
+            this.Id = post.Id;
+            this.Name = post.Name;
+            this.Description = post.Description;
+            this.ApplicationUserId = post.ApplicationUserId;
+            this.TopicId = post.TopicId;
+            this.Topic = post.Topic;
         }
 
         public void EditPost()
         {
             Time = _dateTimeUtility.Now;
 
-            var post = _mapper.Map<BO.Post>(this);
-            post.ModificationDate = Time;
-            post.Status = Status.Pending.ToString();
+            var post = new BO.Post()
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Description = this.Description,
+                ApplicationUserId = this.ApplicationUserId,
+                TopicId = this.TopicId,
+                Topic = this.Topic,
+                ModificationDate = Time,
+                Status = Status.Pending.ToString()
+            };
 
             _postService.EditPost(post);
         }
