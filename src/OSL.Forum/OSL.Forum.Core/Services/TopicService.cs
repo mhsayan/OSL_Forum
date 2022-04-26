@@ -187,6 +187,7 @@ namespace OSL.Forum.Core.Services
                     Forum = ForumService.Create().GetForum(topic.ForumId),
                     CreationDate = topic.CreationDate,
                     ModificationDate = topic.ModificationDate,
+                    ApplicationUserId = topic.ApplicationUserId,
                     Posts = topic.Posts.Select(post => new BO.Post
                     {
                         Id = post.Id,
