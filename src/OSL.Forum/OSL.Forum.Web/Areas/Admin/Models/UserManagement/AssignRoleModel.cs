@@ -26,7 +26,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
         public List<SelectListItem> AdminRoleList { get; set; }
         public List<SelectListItem> SuperAdminRoleList { get; set; }
         private IProfileService _profileService;
-        private IMapper _mapper;
 
         public AssignRoleModel()
         {
@@ -78,7 +77,11 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
 
         public async Task AddUserToRoleAsync()
         {
-            var applicationUserRole = _mapper.Map<ApplicationUserRole>(this);
+            var applicationUserRole = new ApplicationUserRole()
+            {
+                UserId = this.UserId,
+                UserRole = this.UserRole
+            };
 
             await _profileService.AddUserToRoleAsync(applicationUserRole);
         }

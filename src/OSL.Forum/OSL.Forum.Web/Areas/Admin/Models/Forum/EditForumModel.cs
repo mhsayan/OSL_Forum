@@ -25,7 +25,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         private ICategoryService _categoryService;
         private IDateTimeUtility _dateTimeUtility;
         private IProfileService _profileService;
-        private IMapper _mapper;
 
         public EditForumModel()
         {
@@ -51,7 +50,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             if (BoForum == null)
                 throw new InvalidOperationException("Forum not found");
 
-            _mapper.Map(BoForum, this);
+            this.Id = BoForum.Id;
+            this.Name = BoForum.Name;
+            this.CategoryId = BoForum.CategoryId;
         }
 
         public void Edit()
@@ -59,9 +60,14 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
             var user = _profileService.GetUser();
             var modificationDate = _dateTimeUtility.Now;
 
-            var forum = _mapper.Map<BO.Forum>(this);
-            forum.ModificationDate = modificationDate;
-            forum.ApplicationUserId = user.Id;
+            var forum = new BO.Forum
+            {
+                Id = this.Id,
+                Name = this.Name,
+                CategoryId = this.CategoryId,
+                ModificationDate = modificationDate,
+                ApplicationUserId = user.Id
+            };
 
             _forumService.EditForum(forum);
             _categoryService.UpdateModificationDate(modificationDate, forum.CategoryId);

@@ -21,7 +21,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
         [StringLength(64, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
         public string Name { get; set; }
         private ICategoryService _categoryService;
-        private IMapper _mapper;
 
         public EditCategoryModel()
         {
@@ -44,12 +43,17 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
             if (category == null)
                 throw new InvalidOperationException("Category not found");
 
-            _mapper.Map(category, this);
+            this.Id = category.Id;
+            this.Name = category.Name;
         }
 
         public void Edit()
         {
-            var category = _mapper.Map<BO.Category>(this);
+            var category = new BO.Category()
+            {
+                Id = this.Id,
+                Name = this.Name
+            };
 
             _categoryService.EditCategory(category);
         }

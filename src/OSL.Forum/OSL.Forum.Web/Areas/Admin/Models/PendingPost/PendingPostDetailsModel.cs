@@ -23,7 +23,6 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
         private IPostService _postService;
         private IProfileService _profileService;
         private ITopicService _topicService;
-        private IMapper _mapper;
 
         public PendingPostDetailsModel()
         {
@@ -42,8 +41,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
         {
             Post = _postService.GetPost(postId);
             Post.OwnerName = _profileService.GetUser(Post.ApplicationUserId).Name;
-
-            _mapper.Map(Post, this);
+            this.Id = Post.Id;
+            this.Name = Post.Name;
+            this.Description = Post.Description;
         }
 
         public void UpdatePostStatus(string status)

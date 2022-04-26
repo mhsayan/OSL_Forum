@@ -13,7 +13,6 @@ namespace OSL.Forum.Core.Services
     {
         private static CategoryService _categoryService;
         private readonly CoreUnitOfWork _unitOfWork;
-        private IMapper _mapper;
 
         private CategoryService()
         {
@@ -40,7 +39,14 @@ namespace OSL.Forum.Core.Services
             if (categoryEntity == null)
                 return null;
 
-            var category = _mapper.Map<BO.Category>(categoryEntity);
+            var category = new BO.Category()
+            {
+                Id = categoryEntity.Id,
+                Name = categoryEntity.Name,
+                CreationDate = categoryEntity.CreationDate,
+                ModificationDate = categoryEntity.ModificationDate,
+                Forums = categoryEntity.Forums as IList<BO.Forum>
+            };
 
             return category;
         }
@@ -56,29 +62,17 @@ namespace OSL.Forum.Core.Services
                 return null;
 
             categoryEntity.Forums = categoryEntity.Forums.OrderByDescending(c => c.ModificationDate).ToList();
-            var category = _mapper.Map<BO.Category>(categoryEntity);
+
+            var category = new BO.Category
+            {
+                Id = categoryEntity.Id,
+                Name = categoryEntity.Name,
+                CreationDate = categoryEntity.CreationDate,
+                ModificationDate = categoryEntity.ModificationDate,
+                Forums = categoryEntity.Forums as IList<BO.Forum>
+            };
 
             return category;
-        }
-
-        public IList<BO.Category> GetCategories()
-        {
-            var categoryEntities = _unitOfWork.Categories.Get(null, "Forums");
-
-            var categoryList = from c in categoryEntities
-                               orderby c.ModificationDate descending
-                               select c;
-
-            var categories = new List<BO.Category>();
-
-            foreach (var entity in categoryList)
-            {
-                entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).Take(4).ToList();
-                var category = _mapper.Map<BO.Category>(entity);
-                categories.Add(category);
-            }
-
-            return categories;
         }
 
         public void EditCategory(BO.Category category)
@@ -121,10 +115,12 @@ namespace OSL.Forum.Core.Services
             if (oldCategory != null)
                 throw new DuplicateNameException("This category name already exists.");
 
-            category.CreationDate = DateTime.Now;
-            category.ModificationDate = category.CreationDate;
-
-            var categoryEntity = _mapper.Map<EO.Category>(category);
+            var categoryEntity = new EO.Category()
+            {
+                Name = category.Name,
+                CreationDate = category.CreationDate,
+                ModificationDate = category.ModificationDate
+            };
 
             _unitOfWork.Categories.Add(categoryEntity);
             _unitOfWork.Save();
@@ -154,16 +150,21 @@ namespace OSL.Forum.Core.Services
         {
             var categoryEntities = _unitOfWork.Categories.Get(null, q => q.OrderByDescending(c => c.ModificationDate), "Forums", pageIndex, pageSize, false);
 
-            var categoryList = from c in categoryEntities.data
-                               orderby c.ModificationDate descending
-                               select c;
-
             var categories = new List<BO.Category>();
 
-            foreach (var entity in categoryList)
+            foreach (var entity in categoryEntities.data)
             {
                 entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).Take(4).ToList();
-                var category = _mapper.Map<BO.Category>(entity);
+
+                var category = new BO.Category()
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    CreationDate = entity.CreationDate,
+                    ModificationDate = entity.ModificationDate,
+                    Forums = entity.Forums as IList<BO.Forum>
+                };
+
                 categories.Add(category);
             }
 

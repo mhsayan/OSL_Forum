@@ -15,7 +15,6 @@ namespace OSL.Forum.Core.Services
     {
         private static ForumService _forumService;
         private readonly CoreUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
         private ForumService()
         {
@@ -42,7 +41,23 @@ namespace OSL.Forum.Core.Services
             if (forumEntity == null)
                 return null;
 
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
+            var forum = new BO.Forum()
+            {
+                Id = forumEntity.Id,
+                Name = forumEntity.Name,
+                CreationDate = forumEntity.CreationDate,
+                ModificationDate = forumEntity.ModificationDate,
+                CategoryId = forumEntity.CategoryId,
+                ApplicationUserId = forumEntity.ApplicationUserId,
+                Category = new BO.Category()
+                {
+                    Id = forumEntity.Category.Id,
+                    Name = forumEntity.Category.Name,
+                    CreationDate = forumEntity.Category.CreationDate,
+                    ModificationDate = forumEntity.Category.ModificationDate
+                },
+                Topics = forumEntity.Topics as IList<BO.Topic>
+            };
 
             return forum;
         }
@@ -58,7 +73,24 @@ namespace OSL.Forum.Core.Services
                 return null;
 
             forumEntity.Topics = forumEntity.Topics.OrderByDescending(t => t.ModificationDate).ToList();
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
+
+            var forum = new BO.Forum()
+            {
+                Id = forumEntity.Id,
+                Name = forumEntity.Name,
+                CreationDate = forumEntity.CreationDate,
+                ModificationDate = forumEntity.ModificationDate,
+                CategoryId = forumEntity.CategoryId,
+                ApplicationUserId = forumEntity.ApplicationUserId,
+                Category = new BO.Category()
+                {
+                    Id = forumEntity.Category.Id,
+                    Name = forumEntity.Category.Name,
+                    CreationDate = forumEntity.Category.CreationDate,
+                    ModificationDate = forumEntity.Category.ModificationDate
+                },
+                Topics = forumEntity.Topics as IList<BO.Topic>
+            };
 
             return forum;
         }
@@ -73,7 +105,23 @@ namespace OSL.Forum.Core.Services
             if (forumEntity == null)
                 return null;
 
-            var forum = _mapper.Map<BO.Forum>(forumEntity);
+            var forum = new BO.Forum()
+            {
+                Id = forumEntity.Id,
+                Name = forumEntity.Name,
+                CreationDate = forumEntity.CreationDate,
+                ModificationDate = forumEntity.ModificationDate,
+                CategoryId = forumEntity.CategoryId,
+                ApplicationUserId = forumEntity.ApplicationUserId,
+                Category = new BO.Category()
+                {
+                    Id = forumEntity.Category.Id,
+                    Name = forumEntity.Category.Name,
+                    CreationDate = forumEntity.Category.CreationDate,
+                    ModificationDate = forumEntity.Category.ModificationDate
+                },
+                Topics = forumEntity.Topics as IList<BO.Topic>
+            };
 
             return forum;
         }
@@ -123,13 +171,24 @@ namespace OSL.Forum.Core.Services
             if (data == null)
                 return null;
 
-            var forumList = from c in data
-                            orderby c.ModificationDate descending
-                            select c;
-
-            var forums = forumList.Select(forum =>
-                _mapper.Map<BO.Forum>(forum)
-                ).ToList();
+            var forums = data.Select(forum =>
+                new BO.Forum()
+                {
+                    Id = forum.Id,
+                    Name = forum.Name,
+                    CreationDate = forum.CreationDate,
+                    ModificationDate = forum.ModificationDate,
+                    CategoryId = forum.CategoryId,
+                    ApplicationUserId = forum.ApplicationUserId,
+                    Category = new BO.Category()
+                    {
+                        Id = forum.Category.Id,
+                        Name = forum.Category.Name,
+                        CreationDate = forum.Category.CreationDate,
+                        ModificationDate = forum.Category.ModificationDate
+                    },
+                    Topics = forum.Topics as IList<BO.Topic>
+                }).ToList();
 
             return forums;
         }
@@ -144,7 +203,14 @@ namespace OSL.Forum.Core.Services
             if (oldForum != null)
                 throw new DuplicateNameException("This Forum name already exists under this category.");
 
-            var forumEntity = _mapper.Map<EO.Forum>(forum);
+            var forumEntity = new EO.Forum()
+            {
+                Name = forum.Name,
+                CategoryId = forum.CategoryId,
+                ApplicationUserId = forum.ApplicationUserId,
+                CreationDate = forum.CreationDate,
+                ModificationDate = forum.ModificationDate
+            };
 
             _unitOfWork.Forums.Add(forumEntity);
             _unitOfWork.Save();
