@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using OSL.Forum.Core.Entities;
-
-namespace OSL.Forum.Core.BusinessObjects
+﻿namespace OSL.Forum.Core.BusinessObjects
 {
     public class FavoriteForum
     {

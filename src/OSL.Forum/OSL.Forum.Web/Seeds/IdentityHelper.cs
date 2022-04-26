@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
+﻿using System.Configuration;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Seeds

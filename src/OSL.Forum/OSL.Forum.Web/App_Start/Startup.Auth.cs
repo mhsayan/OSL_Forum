@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Web.Mvc;
-using Autofac;
-using Autofac.Integration.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
-using OSL.Forum.Core;
-using OSL.Forum.Core.Entities;
 using Owin;
 using OSL.Forum.Web.Models;
 

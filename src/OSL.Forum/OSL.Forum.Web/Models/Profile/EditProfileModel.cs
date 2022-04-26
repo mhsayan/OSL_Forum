@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using System.Web;
-using Autofac;
-using AutoMapper;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Models.Profile

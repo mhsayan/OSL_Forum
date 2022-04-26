@@ -1,6 +1,4 @@
-﻿using System;
-using OSL.Forum.Base;
-using OSL.Forum.Core.Entities;
+﻿using OSL.Forum.Base;
 
 namespace OSL.Forum.Core.Repositories
 {

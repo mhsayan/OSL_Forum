@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OSL.Forum.Base;
+﻿using OSL.Forum.Base;
 using OSL.Forum.Core.Contexts;
 using OSL.Forum.Core.Repositories;
 

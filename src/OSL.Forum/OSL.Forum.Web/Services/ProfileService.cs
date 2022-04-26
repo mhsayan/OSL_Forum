@@ -5,14 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OSL.Forum.Core.BusinessObjects;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Seeds;
-using Roles = System.Web.Security.Roles;
 
 namespace OSL.Forum.Web.Services
 {

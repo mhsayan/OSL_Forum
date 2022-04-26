@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using OSL.Forum.Core.Enums;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
@@ -16,7 +13,6 @@ namespace OSL.Forum.Core.Services
     {
         private static TopicService _topicService;
         private readonly CoreUnitOfWork _unitOfWork;
-        private IMapper _mapper;
 
         public TopicService()
         {
@@ -44,7 +40,26 @@ namespace OSL.Forum.Core.Services
             if (topicEntity == null)
                 return null;
 
-            var topic = _mapper.Map<BO.Topic>(topicEntity);
+            var topic = new BO.Topic
+            {
+                Id = topicEntity.Id,
+                Name = topicEntity.Name,
+                ForumId = topicEntity.ForumId,
+                Forum = ForumService.Create().GetForum(topicEntity.ForumId),
+                CreationDate = topicEntity.CreationDate,
+                ModificationDate = topicEntity.ModificationDate,
+                Posts = topicEntity.Posts.Select(post => new BO.Post
+                {
+                    Id = post.Id,
+                    Name = post.Name,
+                    TopicId = post.TopicId,
+                    CreationDate = post.CreationDate,
+                    ModificationDate = post.ModificationDate,
+                    ApplicationUserId = post.ApplicationUserId,
+                    Description = post.Description,
+                    Status = post.Status,
+                }).ToList()
+            };
 
             return topic;
         }
@@ -60,7 +75,26 @@ namespace OSL.Forum.Core.Services
             if (topicEntity == null)
                 return null;
 
-            var topic = _mapper.Map<BO.Topic>(topicEntity);
+            var topic = new BO.Topic
+            {
+                Id = topicEntity.Id,
+                Name = topicEntity.Name,
+                ForumId = topicEntity.ForumId,
+                Forum = ForumService.Create().GetForum(topicEntity.ForumId),
+                CreationDate = topicEntity.CreationDate,
+                ModificationDate = topicEntity.ModificationDate,
+                Posts = topicEntity.Posts.Select(post => new BO.Post
+                {
+                    Id = post.Id,
+                    Name = post.Name,
+                    TopicId = post.TopicId,
+                    CreationDate = post.CreationDate,
+                    ModificationDate = post.ModificationDate,
+                    ApplicationUserId = post.ApplicationUserId,
+                    Description = post.Description,
+                    Status = post.Status,
+                }).ToList()
+            };
 
             return topic;
         }
@@ -75,7 +109,26 @@ namespace OSL.Forum.Core.Services
             if (topicEntity == null)
                 return null;
 
-            var topic = _mapper.Map<BO.Topic>(topicEntity);
+            var topic = new BO.Topic
+            {
+                Id = topicEntity.Id,
+                Name = topicEntity.Name,
+                ForumId = topicEntity.ForumId,
+                Forum = ForumService.Create().GetForum(topicEntity.ForumId),
+                CreationDate = topicEntity.CreationDate,
+                ModificationDate = topicEntity.ModificationDate,
+                Posts = topicEntity.Posts.Select(post => new BO.Post
+                {
+                    Id = post.Id,
+                    Name = post.Name,
+                    TopicId = post.TopicId,
+                    CreationDate = post.CreationDate,
+                    ModificationDate = post.ModificationDate,
+                    ApplicationUserId = post.ApplicationUserId,
+                    Description = post.Description,
+                    Status = post.Status,
+                }).ToList()
+            };
 
             return topic;
         }
@@ -126,8 +179,26 @@ namespace OSL.Forum.Core.Services
                 return null;
 
             var topics = topicEntities.data.Select(topic =>
-                _mapper.Map<BO.Topic>(topic)
-                ).ToList();
+                new BO.Topic()
+                {
+                    Id = topic.Id,
+                    Name = topic.Name,
+                    ForumId = topic.ForumId,
+                    Forum = ForumService.Create().GetForum(topic.ForumId),
+                    CreationDate = topic.CreationDate,
+                    ModificationDate = topic.ModificationDate,
+                    Posts = topic.Posts.Select(post => new BO.Post
+                    {
+                        Id = post.Id,
+                        Name = post.Name,
+                        TopicId = post.TopicId,
+                        CreationDate = post.CreationDate,
+                        ModificationDate = post.ModificationDate,
+                        ApplicationUserId = post.ApplicationUserId,
+                        Description = post.Description,
+                        Status = post.Status,
+                    }).ToList()
+                }).ToList();
 
             return topics;
         }
@@ -181,7 +252,17 @@ namespace OSL.Forum.Core.Services
             if (oldForum != null)
                 throw new DuplicateNameException("This Topic already exists under this forum.");
 
-            var topicEntity = _mapper.Map<EO.Topic>(topic);
+            var topicEntity = new EO.Topic
+            {
+                Name = topic.Name,
+                ForumId = topic.ForumId,
+                ApplicationUserId = topic.ApplicationUserId,
+                Status = topic.Status,
+                CreationDate = topic.CreationDate,
+                ModificationDate = topic.ModificationDate,
+                ActivityStatus = topic.ActivityStatus,
+                ApprovalType = topic.ApprovalType
+            };
 
             _unitOfWork.Topics.Add(topicEntity);
             _unitOfWork.Save();

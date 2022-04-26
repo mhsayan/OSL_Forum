@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using OSL.Forum.Base;
 
 namespace OSL.Forum.Core.BusinessObjects
 {

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Autofac;
 using log4net;
-using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Models.Topic;
 
 namespace OSL.Forum.Web.Controllers

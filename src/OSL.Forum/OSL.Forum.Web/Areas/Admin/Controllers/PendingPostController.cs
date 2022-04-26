@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Autofac;
 using log4net;
 using OSL.Forum.Core.Enums;
 using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
@@ -16,7 +12,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
     {
         private readonly ILog _logger;
 
-        public PendingPostController(ILifetimeScope scope)
+        public PendingPostController()
         {
             _logger = LogManager.GetLogger(typeof(PendingPostController));
         }

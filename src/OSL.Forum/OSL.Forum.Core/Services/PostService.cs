@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using OSL.Forum.Core.Enums;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
@@ -16,9 +12,8 @@ namespace OSL.Forum.Core.Services
     {
         private static PostService _postService;
         private readonly CoreUnitOfWork _unitOfWork;
-        private IMapper _mapper;
 
-        public PostService()
+        private PostService()
         {
             _unitOfWork = CoreUnitOfWork.Create();
         }
@@ -43,7 +38,17 @@ namespace OSL.Forum.Core.Services
             if (postEntity == null)
                 return null;
 
-            var post = _mapper.Map<BO.Post>(postEntity);
+            var post = new BO.Post()
+            {
+                Id = postEntity.Id,
+                Name = postEntity.Name,
+                Description = postEntity.Description,
+                CreationDate = postEntity.CreationDate,
+                ModificationDate = postEntity.ModificationDate,
+                TopicId = postEntity.TopicId,
+                ApplicationUserId = postEntity.ApplicationUserId,
+                Status = postEntity.Status
+            };
 
             return post;
         }
@@ -80,7 +85,17 @@ namespace OSL.Forum.Core.Services
             if (post is null)
                 throw new ArgumentNullException(nameof(post));
 
-            var postEntity = _mapper.Map<EO.Post>(post);
+            var postEntity = new EO.Post()
+            {
+                Id = post.Id,
+                Name = post.Name,
+                Description = post.Description,
+                CreationDate = post.CreationDate,
+                ModificationDate = post.ModificationDate,
+                TopicId = post.TopicId,
+                ApplicationUserId = post.ApplicationUserId,
+                Status = post.Status
+            };
 
             _unitOfWork.Posts.Add(postEntity);
             _unitOfWork.Save();
@@ -97,7 +112,17 @@ namespace OSL.Forum.Core.Services
 
             foreach (var post in postEntity.data)
             {
-                posts.Add(_mapper.Map<BO.Post>(post));
+                posts.Add(new BO.Post()
+                {
+                    Id = post.Id,
+                    Name = post.Name,
+                    Description = post.Description,
+                    CreationDate = post.CreationDate,
+                    ModificationDate = post.ModificationDate,
+                    TopicId = post.TopicId,
+                    ApplicationUserId = post.ApplicationUserId,
+                    Status = post.Status
+                });
             }
 
             return posts;
@@ -121,7 +146,17 @@ namespace OSL.Forum.Core.Services
 
             foreach (var post in postEntity.data)
             {
-                posts.Add(_mapper.Map<BO.Post>(post));
+                posts.Add(new BO.Post()
+                {
+                    Id = post.Id,
+                    Name = post.Name,
+                    Description = post.Description,
+                    CreationDate = post.CreationDate,
+                    ModificationDate = post.ModificationDate,
+                    TopicId = post.TopicId,
+                    ApplicationUserId = post.ApplicationUserId,
+                    Status = post.Status
+                });
             }
 
             return posts;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using OSL.Forum.Base;
 
 namespace OSL.Forum.Core.BusinessObjects
 {

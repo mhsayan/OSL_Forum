@@ -2,9 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Autofac;
-using AutoMapper;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Enums;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
@@ -68,7 +65,7 @@ namespace OSL.Forum.Web.Models.Topic
                 ForumId = this.ForumId,
                 Status = Status.Pending.ToString(),
                 ApprovalType = ApprovalType.Manual.ToString(),
-                ActivityStatus = ActivityStatus.Inactive.ToString()
+                ActivityStatus = ActivityStatus.Active.ToString()
             };
 
             _topicService.CreateTopic(topic);

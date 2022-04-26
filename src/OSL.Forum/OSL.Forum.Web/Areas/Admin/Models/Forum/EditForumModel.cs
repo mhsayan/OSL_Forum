@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Autofac;
-using AutoMapper;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Models;

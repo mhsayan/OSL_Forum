@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using Autofac;
-using AutoMapper;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Services;

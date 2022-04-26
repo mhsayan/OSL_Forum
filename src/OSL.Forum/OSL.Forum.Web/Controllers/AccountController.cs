@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Autofac;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Seeds;
 
@@ -20,11 +16,9 @@ namespace OSL.Forum.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly ILifetimeScope _scope;
 
-        public AccountController(ILifetimeScope scope)
+        public AccountController()
         {
-            _scope = scope;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

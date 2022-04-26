@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web;
-using Autofac;
-using AutoMapper;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
 using BO = OSL.Forum.Core.BusinessObjects;

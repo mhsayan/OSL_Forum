@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using AutoMapper;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -45,7 +44,22 @@ namespace OSL.Forum.Core.Services
                 Name = categoryEntity.Name,
                 CreationDate = categoryEntity.CreationDate,
                 ModificationDate = categoryEntity.ModificationDate,
-                Forums = categoryEntity.Forums as IList<BO.Forum>
+                Forums = categoryEntity.Forums.Select(f => new BO.Forum()
+                {
+                    Id = f.Id,
+                    Name = f.Name,
+                    CreationDate = f.CreationDate,
+                    ModificationDate = f.ModificationDate,
+                    CategoryId = f.CategoryId,
+                    Category = new BO.Category()
+                    {
+                        Id = f.Category.Id,
+                        Name = f.Category.Name,
+                        CreationDate = f.Category.CreationDate,
+                        ModificationDate = f.Category.ModificationDate
+                    }
+                }).ToList()
+
             };
 
             return category;
@@ -69,7 +83,21 @@ namespace OSL.Forum.Core.Services
                 Name = categoryEntity.Name,
                 CreationDate = categoryEntity.CreationDate,
                 ModificationDate = categoryEntity.ModificationDate,
-                Forums = categoryEntity.Forums as IList<BO.Forum>
+                Forums = categoryEntity.Forums.Select(forum => new BO.Forum()
+                {
+                    Id = forum.Id,
+                    Name = forum.Name,
+                    CreationDate = forum.CreationDate,
+                    ModificationDate = forum.ModificationDate,
+                    CategoryId = forum.CategoryId,
+                    Category = new BO.Category()
+                    {
+                        Id = forum.Category.Id,
+                        Name = forum.Category.Name,
+                        CreationDate = forum.Category.CreationDate,
+                        ModificationDate = forum.Category.ModificationDate
+                    }
+                }).ToList()
             };
 
             return category;
@@ -162,7 +190,21 @@ namespace OSL.Forum.Core.Services
                     Name = entity.Name,
                     CreationDate = entity.CreationDate,
                     ModificationDate = entity.ModificationDate,
-                    Forums = entity.Forums as IList<BO.Forum>
+                    Forums = entity.Forums.Select(forum => new BO.Forum()
+                    {
+                        Id = forum.Id,
+                        Name = forum.Name,
+                        CreationDate = forum.CreationDate,
+                        ModificationDate = forum.ModificationDate,
+                        CategoryId = forum.CategoryId,
+                        Category = new BO.Category()
+                        {
+                            Id = forum.Category.Id,
+                            Name = forum.Category.Name,
+                            CreationDate = forum.Category.CreationDate,
+                            ModificationDate = forum.Category.ModificationDate
+                        }
+                    }).ToList()
                 };
 
                 categories.Add(category);

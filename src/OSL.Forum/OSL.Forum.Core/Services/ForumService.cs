@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -56,7 +53,24 @@ namespace OSL.Forum.Core.Services
                     CreationDate = forumEntity.Category.CreationDate,
                     ModificationDate = forumEntity.Category.ModificationDate
                 },
-                Topics = forumEntity.Topics as IList<BO.Topic>
+                Topics = forumEntity.Topics.Select(topic => new BO.Topic()
+                {
+                    Id = topic.Id,
+                    Name = topic.Name,
+                    CreationDate = topic.CreationDate,
+                    ModificationDate = topic.ModificationDate,
+                    ApplicationUserId = topic.ApplicationUserId,
+                    ForumId = topic.ForumId,
+                    Posts = topic.Posts.Select(post => new BO.Post()
+                    {
+                        Id = post.Id,
+                        Name = post.Name,
+                        CreationDate = post.CreationDate,
+                        ModificationDate = post.ModificationDate,
+                        ApplicationUserId = post.ApplicationUserId,
+                        TopicId = post.TopicId
+                    }).ToList()
+                }).ToList()
             };
 
             return forum;
@@ -89,7 +103,24 @@ namespace OSL.Forum.Core.Services
                     CreationDate = forumEntity.Category.CreationDate,
                     ModificationDate = forumEntity.Category.ModificationDate
                 },
-                Topics = forumEntity.Topics as IList<BO.Topic>
+                Topics = forumEntity.Topics.Select(topic => new BO.Topic()
+                {
+                    Id = topic.Id,
+                    Name = topic.Name,
+                    CreationDate = topic.CreationDate,
+                    ModificationDate = topic.ModificationDate,
+                    ApplicationUserId = topic.ApplicationUserId,
+                    ForumId = topic.ForumId,
+                    Posts = topic.Posts.Select(post => new BO.Post()
+                    {
+                        Id = post.Id,
+                        Name = post.Name,
+                        CreationDate = post.CreationDate,
+                        ModificationDate = post.ModificationDate,
+                        ApplicationUserId = post.ApplicationUserId,
+                        TopicId = post.TopicId
+                    }).ToList()
+                }).ToList()
             };
 
             return forum;
@@ -120,7 +151,24 @@ namespace OSL.Forum.Core.Services
                     CreationDate = forumEntity.Category.CreationDate,
                     ModificationDate = forumEntity.Category.ModificationDate
                 },
-                Topics = forumEntity.Topics as IList<BO.Topic>
+                Topics = forumEntity.Topics.Select(topic => new BO.Topic()
+                {
+                    Id = topic.Id,
+                    Name = topic.Name,
+                    CreationDate = topic.CreationDate,
+                    ModificationDate = topic.ModificationDate,
+                    ApplicationUserId = topic.ApplicationUserId,
+                    ForumId = topic.ForumId,
+                    Posts = topic.Posts.Select(post => new BO.Post()
+                    {
+                        Id = post.Id,
+                        Name = post.Name,
+                        CreationDate = post.CreationDate,
+                        ModificationDate = post.ModificationDate,
+                        ApplicationUserId = post.ApplicationUserId,
+                        TopicId = post.TopicId
+                    }).ToList()
+                }).ToList()
             };
 
             return forum;
@@ -187,7 +235,24 @@ namespace OSL.Forum.Core.Services
                         CreationDate = forum.Category.CreationDate,
                         ModificationDate = forum.Category.ModificationDate
                     },
-                    Topics = forum.Topics as IList<BO.Topic>
+                    Topics = forum.Topics.Select(topic => new BO.Topic()
+                    {
+                        Id = topic.Id,
+                        Name = topic.Name,
+                        CreationDate = topic.CreationDate,
+                        ModificationDate = topic.ModificationDate,
+                        ApplicationUserId = topic.ApplicationUserId,
+                        ForumId = topic.ForumId,
+                        Posts = topic.Posts.Select(post => new BO.Post()
+                        {
+                            Id = post.Id,
+                            Name = post.Name,
+                            CreationDate = post.CreationDate,
+                            ModificationDate = post.ModificationDate,
+                            ApplicationUserId = post.ApplicationUserId,
+                            TopicId = post.TopicId
+                        }).ToList()
+                    }).ToList()
                 }).ToList();
 
             return forums;

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web;
-using Autofac;
-using AutoMapper;
-using Microsoft.Ajax.Utilities;
 using OSL.Forum.Core.Services;
 using BO = OSL.Forum.Core.BusinessObjects;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using OSL.Forum.Core.Entities;
 using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Models;
 using OSL.Forum.Web.Services;
