@@ -1,4 +1,5 @@
-﻿using OSL.Forum.Base;
+﻿using System.Data.Entity;
+using OSL.Forum.Base;
 using OSL.Forum.Core.Contexts;
 using OSL.Forum.Core.Repositories;
 
@@ -7,6 +8,7 @@ namespace OSL.Forum.Core.UnitOfWorks
     public class CoreUnitOfWork : UnitOfWork, ICoreUnitOfWork
     {
         private static CoreUnitOfWork _coreUnitOfWork;
+        private static ICoreDbContext _coreDbContext;
 
         public ICategoryRepository Categories { get; set; }
         public IForumRepository Forums { get; set; }
@@ -16,7 +18,9 @@ namespace OSL.Forum.Core.UnitOfWorks
 
         public CoreUnitOfWork()
         {
-            base.Resolve(new CoreDbContext());
+            _coreDbContext = new CoreDbContext();
+
+            base.Resolve((DbContext)_coreDbContext);
         }
 
         public static CoreUnitOfWork Create()
@@ -25,11 +29,11 @@ namespace OSL.Forum.Core.UnitOfWorks
             {
                 _coreUnitOfWork = new CoreUnitOfWork()
                 {
-                    Categories = CategoryRepository.Create(),
-                    Forums = ForumRepository.Create(),
-                    Posts = PostRepository.Create(),
-                    Topics = TopicRepository.Create(),
-                    FavoriteForums = FavoriteForumRepository.Create()
+                    Categories = CategoryRepository.Create(_coreDbContext),
+                    Forums = ForumRepository.Create(_coreDbContext),
+                    Posts = PostRepository.Create(_coreDbContext),
+                    Topics = TopicRepository.Create(_coreDbContext),
+                    FavoriteForums = FavoriteForumRepository.Create(_coreDbContext)
                 };
             }
 

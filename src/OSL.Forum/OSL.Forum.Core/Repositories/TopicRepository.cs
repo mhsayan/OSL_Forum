@@ -10,18 +10,18 @@ namespace OSL.Forum.Core.Repositories
         private static TopicRepository _topicRepository;
         private readonly ICoreDbContext _dbContext;
 
-        public TopicRepository()
+        public TopicRepository(ICoreDbContext dbContext)
         {
-            _dbContext = CoreDbContext.Create();
+            _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
         }
 
-        public static TopicRepository Create()
+        public static TopicRepository Create(ICoreDbContext dbContext)
         {
             if (_topicRepository == null)
             {
-                _topicRepository = new TopicRepository();
+                _topicRepository = new TopicRepository(dbContext);
             }
 
             return _topicRepository;

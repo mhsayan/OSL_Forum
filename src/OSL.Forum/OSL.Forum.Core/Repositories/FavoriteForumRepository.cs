@@ -10,18 +10,18 @@ namespace OSL.Forum.Core.Repositories
         private static FavoriteForumRepository _favoriteForumRepository;
         private readonly ICoreDbContext _dbContext;
 
-        private FavoriteForumRepository()
+        private FavoriteForumRepository(ICoreDbContext dbContext)
         {
-            _dbContext = CoreDbContext.Create();
+            _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
         }
 
-        public static FavoriteForumRepository Create()
+        public static FavoriteForumRepository Create(ICoreDbContext dbContext)
         {
             if (_favoriteForumRepository == null)
             {
-                _favoriteForumRepository = new FavoriteForumRepository();
+                _favoriteForumRepository = new FavoriteForumRepository(dbContext);
             }
 
             return _favoriteForumRepository;

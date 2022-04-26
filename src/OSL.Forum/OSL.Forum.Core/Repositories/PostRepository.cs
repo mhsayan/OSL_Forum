@@ -10,18 +10,18 @@ namespace OSL.Forum.Core.Repositories
         private static PostRepository _postRepository;
         private readonly ICoreDbContext _dbContext;
 
-        private PostRepository()
+        private PostRepository(ICoreDbContext dbContext)
         {
-            _dbContext = CoreDbContext.Create();
+            _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
         }
 
-        public static PostRepository Create()
+        public static PostRepository Create(ICoreDbContext dbContext)
         {
             if (_postRepository == null)
             {
-                _postRepository = new PostRepository();
+                _postRepository = new PostRepository(dbContext);
             }
 
             return _postRepository;

@@ -10,18 +10,18 @@ namespace OSL.Forum.Core.Repositories
         private static CategoryRepository _categoryRepository;
         private readonly ICoreDbContext _dbContext;
 
-        private CategoryRepository()
+        private CategoryRepository(ICoreDbContext dbContext)
         {
-            _dbContext = CoreDbContext.Create();
+            _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
         }
 
-        public static CategoryRepository Create()
+        public static CategoryRepository Create(ICoreDbContext dbContext)
         {
             if (_categoryRepository == null)
             {
-                _categoryRepository = new CategoryRepository();
+                _categoryRepository = new CategoryRepository(dbContext);
             }
 
             return _categoryRepository;

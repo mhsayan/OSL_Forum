@@ -25,7 +25,7 @@ namespace OSL.Forum.Core.Services
                 _categoryService = new CategoryService();
             }
 
-            return new CategoryService();
+            return _categoryService;
         }
 
         public BO.Category GetCategory(string categoryName)
