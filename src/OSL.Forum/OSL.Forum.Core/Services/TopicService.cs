@@ -11,21 +11,15 @@ namespace OSL.Forum.Core.Services
 {
     public class TopicService : ITopicService
     {
-        private static TopicService _topicService;
         private readonly CoreUnitOfWork _unitOfWork;
 
-        public TopicService()
+        private TopicService()
         {
-            _unitOfWork = CoreUnitOfWork.Create();
+            _unitOfWork = CoreUnitOfWork.CreateTopicRepository();
         }
 
         public static TopicService Create()
         {
-            //if (_topicService == null)
-            //{
-            //    _topicService = new TopicService();
-            //}
-
             return new TopicService();
         }
 

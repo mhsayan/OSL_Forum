@@ -10,21 +10,15 @@ namespace OSL.Forum.Core.Services
 {
     public class CategoryService : ICategoryService
     {
-        private static CategoryService _categoryService;
         private readonly CoreUnitOfWork _unitOfWork;
 
         private CategoryService()
         {
-            _unitOfWork = CoreUnitOfWork.Create();
+            _unitOfWork = CoreUnitOfWork.CreateCategoryRepository();
         }
 
         public static CategoryService Create()
         {
-            //if (_categoryService == null)
-            //{
-            //    _categoryService = new CategoryService();
-            //}
-
             return new CategoryService();
         }
 

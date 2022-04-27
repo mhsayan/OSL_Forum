@@ -10,21 +10,15 @@ namespace OSL.Forum.Core.Services
 {
     public class ForumService : IForumService
     {
-        private static ForumService _forumService;
         private readonly CoreUnitOfWork _unitOfWork;
 
         private ForumService()
         {
-            _unitOfWork = CoreUnitOfWork.Create();
+            _unitOfWork = CoreUnitOfWork.CreateForumRepository();
         }
 
         public static ForumService Create()
         {
-            //if (_forumService == null)
-            //{
-            //    _forumService = new ForumService();
-            //}
-
             return new ForumService(); ;
         }
 

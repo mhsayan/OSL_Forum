@@ -7,7 +7,6 @@ namespace OSL.Forum.Core.Repositories
 {
     public class FavoriteForumRepository : Repository<FavoriteForum, long>, IFavoriteForumRepository
     {
-        private static FavoriteForumRepository _favoriteForumRepository;
         private readonly ICoreDbContext _dbContext;
 
         private FavoriteForumRepository(ICoreDbContext dbContext)
@@ -19,11 +18,6 @@ namespace OSL.Forum.Core.Repositories
 
         public static FavoriteForumRepository Create(ICoreDbContext dbContext)
         {
-            //if (_favoriteForumRepository == null)
-            //{
-            //    _favoriteForumRepository = new FavoriteForumRepository(dbContext);
-            //}
-
             return new FavoriteForumRepository(dbContext);
         }
     }

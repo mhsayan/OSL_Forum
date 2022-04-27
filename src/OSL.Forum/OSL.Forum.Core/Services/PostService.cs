@@ -10,21 +10,15 @@ namespace OSL.Forum.Core.Services
 {
     public class PostService : IPostService
     {
-        private static PostService _postService;
         private readonly CoreUnitOfWork _unitOfWork;
 
         private PostService()
         {
-            _unitOfWork = CoreUnitOfWork.Create();
+            _unitOfWork = CoreUnitOfWork.CreatePostRepository();
         }
 
         public static PostService Create()
         {
-            //if (_postService == null)
-            //{
-            //    _postService = new PostService();
-            //}
-
             return new PostService();
         }
 

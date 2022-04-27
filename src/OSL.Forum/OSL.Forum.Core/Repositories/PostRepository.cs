@@ -7,7 +7,6 @@ namespace OSL.Forum.Core.Repositories
 {
     public class PostRepository : Repository<Post, long>, IPostRepository
     {
-        private static PostRepository _postRepository;
         private readonly ICoreDbContext _dbContext;
 
         private PostRepository(ICoreDbContext dbContext)
@@ -19,11 +18,6 @@ namespace OSL.Forum.Core.Repositories
 
         public static PostRepository Create(ICoreDbContext dbContext)
         {
-            //if (_postRepository == null)
-            //{
-            //    _postRepository = new PostRepository(dbContext);
-            //}
-
             return new PostRepository(dbContext);
         }
     }

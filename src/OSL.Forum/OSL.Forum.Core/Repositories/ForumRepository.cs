@@ -6,7 +6,6 @@ namespace OSL.Forum.Core.Repositories
 {
     public class ForumRepository : Repository<Entities.Forum, long>, IForumRepository
     {
-        private static ForumRepository _forumRepository;
         private readonly ICoreDbContext _dbContext;
 
         private ForumRepository(ICoreDbContext dbContext)
@@ -18,11 +17,6 @@ namespace OSL.Forum.Core.Repositories
 
         public static ForumRepository Create(ICoreDbContext dbContext)
         {
-            //if (_forumRepository == null)
-            //{
-            //    _forumRepository = new ForumRepository(dbContext);
-            //}
-
             return new ForumRepository(dbContext);
         }
     }

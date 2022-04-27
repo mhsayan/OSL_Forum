@@ -7,7 +7,6 @@ namespace OSL.Forum.Core.Repositories
 {
     public class CategoryRepository : Repository<Category, long>, ICategoryRepository
     {
-        private static CategoryRepository _categoryRepository;
         private readonly ICoreDbContext _dbContext;
 
         private CategoryRepository(ICoreDbContext dbContext)
@@ -19,11 +18,6 @@ namespace OSL.Forum.Core.Repositories
 
         public static CategoryRepository Create(ICoreDbContext dbContext)
         {
-            //if (_categoryRepository == null)
-            //{
-            //    _categoryRepository = new CategoryRepository(dbContext);
-            //}
-
             return new CategoryRepository(dbContext);
         }
     }

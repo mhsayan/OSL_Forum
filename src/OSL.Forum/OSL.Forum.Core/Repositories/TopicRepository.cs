@@ -7,7 +7,6 @@ namespace OSL.Forum.Core.Repositories
 {
     public class TopicRepository : Repository<Topic, long>, ITopicRepository
     {
-        private static TopicRepository _topicRepository;
         private readonly ICoreDbContext _dbContext;
 
         public TopicRepository(ICoreDbContext dbContext)
@@ -19,11 +18,6 @@ namespace OSL.Forum.Core.Repositories
 
         public static TopicRepository Create(ICoreDbContext dbContext)
         {
-            //if (_topicRepository == null)
-            //{
-            //    _topicRepository = new TopicRepository(dbContext);
-            //}
-
             return new TopicRepository(dbContext);
         }
     }

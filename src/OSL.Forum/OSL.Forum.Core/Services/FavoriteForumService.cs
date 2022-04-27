@@ -9,21 +9,15 @@ namespace OSL.Forum.Core.Services
 {
     public class FavoriteForumService : IFavoriteForumService
     {
-        private static FavoriteForumService _favoriteForumService;
         private readonly CoreUnitOfWork _unitOfWork;
 
         private FavoriteForumService()
         {
-            _unitOfWork = CoreUnitOfWork.Create();
+            _unitOfWork = CoreUnitOfWork.CreateFavoriteForumRepository();
         }
 
         public static FavoriteForumService Create()
         {
-            //if (_favoriteForumService == null)
-            //{
-            //    _favoriteForumService = new FavoriteForumService();
-            //}
-
             return new FavoriteForumService();
         }
 
