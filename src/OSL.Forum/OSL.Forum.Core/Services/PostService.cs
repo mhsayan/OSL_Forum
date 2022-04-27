@@ -47,7 +47,24 @@ namespace OSL.Forum.Core.Services
                 ModificationDate = postEntity.ModificationDate,
                 TopicId = postEntity.TopicId,
                 ApplicationUserId = postEntity.ApplicationUserId,
-                Status = postEntity.Status
+                Status = postEntity.Status,
+                Topic = new BO.Topic()
+                {
+                    Id = postEntity.Topic.Id,
+                    Name = postEntity.Topic.Name,
+                    ForumId = postEntity.Topic.ForumId,
+                    Forum = new BO.Forum()
+                    {
+                        Id = postEntity.Topic.Forum.Id,
+                        Name = postEntity.Topic.Forum.Name,
+                        CategoryId = postEntity.Topic.Forum.CategoryId,
+                        Category = new BO.Category()
+                        {
+                            Id = postEntity.Topic.Forum.Category.Id,
+                            Name = postEntity.Topic.Forum.Category.Name
+                        }
+                    }
+                }
             };
 
             return post;
@@ -155,7 +172,29 @@ namespace OSL.Forum.Core.Services
                     ModificationDate = post.ModificationDate,
                     TopicId = post.TopicId,
                     ApplicationUserId = post.ApplicationUserId,
-                    Status = post.Status
+                    Status = post.Status,
+                    Topic = new BO.Topic()
+                    {
+                        Id = post.Topic.Id,
+                        Name = post.Topic.Name,
+                        CreationDate = post.Topic.CreationDate,
+                        ModificationDate = post.Topic.ModificationDate,
+                        ApplicationUserId = post.Topic.ApplicationUserId,
+                        Status = post.Topic.Status,
+                        Forum = new BO.Forum()
+                        {
+                            Id = post.Topic.Forum.Id,
+                            Name = post.Topic.Forum.Name,
+                            CreationDate = post.Topic.Forum.CreationDate,
+                            ModificationDate = post.Topic.Forum.ModificationDate,
+                            ApplicationUserId = post.Topic.Forum.ApplicationUserId,
+                            Category = new BO.Category()
+                            {
+                                Id = post.Topic.Forum.Category.Id,
+                                Name = post.Topic.Forum.Category.Name
+                            }
+                        }
+                    }
                 });
             }
 

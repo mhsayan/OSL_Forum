@@ -57,7 +57,7 @@ namespace OSL.Forum.Web.Controllers
                 await model.Resolve();
                 model.GetForum(model.ForumId);
                 model.Create();
-                model.CreatePost();
+                model.CreatePost(model.Name);
 
                 return RedirectToAction("Topics", "Topic", new { id = model.ForumId });
             }

@@ -83,6 +83,7 @@ namespace OSL.Forum.Core.Services
                 Forum = ForumService.Create().GetForum(topicEntity.ForumId),
                 CreationDate = topicEntity.CreationDate,
                 ModificationDate = topicEntity.ModificationDate,
+                ActivityStatus = topicEntity.ActivityStatus,
                 Posts = topicEntity.Posts.Select(post => new BO.Post
                 {
                     Id = post.Id,
@@ -102,7 +103,7 @@ namespace OSL.Forum.Core.Services
         public BO.Topic GetTopic(string topicName)
         {
             if (string.IsNullOrWhiteSpace(topicName))
-                throw new ArgumentNullException(nameof(topicName));
+                throw new ArgumentException(nameof(topicName));
 
             var topicEntity = _unitOfWork.Topics.Get(c => c.Name == topicName, "").FirstOrDefault();
 
@@ -116,18 +117,7 @@ namespace OSL.Forum.Core.Services
                 ForumId = topicEntity.ForumId,
                 Forum = ForumService.Create().GetForum(topicEntity.ForumId),
                 CreationDate = topicEntity.CreationDate,
-                ModificationDate = topicEntity.ModificationDate,
-                Posts = topicEntity.Posts.Select(post => new BO.Post
-                {
-                    Id = post.Id,
-                    Name = post.Name,
-                    TopicId = post.TopicId,
-                    CreationDate = post.CreationDate,
-                    ModificationDate = post.ModificationDate,
-                    ApplicationUserId = post.ApplicationUserId,
-                    Description = post.Description,
-                    Status = post.Status,
-                }).ToList()
+                ModificationDate = topicEntity.ModificationDate
             };
 
             return topic;
@@ -188,6 +178,7 @@ namespace OSL.Forum.Core.Services
                     CreationDate = topic.CreationDate,
                     ModificationDate = topic.ModificationDate,
                     ApplicationUserId = topic.ApplicationUserId,
+                    ActivityStatus = topic.ActivityStatus,
                     Posts = topic.Posts.Select(post => new BO.Post
                     {
                         Id = post.Id,

@@ -71,9 +71,9 @@ namespace OSL.Forum.Web.Models.Topic
             _topicService.CreateTopic(topic);
         }
 
-        public void CreatePost()
+        public void CreatePost(string topicName)
         {
-            var topic = _topicService.GetTopic(Name);
+            var topic = _topicService.GetTopic(topicName);
 
             if (topic == null)
                 throw new InvalidOperationException("Topic is missing.");

@@ -25,19 +25,26 @@ namespace OSL.Forum.Core.UnitOfWorks
 
         public static CoreUnitOfWork Create()
         {
-            if (_coreUnitOfWork == null)
-            {
-                _coreUnitOfWork = new CoreUnitOfWork()
-                {
-                    Categories = CategoryRepository.Create(_coreDbContext),
-                    Forums = ForumRepository.Create(_coreDbContext),
-                    Posts = PostRepository.Create(_coreDbContext),
-                    Topics = TopicRepository.Create(_coreDbContext),
-                    FavoriteForums = FavoriteForumRepository.Create(_coreDbContext)
-                };
-            }
+            //if (_coreUnitOfWork == null)
+            //{
+            //    _coreUnitOfWork = new CoreUnitOfWork()
+            //    {
+            //        Categories = CategoryRepository.Create(_coreDbContext),
+            //        Forums = ForumRepository.Create(_coreDbContext),
+            //        Posts = PostRepository.Create(_coreDbContext),
+            //        Topics = TopicRepository.Create(_coreDbContext),
+            //        FavoriteForums = FavoriteForumRepository.Create(_coreDbContext)
+            //    };
+            //}
 
-            return _coreUnitOfWork;
+            return _coreUnitOfWork = new CoreUnitOfWork()
+            {
+                Categories = CategoryRepository.Create(_coreDbContext),
+                Forums = ForumRepository.Create(_coreDbContext),
+                Posts = PostRepository.Create(_coreDbContext),
+                Topics = TopicRepository.Create(_coreDbContext),
+                FavoriteForums = FavoriteForumRepository.Create(_coreDbContext)
+            };
         }
     }
 }
