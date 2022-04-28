@@ -8,6 +8,8 @@ namespace OSL.Forum.Base
     public interface IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
+        void Save();
+        void Dispose();
         void Add(TEntity entity);
         void Remove(TKey id);
         void Remove(TEntity entityToDelete);

@@ -25,6 +25,16 @@ namespace OSL.Forum.Base
             _dbSet = _dbContext.Set<TEntity>();
         }
 
+        public void Dispose()
+        {
+            _dbContext?.Dispose();
+        }
+
+        public void Save()
+        {
+            _dbContext?.SaveChanges();
+        }
+
 
         public virtual void Add(TEntity entity)
         {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using OSL.Forum.Core.Contexts;
+using OSL.Forum.Core.Repositories;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -10,11 +12,11 @@ namespace OSL.Forum.Core.Services
 {
     public class ForumService : IForumService
     {
-        private readonly CoreUnitOfWork _unitOfWork;
+        private readonly IForumRepository _forumRepository;
 
         private ForumService()
         {
-            _unitOfWork = CoreUnitOfWork.CreateForumRepository();
+            _forumRepository = ForumRepository.Create(new CoreDbContext());
         }
 
         public static ForumService Create()
@@ -27,7 +29,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(forumName))
                 throw new ArgumentNullException(nameof(forumName));
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Name == forumName && c.CategoryId == categoryId, "").FirstOrDefault();
+            var forumEntity = _forumRepository.Get(c => c.Name == forumName && c.CategoryId == categoryId, "").FirstOrDefault();
 
             if (forumEntity == null)
                 return null;
@@ -75,7 +77,7 @@ namespace OSL.Forum.Core.Services
             if (forumId == 0)
                 throw new ArgumentException("Forum Id is required.");
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Id == forumId, "Topics").FirstOrDefault();
+            var forumEntity = _forumRepository.Get(c => c.Id == forumId, "Topics").FirstOrDefault();
 
             if (forumEntity == null)
                 return null;
@@ -125,7 +127,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(forumName))
                 throw new ArgumentNullException(nameof(forumName));
 
-            var forumEntity = _unitOfWork.Forums.Get(c => c.Name == forumName, "").FirstOrDefault();
+            var forumEntity = _forumRepository.Get(c => c.Name == forumName, "").FirstOrDefault();
 
             if (forumEntity == null)
                 return null;
@@ -178,7 +180,7 @@ namespace OSL.Forum.Core.Services
             if (oldForum != null)
                 throw new DuplicateNameException("This forum already exists.");
 
-            var forumEntity = _unitOfWork.Forums.GetById(forum.Id);
+            var forumEntity = _forumRepository.GetById(forum.Id);
 
             if (forumEntity is null)
                 throw new InvalidOperationException("Forum is not found.");
@@ -187,7 +189,7 @@ namespace OSL.Forum.Core.Services
             forumEntity.ModificationDate = forum.ModificationDate;
             forumEntity.ApplicationUserId = forum.ApplicationUserId;
 
-            _unitOfWork.Save();
+            _forumRepository.Save();
         }
 
         public void DeleteForum(long forumId)
@@ -195,20 +197,20 @@ namespace OSL.Forum.Core.Services
             if (forumId == 0)
                 throw new ArgumentException("Forum id is required.");
 
-            _unitOfWork.Forums.Remove(forumId);
-            _unitOfWork.Save();
+            _forumRepository.Remove(forumId);
+            _forumRepository.Save();
         }
 
         public int GetForumCount(long categoryId)
         {
-            var totalForum = _unitOfWork.Forums.Get(f => f.CategoryId == categoryId, "").Count;
+            var totalForum = _forumRepository.Get(f => f.CategoryId == categoryId, "").Count;
 
             return totalForum;
         }
 
         public IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId)
         {
-            var (data, _, _) = _unitOfWork.Forums.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+            var (data, _, _) = _forumRepository.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
 
             if (data == null)
                 return null;
@@ -246,8 +248,8 @@ namespace OSL.Forum.Core.Services
                 ModificationDate = forum.ModificationDate
             };
 
-            _unitOfWork.Forums.Add(forumEntity);
-            _unitOfWork.Save();
+            _forumRepository.Add(forumEntity);
+            _forumRepository.Save();
         }
     }
 }
