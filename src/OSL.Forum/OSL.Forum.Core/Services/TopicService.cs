@@ -78,6 +78,7 @@ namespace OSL.Forum.Core.Services
                 CreationDate = topicEntity.CreationDate,
                 ModificationDate = topicEntity.ModificationDate,
                 ActivityStatus = topicEntity.ActivityStatus,
+                ApprovalType = topicEntity.ApprovalType,
                 Posts = topicEntity.Posts.Select(post => new BO.Post
                 {
                     Id = post.Id,

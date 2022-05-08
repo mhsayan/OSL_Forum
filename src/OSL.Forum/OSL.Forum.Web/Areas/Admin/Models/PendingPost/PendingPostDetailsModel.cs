@@ -38,6 +38,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
             this.Id = Post.Id;
             this.Name = Post.Name;
             this.Description = Post.Description;
+            this.TopicId = Post.TopicId;
         }
 
         public void UpdatePostStatus(string status)
