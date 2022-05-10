@@ -16,10 +16,9 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             _logger = LogManager.GetLogger(typeof(UserManagementController));
         }
 
-        public async Task<ActionResult> AssignRole()
+        public ActionResult AssignRole()
         {
             var model = new AssignRoleModel();
-            await model.Resolve();
             model.GetUsers();
             model.AdminRoles();
             model.SuperAdminRoles();
@@ -36,7 +35,6 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.Resolve();
                 await model.AddUserToRoleAsync();
 
                 return Redirect(nameof(AssignRole));

@@ -9,7 +9,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Post
 {
-    public class EditPostModel : BaseModel
+    public class EditPostModel
     {
         [Required]
         public long Id { get; set; }
@@ -33,15 +33,9 @@ namespace OSL.Forum.Web.Models.Post
 
         public EditPostModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _dateTimeUtility = new DateTimeUtility();
             _topicService = new TopicService();
             _postService = new PostService();
-
-            await base.Resolve();
         }
 
         public void GetPost(long postId)

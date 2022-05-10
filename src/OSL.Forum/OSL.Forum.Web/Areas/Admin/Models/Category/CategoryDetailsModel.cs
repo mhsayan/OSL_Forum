@@ -8,7 +8,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
-    public class CategoryDetailsModel : BaseModel
+    public class CategoryDetailsModel
     {
         public BO.Category Category { get; set; }
         public IList<BO.Forum> Forums { get; set; }
@@ -20,15 +20,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public CategoryDetailsModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _categoryService = new CategoryService();
             _forumService = new ForumService();
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
 
         public void GetCategory(long categoryId)

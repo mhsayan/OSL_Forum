@@ -234,7 +234,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\Category\CreateCategoryModel.cs" />
-    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\ConfirmEmailModel.cs" />
     <Compile Include="Models\FavoriteForum\FavoriteForumModel.cs" />
     <Compile Include="Models\Post\CreatePostModel.cs" />

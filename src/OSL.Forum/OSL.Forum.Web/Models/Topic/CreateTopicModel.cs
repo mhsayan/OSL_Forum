@@ -10,7 +10,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
 {
-    public class CreateTopicModel : BaseModel
+    public class CreateTopicModel
     {
         [Required]
         [Display(Name = "Topic Name")]
@@ -34,17 +34,11 @@ namespace OSL.Forum.Web.Models.Topic
 
         public CreateTopicModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _dateTimeUtility = new DateTimeUtility();
             _profileService = new ProfileService();
             _topicService = new TopicService();
             _postService = new PostService();
             _forumService = new ForumService();
-
-            await base.Resolve();
         }
 
         public void Create()

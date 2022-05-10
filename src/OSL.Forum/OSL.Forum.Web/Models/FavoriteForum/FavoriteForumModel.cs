@@ -7,7 +7,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.FavoriteForum
 {
-    public class FavoriteForumModel : BaseModel
+    public class FavoriteForumModel
     {
         public IList<BO.FavoriteForum> FavoriteForums { get; set; }
         public Pager Pager { get; set; }
@@ -16,15 +16,8 @@ namespace OSL.Forum.Web.Models.FavoriteForum
 
         public FavoriteForumModel()
         {
-
-        }
-
-        public override async Task Resolve()
-        {
             _favoriteForumService = new FavoriteForumService();
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
 
         public void AddToFavorite(long forumId)

@@ -9,7 +9,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 {
-    public class PendingPostListModel : BaseModel
+    public class PendingPostListModel
     {
         public List<Post> Posts { get; set; }
         public Pager Pager { get; set; }
@@ -18,14 +18,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 
         public PendingPostListModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _postService = new PostService();
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
 
         public void GetPendingPostList(int? page)

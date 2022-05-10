@@ -19,20 +19,18 @@ namespace OSL.Forum.Web.Controllers
         }
 
         // GET: Profile
-        public async Task<ActionResult> MyProfile(int? page)
+        public ActionResult MyProfile(int? page)
         {
             var model = new ProfileDetailsModel();
-            await model.Resolve();
             model.GetUserInfo();
             model.GetMyPosts(page);
 
             return View(model);
         }
 
-        public async Task<ActionResult> EditPost(long postId)
+        public ActionResult EditPost(long postId)
         {
             var model = new EditPostModel();
-            await model.Resolve();
             model.GetPost(postId);
 
             return View(model);
@@ -40,17 +38,16 @@ namespace OSL.Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditPost(EditPostModel model)
+        public ActionResult EditPost(EditPostModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             if (model.ApplicationUserId != User.Identity.GetUserId())
-                return View();
+                return View(model);
 
             try
             {
-                await model.Resolve();
                 model.EditPost();
                 model.UpdateTopicModificationDate();
 
@@ -66,19 +63,17 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> DeletePost(long postId, long topicId)
+        public ActionResult DeletePost(long postId, long topicId)
         {
             var model = new EditPostModel();
-            await model.Resolve();
             model.Delete(postId);
 
             return Redirect(nameof(MyProfile));
         }
 
-        public async Task<ActionResult> Edit()
+        public ActionResult Edit()
         {
             var model = new EditProfileModel();
-            await model.Resolve();
             model.LoadUserInfo();
 
             return View(model);
@@ -93,7 +88,6 @@ namespace OSL.Forum.Web.Controllers
 
             try
             {
-                await model.Resolve();
                 await model.EditProfileAsync();
 
                 return Redirect(nameof(MyProfile));

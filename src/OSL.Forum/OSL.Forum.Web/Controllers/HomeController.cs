@@ -15,10 +15,9 @@ namespace OSL.Forum.Web.Controllers
         }
 
 
-        public async Task<ActionResult> Index(int? page)
+        public ActionResult Index(int? page)
         {
             var model = new IndexViewModel();
-            await model.Resolve();
             model.GetCategories(page);
             model.UserAuthenticatedStatus();
 
@@ -28,10 +27,9 @@ namespace OSL.Forum.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Details(int? page, long id)
+        public ActionResult Details(int? page, long id)
         {
             var model = new DetailsModel();
-            await model.Resolve();
             model.GetCategory(id);
             model.GetForums(id, page);
 

@@ -18,7 +18,6 @@ namespace OSL.Forum.Web.Controllers
         public async Task<ActionResult> Topics(int? page, long id)
         {
             var model = new TopicViewModel();
-            await model.Resolve();
             model.GetForum(id);
             model.GetTopics(page, id);
             model.LoadUserInfo();
@@ -28,17 +27,14 @@ namespace OSL.Forum.Web.Controllers
                 model.FavoriteForumStatus();
                 await model.GetUserRolesAsync();
             }
-
-
-
+            
             return View(model);
         }
 
         [Authorize]
-        public async Task<ActionResult> Create(long forumId)
+        public ActionResult Create(long forumId)
         {
             var model = new CreateTopicModel();
-            await model.Resolve();
             model.GetForum(forumId);
 
             return View(model);
@@ -47,14 +43,13 @@ namespace OSL.Forum.Web.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateTopicModel model)
+        public ActionResult Create(CreateTopicModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             try
             {
-                await model.Resolve();
                 model.GetForum(model.ForumId);
                 model.Create();
                 model.CreatePost(model.Name);
@@ -74,7 +69,6 @@ namespace OSL.Forum.Web.Controllers
         public async Task<ActionResult> Details(long topicId)
         {
             var model = new TopicDetailsModel();
-            await model.Resolve();
             model.GetTopic(topicId);
             model.UserAuthenticatedStatus();
 
@@ -85,30 +79,27 @@ namespace OSL.Forum.Web.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
-        public async Task<ActionResult> Delete(long topicId, long forumId)
+        public ActionResult Delete(long topicId, long forumId)
         {
             var model = new TopicViewModel();
-            await model.Resolve();
             model.Delete(topicId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
-        public async Task<ActionResult> Close(long topicId, long forumId)
+        public ActionResult Close(long topicId, long forumId)
         {
             var model = new TopicViewModel();
-            await model.Resolve();
             model.Close(topicId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Moderator, User")]
-        public async Task<ActionResult> Open(long topicId, long forumId)
+        public ActionResult Open(long topicId, long forumId)
         {
             var model = new TopicViewModel();
-            await model.Resolve();
             model.Open(topicId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });

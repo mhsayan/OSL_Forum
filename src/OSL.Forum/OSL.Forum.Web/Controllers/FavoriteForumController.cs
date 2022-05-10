@@ -15,28 +15,25 @@ namespace OSL.Forum.Web.Controllers
             _logger = LogManager.GetLogger(typeof(FavoriteForumController));
         }
 
-        public async Task<ActionResult> FavoriteForums(int? page)
+        public ActionResult FavoriteForums(int? page)
         {
             var model = new FavoriteForumModel();
-            await model.Resolve();
             model.GetFavoriteForums(page);
 
             return View(model);
         }
 
-        public async Task<ActionResult> AddToFavorite(long forumId)
+        public ActionResult AddToFavorite(long forumId)
         {
             var model = new FavoriteForumModel();
-            await model.Resolve();
             model.AddToFavorite(forumId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
-        public async Task<ActionResult> RemoveFromFavorite(long forumId)
+        public ActionResult RemoveFromFavorite(long forumId)
         {
             var model = new FavoriteForumModel();
-            await model.Resolve();
             model.RemoveFromFavorite(forumId);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });

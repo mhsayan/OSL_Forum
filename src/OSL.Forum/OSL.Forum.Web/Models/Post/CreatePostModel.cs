@@ -10,7 +10,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Post
 {
-    public class CreatePostModel : BaseModel
+    public class CreatePostModel
     {
         [Required]
         [Display(Name = "Post Title")]
@@ -31,16 +31,10 @@ namespace OSL.Forum.Web.Models.Post
 
         public CreatePostModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _dateTimeUtility = new DateTimeUtility();
             _profileService = new ProfileService();
             _topicService = new TopicService();
             _postService = new PostService();
-
-            await base.Resolve();
         }
 
         public void CreatePost()

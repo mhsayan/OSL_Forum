@@ -9,7 +9,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 {
-    public class EditForumModel : BaseModel
+    public class EditForumModel
     {
         [Required]
         public long Id { get; set; }
@@ -26,16 +26,10 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public EditForumModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _categoryService = new CategoryService();
             _forumService = new ForumService();
             _dateTimeUtility = new DateTimeUtility();
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
 
         public void GetForum(long forumId)

@@ -18,19 +18,17 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         // GET: Admin/PendingPost
-        public async Task<ActionResult> Index(int? page)
+        public ActionResult Index(int? page)
         {
             var model = new PendingPostListModel();
-            await model.Resolve();
             model.GetPendingPostList(page);
 
             return View(model);
         }
 
-        public async Task<ActionResult> Post(long postId)
+        public ActionResult Post(long postId)
         {
             var model = new PendingPostDetailsModel();
-            await model.Resolve();
             model.GetPendingPost(postId);
 
             return View(model);
@@ -38,15 +36,13 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<ActionResult> Post(string button, PendingPostDetailsModel model)
+        public ActionResult Post(string button, PendingPostDetailsModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             try
             {
-                await model.Resolve();
-
                 if (button == "Accept")
                     model.UpdatePostStatus(Status.Approved.ToString());
 
@@ -55,7 +51,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
                 model.UpdateTopicApprovalType();
 
-                return Redirect(nameof(Index));
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -67,19 +63,17 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Accept(long postId)
+        public ActionResult Accept(long postId)
         {
             var model = new PendingPostListModel();
-            await model.Resolve();
             model.UpdatePostStatus(postId, Status.Approved.ToString());
 
             return Redirect(nameof(Index));
         }
 
-        public async Task<ActionResult> Reject(long postId)
+        public ActionResult Reject(long postId)
         {
             var model = new PendingPostListModel();
-            await model.Resolve();
             model.UpdatePostStatus(postId, Status.Rejected.ToString());
 
             return Redirect(nameof(Index));

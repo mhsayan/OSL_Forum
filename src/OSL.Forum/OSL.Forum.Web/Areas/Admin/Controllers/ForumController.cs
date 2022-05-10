@@ -16,10 +16,9 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             _logger = LogManager.GetLogger(typeof(ForumController));
         }
 
-        public async Task<ActionResult> Create(long categoryId)
+        public ActionResult Create(long categoryId)
         {
             var model = new CreateForumModel();
-            await model.Resolve();
             model.GetCategory(categoryId);
 
             return View(model);
@@ -27,14 +26,13 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateForumModel model)
+        public ActionResult Create(CreateForumModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             try
             {
-                await model.Resolve();
                 model.Create();
 
                 return RedirectToAction("Details", "Category", new { id = model.CategoryId });
@@ -49,10 +47,9 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Edit(long id, long categoryId)
+        public ActionResult Edit(long id, long categoryId)
         {
             var model = new EditForumModel();
-            await model.Resolve();
             model.GetForum(id);
 
             return View(model);
@@ -60,14 +57,13 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditForumModel model)
+        public ActionResult Edit(EditForumModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             try
             {
-                await model.Resolve();
                 model.Edit();
 
                 return RedirectToAction("Details", "Category", new { id = model.CategoryId });
@@ -82,10 +78,9 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Delete(long id, long categoryId)
+        public ActionResult Delete(long id, long categoryId)
         {
             var model = new EditForumModel();
-            await model.Resolve();
             model.Delete(id);
 
             return RedirectToAction("Details", "Category", new { id = categoryId });

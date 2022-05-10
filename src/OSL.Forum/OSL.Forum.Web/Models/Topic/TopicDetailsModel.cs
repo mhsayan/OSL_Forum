@@ -8,7 +8,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
 {
-    public class TopicDetailsModel : BaseModel
+    public class TopicDetailsModel
     {
         private ApplicationUser ApplicationUser { get; set; }
         public BO.Topic Topic { get; set; }
@@ -20,14 +20,8 @@ namespace OSL.Forum.Web.Models.Topic
 
         public TopicDetailsModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _profileService = new ProfileService();
             _topicService = new TopicService();
-
-            await base.Resolve();
         }
 
         public void GetTopic(long topicId)

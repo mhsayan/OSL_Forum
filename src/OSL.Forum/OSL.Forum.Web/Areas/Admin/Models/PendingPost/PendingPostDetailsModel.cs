@@ -6,7 +6,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 {
-    public class PendingPostDetailsModel : BaseModel
+    public class PendingPostDetailsModel
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -20,15 +20,9 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 
         public PendingPostDetailsModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _postService = new PostService();
             _profileService = new ProfileService();
             _topicService = new TopicService();
-
-            await base.Resolve();
         }
 
         public void GetPendingPost(long postId)

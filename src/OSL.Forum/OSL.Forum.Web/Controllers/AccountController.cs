@@ -178,12 +178,9 @@ namespace OSL.Forum.Web.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmRegistration()
+        public ActionResult ConfirmRegistration()
         {
-            var model = new BaseModel();
-            await model.Resolve();
-
-            return View(model);
+            return View();
         }
 
         //
@@ -197,7 +194,6 @@ namespace OSL.Forum.Web.Controllers
             }
 
             var model = new ConfirmEmailModel();
-            await model.Resolve();
 
             var user = await UserManager.FindByIdAsync(userId);
 
@@ -254,12 +250,9 @@ namespace OSL.Forum.Web.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public async Task<ActionResult> ForgotPasswordConfirmation()
+        public ActionResult ForgotPasswordConfirmation()
         {
-            var model = new BaseModel();
-            await model.Resolve();
-
-            return View(model);
+            return View();
         }
 
         //
@@ -301,12 +294,9 @@ namespace OSL.Forum.Web.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public async Task<ActionResult> ResetPasswordConfirmation()
+        public Task<ActionResult> ResetPasswordConfirmation()
         {
-            var model = new BaseModel();
-            await model.Resolve();
-
-            return View(model);
+            return Task.FromResult<ActionResult>(View());
         }
 
         //

@@ -7,7 +7,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
-    public class EditCategoryModel : BaseModel
+    public class EditCategoryModel
     {
         [Required]
         public long Id { get; set; }
@@ -19,13 +19,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public EditCategoryModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _categoryService = new CategoryService();
-
-            await base.Resolve();
         }
 
         public void GetCategory(long categoryId)

@@ -1,4 +1,4 @@
-﻿@model OSL.Forum.Web.Models.BaseModel
+﻿@using Roles = OSL.Forum.Web.Seeds.Roles
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
                 <li class="nav-item m-1">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (Model.ShowDashboard)
+                        if (!User.IsInRole(Roles.User.ToString()))
                         {
                             <a class="nav-link" href="/Admin/Category/Index">
                                 Dashboard

@@ -9,7 +9,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
 {
-    public class AssignRoleModel : BaseModel
+    public class AssignRoleModel
     {
         [Required]
         public string UserId { get; set; }
@@ -22,13 +22,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
 
         public AssignRoleModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
 
         public void GetUsers()

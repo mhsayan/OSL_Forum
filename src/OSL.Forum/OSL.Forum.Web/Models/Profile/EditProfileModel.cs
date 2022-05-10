@@ -4,7 +4,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Models.Profile
 {
-    public class EditProfileModel : BaseModel
+    public class EditProfileModel
     {
         [Required]
         public string Id { get; set; }
@@ -16,16 +16,9 @@ namespace OSL.Forum.Web.Models.Profile
 
         public EditProfileModel()
         {
-
-        }
-
-        public override async Task Resolve()
-        {
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
-
+        
         public async Task EditProfileAsync()
         {
             var applicationUser = new ApplicationUser()

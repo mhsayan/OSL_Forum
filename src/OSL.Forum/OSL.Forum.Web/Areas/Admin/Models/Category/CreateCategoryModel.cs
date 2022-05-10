@@ -7,7 +7,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
-    public class CreateCategoryModel : BaseModel
+    public class CreateCategoryModel
     {
         [Required]
         [Display(Name = "Category Name")]
@@ -18,14 +18,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public CreateCategoryModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _categoryService = new CategoryService();
             _dateTimeUtility = new DateTimeUtility();
-
-            await base.Resolve();
         }
 
         public void Create()

@@ -7,7 +7,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Topic
 {
-    public class TopicViewModel : BaseModel
+    public class TopicViewModel
     {
         public BO.Forum Forum { get; set; }
         public bool IsAuthenticated { get; set; }
@@ -22,16 +22,10 @@ namespace OSL.Forum.Web.Models.Topic
 
         public TopicViewModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _forumService = new ForumService();
             _favoriteForumService = new FavoriteForumService();
             _profileService = new ProfileService();
             _topicService = new TopicService();
-
-            await base.Resolve();
         }
 
         public void GetForum(long forumId)

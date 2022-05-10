@@ -1,5 +1,4 @@
-﻿@model OSL.Forum.Web.Models.BaseModel
-
+﻿@using Roles = OSL.Forum.Web.Seeds.Roles
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
         <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
@@ -26,7 +25,7 @@
                 <li class="nav-item m-1">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (Model.ShowDashboard)
+                        if (!User.IsInRole(Roles.User.ToString()))
                         {
                             <a class="nav-link" href="/Admin/Category/Index">
                                 Dashboard

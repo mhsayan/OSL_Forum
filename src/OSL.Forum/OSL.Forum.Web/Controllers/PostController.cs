@@ -17,10 +17,9 @@ namespace OSL.Forum.Web.Controllers
             _logger = LogManager.GetLogger(typeof(PostController));
         }
 
-        public async Task<ActionResult> Edit(long postId)
+        public ActionResult Edit(long postId)
         {
             var model = new EditPostModel();
-            await model.Resolve();
             model.GetPost(postId);
 
             return View(model);
@@ -28,17 +27,16 @@ namespace OSL.Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditPostModel model)
+        public ActionResult Edit(EditPostModel model)
         {
             if (!ModelState.IsValid)
-                return View();
+                return View(model);
 
             if (model.ApplicationUserId != User.Identity.GetUserId())
-                return View();
+                return View(model);
 
             try
             {
-                await model.Resolve();
                 model.EditPost();
                 model.UpdateTopicModificationDate();
 
@@ -54,10 +52,9 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Create(long topicId)
+        public ActionResult Create(long topicId)
         {
             var model = new CreatePostModel();
-            await model.Resolve();
             model.GetTopic(topicId);
 
             return View(model);
@@ -65,14 +62,13 @@ namespace OSL.Forum.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreatePostModel model)
+        public ActionResult Create(CreatePostModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             try
             {
-                await model.Resolve();
                 model.GetTopic(model.TopicId);
                 model.CreatePost();
                 model.UpdateTopicModificationDate();
@@ -89,10 +85,9 @@ namespace OSL.Forum.Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Delete(long postId, long topicId)
+        public ActionResult Delete(long postId, long topicId)
         {
             var model = new EditPostModel();
-            await model.Resolve();
             model.Delete(postId);
 
             return RedirectToAction("Details", "Topic", new { topicId = topicId });

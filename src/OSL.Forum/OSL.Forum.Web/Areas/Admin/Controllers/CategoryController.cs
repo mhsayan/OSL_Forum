@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using log4net;
 using OSL.Forum.Core.Services;
 using OSL.Forum.Core.Utilities;
+using OSL.Forum.Web.Areas.Admin.Models;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Services;
 
@@ -20,26 +21,33 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         public CategoryController()
         {
             _logger = LogManager.GetLogger(typeof(CategoryController));
-
+            _categoryService = new CategoryService();
+            _forumService = new ForumService();
+            _profileService = new ProfileService();
+            _dateTimeUtility = new DateTimeUtility();
         }
 
         // GET: Category
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         public async Task<ActionResult> Index(int? page)
         {
-            var model = new CategoriesModel();
-            await model.Resolve();
-            model.GetCategories(page);
-            await model.LoadUserInfo();
+            var totalItem = _categoryService.GetCategoryCount();
 
+            var model = new CategoryModel
+            {
+                Roles = await _profileService.UserRolesAsync(),
+                Pager = new Pager(totalItem, page),
+            };
+
+            model.Categories = _categoryService.GetCategories(model.Pager.CurrentPage, model.Pager.PageSize);
+            
             return View(model);
         }
 
         [Authorize(Roles = "SuperAdmin")]
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
             var model = new CreateCategoryModel();
-            await model.Resolve();
 
             return View(model);
         }
@@ -47,14 +55,13 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateCategoryModel model)
+        public ActionResult Create(CreateCategoryModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             try
             {
-                await model.Resolve();
                 model.Create();
 
                 return Redirect(nameof(Index));
@@ -70,10 +77,9 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
-        public async Task<ActionResult> Edit(long id)
+        public ActionResult Edit(long id)
         {
             var model = new EditCategoryModel();
-            await model.Resolve();
             model.GetCategory(id);
 
             return View(model);
@@ -82,14 +88,13 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditCategoryModel model)
+        public ActionResult Edit(EditCategoryModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
             try
             {
-                await model.Resolve();
                 model.Edit();
 
                 return RedirectToAction(nameof(Index));
@@ -105,11 +110,9 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin")]
-        public async Task<ActionResult> Delete(long id)
+        public ActionResult Delete(long id)
         {
-            var model = new CategoriesModel();
-            await model.Resolve();
-            model.Delete(id);
+            _categoryService.DeleteCategory(id);
 
             return RedirectToAction(nameof(Index), "Category");
         }
@@ -118,7 +121,6 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         public async Task<ActionResult> Details(int? page, long id)
         {
             var model = new CategoryDetailsModel();
-            await model.Resolve();
             model.GetCategory(id);
             model.GetForums(id, page);
             await model.LoadUserInfo();

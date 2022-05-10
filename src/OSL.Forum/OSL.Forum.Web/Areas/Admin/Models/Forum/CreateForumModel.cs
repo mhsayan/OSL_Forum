@@ -9,7 +9,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 {
-    public class CreateForumModel : BaseModel
+    public class CreateForumModel
     {
         [Required]
         public long CategoryId { get; set; }
@@ -25,16 +25,10 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public CreateForumModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
-            _profileService = ProfileService.Create();
-            _dateTimeUtility = DateTimeUtility.Create();
+            _profileService = new ProfileService();
+            _dateTimeUtility = new DateTimeUtility();
             _forumService = new ForumService();
             _categoryService = new CategoryService();
-
-            await base.Resolve();
         }
 
         public void GetCategory(long categoryId)

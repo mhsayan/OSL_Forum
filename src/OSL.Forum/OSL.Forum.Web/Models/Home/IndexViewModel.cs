@@ -8,7 +8,7 @@ using BO = OSL.Forum.Core.BusinessObjects;
 
 namespace OSL.Forum.Web.Models.Home
 {
-    public class IndexViewModel : BaseModel
+    public class IndexViewModel
     {
         public IList<BO.FavoriteForum> FavoriteForums { get; set; }
         public IList<BO.Category> Categories { get; set; }
@@ -20,15 +20,9 @@ namespace OSL.Forum.Web.Models.Home
 
         public IndexViewModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _categoryService = new CategoryService();
             _favoriteForumService = new FavoriteForumService();
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
 
         public void GetCategories(int? page)

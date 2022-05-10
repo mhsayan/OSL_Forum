@@ -7,7 +7,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Models.Profile
 {
-    public class ProfileDetailsModel : BaseModel
+    public class ProfileDetailsModel
     {
         public ApplicationUser ApplicationUser { get; set; }
         public List<BO.Post> Posts { get; set; }
@@ -17,14 +17,8 @@ namespace OSL.Forum.Web.Models.Profile
 
         public ProfileDetailsModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _profileService = new ProfileService();
             _postService = new PostService();
-
-            await base.Resolve();
         }
 
         public void GetUserInfo()

@@ -8,7 +8,7 @@ using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Models.Category
 {
-    public class CategoriesModel : BaseModel
+    public class CategoriesModel
     {
         public IList<string> Roles { get; set; }
         public IList<BO.Category> Categories { get; set; }
@@ -18,14 +18,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public CategoriesModel()
         {
-        }
-
-        public override async Task Resolve()
-        {
             _categoryService = new CategoryService();
             _profileService = new ProfileService();
-
-            await base.Resolve();
         }
 
         public void GetCategories(int? page)
