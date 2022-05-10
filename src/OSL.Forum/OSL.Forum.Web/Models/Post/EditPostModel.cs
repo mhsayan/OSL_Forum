@@ -37,9 +37,9 @@ namespace OSL.Forum.Web.Models.Post
 
         public override async Task Resolve()
         {
-            _dateTimeUtility = DateTimeUtility.Create();
-            _topicService = TopicService.Create();
-            _postService = PostService.Create();
+            _dateTimeUtility = new DateTimeUtility();
+            _topicService = new TopicService();
+            _postService = new PostService();
 
             await base.Resolve();
         }

@@ -22,8 +22,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.PendingPost
 
         public override async Task Resolve()
         {
-            _postService = PostService.Create();
-            _profileService = ProfileService.Create();
+            _postService = new PostService();
+            _profileService = new ProfileService();
 
             await base.Resolve();
         }

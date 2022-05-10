@@ -38,11 +38,11 @@ namespace OSL.Forum.Web.Models.Topic
 
         public override async Task Resolve()
         {
-            _dateTimeUtility = DateTimeUtility.Create();
-            _profileService = ProfileService.Create();
-            _topicService = TopicService.Create();
-            _postService = PostService.Create();
-            _forumService = ForumService.Create();
+            _dateTimeUtility = new DateTimeUtility();
+            _profileService = new ProfileService();
+            _topicService = new TopicService();
+            _postService = new PostService();
+            _forumService = new ForumService();
 
             await base.Resolve();
         }

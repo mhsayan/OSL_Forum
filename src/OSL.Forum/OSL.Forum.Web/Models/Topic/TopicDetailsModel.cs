@@ -24,8 +24,8 @@ namespace OSL.Forum.Web.Models.Topic
 
         public override async Task Resolve()
         {
-            _profileService = ProfileService.Create();
-            _topicService = TopicService.Create();
+            _profileService = new ProfileService();
+            _topicService = new TopicService();
 
             await base.Resolve();
         }

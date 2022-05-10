@@ -26,7 +26,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.UserManagement
 
         public override async Task Resolve()
         {
-            _profileService = ProfileService.Create();
+            _profileService = new ProfileService();
 
             await base.Resolve();
         }

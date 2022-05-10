@@ -18,22 +18,12 @@ namespace OSL.Forum.Web.Services
         private readonly UserStore<ApplicationUser> UserStore;
         private readonly ApplicationUserManager UserManager;
 
-        private ProfileService()
+        public ProfileService()
         {
             UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
             UserManager = new ApplicationUserManager(UserStore);
         }
-
-        public static ProfileService Create()
-        {
-            if (_profileService == null)
-            {
-                _profileService = new ProfileService();
-            }
-
-            return _profileService;
-        }
-
+        
         public string UserID()
         {
             return HttpContext.Current.User.Identity.GetUserId();

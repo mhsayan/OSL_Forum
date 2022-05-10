@@ -12,16 +12,11 @@ namespace OSL.Forum.Core.Services
     {
         private ICoreUnitOfWork _unitOfWork;
 
-        private CategoryService()
+        public CategoryService()
         {
             _unitOfWork = CoreUnitOfWork.CreateCategoryRepository();
         }
-
-        public static CategoryService Create()
-        {
-            return new CategoryService();
-        }
-
+        
         public BO.Category GetCategory(string categoryName)
         {
             if (string.IsNullOrWhiteSpace(categoryName))

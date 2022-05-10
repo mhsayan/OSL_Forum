@@ -12,14 +12,9 @@ namespace OSL.Forum.Core.Services
     {
         private readonly CoreUnitOfWork _unitOfWork;
 
-        private PostService()
+        public PostService()
         {
             _unitOfWork = CoreUnitOfWork.CreatePostRepository();
-        }
-
-        public static PostService Create()
-        {
-            return new PostService();
         }
 
         public BO.Post GetPost(long postId)

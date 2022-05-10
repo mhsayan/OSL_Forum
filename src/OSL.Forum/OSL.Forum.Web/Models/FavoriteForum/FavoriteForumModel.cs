@@ -21,8 +21,8 @@ namespace OSL.Forum.Web.Models.FavoriteForum
 
         public override async Task Resolve()
         {
-            _favoriteForumService = FavoriteForumService.Create();
-            _profileService = ProfileService.Create();
+            _favoriteForumService = new FavoriteForumService();
+            _profileService = new ProfileService();
 
             await base.Resolve();
         }

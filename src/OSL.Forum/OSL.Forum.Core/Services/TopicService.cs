@@ -13,14 +13,9 @@ namespace OSL.Forum.Core.Services
     {
         private readonly CoreUnitOfWork _unitOfWork;
 
-        private TopicService()
+        public TopicService()
         {
             _unitOfWork = CoreUnitOfWork.CreateTopicRepository();
-        }
-
-        public static TopicService Create()
-        {
-            return new TopicService();
         }
 
         public BO.Topic GetTopic(string topicName, long forumId)
@@ -39,7 +34,16 @@ namespace OSL.Forum.Core.Services
                 Id = topicEntity.Id,
                 Name = topicEntity.Name,
                 ForumId = topicEntity.ForumId,
-                Forum = ForumService.Create().GetForum(topicEntity.ForumId),
+                Forum = new BO.Forum()
+                {
+                    Id = topicEntity.Forum.Id,
+                    Name = topicEntity.Forum.Name,
+                    Category = new BO.Category()
+                    {
+                        Id = topicEntity.Forum.Category.Id,
+                        Name = topicEntity.Forum.Category.Name
+                    }
+                },
                 CreationDate = topicEntity.CreationDate,
                 ModificationDate = topicEntity.ModificationDate,
                 Posts = topicEntity.Posts.Select(post => new BO.Post
@@ -74,7 +78,16 @@ namespace OSL.Forum.Core.Services
                 Id = topicEntity.Id,
                 Name = topicEntity.Name,
                 ForumId = topicEntity.ForumId,
-                Forum = ForumService.Create().GetForum(topicEntity.ForumId),
+                Forum = new BO.Forum()
+                {
+                    Id = topicEntity.Forum.Id,
+                    Name = topicEntity.Forum.Name,
+                    Category = new BO.Category()
+                    {
+                        Id = topicEntity.Forum.Category.Id,
+                        Name = topicEntity.Forum.Category.Name
+                    }
+                },
                 CreationDate = topicEntity.CreationDate,
                 ModificationDate = topicEntity.ModificationDate,
                 ActivityStatus = topicEntity.ActivityStatus,
@@ -110,7 +123,16 @@ namespace OSL.Forum.Core.Services
                 Id = topicEntity.Id,
                 Name = topicEntity.Name,
                 ForumId = topicEntity.ForumId,
-                Forum = ForumService.Create().GetForum(topicEntity.ForumId),
+                Forum = new BO.Forum()
+                {
+                    Id = topicEntity.Forum.Id,
+                    Name = topicEntity.Forum.Name,
+                    Category = new BO.Category()
+                    {
+                        Id = topicEntity.Forum.Category.Id,
+                        Name = topicEntity.Forum.Category.Name
+                    }
+                },
                 CreationDate = topicEntity.CreationDate,
                 ModificationDate = topicEntity.ModificationDate
             };
@@ -163,18 +185,27 @@ namespace OSL.Forum.Core.Services
             if (topicEntities.data == null)
                 return null;
 
-            var topics = topicEntities.data.Select(topic =>
+            var topics = topicEntities.data.Select(topicEntity =>
                 new BO.Topic()
                 {
-                    Id = topic.Id,
-                    Name = topic.Name,
-                    ForumId = topic.ForumId,
-                    Forum = ForumService.Create().GetForum(topic.ForumId),
-                    CreationDate = topic.CreationDate,
-                    ModificationDate = topic.ModificationDate,
-                    ApplicationUserId = topic.ApplicationUserId,
-                    ActivityStatus = topic.ActivityStatus,
-                    Posts = topic.Posts.Select(post => new BO.Post
+                    Id = topicEntity.Id,
+                    Name = topicEntity.Name,
+                    ForumId = topicEntity.ForumId,
+                    Forum = new BO.Forum()
+                    {
+                        Id = topicEntity.Forum.Id,
+                        Name = topicEntity.Forum.Name,
+                        Category = new BO.Category()
+                        {
+                            Id = topicEntity.Forum.Category.Id,
+                            Name = topicEntity.Forum.Category.Name
+                        }
+                    },
+                    CreationDate = topicEntity.CreationDate,
+                    ModificationDate = topicEntity.ModificationDate,
+                    ApplicationUserId = topicEntity.ApplicationUserId,
+                    ActivityStatus = topicEntity.ActivityStatus,
+                    Posts = topicEntity.Posts.Select(post => new BO.Post
                     {
                         Id = post.Id,
                         Name = post.Name,

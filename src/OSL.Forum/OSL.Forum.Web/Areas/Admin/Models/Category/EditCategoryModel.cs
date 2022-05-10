@@ -23,7 +23,7 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public override async Task Resolve()
         {
-            _categoryService = CategoryService.Create();
+            _categoryService = new CategoryService();
 
             await base.Resolve();
         }

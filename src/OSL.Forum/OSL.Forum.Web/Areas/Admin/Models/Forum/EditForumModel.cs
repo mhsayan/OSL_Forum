@@ -30,10 +30,10 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
 
         public override async Task Resolve()
         {
-            _categoryService = CategoryService.Create();
-            _forumService = ForumService.Create();
-            _dateTimeUtility = DateTimeUtility.Create();
-            _profileService = ProfileService.Create();
+            _categoryService = new CategoryService();
+            _forumService = new ForumService();
+            _dateTimeUtility = new DateTimeUtility();
+            _profileService = new ProfileService();
 
             await base.Resolve();
         }

@@ -31,8 +31,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Forum
         {
             _profileService = ProfileService.Create();
             _dateTimeUtility = DateTimeUtility.Create();
-            _forumService = ForumService.Create();
-            _categoryService = CategoryService.Create();
+            _forumService = new ForumService();
+            _categoryService = new CategoryService();
 
             await base.Resolve();
         }

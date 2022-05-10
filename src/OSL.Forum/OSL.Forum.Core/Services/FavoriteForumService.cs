@@ -11,16 +11,11 @@ namespace OSL.Forum.Core.Services
     {
         private readonly CoreUnitOfWork _unitOfWork;
 
-        private FavoriteForumService()
+        public FavoriteForumService()
         {
             _unitOfWork = CoreUnitOfWork.CreateFavoriteForumRepository();
         }
-
-        public static FavoriteForumService Create()
-        {
-            return new FavoriteForumService();
-        }
-
+        
         public List<BO.FavoriteForum> GetUserFavoriteForums(string userId)
         {
             var favoriteForumsEntity = _unitOfWork.FavoriteForums

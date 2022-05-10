@@ -14,19 +14,9 @@ namespace OSL.Forum.Core.Services
     {
         private readonly IForumRepository _forumRepository;
 
-        private ForumService()
+        public ForumService()
         {
             _forumRepository = new ForumRepository(new CoreDbContext());
-        }
-
-        public ForumService(IForumRepository forumRepository)
-        {
-            _forumRepository = forumRepository;
-        }
-
-        public static ForumService Create()
-        {
-            return new ForumService(); ;
         }
 
         public virtual BO.Forum GetForum(string forumName, long categoryId)

@@ -22,8 +22,8 @@ namespace OSL.Forum.Web.Areas.Admin.Models.Category
 
         public override async Task Resolve()
         {
-            _categoryService = CategoryService.Create();
-            _profileService = ProfileService.Create();
+            _categoryService = new CategoryService();
+            _profileService = new ProfileService();
 
             await base.Resolve();
         }

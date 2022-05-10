@@ -26,10 +26,10 @@ namespace OSL.Forum.Web.Models.Topic
 
         public override async Task Resolve()
         {
-            _forumService = ForumService.Create();
-            _favoriteForumService = FavoriteForumService.Create();
-            _profileService = ProfileService.Create();
-            _topicService = TopicService.Create();
+            _forumService = new ForumService();
+            _favoriteForumService = new FavoriteForumService();
+            _profileService = new ProfileService();
+            _topicService = new TopicService();
 
             await base.Resolve();
         }

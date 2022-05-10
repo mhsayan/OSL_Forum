@@ -2,17 +2,25 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using log4net;
+using OSL.Forum.Core.Services;
+using OSL.Forum.Core.Utilities;
 using OSL.Forum.Web.Areas.Admin.Models.Category;
+using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
     public class CategoryController : Controller
     {
         private readonly ILog _logger;
+        private ICategoryService _categoryService;
+        private IProfileService _profileService;
+        private IForumService _forumService;
+        private IDateTimeUtility _dateTimeUtility;
 
         public CategoryController()
         {
             _logger = LogManager.GetLogger(typeof(CategoryController));
+
         }
 
         // GET: Category
