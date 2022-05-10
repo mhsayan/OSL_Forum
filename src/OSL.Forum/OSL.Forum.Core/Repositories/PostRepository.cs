@@ -9,16 +9,11 @@ namespace OSL.Forum.Core.Repositories
     {
         private readonly ICoreDbContext _dbContext;
 
-        private PostRepository(ICoreDbContext dbContext)
+        public PostRepository(ICoreDbContext dbContext)
         {
             _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
-        }
-
-        public static PostRepository Create(ICoreDbContext dbContext)
-        {
-            return new PostRepository(dbContext);
         }
     }
 }

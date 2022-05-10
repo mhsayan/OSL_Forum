@@ -16,7 +16,12 @@ namespace OSL.Forum.Core.Services
 
         private ForumService()
         {
-            _forumRepository = ForumRepository.Create(new CoreDbContext());
+            _forumRepository = new ForumRepository(new CoreDbContext());
+        }
+
+        public ForumService(IForumRepository forumRepository)
+        {
+            _forumRepository = forumRepository;
         }
 
         public static ForumService Create()
@@ -24,7 +29,7 @@ namespace OSL.Forum.Core.Services
             return new ForumService(); ;
         }
 
-        public BO.Forum GetForum(string forumName, long categoryId)
+        public virtual BO.Forum GetForum(string forumName, long categoryId)
         {
             if (string.IsNullOrWhiteSpace(forumName))
                 throw new ArgumentNullException(nameof(forumName));
@@ -72,7 +77,7 @@ namespace OSL.Forum.Core.Services
             return forum;
         }
 
-        public BO.Forum GetForum(long forumId)
+        public virtual BO.Forum GetForum(long forumId)
         {
             if (forumId == 0)
                 throw new ArgumentException("Forum Id is required.");
@@ -122,7 +127,7 @@ namespace OSL.Forum.Core.Services
             return forum;
         }
 
-        public BO.Forum GetForum(string forumName)
+        public virtual BO.Forum GetForum(string forumName)
         {
             if (string.IsNullOrWhiteSpace(forumName))
                 throw new ArgumentNullException(nameof(forumName));
@@ -170,7 +175,7 @@ namespace OSL.Forum.Core.Services
             return forum;
         }
 
-        public void EditForum(BO.Forum forum)
+        public virtual void EditForum(BO.Forum forum)
         {
             if (forum is null)
                 throw new ArgumentNullException(nameof(forum));
@@ -192,7 +197,7 @@ namespace OSL.Forum.Core.Services
             _forumRepository.Save();
         }
 
-        public void DeleteForum(long forumId)
+        public virtual void DeleteForum(long forumId)
         {
             if (forumId == 0)
                 throw new ArgumentException("Forum id is required.");
@@ -201,14 +206,17 @@ namespace OSL.Forum.Core.Services
             _forumRepository.Save();
         }
 
-        public int GetForumCount(long categoryId)
+        public virtual int GetForumCount(long categoryId)
         {
+            if (categoryId <= 0)
+                throw new ArgumentException("Category id is missing.");
+
             var totalForum = _forumRepository.Get(f => f.CategoryId == categoryId, "").Count;
 
             return totalForum;
         }
 
-        public IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId)
+        public virtual IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId)
         {
             var (data, _, _) = _forumRepository.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
 
@@ -229,7 +237,7 @@ namespace OSL.Forum.Core.Services
             return forums;
         }
 
-        public void CreateForum(BO.Forum forum)
+        public virtual void CreateForum(BO.Forum forum)
         {
             if (forum is null)
                 throw new ArgumentNullException(nameof(forum));

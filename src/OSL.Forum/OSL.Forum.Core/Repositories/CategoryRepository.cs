@@ -9,16 +9,11 @@ namespace OSL.Forum.Core.Repositories
     {
         private readonly ICoreDbContext _dbContext;
 
-        private CategoryRepository(ICoreDbContext dbContext)
+        public CategoryRepository(ICoreDbContext dbContext)
         {
             _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
-        }
-
-        public static CategoryRepository Create(ICoreDbContext dbContext)
-        {
-            return new CategoryRepository(dbContext);
         }
     }
 }

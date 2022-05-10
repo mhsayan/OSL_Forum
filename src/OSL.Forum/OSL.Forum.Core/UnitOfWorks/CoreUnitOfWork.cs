@@ -25,7 +25,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Categories = CategoryRepository.Create(_coreDbContext)
+                Categories = new CategoryRepository(_coreDbContext)
             };
         }
 
@@ -33,7 +33,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Forums = ForumRepository.Create(_coreDbContext)
+                Forums = new ForumRepository(_coreDbContext)
             };
         }
 
@@ -41,7 +41,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Posts = PostRepository.Create(_coreDbContext)
+                Posts = new PostRepository(_coreDbContext)
             };
         }
 
@@ -49,7 +49,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Topics = TopicRepository.Create(_coreDbContext)
+                Topics = new TopicRepository(_coreDbContext)
             };
         }
 
@@ -57,7 +57,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                FavoriteForums = FavoriteForumRepository.Create(_coreDbContext)
+                FavoriteForums = new FavoriteForumRepository(_coreDbContext)
             };
         }
     }

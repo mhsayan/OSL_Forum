@@ -15,10 +15,5 @@ namespace OSL.Forum.Core.Repositories
 
             base.Resolve((DbContext)_dbContext);
         }
-
-        public static TopicRepository Create(ICoreDbContext dbContext)
-        {
-            return new TopicRepository(dbContext);
-        }
     }
 }

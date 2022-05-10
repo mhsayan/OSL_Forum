@@ -10,7 +10,7 @@ namespace OSL.Forum.Core.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly CoreUnitOfWork _unitOfWork;
+        private ICoreUnitOfWork _unitOfWork;
 
         private CategoryService()
         {

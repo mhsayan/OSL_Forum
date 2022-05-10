@@ -9,16 +9,11 @@ namespace OSL.Forum.Core.Repositories
     {
         private readonly ICoreDbContext _dbContext;
 
-        private FavoriteForumRepository(ICoreDbContext dbContext)
+        public FavoriteForumRepository(ICoreDbContext dbContext)
         {
             _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
-        }
-
-        public static FavoriteForumRepository Create(ICoreDbContext dbContext)
-        {
-            return new FavoriteForumRepository(dbContext);
         }
     }
 }

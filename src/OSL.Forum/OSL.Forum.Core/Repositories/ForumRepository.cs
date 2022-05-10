@@ -8,16 +8,11 @@ namespace OSL.Forum.Core.Repositories
     {
         private readonly ICoreDbContext _dbContext;
 
-        private ForumRepository(ICoreDbContext dbContext)
+        public ForumRepository(ICoreDbContext dbContext)
         {
             _dbContext = dbContext;
 
             base.Resolve((DbContext)_dbContext);
-        }
-
-        public static ForumRepository Create(ICoreDbContext dbContext)
-        {
-            return new ForumRepository(dbContext);
         }
     }
 }
