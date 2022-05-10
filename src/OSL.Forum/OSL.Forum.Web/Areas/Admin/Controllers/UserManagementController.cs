@@ -2,7 +2,10 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using log4net;
-using OSL.Forum.Web.Areas.Admin.Models.UserManagement;
+using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Web.Areas.Admin.Models;
+using OSL.Forum.Web.Seeds;
+using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {
@@ -10,18 +13,24 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
     public class UserManagementController : Controller
     {
         private readonly ILog _logger;
+        private readonly IProfileService _profileService;
 
         public UserManagementController()
         {
             _logger = LogManager.GetLogger(typeof(UserManagementController));
+            _profileService = new ProfileService();
         }
 
         public ActionResult AssignRole()
         {
             var model = new AssignRoleModel();
-            model.GetUsers();
-            model.AdminRoles();
-            model.SuperAdminRoles();
+            model.ApplicationUserList = _profileService.GetUserList();
+            
+            //set logic for user role
+            if(User.IsInRole(Roles.SuperAdmin.ToString()))
+                model.SuperAdminRoles();
+            else
+                model.AdminRoles();
 
             return View(model);
         }
@@ -35,7 +44,13 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                await model.AddUserToRoleAsync();
+                var applicationUserRole = new ApplicationUserRole()
+                {
+                    UserId = model.UserId,
+                    UserRole = model.UserRole
+                };
+
+                await _profileService.AddUserToRoleAsync(applicationUserRole);
 
                 return Redirect(nameof(AssignRole));
             }

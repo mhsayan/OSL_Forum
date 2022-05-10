@@ -204,12 +204,15 @@
     <Compile Include="Areas\Admin\Controllers\ForumController.cs" />
     <Compile Include="Areas\Admin\Controllers\PendingPostController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
+    <Compile Include="Areas\Admin\Models\AssignRoleModel.cs" />
     <Compile Include="Areas\Admin\Models\CategoryModel.cs" />
     <Compile Include="Areas\Admin\Models\Category\CategoriesModel.cs" />
     <Compile Include="Areas\Admin\Models\Category\CategoryDetailsModel.cs" />
     <Compile Include="Areas\Admin\Models\Category\EditCategoryModel.cs" />
+    <Compile Include="Areas\Admin\Models\ForumModel.cs" />
     <Compile Include="Areas\Admin\Models\Forum\CreateForumModel.cs" />
     <Compile Include="Areas\Admin\Models\Forum\EditForumModel.cs" />
+    <Compile Include="Areas\Admin\Models\PendingPostModel.cs" />
     <Compile Include="Areas\Admin\Models\PendingPost\PendingPostDetailsModel.cs" />
     <Compile Include="Areas\Admin\Models\PendingPost\PendingPostListModel.cs" />
     <Compile Include="Areas\Admin\Models\UserManagement\AssignRoleModel.cs" />
