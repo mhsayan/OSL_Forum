@@ -21,5 +21,16 @@ namespace OSL.Forum.Web.Areas.Admin.Models
         public Pager Pager { get; set; }
         public BO.Category Category { get; set; }
         public IList<BO.Forum> Forums { get; set; }
+
+        public BO.Category CategoryBuilder()
+        {
+            var category = new BO.Category
+            {
+                Id = this.Id,
+                Name = this.Name
+            };
+
+            return category;
+        }
     }
 }

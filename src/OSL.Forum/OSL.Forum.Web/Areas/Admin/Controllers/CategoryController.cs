@@ -113,11 +113,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             try
             {
-                var category = new BO.Category()
-                {
-                    Id = model.Id,
-                    Name = model.Name
-                };
+                var category = model.CategoryBuilder();
 
                 _categoryService.EditCategory(category);
 
@@ -144,9 +140,11 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         [Authorize(Roles = "SuperAdmin, Admin, Moderator")]
         public async Task<ActionResult> Details(int? page, long id)
         {
-            var model = new CategoryModel();
+            var model = new CategoryModel
+            {
+                Category = _categoryService.GetCategory(id)
+            };
 
-            model.Category = _categoryService.GetCategory(id);
             var totalItem = _forumService.GetForumCount(id);
 
             model.Pager = new Pager(totalItem, page);
