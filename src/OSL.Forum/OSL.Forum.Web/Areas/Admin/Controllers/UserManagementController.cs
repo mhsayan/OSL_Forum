@@ -23,14 +23,13 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
         public ActionResult AssignRole()
         {
-            var model = new AssignRoleModel();
-            model.ApplicationUserList = _profileService.GetUserList();
+            var model = new AssignRoleModel
+            {
+                ApplicationUserList = _profileService.GetUserList()
+            };
             
-            //set logic for user role
-            if(User.IsInRole(Roles.SuperAdmin.ToString()))
-                model.SuperAdminRoles();
-            else
-                model.AdminRoles();
+            model.AdminRoles();
+            model.SuperAdminRoles();
 
             return View(model);
         }
