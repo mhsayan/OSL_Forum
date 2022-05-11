@@ -11,7 +11,7 @@ namespace OSL.Forum.Core.Services
         void EditForum(BO.Forum forum);
         BO.Forum GetForum(long forumId);
         void DeleteForum(long forumId);
-        int GetForumCount(long categoryId);
+        long GetForumCount(long categoryId);
         IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId);
     }
 }

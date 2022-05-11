@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using OSL.Forum.Core.Repositories;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -10,11 +11,11 @@ namespace OSL.Forum.Core.Services
 {
     public class CategoryService : ICategoryService
     {
-        private ICoreUnitOfWork _unitOfWork;
+        private readonly ICategoryRepository _categoryRepository;
 
         public CategoryService()
         {
-            _unitOfWork = CoreUnitOfWork.CreateCategoryRepository();
+            _categoryRepository = new CategoryRepository();
         }
         
         public BO.Category GetCategory(string categoryName)
@@ -22,7 +23,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(categoryName))
                 throw new ArgumentNullException(nameof(categoryName));
 
-            var categoryEntity = _unitOfWork.Categories.Get(c => c.Name == categoryName, "").FirstOrDefault();
+            var categoryEntity = _categoryRepository.GetByName(categoryName);
 
             if (categoryEntity == null)
                 return null;
@@ -48,7 +49,6 @@ namespace OSL.Forum.Core.Services
                         ModificationDate = f.Category.ModificationDate
                     }
                 }).ToList()
-
             };
 
             return category;
@@ -59,7 +59,7 @@ namespace OSL.Forum.Core.Services
             if (categoryId == 0)
                 throw new ArgumentException("Category Id is required");
 
-            var categoryEntity = _unitOfWork.Categories.GetById(categoryId);
+            var categoryEntity = _categoryRepository.GetById(categoryId);
 
             if (categoryEntity == null)
                 return null;
@@ -102,7 +102,7 @@ namespace OSL.Forum.Core.Services
             if (oldCategory != null)
                 throw new DuplicateNameException("This category already exists.");
 
-            var categoryEntity = _unitOfWork.Categories.GetById(category.Id);
+            var categoryEntity = _categoryRepository.GetById(category.Id);
 
             if (categoryEntity is null)
                 throw new InvalidOperationException("Category is not found.");
@@ -110,7 +110,7 @@ namespace OSL.Forum.Core.Services
             categoryEntity.Name = category.Name;
             categoryEntity.ModificationDate = DateTime.Now;
 
-            _unitOfWork.Save();
+            _categoryRepository.Save();
         }
 
         public void DeleteCategory(long categoryId)
@@ -118,8 +118,8 @@ namespace OSL.Forum.Core.Services
             if (categoryId == 0)
                 throw new ArgumentException("Category Id is required");
 
-            _unitOfWork.Categories.Remove(categoryId);
-            _unitOfWork.Save();
+            _categoryRepository.RemoveById(categoryId);
+            _categoryRepository.Save();
         }
 
         public void CreateCategory(BO.Category category)
@@ -139,8 +139,8 @@ namespace OSL.Forum.Core.Services
                 ModificationDate = category.ModificationDate
             };
 
-            _unitOfWork.Categories.Add(categoryEntity);
-            _unitOfWork.Save();
+            _categoryRepository.Add(categoryEntity);
+            _categoryRepository.Save();
         }
 
         public void UpdateModificationDate(DateTime modificationDate, long categoryId)
@@ -148,28 +148,28 @@ namespace OSL.Forum.Core.Services
             if (categoryId == 0)
                 throw new ArgumentException("Category Id is required");
 
-            var categoryEntity = _unitOfWork.Categories.GetById(categoryId);
+            var categoryEntity = _categoryRepository.GetById(categoryId);
 
             if (categoryEntity is null)
                 throw new InvalidOperationException("Category is not found.");
 
             categoryEntity.ModificationDate = modificationDate;
 
-            _unitOfWork.Save();
+            _categoryRepository.Save();
         }
 
-        public int GetCategoryCount()
+        public long GetCategoryCount()
         {
-            return _unitOfWork.Categories.GetCount();
+            return _categoryRepository.GetCount();
         }
 
         public IList<BO.Category> GetCategories(int pageIndex, int pageSize)
         {
-            var categoryEntities = _unitOfWork.Categories.Get(null, q => q.OrderByDescending(c => c.ModificationDate), "Forums", pageIndex, pageSize, false);
+            var categoryEntities = _categoryRepository.Load(pageIndex, pageSize, false, "Forums");
 
             var categories = new List<BO.Category>();
 
-            foreach (var entity in categoryEntities.data)
+            foreach (var entity in categoryEntities)
             {
                 entity.Forums = entity.Forums.OrderByDescending(c => c.ModificationDate).Take(4).ToList();
 

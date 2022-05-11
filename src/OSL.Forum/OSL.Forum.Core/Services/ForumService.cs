@@ -16,7 +16,7 @@ namespace OSL.Forum.Core.Services
 
         public ForumService()
         {
-            _forumRepository = new ForumRepository(new CoreDbContext());
+            _forumRepository = new ForumRepository();
         }
 
         public virtual BO.Forum GetForum(string forumName, long categoryId)
@@ -24,7 +24,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(forumName))
                 throw new ArgumentNullException(nameof(forumName));
 
-            var forumEntity = _forumRepository.Get(c => c.Name == forumName && c.CategoryId == categoryId, "").FirstOrDefault();
+            var forumEntity = _forumRepository.Get(forumName, categoryId);
 
             if (forumEntity == null)
                 return null;
@@ -72,7 +72,7 @@ namespace OSL.Forum.Core.Services
             if (forumId == 0)
                 throw new ArgumentException("Forum Id is required.");
 
-            var forumEntity = _forumRepository.Get(c => c.Id == forumId, "Topics").FirstOrDefault();
+            var forumEntity = _forumRepository.GetWithIncludedProperty(forumId, "Topics");
 
             if (forumEntity == null)
                 return null;
@@ -122,7 +122,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(forumName))
                 throw new ArgumentNullException(nameof(forumName));
 
-            var forumEntity = _forumRepository.Get(c => c.Name == forumName, "").FirstOrDefault();
+            var forumEntity = _forumRepository.GetByName(forumName);
 
             if (forumEntity == null)
                 return null;
@@ -192,28 +192,28 @@ namespace OSL.Forum.Core.Services
             if (forumId == 0)
                 throw new ArgumentException("Forum id is required.");
 
-            _forumRepository.Remove(forumId);
+            _forumRepository.RemoveById(forumId);
             _forumRepository.Save();
         }
 
-        public virtual int GetForumCount(long categoryId)
+        public virtual long GetForumCount(long categoryId)
         {
             if (categoryId <= 0)
                 throw new ArgumentException("Category id is missing.");
 
-            var totalForum = _forumRepository.Get(f => f.CategoryId == categoryId, "").Count;
+            var totalForum = _forumRepository.GetByCategoryId(categoryId);
 
             return totalForum;
         }
 
         public virtual IList<BO.Forum> GetForums(int pagerCurrentPage, int pagerPageSize, long categoryId)
         {
-            var (data, _, _) = _forumRepository.Get(c => c.CategoryId == categoryId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+            var forumEntity = _forumRepository.Load(categoryId, pagerCurrentPage, pagerPageSize, false);
 
-            if (data == null)
+            if (forumEntity == null)
                 return null;
 
-            var forums = data.Select(forum =>
+            var forums = forumEntity.Select(forum =>
                 new BO.Forum()
                 {
                     Id = forum.Id,

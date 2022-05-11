@@ -25,7 +25,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Categories = new CategoryRepository(_coreDbContext)
+                Categories = new CategoryRepository()
             };
         }
 
@@ -33,7 +33,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Forums = new ForumRepository(_coreDbContext)
+                Forums = new ForumRepository()
             };
         }
 
