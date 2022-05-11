@@ -238,11 +238,17 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Areas\Admin\Models\Category\CreateCategoryModel.cs" />
     <Compile Include="Models\ConfirmEmailModel.cs" />
+    <Compile Include="Models\CreateTopicModel.cs" />
+    <Compile Include="Models\FavoriteForumModel.cs" />
     <Compile Include="Models\FavoriteForum\FavoriteForumModel.cs" />
+    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\Post\CreatePostModel.cs" />
     <Compile Include="Models\Post\EditPostModel.cs" />
+    <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\Profile\EditProfileModel.cs" />
     <Compile Include="Models\Profile\ProfileDetailsModel.cs" />
+    <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Models\Topic\CreateTopicModel.cs" />
     <Compile Include="Models\Home\DetailsModel.cs" />
     <Compile Include="Models\Home\IndexViewModel.cs" />

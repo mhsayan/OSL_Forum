@@ -125,13 +125,7 @@ namespace OSL.Forum.Core.Services
                 ForumId = topicEntity.ForumId,
                 Forum = new BO.Forum()
                 {
-                    Id = topicEntity.Forum.Id,
-                    Name = topicEntity.Forum.Name,
-                    Category = new BO.Category()
-                    {
-                        Id = topicEntity.Forum.Category.Id,
-                        Name = topicEntity.Forum.Category.Name
-                    }
+                    Id = topicEntity.ForumId
                 },
                 CreationDate = topicEntity.CreationDate,
                 ModificationDate = topicEntity.ModificationDate

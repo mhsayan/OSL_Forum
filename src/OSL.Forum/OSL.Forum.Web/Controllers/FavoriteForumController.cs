@@ -1,7 +1,10 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using log4net;
-using OSL.Forum.Web.Models.FavoriteForum;
+using OSL.Forum.Core.Services;
+using OSL.Forum.Core.Utilities;
+using OSL.Forum.Web.Models;
+using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Controllers
 {
@@ -9,16 +12,26 @@ namespace OSL.Forum.Web.Controllers
     public class FavoriteForumController : Controller
     {
         private readonly ILog _logger;
+        private readonly IFavoriteForumService _favoriteForumService;
+        private readonly IProfileService _profileService;
 
         public FavoriteForumController()
         {
             _logger = LogManager.GetLogger(typeof(FavoriteForumController));
+            _favoriteForumService = new FavoriteForumService();
+            _profileService = new ProfileService();
         }
 
         public ActionResult FavoriteForums(int? page)
         {
             var model = new FavoriteForumModel();
-            model.GetFavoriteForums(page);
+
+            var user = _profileService.GetUser();
+            var totalItem = _favoriteForumService.GetFavoriteForumCount(user.Id);
+
+            model.Pager = new Pager(totalItem, page);
+            model.FavoriteForums = _favoriteForumService.GetUserFavoriteForums(
+                model.Pager.CurrentPage, model.Pager.PageSize, user.Id);
 
             return View(model);
         }
@@ -26,15 +39,18 @@ namespace OSL.Forum.Web.Controllers
         public ActionResult AddToFavorite(long forumId)
         {
             var model = new FavoriteForumModel();
-            model.AddToFavorite(forumId);
+            var user = _profileService.GetUser();
+
+            _favoriteForumService.AddToFavorite(forumId, user.Id);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
 
         public ActionResult RemoveFromFavorite(long forumId)
         {
-            var model = new FavoriteForumModel();
-            model.RemoveFromFavorite(forumId);
+            var user = _profileService.GetUser();
+
+            _favoriteForumService.RemoveFromFavorite(forumId, user.Id);
 
             return RedirectToAction("Topics", "Topic", new { id = forumId });
         }
