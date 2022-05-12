@@ -83,7 +83,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 if (model.ApprovalStatus)
                     _topicService.UpdateTopicApprovalType(model.TopicId);
 
-                return View(model);
+                return Redirect(nameof(Index));
             }
             catch (Exception ex)
             {
