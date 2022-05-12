@@ -18,45 +18,45 @@ namespace OSL.Forum.Core.Repositories
             _dbSet = _dbContext.Set<Entities.Forum>();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _dbContext?.Dispose();
         }
 
-        public void Save()
+        public virtual void Save()
         {
             _dbContext?.SaveChanges();
         }
 
-        public Entities.Forum Get(string forumName, long categoryId)
+        public virtual Entities.Forum Get(string forumName, long categoryId)
         {
             IQueryable<Entities.Forum> query = _dbSet;
 
             return query.FirstOrDefault(f => f.Name == forumName && f.CategoryId == categoryId);
         }
 
-        public Entities.Forum GetWithIncludedProperty(long forumId, string includeProperty = "")
+        public virtual Entities.Forum GetWithIncludedProperty(long forumId, string includeProperty = "")
         {
             IQueryable<Entities.Forum> query = _dbSet.Include(includeProperty);
 
             return query.FirstOrDefault(f => f.Id == forumId);
         }
 
-        public Entities.Forum GetByName(string forumName)
+        public virtual Entities.Forum GetByName(string forumName)
         {
             IQueryable<Entities.Forum> query = _dbSet;
 
             return query.FirstOrDefault(f => f.Name == forumName);
         }
 
-        public Entities.Forum GetById(long forumId)
+        public virtual Entities.Forum GetById(long forumId)
         {
             IQueryable<Entities.Forum> query = _dbSet;
 
             return query.FirstOrDefault(f => f.Id == forumId);
         }
 
-        public void RemoveById(long forumId)
+        public virtual void RemoveById(long forumId)
         {
             var entityToDelete = _dbSet.Find(forumId);
 
@@ -71,22 +71,22 @@ namespace OSL.Forum.Core.Repositories
             _dbSet.Remove(entityToDelete);
         }
 
-        public void Add(Entities.Forum forum)
+        public virtual void Add(Entities.Forum forum)
         {
             _dbSet.Add(forum);
         }
 
-        public long GetCount()
+        public virtual long GetCount()
         {
             return _dbSet.Count();
         }
 
-        public long GetCountByCategoryId(long categoryId)
+        public virtual long GetCountByCategoryId(long categoryId)
         {
             return _dbSet.Count(f => f.CategoryId == categoryId);
         }
 
-        public IList<Entities.Forum> Load(long categoryId, int pagerCurrentPage, int pagerPageSize, bool tracking)
+        public virtual IList<Entities.Forum> Load(long categoryId, int pagerCurrentPage, int pagerPageSize, bool tracking)
         {
             IQueryable<Entities.Forum> query = _dbSet;
             query = query.Where(f => f.CategoryId == categoryId);

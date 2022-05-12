@@ -18,6 +18,11 @@ namespace OSL.Forum.Core.Services
             _postRepository = new PostRepository();
         }
 
+        public PostService(IPostRepository postRepository)
+        {
+            _postRepository = postRepository;
+        }
+
         public BO.Post GetPost(long postId)
         {
             if (postId == 0)

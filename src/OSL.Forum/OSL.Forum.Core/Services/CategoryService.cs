@@ -17,7 +17,12 @@ namespace OSL.Forum.Core.Services
         {
             _categoryRepository = new CategoryRepository();
         }
-        
+
+        public CategoryService(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
+
         public BO.Category GetCategory(string categoryName)
         {
             if (string.IsNullOrWhiteSpace(categoryName))

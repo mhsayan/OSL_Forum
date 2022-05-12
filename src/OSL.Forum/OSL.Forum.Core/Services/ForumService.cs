@@ -19,6 +19,11 @@ namespace OSL.Forum.Core.Services
             _forumRepository = new ForumRepository();
         }
 
+        public ForumService(IForumRepository forumRepository)
+        {
+            _forumRepository = forumRepository;
+        }
+
         public virtual BO.Forum GetForum(string forumName, long categoryId)
         {
             if (string.IsNullOrWhiteSpace(forumName))

@@ -20,31 +20,31 @@ namespace OSL.Forum.Core.Repositories
             _dbSet = _dbContext.Set<Category>();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _dbContext?.Dispose();
         }
 
-        public void Save()
+        public virtual void Save()
         {
             _dbContext?.SaveChanges();
         }
 
-        public Category GetByName(string name)
+        public virtual Category GetByName(string name)
         {
             IQueryable<Category> query = _dbSet;
 
             return query.FirstOrDefault(c => c.Name == name);
         }
 
-        public Category GetById(long categoryId)
+        public virtual Category GetById(long categoryId)
         {
             IQueryable<Category> query = _dbSet;
 
             return query.FirstOrDefault(c => c.Id == categoryId);
         }
 
-        public void RemoveById(long categoryId)
+        public virtual void RemoveById(long categoryId)
         {
             var entityToDelete = _dbSet.Find(categoryId);
 
@@ -59,17 +59,17 @@ namespace OSL.Forum.Core.Repositories
             _dbSet.Remove(entityToDelete);
         }
 
-        public void Add(Category category)
+        public virtual void Add(Category category)
         {
             _dbSet.Add(category);
         }
 
-        public long GetCount()
+        public virtual long GetCount()
         {
            return _dbSet.Count();
         }
 
-        public IList<Category> Load(int pageIndex, int pageSize, bool tracking, string includedProperty = "")
+        public virtual IList<Category> Load(int pageIndex, int pageSize, bool tracking, string includedProperty = "")
         {
             IQueryable<Category> query = _dbSet.Include(includedProperty);
 

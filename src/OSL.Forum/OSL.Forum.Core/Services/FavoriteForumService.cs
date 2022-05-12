@@ -16,7 +16,12 @@ namespace OSL.Forum.Core.Services
         {
             _favoriteForumRepository = new FavoriteForumRepository();
         }
-        
+
+        public FavoriteForumService(IFavoriteForumRepository favoriteForumRepository)
+        {
+            _favoriteForumRepository = favoriteForumRepository;
+        }
+
         public List<BO.FavoriteForum> GetUserFavoriteForums(string userId)
         {
             var favoriteForumsEntity = _favoriteForumRepository.LoadByUserId(userId);

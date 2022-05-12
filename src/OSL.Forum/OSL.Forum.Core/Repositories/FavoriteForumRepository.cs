@@ -19,22 +19,22 @@ namespace OSL.Forum.Core.Repositories
             _dbSet = _dbContext.Set<FavoriteForum>();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _dbContext?.Dispose();
         }
 
-        public void Save()
+        public virtual void Save()
         {
             _dbContext?.SaveChanges();
         }
 
-        public void Add(FavoriteForum favoriteForum)
+        public virtual void Add(FavoriteForum favoriteForum)
         {
             _dbSet.Add(favoriteForum);
         }
 
-        public void RemoveById(long favoriteForumId)
+        public virtual void RemoveById(long favoriteForumId)
         {
             var entityToDelete = _dbSet.Find(favoriteForumId);
 
@@ -49,14 +49,14 @@ namespace OSL.Forum.Core.Repositories
             _dbSet.Remove(entityToDelete);
         }
 
-        public FavoriteForum Get(long forumId, string userId)
+        public virtual FavoriteForum Get(long forumId, string userId)
         {
             IQueryable<FavoriteForum> query = _dbSet;
 
             return query.FirstOrDefault(ff => ff.ForumId == forumId && ff.ApplicationUserId == userId);
         }
 
-        public IList<FavoriteForum> LoadByUserId(string userId)
+        public virtual IList<FavoriteForum> LoadByUserId(string userId)
         {
             IQueryable<FavoriteForum> query = _dbSet;
             query = query.Where(ff => ff.ApplicationUserId == userId);
@@ -64,7 +64,7 @@ namespace OSL.Forum.Core.Repositories
             return query.ToList();
         }
 
-        public IList<FavoriteForum> Load(string userId, int pageIndex, int pageSize, bool tracking)
+        public virtual IList<FavoriteForum> Load(string userId, int pageIndex, int pageSize, bool tracking)
         {
             IQueryable<FavoriteForum> query = _dbSet;
             query = query.Where(ff => ff.ApplicationUserId == userId);

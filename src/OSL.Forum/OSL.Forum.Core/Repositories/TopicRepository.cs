@@ -19,45 +19,45 @@ namespace OSL.Forum.Core.Repositories
             _dbSet = _dbContext.Set<Topic>();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _dbContext?.Dispose();
         }
 
-        public void Save()
+        public virtual void Save()
         {
             _dbContext?.SaveChanges();
         }
 
-        public Topic Get(string topicName, long forumId)
+        public virtual Topic Get(string topicName, long forumId)
         {
             IQueryable<Topic> query = _dbSet;
 
             return query.FirstOrDefault(f => f.Name == topicName && f.ForumId == forumId);
         }
 
-        public Topic GetWithIncludedProperty(long topicId, string includeProperty = "")
+        public virtual Topic GetWithIncludedProperty(long topicId, string includeProperty = "")
         {
             IQueryable<Topic> query = _dbSet.Include(includeProperty);
 
             return query.FirstOrDefault(t => t.Id == topicId);
         }
 
-        public Topic GetByName(string topicName)
+        public virtual Topic GetByName(string topicName)
         {
             IQueryable<Topic> query = _dbSet;
 
             return query.FirstOrDefault(t => t.Name == topicName);
         }
 
-        public Topic GetById(long topicId)
+        public virtual Topic GetById(long topicId)
         {
             IQueryable<Topic> query = _dbSet;
 
             return query.FirstOrDefault(t => t.Id == topicId);
         }
 
-        public void RemoveById(long topicId)
+        public virtual void RemoveById(long topicId)
         {
             var entityToDelete = _dbSet.Find(topicId);
 
@@ -72,22 +72,22 @@ namespace OSL.Forum.Core.Repositories
             _dbSet.Remove(entityToDelete);
         }
 
-        public void Add(Topic topic)
+        public virtual void Add(Topic topic)
         {
             _dbSet.Add(topic);
         }
 
-        public long GetCount()
+        public virtual long GetCount()
         {
             return _dbSet.Count();
         }
 
-        public long GetCountByForumId(long forumId)
+        public virtual long GetCountByForumId(long forumId)
         {
             return _dbSet.Count(t => t.ForumId == forumId);
         }
 
-        public IList<Topic> Load(long forumId, int pagerCurrentPage, int pagerPageSize, bool tracking)
+        public virtual IList<Topic> Load(long forumId, int pagerCurrentPage, int pagerPageSize, bool tracking)
         {
             IQueryable<Topic> query = _dbSet;
             query = query.Where(f => f.ForumId == forumId);

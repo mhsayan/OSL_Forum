@@ -19,6 +19,11 @@ namespace OSL.Forum.Core.Services
             _topicRepository = new TopicRepository();
         }
 
+        public TopicService(ITopicRepository topicRepository)
+        {
+            _topicRepository = topicRepository;
+        }
+
         public BO.Topic GetTopic(string topicName, long forumId)
         {
             if (string.IsNullOrWhiteSpace(topicName))
