@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using OSL.Forum.Core.Repositories;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -9,17 +10,16 @@ namespace OSL.Forum.Core.Services
 {
     public class FavoriteForumService : IFavoriteForumService
     {
-        private readonly CoreUnitOfWork _unitOfWork;
+        private readonly IFavoriteForumRepository _favoriteForumRepository;
 
         public FavoriteForumService()
         {
-            _unitOfWork = CoreUnitOfWork.CreateFavoriteForumRepository();
+            _favoriteForumRepository = new FavoriteForumRepository();
         }
         
         public List<BO.FavoriteForum> GetUserFavoriteForums(string userId)
         {
-            var favoriteForumsEntity = _unitOfWork.FavoriteForums
-                .Get(ff => ff.ApplicationUserId == userId, "");
+            var favoriteForumsEntity = _favoriteForumRepository.LoadByUserId(userId);
 
             var favoriteForums = favoriteForumsEntity.Select(favoriteForum =>
                 new BO.FavoriteForum
@@ -42,10 +42,9 @@ namespace OSL.Forum.Core.Services
 
         public List<BO.FavoriteForum> GetUserFavoriteForums(int pageIndex, int pageSize, string userId)
         {
-            var favoriteForumsEntity = _unitOfWork.FavoriteForums
-                .Get(ff => ff.ApplicationUserId == userId, q => q.OrderBy(c => c.ForumId), "", pageIndex, pageSize, false);
+            var favoriteForumsEntity = _favoriteForumRepository.Load(userId, pageIndex, pageSize, false);
 
-            var favoriteForums = favoriteForumsEntity.data.Select(favoriteForum =>
+            var favoriteForums = favoriteForumsEntity.Select(favoriteForum =>
                 new BO.FavoriteForum
                 {
                     Id = favoriteForum.Id,
@@ -66,13 +65,12 @@ namespace OSL.Forum.Core.Services
 
         public int GetFavoriteForumCount(string userId)
         {
-            return _unitOfWork.FavoriteForums.Get(ff => ff.ApplicationUserId == userId, "").Count;
+            return _favoriteForumRepository.LoadByUserId(userId).Count;
         }
 
         public BO.FavoriteForum GetFavoriteForum(long forumId, string userId)
         {
-            var favoriteForumEntity = _unitOfWork.FavoriteForums
-                .Get(ff => ff.ForumId == forumId && ff.ApplicationUserId == userId, "").FirstOrDefault();
+            var favoriteForumEntity = _favoriteForumRepository.Get(forumId, userId);
 
             if (favoriteForumEntity == null)
                 return null;
@@ -108,8 +106,8 @@ namespace OSL.Forum.Core.Services
                 ApplicationUserId = userId
             };
 
-            _unitOfWork.FavoriteForums.Add(favoriteForumEntity);
-            _unitOfWork.Save();
+            _favoriteForumRepository.Add(favoriteForumEntity);
+            _favoriteForumRepository.Save();
         }
 
         public void RemoveFromFavorite(long forumId, string userId)
@@ -119,8 +117,8 @@ namespace OSL.Forum.Core.Services
             if (oldFavoriteForum == null)
                 throw new InvalidOperationException("This Forum is not in your Favorite list.");
 
-            _unitOfWork.FavoriteForums.Remove(oldFavoriteForum.Id);
-            _unitOfWork.Save();
+            _favoriteForumRepository.RemoveById(oldFavoriteForum.Id);
+            _favoriteForumRepository.Save();
         }
     }
 }

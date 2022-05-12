@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using OSL.Forum.Core.Enums;
+using OSL.Forum.Core.Repositories;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -11,11 +12,11 @@ namespace OSL.Forum.Core.Services
 {
     public class TopicService : ITopicService
     {
-        private readonly CoreUnitOfWork _unitOfWork;
+        private readonly ITopicRepository _topicRepository;
 
         public TopicService()
         {
-            _unitOfWork = CoreUnitOfWork.CreateTopicRepository();
+            _topicRepository = new TopicRepository();
         }
 
         public BO.Topic GetTopic(string topicName, long forumId)
@@ -23,8 +24,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(topicName))
                 throw new ArgumentNullException(nameof(topicName));
 
-            var topicEntity = _unitOfWork.Topics.Get(c =>
-                c.Name == topicName && c.ForumId == forumId, "").FirstOrDefault();
+            var topicEntity = _topicRepository.Get(topicName, forumId);
 
             if (topicEntity == null)
                 return null;
@@ -67,8 +67,7 @@ namespace OSL.Forum.Core.Services
             if (topicId == 0)
                 throw new ArgumentException("Topic Id is required.");
 
-            var topicEntity = _unitOfWork.Topics.Get(c =>
-                c.Id == topicId, "Posts").FirstOrDefault();
+            var topicEntity = _topicRepository.GetWithIncludedProperty(topicId, "Posts");
 
             if (topicEntity == null)
                 return null;
@@ -113,7 +112,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(topicName))
                 throw new ArgumentException(nameof(topicName));
 
-            var topicEntity = _unitOfWork.Topics.Get(c => c.Name == topicName, "").FirstOrDefault();
+            var topicEntity = _topicRepository.GetByName(topicName);
 
             if (topicEntity == null)
                 return null;
@@ -139,14 +138,14 @@ namespace OSL.Forum.Core.Services
             if (topicId == 0)
                 throw new ArgumentException("Topic Id is required.");
 
-            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+            var topicEntity = _topicRepository.GetById(topicId);
 
             if (topicEntity == null)
                 throw new ArgumentException(nameof(topicEntity));
 
             topicEntity.ModificationDate = modificationDate;
 
-            _unitOfWork.Save();
+            _topicRepository.Save();
 
         }
 
@@ -155,31 +154,26 @@ namespace OSL.Forum.Core.Services
             if (topicId == 0)
                 throw new ArgumentException("Topic Id is required.");
 
-            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+            var topicEntity = _topicRepository.GetById(topicId);
 
             if (topicEntity == null)
                 throw new InvalidOperationException("Topic is not found.");
 
             topicEntity.ApprovalType = ApprovalType.Auto.ToString();
 
-            _unitOfWork.Save();
+            _topicRepository.Save();
         }
 
-        public int GetTopicCount(long forumId)
+        public long GetTopicCount(long forumId)
         {
-            return _unitOfWork.Topics.Get(t => t.ForumId == forumId, "").Count;
+            return _topicRepository.GetCountByForumId(forumId);
         }
 
         public IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, long forumId)
         {
-            var topicEntities = _unitOfWork.Topics.Get(c => c.ForumId == forumId,
-                q => q.OrderByDescending(c => c.ModificationDate), "",
-                pagerCurrentPage, pagerPageSize, false);
+            var topicEntities = _topicRepository.Load(forumId, pagerCurrentPage, pagerPageSize, false);
 
-            if (topicEntities.data == null)
-                return null;
-
-            var topics = topicEntities.data.Select(topicEntity =>
+            var topics = topicEntities?.Select(topicEntity =>
                 new BO.Topic()
                 {
                     Id = topicEntity.Id,
@@ -220,8 +214,8 @@ namespace OSL.Forum.Core.Services
             if (topicId == 0)
                 throw new ArgumentException("Topic Id is required.");
 
-            _unitOfWork.Topics.Remove(topicId);
-            _unitOfWork.Save();
+            _topicRepository.RemoveById(topicId);
+            _topicRepository.Save();
         }
 
         public void CloseTopic(long topicId)
@@ -229,14 +223,14 @@ namespace OSL.Forum.Core.Services
             if (topicId == 0)
                 throw new ArgumentException("Topic Id is required.");
 
-            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+            var topicEntity = _topicRepository.GetById(topicId);
 
             if (topicEntity is null)
                 throw new InvalidOperationException("Topic is not found.");
 
             topicEntity.ActivityStatus = ActivityStatus.Inactive.ToString();
 
-            _unitOfWork.Save();
+            _topicRepository.Save();
         }
 
         public void OpenTopic(long topicId)
@@ -244,14 +238,14 @@ namespace OSL.Forum.Core.Services
             if (topicId == 0)
                 throw new ArgumentException("Topic Id is required.");
 
-            var topicEntity = _unitOfWork.Topics.GetById(topicId);
+            var topicEntity = _topicRepository.GetById(topicId);
 
             if (topicEntity is null)
                 throw new InvalidOperationException("Topic is not found.");
 
             topicEntity.ActivityStatus = ActivityStatus.Active.ToString();
 
-            _unitOfWork.Save();
+            _topicRepository.Save();
         }
 
         public void CreateTopic(BO.Topic topic)
@@ -276,8 +270,8 @@ namespace OSL.Forum.Core.Services
                 ApprovalType = topic.ApprovalType
             };
 
-            _unitOfWork.Topics.Add(topicEntity);
-            _unitOfWork.Save();
+            _topicRepository.Add(topicEntity);
+            _topicRepository.Save();
         }
     }
 }

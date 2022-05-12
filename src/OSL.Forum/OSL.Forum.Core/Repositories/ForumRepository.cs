@@ -32,28 +32,28 @@ namespace OSL.Forum.Core.Repositories
         {
             IQueryable<Entities.Forum> query = _dbSet;
 
-            return _dbSet.FirstOrDefault(f => f.Name == forumName && f.CategoryId == categoryId);
+            return query.FirstOrDefault(f => f.Name == forumName && f.CategoryId == categoryId);
         }
 
         public Entities.Forum GetWithIncludedProperty(long forumId, string includeProperty = "")
         {
             IQueryable<Entities.Forum> query = _dbSet.Include(includeProperty);
 
-            return _dbSet.FirstOrDefault(f => f.Id == forumId);
+            return query.FirstOrDefault(f => f.Id == forumId);
         }
 
         public Entities.Forum GetByName(string forumName)
         {
             IQueryable<Entities.Forum> query = _dbSet;
 
-            return _dbSet.FirstOrDefault(f => f.Name == forumName);
+            return query.FirstOrDefault(f => f.Name == forumName);
         }
 
         public Entities.Forum GetById(long forumId)
         {
             IQueryable<Entities.Forum> query = _dbSet;
 
-            return _dbSet.FirstOrDefault(f => f.Id == forumId);
+            return query.FirstOrDefault(f => f.Id == forumId);
         }
 
         public void RemoveById(long forumId)
@@ -81,7 +81,7 @@ namespace OSL.Forum.Core.Repositories
             return _dbSet.Count();
         }
 
-        public long GetByCategoryId(long categoryId)
+        public long GetCountByCategoryId(long categoryId)
         {
             return _dbSet.Count(f => f.CategoryId == categoryId);
         }

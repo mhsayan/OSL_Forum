@@ -41,7 +41,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Posts = new PostRepository(_coreDbContext)
+                Posts = new PostRepository()
             };
         }
 
@@ -49,7 +49,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                Topics = new TopicRepository(_coreDbContext)
+                Topics = new TopicRepository()
             };
         }
 
@@ -57,7 +57,7 @@ namespace OSL.Forum.Core.UnitOfWorks
         {
             return new CoreUnitOfWork()
             {
-                FavoriteForums = new FavoriteForumRepository(_coreDbContext)
+                FavoriteForums = new FavoriteForumRepository()
             };
         }
     }

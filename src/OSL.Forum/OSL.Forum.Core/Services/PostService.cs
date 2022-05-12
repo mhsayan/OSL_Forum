@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OSL.Forum.Core.Enums;
+using OSL.Forum.Core.Repositories;
 using BO = OSL.Forum.Core.BusinessObjects;
 using EO = OSL.Forum.Core.Entities;
 using OSL.Forum.Core.UnitOfWorks;
@@ -10,11 +11,11 @@ namespace OSL.Forum.Core.Services
 {
     public class PostService : IPostService
     {
-        private readonly CoreUnitOfWork _unitOfWork;
+        private readonly IPostRepository _postRepository;
 
         public PostService()
         {
-            _unitOfWork = CoreUnitOfWork.CreatePostRepository();
+            _postRepository = new PostRepository();
         }
 
         public BO.Post GetPost(long postId)
@@ -22,7 +23,7 @@ namespace OSL.Forum.Core.Services
             if (postId == 0)
                 throw new ArgumentException("Post Id is required.");
 
-            var postEntity = _unitOfWork.Posts.Get(c => c.Id == postId, "").FirstOrDefault();
+            var postEntity = _postRepository.GetById(postId);
 
             if (postEntity == null)
                 return null;
@@ -64,7 +65,7 @@ namespace OSL.Forum.Core.Services
             if (post is null)
                 throw new ArgumentNullException(nameof(post));
 
-            var postEntity = _unitOfWork.Posts.GetById(post.Id);
+            var postEntity = _postRepository.GetById(post.Id);
 
             if (postEntity is null)
                 throw new InvalidOperationException("Post is not found.");
@@ -74,7 +75,7 @@ namespace OSL.Forum.Core.Services
             postEntity.ModificationDate = post.ModificationDate;
             postEntity.Status = Status.Pending.ToString();
 
-            _unitOfWork.Save();
+            _postRepository.Save();
         }
 
         public void DeletePost(long postId)
@@ -82,8 +83,8 @@ namespace OSL.Forum.Core.Services
             if (postId == 0)
                 throw new ArgumentException("Post Id is required.");
 
-            _unitOfWork.Posts.Remove(postId);
-            _unitOfWork.Save();
+            _postRepository.RemoveById(postId);
+            _postRepository.Save();
         }
 
         public void CreatePost(BO.Post post)
@@ -103,20 +104,20 @@ namespace OSL.Forum.Core.Services
                 Status = post.Status
             };
 
-            _unitOfWork.Posts.Add(postEntity);
-            _unitOfWork.Save();
+            _postRepository.Add(postEntity);
+            _postRepository.Save();
         }
 
         public List<BO.Post> GetMyPosts(int pagerCurrentPage, int pagerPageSize, string userId)
         {
-            var postEntity = _unitOfWork.Posts.Get(p => p.ApplicationUserId == userId, q => q.OrderByDescending(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+            var postEntity = _postRepository.LoadUserPosts(userId, pagerCurrentPage, pagerPageSize, false);
 
-            if (postEntity.data == null)
+            if (postEntity == null)
                 return null;
 
             var posts = new List<BO.Post>();
 
-            foreach (var post in postEntity.data)
+            foreach (var post in postEntity)
             {
                 posts.Add(new BO.Post()
                 {
@@ -136,21 +137,21 @@ namespace OSL.Forum.Core.Services
 
         public int GetPendingPostCount()
         {
-            var pendingPostCount = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), "").Count;
+            var pendingPostCount = _postRepository.LoadByStatus(Status.Pending.ToString()).Count;
 
             return pendingPostCount == 0 ? 0 : pendingPostCount;
         }
 
         public List<BO.Post> PendingPosts(int pagerCurrentPage, int pagerPageSize)
         {
-            var postEntity = _unitOfWork.Posts.Get(p => p.Status == Status.Pending.ToString(), q => q.OrderBy(c => c.ModificationDate), "", pagerCurrentPage, pagerPageSize, false);
+            var postEntity = _postRepository.LoadPendingPosts(Status.Pending.ToString(), pagerCurrentPage, pagerPageSize, false);
 
-            if (postEntity.data == null)
+            if (postEntity == null)
                 return null;
 
             var posts = new List<BO.Post>();
 
-            foreach (var post in postEntity.data)
+            foreach (var post in postEntity)
             {
                 posts.Add(new BO.Post()
                 {
@@ -195,14 +196,14 @@ namespace OSL.Forum.Core.Services
             if (postId == 0 && string.IsNullOrWhiteSpace(status))
                 throw new ArgumentException("Post Id or status missing.");
 
-            var postEntity = _unitOfWork.Posts.GetById(postId);
+            var postEntity = _postRepository.GetById(postId);
 
             if (postEntity == null)
                 throw new InvalidOperationException("Post is not found.");
 
             postEntity.Status = status;
 
-            _unitOfWork.Save();
+            _postRepository.Save();
         }
 
         public int UserPostCount(string applicationUserId)
@@ -210,7 +211,7 @@ namespace OSL.Forum.Core.Services
             if (string.IsNullOrWhiteSpace(applicationUserId))
                 throw new ArgumentException("User id is missing.");
 
-            var userPendingPostCount = _unitOfWork.Posts.Get(p => p.ApplicationUserId == applicationUserId, "").Count;
+            var userPendingPostCount = _postRepository.LoadByUserId(applicationUserId).Count;
 
             return userPendingPostCount == 0 ? 0 : userPendingPostCount;
         }

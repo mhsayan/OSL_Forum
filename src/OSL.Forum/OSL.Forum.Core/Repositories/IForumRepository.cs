@@ -14,7 +14,7 @@ namespace OSL.Forum.Core.Repositories
         void RemoveById(long forumId);
         void Add(Entities.Forum forum);
         long GetCount();
-        long GetByCategoryId(long categoryId);
-        IList<Entities.Forum> Load(long categoryId, int pagerCurrentPage, int pagerPageSize, bool b);
+        long GetCountByCategoryId(long categoryId);
+        IList<Entities.Forum> Load(long categoryId, int pagerCurrentPage, int pagerPageSize, bool tracking);
     }
 }

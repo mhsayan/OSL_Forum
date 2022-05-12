@@ -34,14 +34,14 @@ namespace OSL.Forum.Core.Repositories
         {
             IQueryable<Category> query = _dbSet;
 
-            return _dbSet.FirstOrDefault(c => c.Name == name);
+            return query.FirstOrDefault(c => c.Name == name);
         }
 
         public Category GetById(long categoryId)
         {
             IQueryable<Category> query = _dbSet;
 
-            return _dbSet.FirstOrDefault(c => c.Id == categoryId);
+            return query.FirstOrDefault(c => c.Id == categoryId);
         }
 
         public void RemoveById(long categoryId)

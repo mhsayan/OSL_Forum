@@ -201,7 +201,7 @@ namespace OSL.Forum.Core.Services
             if (categoryId <= 0)
                 throw new ArgumentException("Category id is missing.");
 
-            var totalForum = _forumRepository.GetByCategoryId(categoryId);
+            var totalForum = _forumRepository.GetCountByCategoryId(categoryId);
 
             return totalForum;
         }

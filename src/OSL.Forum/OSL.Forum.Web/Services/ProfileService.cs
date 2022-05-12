@@ -14,14 +14,12 @@ namespace OSL.Forum.Web.Services
 {
     public class ProfileService : IProfileService
     {
-        private static ProfileService _profileService;
-        private readonly UserStore<ApplicationUser> UserStore;
-        private readonly ApplicationUserManager UserManager;
+        private readonly ApplicationUserManager _userManager;
 
         public ProfileService()
         {
-            UserStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager = new ApplicationUserManager(UserStore);
+            var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            _userManager = new ApplicationUserManager(userStore);
         }
         
         public string UserID()
@@ -32,7 +30,7 @@ namespace OSL.Forum.Web.Services
         public ApplicationUser GetUser()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
-            var user = UserManager.FindById(userId);
+            var user = _userManager.FindById(userId);
 
             return user ?? null;
         }
@@ -42,7 +40,7 @@ namespace OSL.Forum.Web.Services
             if (string.IsNullOrWhiteSpace(userId))
                 throw new ArgumentNullException(nameof(userId));
 
-            var user = UserManager.FindById(userId);
+            var user = _userManager.FindById(userId);
 
             return user;
         }
@@ -51,12 +49,12 @@ namespace OSL.Forum.Web.Services
         {
             var userId = UserID();
 
-            return await UserManager.GetRolesAsync(userId);
+            return await _userManager.GetRolesAsync(userId);
         }
 
         public async Task<IList<string>> UserRolesAsync(string userId)
         {
-            return await UserManager.GetRolesAsync(userId);
+            return await _userManager.GetRolesAsync(userId);
         }
 
         public bool Owner(string userId)
@@ -82,14 +80,14 @@ namespace OSL.Forum.Web.Services
             if (applicationUser == null)
                 throw new ArgumentNullException(nameof(applicationUser));
 
-            var user = UserManager.FindById(applicationUser.Id);
+            var user = _userManager.FindById(applicationUser.Id);
 
             if (user.Name == applicationUser.Name)
                 throw new InvalidOperationException("The name is the same as your previous name.");
 
             user.Name = applicationUser.Name;
 
-            var result = await UserManager.UpdateAsync(user);
+            var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
                 throw new InvalidOperationException("User profile update failed.");
@@ -102,7 +100,7 @@ namespace OSL.Forum.Web.Services
 
             await RemoveUserFromRolesAsync(applicationUserRole.UserId);
 
-            var result = await UserManager.AddToRoleAsync(applicationUserRole.UserId, applicationUserRole.UserRole);
+            var result = await _userManager.AddToRoleAsync(applicationUserRole.UserId, applicationUserRole.UserRole);
 
             if (!result.Succeeded)
                 throw new InvalidOperationException("Role assign failed.");
@@ -113,7 +111,7 @@ namespace OSL.Forum.Web.Services
             var user = GetUser();
             var superAdmin = ConfigurationManager.AppSettings["SuperAdminEmail"].ToString();
 
-            var users = UserManager.Users.ToList()
+            var users = _userManager.Users.ToList()
                 .Where(u => u.Email != user.Email && u.Email != superAdmin)
                 .Select(u => new SelectListItem
                 {
@@ -133,7 +131,7 @@ namespace OSL.Forum.Web.Services
 
             foreach (var userRole in userRoles)
             {
-                var result = await UserManager.RemoveFromRolesAsync(userId, userRole);
+                var result = await _userManager.RemoveFromRolesAsync(userId, userRole);
 
                 if (!result.Succeeded)
                     throw new InvalidOperationException("Role remove failed.");

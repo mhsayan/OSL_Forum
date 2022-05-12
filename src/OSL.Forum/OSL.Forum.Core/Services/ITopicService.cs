@@ -13,7 +13,7 @@ namespace OSL.Forum.Core.Services
         BO.Topic GetTopic(string topicName);
         void UpdateModificationDate(long topicId, DateTime time);
         void UpdateTopicApprovalType(long topicId);
-        int GetTopicCount(long id);
+        long GetTopicCount(long id);
         IList<BO.Topic> GetTopics(int pagerCurrentPage, int pagerPageSize, long forumId);
         void DeleteTopic(long topicId);
         void CloseTopic(long topicId);
