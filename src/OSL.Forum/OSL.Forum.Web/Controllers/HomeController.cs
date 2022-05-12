@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using log4net;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
+﻿using log4net;
+using OSL.Forum.Common.Utilities;
+using OSL.Forum.Services;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Models.Home;
 using OSL.Forum.Web.Services;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace OSL.Forum.Web.Controllers
 {

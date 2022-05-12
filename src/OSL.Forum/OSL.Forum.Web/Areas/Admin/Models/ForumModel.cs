@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
-using OSL.Forum.Web.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
+﻿using System.ComponentModel.DataAnnotations;
+using BO = OSL.Forum.Entities.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Models
 {

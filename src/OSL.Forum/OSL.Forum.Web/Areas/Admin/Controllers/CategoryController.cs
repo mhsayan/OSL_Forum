@@ -2,12 +2,11 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using log4net;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
+using OSL.Forum.Common.Utilities;
+using OSL.Forum.Services;
 using OSL.Forum.Web.Areas.Admin.Models;
-using OSL.Forum.Web.Areas.Admin.Models.Category;
 using OSL.Forum.Web.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
+using BO = OSL.Forum.Entities.BusinessObjects;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers
 {

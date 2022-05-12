@@ -41,7 +41,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryService.cs" />
+    <Compile Include="FavoriteForumService.cs" />
+    <Compile Include="ForumService.cs" />
+    <Compile Include="ICategoryService.cs" />
+    <Compile Include="IFavoriteForumService.cs" />
+    <Compile Include="IForumService.cs" />
+    <Compile Include="IPostService.cs" />
+    <Compile Include="ITopicService.cs" />
+    <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TopicService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OSL.Forum.Base\OSL.Forum.Base.csproj">
+      <Project>{54415A8E-6742-4BEA-8C87-6B54EEA9B547}</Project>
+      <Name>OSL.Forum.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.Common\OSL.Forum.Common.csproj">
+      <Project>{B5C8DF56-7ADA-42C3-B78A-716C08761330}</Project>
+      <Name>OSL.Forum.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.DAO\OSL.Forum.DAO.csproj">
+      <Project>{1C2118C5-EA79-4F53-B771-46CDDC5AF97F}</Project>
+      <Name>OSL.Forum.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.Entities\OSL.Forum.Entities.csproj">
+      <Project>{EBDEFE47-B739-462F-A991-BBBB7ED59F13}</Project>
+      <Name>OSL.Forum.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

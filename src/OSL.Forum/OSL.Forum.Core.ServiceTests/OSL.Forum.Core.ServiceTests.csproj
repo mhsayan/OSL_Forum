@@ -86,12 +86,6 @@
     <Analyzer Include="..\packages\NSubstitute.Analyzers.CSharp.1.0.15\analyzers\dotnet\cs\NSubstitute.Analyzers.CSharp.dll" />
     <Analyzer Include="..\packages\NSubstitute.Analyzers.CSharp.1.0.15\analyzers\dotnet\cs\NSubstitute.Analyzers.Shared.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OSL.Forum.Core\OSL.Forum.Core.csproj">
-      <Project>{D3610ED7-9F1E-4F53-A8C7-42FE0693E795}</Project>
-      <Name>OSL.Forum.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

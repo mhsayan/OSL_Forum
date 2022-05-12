@@ -234,6 +234,7 @@
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\TopicDetailsModel.cs" />
     <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -2348,13 +2349,28 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\OSL.Forum.Base\OSL.Forum.Base.csproj">
       <Project>{54415a8e-6742-4bea-8c87-6b54eea9b547}</Project>
       <Name>OSL.Forum.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OSL.Forum.Core\OSL.Forum.Core.csproj">
-      <Project>{d3610ed7-9f1e-4f53-a8c7-42fe0693e795}</Project>
-      <Name>OSL.Forum.Core</Name>
+    <ProjectReference Include="..\OSL.Forum.Common\OSL.Forum.Common.csproj">
+      <Project>{b5c8df56-7ada-42c3-b78a-716c08761330}</Project>
+      <Name>OSL.Forum.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.DAO\OSL.Forum.DAO.csproj">
+      <Project>{1c2118c5-ea79-4f53-b771-46cddc5af97f}</Project>
+      <Name>OSL.Forum.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.Entities\OSL.Forum.Entities.csproj">
+      <Project>{ebdefe47-b739-462f-a991-bbbb7ed59f13}</Project>
+      <Name>OSL.Forum.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OSL.Forum.Services\OSL.Forum.Services.csproj">
+      <Project>{7a611019-f557-4783-9199-08c04ecf51d6}</Project>
+      <Name>OSL.Forum.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

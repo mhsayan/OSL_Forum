@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using log4net;
-using OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Entities.BusinessObjects;
 using OSL.Forum.Web.Areas.Admin.Models;
 using OSL.Forum.Web.Seeds;
 using OSL.Forum.Web.Services;

@@ -1,15 +1,14 @@
-﻿using System;
+﻿using log4net;
+using OSL.Forum.Common.Enums;
+using OSL.Forum.Common.Utilities;
+using OSL.Forum.Services;
+using OSL.Forum.Web.Models;
+using OSL.Forum.Web.Services;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using log4net;
-using OSL.Forum.Core.BusinessObjects;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
-using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Models.Topic;
-using OSL.Forum.Web.Services;
-using CreateTopicModel = OSL.Forum.Web.Models.CreateTopicModel;
+using OSL.Forum.Entities.BusinessObjects;
 
 namespace OSL.Forum.Web.Controllers
 {
@@ -113,12 +112,24 @@ namespace OSL.Forum.Web.Controllers
 
         public async Task<ActionResult> Details(long topicId)
         {
-            var model = new TopicDetailsModel();
-            model.GetTopic(topicId);
-            model.UserAuthenticatedStatus();
+            var model = new TopicModel();
+            model.Topic = _topicService.GetTopic(topicId);
+            var postList = new List<Post>();
+
+            foreach (var topicPost in model.Topic.Posts)
+            {
+                if (topicPost.Status != Status.Approved.ToString()) continue;
+                topicPost.Owner = _profileService.Owner(topicPost.ApplicationUserId);
+                topicPost.OwnerName = _profileService.GetUser(topicPost.ApplicationUserId).Name;
+
+                postList.Add(model.PostBuilder(topicPost));
+            }
+
+            model.Topic.Posts = postList;
+            model.IsAuthenticated = _profileService.IsAuthenticated();
 
             if (model.IsAuthenticated)
-                await model.GetUserRolesAsync();
+                model.UserRoles = await _profileService.UserRolesAsync();
 
             return View(model);
         }

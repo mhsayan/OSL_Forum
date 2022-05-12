@@ -1,15 +1,13 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using log4net;
+﻿using log4net;
 using Microsoft.AspNet.Identity;
-using OSL.Forum.Core.Enums;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
+using OSL.Forum.Common.Enums;
+using OSL.Forum.Common.Utilities;
+using OSL.Forum.Services;
 using OSL.Forum.Web.Models;
-using OSL.Forum.Web.Models.Post;
 using OSL.Forum.Web.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
+using System;
+using System.Web.Mvc;
+using BO = OSL.Forum.Entities.BusinessObjects;
 
 namespace OSL.Forum.Web.Controllers
 {

@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
-using OSL.Forum.Web.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Common.Utilities;
+using BO = OSL.Forum.Entities.BusinessObjects;
 
 namespace OSL.Forum.Web.Models
 {
@@ -20,5 +16,25 @@ namespace OSL.Forum.Web.Models
         private ApplicationUser ApplicationUser { get; set; }
         public BO.Topic Topic { get; set; }
         public DateTime Time { get; set; }
+
+        public BO.Post PostBuilder(BO.Post topicPost)
+        {
+            var post = new BO.Post()
+            {
+                Id = topicPost.Id,
+                Name = topicPost.Name,
+                TopicId = topicPost.TopicId,
+                ApplicationUserId = topicPost.ApplicationUserId,
+                Owner = topicPost.Owner,
+                OwnerName = topicPost.OwnerName,
+                Description = topicPost.Description,
+                Status = topicPost.Status,
+                CreationDate = topicPost.CreationDate,
+                ModificationDate = topicPost.ModificationDate,
+                Topic = topicPost.Topic
+            };
+
+            return post;
+        }
     }
 }

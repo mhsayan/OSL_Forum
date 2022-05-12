@@ -1,11 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using OSL.Forum.Core.Enums;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
-using OSL.Forum.Web.Services;
-using BO = OSL.Forum.Core.BusinessObjects;
+using OSL.Forum.Common.Enums;
+using BO = OSL.Forum.Entities.BusinessObjects;
 
 namespace OSL.Forum.Web.Models
 {

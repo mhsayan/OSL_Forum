@@ -85,53 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Category.cs" />
-    <Compile Include="BusinessObjects\FavoriteForum.cs" />
-    <Compile Include="BusinessObjects\Forum.cs" />
-    <Compile Include="BusinessObjects\Post.cs" />
-    <Compile Include="BusinessObjects\Topic.cs" />
-    <Compile Include="BusinessObjects\ApplicationUserRole.cs" />
-    <Compile Include="Contexts\CoreDbContext.cs" />
-    <Compile Include="Contexts\ICoreDbContext.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\FavoriteForum.cs" />
-    <Compile Include="Entities\Forum.cs" />
-    <Compile Include="Entities\Post.cs" />
-    <Compile Include="Entities\Topic.cs" />
-    <Compile Include="Enums\ActivityStatus.cs" />
-    <Compile Include="Enums\ApprovalType.cs" />
-    <Compile Include="Enums\Status.cs" />
-    <Compile Include="Migrations\202204210907527_AddEntities.cs" />
-    <Compile Include="Migrations\202204210907527_AddEntities.designer.cs">
-      <DependentUpon>202204210907527_AddEntities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IFavoriteForumRepository.cs" />
-    <Compile Include="Repositories\FavoriteForumRepository.cs" />
-    <Compile Include="Repositories\TopicRepository.cs" />
-    <Compile Include="Repositories\PostRepository.cs" />
-    <Compile Include="Repositories\ForumRepository.cs" />
-    <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\ITopicRepository.cs" />
-    <Compile Include="Repositories\IPostRepository.cs" />
-    <Compile Include="Repositories\IForumRepository.cs" />
-    <Compile Include="Repositories\ICategoryRepository.cs" />
-    <Compile Include="Services\FavoriteForumService.cs" />
-    <Compile Include="Services\IFavoriteForumService.cs" />
-    <Compile Include="Services\IPostService.cs" />
-    <Compile Include="Services\PostService.cs" />
-    <Compile Include="Services\TopicService.cs" />
-    <Compile Include="Services\ForumService.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\ITopicService.cs" />
-    <Compile Include="Services\IForumService.cs" />
-    <Compile Include="Services\ICategoryService.cs" />
-    <Compile Include="UnitOfWorks\CoreUnitOfWork.cs" />
-    <Compile Include="UnitOfWorks\ICoreUnitOfWork.cs" />
-    <Compile Include="Utilities\DateTimeUtility.cs" />
-    <Compile Include="Utilities\IDateTimeUtility.cs" />
-    <Compile Include="Utilities\Pager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -142,11 +96,10 @@
       <Project>{54415A8E-6742-4BEA-8C87-6B54EEA9B547}</Project>
       <Name>OSL.Forum.Base</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202204210907527_AddEntities.resx">
-      <DependentUpon>202204210907527_AddEntities.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\OSL.Forum.Entities\OSL.Forum.Entities.csproj">
+      <Project>{EBDEFE47-B739-462F-A991-BBBB7ED59F13}</Project>
+      <Name>OSL.Forum.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

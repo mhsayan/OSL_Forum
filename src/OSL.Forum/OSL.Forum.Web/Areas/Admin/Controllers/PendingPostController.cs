@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using log4net;
-using OSL.Forum.Core.Enums;
-using OSL.Forum.Core.Services;
-using OSL.Forum.Core.Utilities;
+using OSL.Forum.Common.Enums;
+using OSL.Forum.Common.Utilities;
+using OSL.Forum.Services;
 using OSL.Forum.Web.Areas.Admin.Models;
-using OSL.Forum.Web.Areas.Admin.Models.PendingPost;
 using OSL.Forum.Web.Services;
 
 namespace OSL.Forum.Web.Areas.Admin.Controllers

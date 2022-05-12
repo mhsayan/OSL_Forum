@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using OSL.Forum.Entities.BusinessObjects;
+using OSL.Forum.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using OSL.Forum.Core.BusinessObjects;
-using OSL.Forum.Web.Models;
 
 namespace OSL.Forum.Web.Services
 {
@@ -22,7 +22,7 @@ namespace OSL.Forum.Web.Services
             _userManager = new ApplicationUserManager(userStore);
         }
         
-        public string UserID()
+        public string UserId()
         {
             return HttpContext.Current.User.Identity.GetUserId();
         }
@@ -47,7 +47,7 @@ namespace OSL.Forum.Web.Services
 
         public async Task<IList<string>> UserRolesAsync()
         {
-            var userId = UserID();
+            var userId = UserId();
 
             return await _userManager.GetRolesAsync(userId);
         }
