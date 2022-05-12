@@ -11,7 +11,7 @@ namespace OSL.Forum.Core.ServiceTests
     public class ForumServiceTests
     {
         private IForumRepository _mockForumRepository = new ForumRepository();
-        private IForumService _mockForumService = Substitute.For<IForumService>();
+        private ForumService _mockForumService = Substitute.For<ForumService>();
 
         [Test]
         public void GetForumCount_()
