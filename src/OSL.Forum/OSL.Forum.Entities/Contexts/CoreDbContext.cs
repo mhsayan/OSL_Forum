@@ -35,10 +35,10 @@ namespace OSL.Forum.Entities.Contexts
             base.OnModelCreating(modelBuilder);
         }
 
-        DbSet<Category> Categories { get; set; }
-        DbSet<Forum> Forums { get; set; }
-        DbSet<Topic> Topics { get; set; }
-        DbSet<Post> Posts { get; set; }
-        DbSet<FavoriteForum> FavoriteForums { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Forum> Forums { get; set; }
+        public virtual DbSet<Topic> Topics { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<FavoriteForum> FavoriteForums { get; set; }
     }
 }

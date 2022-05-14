@@ -253,5 +253,10 @@ namespace OSL.Forum.Services
             _forumRepository.Add(forumEntity);
             _forumRepository.Save();
         }
+
+        public EO.Forum GetForumById(long forumId)
+        {
+            return _forumRepository.GetById(forumId);
+        }
     }
 }

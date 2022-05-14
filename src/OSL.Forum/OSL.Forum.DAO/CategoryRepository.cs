@@ -9,10 +9,10 @@ namespace OSL.Forum.DAO
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly DbContext _dbContext;
+        private readonly CoreDbContext _dbContext;
         private readonly DbSet<Category> _dbSet;
 
-        public CategoryRepository(DbContext dbContext)
+        public CategoryRepository(CoreDbContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<Category>();
