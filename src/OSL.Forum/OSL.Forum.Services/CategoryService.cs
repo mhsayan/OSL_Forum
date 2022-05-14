@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using OSL.Forum.DAO;
+using OSL.Forum.Entities.Contexts;
 using BO = OSL.Forum.Entities.BusinessObjects;
 using EO = OSL.Forum.Entities;
 
@@ -14,7 +16,7 @@ namespace OSL.Forum.Services
 
         public CategoryService()
         {
-            _categoryRepository = new CategoryRepository();
+            _categoryRepository = new CategoryRepository(new CoreDbContext());
         }
 
         public CategoryService(ICategoryRepository categoryRepository)

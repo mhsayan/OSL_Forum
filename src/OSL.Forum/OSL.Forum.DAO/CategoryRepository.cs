@@ -12,9 +12,9 @@ namespace OSL.Forum.DAO
         private readonly DbContext _dbContext;
         private readonly DbSet<Category> _dbSet;
 
-        public CategoryRepository()
+        public CategoryRepository(DbContext dbContext)
         {
-            _dbContext = new CoreDbContext();
+            _dbContext = dbContext;
             _dbSet = _dbContext.Set<Category>();
         }
 

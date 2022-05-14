@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OSL.Forum.DAO;
+using OSL.Forum.Entities.Contexts;
 using BO = OSL.Forum.Entities.BusinessObjects;
 using EO = OSL.Forum.Entities;
 
@@ -13,7 +14,7 @@ namespace OSL.Forum.Services
 
         public FavoriteForumService()
         {
-            _favoriteForumRepository = new FavoriteForumRepository();
+            _favoriteForumRepository = new FavoriteForumRepository(new CoreDbContext());
         }
 
         public FavoriteForumService(IFavoriteForumRepository favoriteForumRepository)

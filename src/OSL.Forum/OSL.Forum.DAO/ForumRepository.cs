@@ -11,9 +11,9 @@ namespace OSL.Forum.DAO
         private readonly DbContext _dbContext;
         private readonly DbSet<Entities.Forum> _dbSet;
 
-        public ForumRepository()
+        public ForumRepository(DbContext dbContext)
         {
-            _dbContext = new CoreDbContext();
+            _dbContext = dbContext;
             _dbSet = _dbContext.Set<Entities.Forum>();
         }
 

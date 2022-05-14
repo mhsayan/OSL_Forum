@@ -12,9 +12,9 @@ namespace OSL.Forum.DAO
         private readonly DbContext _dbContext;
         private readonly DbSet<Topic> _dbSet;
 
-        public TopicRepository()
+        public TopicRepository(DbContext dbContext)
         {
-            _dbContext = new CoreDbContext();
+            _dbContext = dbContext;
             _dbSet = _dbContext.Set<Topic>();
         }
 

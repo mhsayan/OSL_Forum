@@ -12,9 +12,9 @@ namespace OSL.Forum.DAO
         private readonly DbContext _dbContext;
         private readonly DbSet<FavoriteForum> _dbSet;
 
-        public FavoriteForumRepository()
+        public FavoriteForumRepository(DbContext dbContext)
         {
-            _dbContext = new CoreDbContext();
+            _dbContext = dbContext;
             _dbSet = _dbContext.Set<FavoriteForum>();
         }
 

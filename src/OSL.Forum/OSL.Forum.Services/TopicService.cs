@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using OSL.Forum.Common.Enums;
 using OSL.Forum.DAO;
+using OSL.Forum.Entities.Contexts;
 using BO = OSL.Forum.Entities.BusinessObjects;
 using EO = OSL.Forum.Entities;
 
@@ -15,7 +16,7 @@ namespace OSL.Forum.Services
 
         public TopicService()
         {
-            _topicRepository = new TopicRepository();
+            _topicRepository = new TopicRepository(new CoreDbContext());
         }
 
         public TopicService(ITopicRepository topicRepository)
