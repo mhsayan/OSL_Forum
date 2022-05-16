@@ -91,7 +91,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
                 throw new ArgumentException("Category Id is required");
 
             var model = new CategoryModel();
-            var category = _categoryService.GetCategory(id);
+            var category = _categoryService.GetCategoryById(id);
 
             if (category == null)
                 throw new InvalidOperationException("Category not found");
@@ -141,7 +141,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
         {
             var model = new CategoryModel
             {
-                Category = _categoryService.GetCategory(id)
+                Category = _categoryService.GetCategoryById(id)
             };
 
             var totalItem = _forumService.GetForumCount(id);

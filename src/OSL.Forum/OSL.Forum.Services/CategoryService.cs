@@ -24,7 +24,7 @@ namespace OSL.Forum.Services
             _categoryRepository = categoryRepository;
         }
 
-        public BO.Category GetCategory(string categoryName)
+        public BO.Category GetCategoryByName(string categoryName)
         {
             if (string.IsNullOrWhiteSpace(categoryName))
                 throw new ArgumentNullException(nameof(categoryName));
@@ -60,9 +60,9 @@ namespace OSL.Forum.Services
             return category;
         }
 
-        public BO.Category GetCategory(long categoryId)
+        public BO.Category GetCategoryById(long categoryId)
         {
-            if (categoryId == 0)
+            if (categoryId <= 0)
                 throw new ArgumentException("Category Id is required");
 
             var categoryEntity = _categoryRepository.GetById(categoryId);
@@ -103,7 +103,7 @@ namespace OSL.Forum.Services
             if (category is null)
                 throw new ArgumentNullException(nameof(category));
 
-            var oldCategory = GetCategory(category.Name);
+            var oldCategory = GetCategoryByName(category.Name);
 
             if (oldCategory != null)
                 throw new DuplicateNameException("This category already exists.");
@@ -121,7 +121,7 @@ namespace OSL.Forum.Services
 
         public void DeleteCategory(long categoryId)
         {
-            if (categoryId == 0)
+            if (categoryId <= 0)
                 throw new ArgumentException("Category Id is required");
 
             _categoryRepository.RemoveById(categoryId);
@@ -133,7 +133,7 @@ namespace OSL.Forum.Services
             if (category is null)
                 throw new ArgumentNullException(nameof(category));
 
-            var oldCategory = GetCategory(category.Name);
+            var oldCategory = GetCategoryByName(category.Name);
 
             if (oldCategory != null)
                 throw new DuplicateNameException("This category name already exists.");
@@ -172,6 +172,9 @@ namespace OSL.Forum.Services
         public IList<BO.Category> GetCategories(int pageIndex, int pageSize)
         {
             var categoryEntities = _categoryRepository.Load(pageIndex, pageSize, false, "Forums");
+
+            if (categoryEntities is null)
+                throw new InvalidOperationException("Categories Not Received.");
 
             var categories = new List<BO.Category>();
 

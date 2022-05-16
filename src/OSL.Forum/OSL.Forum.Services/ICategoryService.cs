@@ -7,8 +7,8 @@ namespace OSL.Forum.Services
     public interface ICategoryService
     {
         void CreateCategory(BO.Category category);
-        BO.Category GetCategory(string categoryName);
-        BO.Category GetCategory(long categoryId);
+        BO.Category GetCategoryByName(string categoryName);
+        BO.Category GetCategoryById(long categoryId);
         void EditCategory(BO.Category category);
         void DeleteCategory(long categoryId);
         void UpdateModificationDate(DateTime modificationDate, long categoryId);

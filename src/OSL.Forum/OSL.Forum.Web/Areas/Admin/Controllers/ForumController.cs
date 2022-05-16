@@ -35,7 +35,7 @@ namespace OSL.Forum.Web.Areas.Admin.Controllers
 
             var model = new ForumModel
             {
-                BoCategory = _categoryService.GetCategory(categoryId)
+                BoCategory = _categoryService.GetCategoryById(categoryId)
             };
 
             if (model.BoCategory == null)

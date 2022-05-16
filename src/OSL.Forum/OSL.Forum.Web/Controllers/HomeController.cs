@@ -53,7 +53,7 @@ namespace OSL.Forum.Web.Controllers
             var totalItem = _forumService.GetForumCount(id);
             var model = new HomeModel
             {
-                Category = _categoryService.GetCategory(id),
+                Category = _categoryService.GetCategoryById(id),
                 Pager = new Pager(totalItem, page)
             };
             model.Forums = _forumService.GetForums(model.Pager.CurrentPage, model.Pager.PageSize, id);
