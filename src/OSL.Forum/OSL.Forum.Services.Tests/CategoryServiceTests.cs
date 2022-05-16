@@ -118,6 +118,7 @@ namespace OSL.Forum.Services.Tests
             //Act
             var categoryEntity = categoryService.GetCategoryByName(categoryName);
 
+            //Assert
             Assert.IsNull(categoryEntity);
         }
 
@@ -282,7 +283,7 @@ namespace OSL.Forum.Services.Tests
 
         #endregion
 
-        #region MyRegion
+        #region CreateCategory
 
         [TestMethod]
         public void CreateCategory_ReceivedNullCategory_ThrowException()
@@ -330,6 +331,83 @@ namespace OSL.Forum.Services.Tests
 
             //Act
             categoryService.CreateCategory(BoCategories[0]);
+
+            //Assert
+            mockCategoryRepository.VerifyAll();
+        }
+
+        #endregion
+
+        #region EditCategory
+
+        [TestMethod]
+        public void EditCategory_ReceivedNullCategory_ThrowException()
+        {
+            //Arrange
+            BoCategory category = null;
+
+            var categoryRepository = new Mock<ICategoryRepository>();
+            var categoryService = new CategoryService(categoryRepository.Object);
+
+            //Act & Assert
+            Assert.Throws<ArgumentNullException>(() => categoryService.EditCategory(category));
+        }
+
+        [TestMethod]
+        public void EditCategory_ReceivedOldCategory_ThrowException()
+        {
+            //Arrange
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+
+            mockCategoryRepository.Setup(mr => mr.GetByName(
+                It.IsAny<string>())).Returns((string i) => EoCategories.FirstOrDefault(x => x.Name == i));
+
+            var categoryRepository = mockCategoryRepository.Object;
+            var categoryService = new CategoryService(categoryRepository);
+
+            //Act & Assert
+            Assert.Throws<DuplicateNameException>(() => categoryService.EditCategory(BoCategories[0]));
+        }
+
+        [TestMethod]
+        public void EditCategory_ReceivedNullOldCategoryById_CategoryCreated()
+        {
+            //Arrange
+            EoCategory category = null;
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+
+            mockCategoryRepository.Setup(mr => mr.GetByName(
+                It.IsAny<string>())).Returns(category).Verifiable();
+            mockCategoryRepository.Setup(mr => mr.GetById(
+                It.IsAny<long>())).Returns(category).Verifiable();
+            //mockCategoryRepository.Setup(mr => mr.Add(It.IsAny<EoCategory>())).Verifiable();
+            //mockCategoryRepository.Setup(mr => mr.Save()).Verifiable();
+
+            var categoryRepository = mockCategoryRepository.Object;
+            var categoryService = new CategoryService(categoryRepository);
+
+            //Act & Assert
+            Assert.Throws<InvalidOperationException>(() => categoryService.EditCategory(BoCategories[0]));
+        }
+
+        [TestMethod]
+        public void EditCategory_ReceivedNullCategory_CategoryCreated()
+        {
+            //Arrange
+            EoCategory category = null;
+            var mockCategoryRepository = new Mock<ICategoryRepository>();
+
+            mockCategoryRepository.Setup(mr => mr.GetByName(
+                It.IsAny<string>())).Returns(category).Verifiable();
+            mockCategoryRepository.Setup(mr => mr.GetById(
+                It.IsAny<long>())).Returns((long i) => EoCategories.FirstOrDefault(x => x.Id == i)).Verifiable();
+            mockCategoryRepository.Setup(mr => mr.Save()).Verifiable();
+
+            var categoryRepository = mockCategoryRepository.Object;
+            var categoryService = new CategoryService(categoryRepository);
+
+            //Act
+            categoryService.EditCategory(BoCategories[0]);
 
             //Assert
             mockCategoryRepository.VerifyAll();
