@@ -1,30 +1,28 @@
-name: Build Web App
- 
-on: [push]
- 
+name: build and test
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+    - 'README.md'
+env:
+  DOTNET_VERSION: '4.8.x'
 jobs:
-  build:
- 
-    runs-on: windows-latest
- 
+  build-and-test:
+    name: build-and-test-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
     steps:
-    - uses: actions/checkout@v1
-      name: Checkout Code
-     
-    - name: Setup MSBuild Path
-      uses: warrenbuckley/Setup-MSBuild@v1
-       
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.2
-     
-    - name: Restore NuGet Packages
-      run: nuget restore SimpleFrameworkApp.sln
- 
-    - name: Build and Publish Web App
-      run: msbuild OSL.Forum.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
- 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1.0.0
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
       with:
-        name: published_webapp
-        path: bin\Release\Publish
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
