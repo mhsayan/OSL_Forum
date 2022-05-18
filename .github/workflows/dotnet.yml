@@ -24,4 +24,7 @@ jobs:
       run: nuget restore src/OSL.Forum/OSL.Forum.sln
       
     - name: Build
-      run: msbuild src/OSL.Forum/OSL.Forum.sln
+      run: msbuild src/OSL.Forum/OSL.Forum.sln      
+      
+    - name: Test
+      run: msbuild test src/OSL.Forum/OSL.Forum.sln
