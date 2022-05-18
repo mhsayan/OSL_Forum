@@ -18,7 +18,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1
       
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.2
+      uses: NuGet/setup-nuget@v1.0.6
 
     - name: Restore NuGet packeges
       run: nuget restore src/OSL.Forum/OSL.Forum.sln
